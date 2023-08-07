@@ -12,5 +12,6 @@ Download this repository locally
 `library(browseSAIL)`
 
 ## Example run through 
-Run `?domain_mapping` in the R console to find the documentation 
+Run `?domain_mapping` in the R console to find the documentation.
+
 Follow the example! 
