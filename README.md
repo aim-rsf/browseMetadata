@@ -14,4 +14,9 @@ Download this repository locally, then in the R Console:
 ## Example run through 
 Run `?domain_mapping` in the R console to find the documentation.
 
-Follow the example! 
+Follow the example in the documentation!
+
+Remember to browse through the Plots tab during this example. There are 3 plots that will give you necessary information & context for the categorisations. 
+<img width="886" alt="plots_tab" src="https://github.com/aim-rsf/browse-SAIL/assets/50215726/82cff34b-6afa-471a-8b5c-47a27cc76d5c">
+
+
