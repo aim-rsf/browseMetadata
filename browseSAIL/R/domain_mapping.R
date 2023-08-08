@@ -55,15 +55,13 @@ domain_mapping <- function(dataset_desc,dataset,domain) {
   timestamp_now <- gsub(":", "-",timestamp_now)
   output_fname <- paste0("LOG-FILE_",timestamp_now,".csv")
 
-  Output <- data.frame(Initials <- c(""),
-                       DataAsset <- c(""),
-                       DataClass <- c(""),
-                       DataElement <- c(""),
-                       Domain_code <- c(""),
-                       Note <- c("")
+  Output <- data.frame(Initials = c(""),
+                       DataAsset = c(""),
+                       DataClass = c(""),
+                       DataElement = c(""),
+                       Domain_code = c(""),
+                       Note = c("")
     )
-    write.csv(Output, output_fname, row.names=FALSE)
-
   # User inputs ----
 
   select_rows <- ""
@@ -101,15 +99,15 @@ domain_mapping <- function(dataset_desc,dataset,domain) {
       decision_note <- readline(prompt="NOTES (write 'No' if no notes): ")
     }
 
-    new_row <- c(Initials <- User_Initials,
-                DataAsset <- dataset_desc$DataAsset,
-                DataClass <- dataset_desc$DataClass,
-                DataElement <- dataset$DataElement[datarow],
-                Domain_code <- decision,
-                Note <-decision_note
+    new_row <- c(Initials = User_Initials,
+                DataAsset = dataset_desc$DataAsset,
+                DataClass = dataset_desc$DataClass,
+                DataElement = dataset$DataElement[datarow],
+                Domain_code = decision,
+                Note = decision_note
     )
 
-    Output[datarow,] <- new_row
+    Output[datarow,] = new_row
     Output[Output == ''] <- NA
     write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
   }
