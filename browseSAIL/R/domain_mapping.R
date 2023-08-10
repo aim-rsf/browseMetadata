@@ -9,12 +9,13 @@
 #' @param domain The file that lists the domains (latent concepts) of interest to be used within the research study. See the demo data file in the data folder of this package.
 #' @return The function will return a log file with your chosen categorizations.
 #' @examples
-#' In the R console run these four lines:
-#'
+#' In the R console run this code block:
+#' # load in the 3 data files
 #' data(dataset_desc)
 #' data(dataset)
 #' data(domains)
 #'
+#' # pass in loaded files into domain_mapping() function
 #' domain_mapping(dataset_desc,dataset,domains)
 #'
 #' It will ask you for a range of rows to process.
