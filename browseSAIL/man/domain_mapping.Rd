@@ -23,24 +23,30 @@ The domains (or 'latent concepts') will appear up in the Plots tab for your refe
 A log file will be saved with the categorizations you made.
 }
 \examples{
-In the R console run these four lines:
+\strong{Load in the 3 data files:}
 
-data(dataset_desc)
-data(dataset)
-data(domains)
+\emph{data(dataset_desc)}
+\emph{data(dataset)}
+\emph{data(domains)}
 
-domain_mapping(dataset_desc,dataset,domains)
+\strong{Pass loaded files into domain_mapping() function:}
+
+\emph{domain_mapping(dataset_desc,dataset,domains)}
+
+\strong{Responding to prompts:}
 
 It will ask you for a range of rows to process.
 For this demo, write '1,10' so that the dataset file can be processed quickly.
 If you press enter, it will process all the rows in the dataset file (93).
 
-It will ask you for your initials. This is to save within the log file, to keep track of who made the categorizations.
+It will ask you for your initials.
+This is to save within the log file, to keep track of who made the categorizations.
 
-It will then loop through each row you have requested. It will show you the name, description and data type for each variable.
+It will then loop through each row you have requested.
+It will show you the name, description and data type for each variable.
 See the Plots tab for the Domain table, and tables that summarise information about the dataset that the variables derive from.
 Respond to this prompt with a single number or multiple numbers separate by a column.
-For example 'ALF_E' would be coded as '2' (ID INFORMATION)
+For example 'ALF_E' would be coded as '2' (ID INFORMATION).
 The user has an option to write a note explaining their category choice.
 
 These example files (in data) started as excel or csv files.
