@@ -21,7 +21,7 @@ Then in the R console run:
 ## Example run through 
 Run `?domain_mapping` in the R console to find the documentation.
 
-Follow the example in the documentation!
+Follow the example in the documentation. You don't need to provide any input data!
 
 Remember to reference the Plots tab in R. The domains will appear in the Plot tab and give you the necessary context for the categorisations. 
 ## The log file output
