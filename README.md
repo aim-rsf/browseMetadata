@@ -21,11 +21,9 @@ Then in the R console run:
 ## Example run through 
 Run `?domain_mapping` in the R console to find the documentation.
 
-Follow the example in the documentation!
+Follow the example in the documentation. You don't need to provide any input data!
 
-Remember to browse through the Plots tab during this example. There are 3 plots that will give you necessary information & context for the categorisations. 
-<img width="886" alt="plots_tab" src="https://github.com/aim-rsf/browse-SAIL/assets/50215726/82cff34b-6afa-471a-8b5c-47a27cc76d5c">
-
+Remember to reference the Plots tab in R. The domains will appear in the Plot tab and give you the necessary context for the categorisations. 
 ## The log file output
 
 Running the function will output a log file with your decisions. An example log file output is shown below. The name of the log file will contain the date and time stamp. The log file will contain initials of the person making the catergorisations. For each Data Element (variable) in the DataAsset/Class, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains. 
