@@ -8,7 +8,7 @@ This repo contains a demo R package, written to help the initial process of mapp
 
 Download/clone this repository to your computer.
 
-Install required packages: `devtools`, `gridExtra`, `grid`, `insight`
+Install required packages: `devtools`, `gridExtra`, `grid`, `insight`, `rjson`
 
 Then in the R console run:
 
