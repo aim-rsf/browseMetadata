@@ -1,60 +1,80 @@
 #' domain_mapping
 #'
-#' This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from https://modelcatalogue.cs.ox.ac.uk/hdruk_live/.
+#' This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from metadata catalogue (https://modelcatalogue.cs.ox.ac.uk/hdruk_live).
 #' It will loop through all the variable names, and ask you to categorise each variable into one of your chosen domains.
-#' The domains (or 'latent concepts') will appear up in the Plots tab for your reference, as well as information about the dataset.
+#' Information about the Data Asset and Data Class will be displayed to the command window.
+#' The domains (or 'latent concepts') will appear up in the Plots tab for your reference.
 #' A log file will be saved with the categorizations you made.
-#' @param dataset_desc The metadata file for the dataset, containing general information. See the demo data file in the data folder of this package.
-#' @param dataset The metadata file for the dataset, containing information about each variable. See the demo data file in the data folder of this package.
-#' @param domain The file that lists the domains (latent concepts) of interest to be used within the research study. See the demo data file in the data folder of this package.
+#' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file.
+#' @param domain_file The file that lists the domains (latent concepts) of interest to be used within the research study, provided as a csv with each domain on a seperate line.
+#' @param demo_mode Write TRUE to run the function in demo mode, using the demo data, and leaving the other inputs blank. See example below.
 #' @return The function will return a log file with your chosen categorizations.
 #' @examples
-#' \strong{Load in the 3 data files:}
+#' \strong{Run the code with the demo files}
 #'
-#' \emph{data(dataset_desc)}
-#' \emph{data(dataset)}
-#' \emph{data(domains)}
+#' \emph{domain_mapping(,,TRUE)}
 #'
-#' \strong{Pass loaded files into domain_mapping() function:}
+#' It will first output a description of the data asset and data class that you have loaded in.
 #'
-#' \emph{domain_mapping(dataset_desc,dataset,domains)}
-#'
-#' \strong{Responding to prompts:}
-#'
-#' It will ask you for a range of rows to process.
-#' For this demo, write '1,10' so that the dataset file can be processed quickly.
-#' If you press enter, it will process all the rows in the dataset file (93).
+#' It will ask you for a range of variables (data elements) to process from this data class.
+#' For this demo, write '1,10' so that the meta dataset file can be processed quickly.
+#' If you press enter, it will process all the variables in the dataset file (93).
 #'
 #' It will ask you for your initials.
 #' This is to save within the log file, to keep track of who made the categorizations.
 #'
-#' It will then loop through each row you have requested.
+#' It will then loop through each variable you have requested.
 #' It will show you the name, description and data type for each variable.
-#' See the Plots tab for the Domain table, and tables that summarise information about the dataset that the variables derive from.
+#' See the Plots tab for the Domain table.
 #' Respond to this prompt with a single number or multiple numbers separate by a column.
 #' For example 'ALF_E' would be coded as '2' (ID INFORMATION).
 #' The user has an option to write a note explaining their category choice.
 #'
-#' These example files (in data) started as excel or csv files.
-#' Use the packages like read.csv or readxl to read your own files into R as a dataframes before calling the domain_mapping function.
+#'\strong{Run the code with your input files}
+#'
 #' @export
-domain_mapping <- function(dataset_desc,dataset,domain) {
+domain_mapping <- function(json_file,domain_file,demo_mode) {
 
+  library(rjson)
   library(gridExtra)
   library(grid)
   #library(tidyverse)
   library(insight)
 
-  # Read in domain file and present info in plots panel for user's reference ----
+  # Demo mode or normal mode
+
+  if (demo_mode == TRUE) {
+    data(package='browseSAIL')
+    data(json_metdata)
+    data(domains_list)
+    meta_json <- json_metdata
+    domains <-domains_list
+  } else {
+    # Read in the json file containing the meta data
+    meta_json <- fromJSON(json_file)
+    # Read in the domain file containing the meta data
+    domains <- read.csv(domain_file)
+  }
+
+  # Present domains plots panel for user's reference ----
   plot.new()
   domains_extend <- rbind(c('NO MATCH TO DOMAIN'),c('UNSURE'), c('ID INFORMATION'),domains)
   grid.table(domains_extend[1],cols='Domain',rows=0:(nrow(domains_extend)-1))
 
-  # Read in dataset description file and present info in plots panel for user's reference ----
-  plot.new()
-  grid.table(sapply(lapply(dataset_desc$DataAssestDescription, strwrap, width=75), paste, collapse="\n"), cols=paste('Data Asset: ',dataset_desc$DataAsset))
-  plot.new()
-  grid.table(sapply(lapply(dataset_desc$DataClassDescription, strwrap, width=75), paste, collapse="\n"), cols=paste('DataClass: ',dataset_desc$DataClass))
+  # Print information about Data Asset and Class ----
+  print_colour("\nData Asset Name --- Last Updated \n",'br_violet')
+  cat(meta_json$dataModel$label,"---",meta_json$dataModel$lastUpdated,fill=TRUE)
+  print_colour("Data Asset Description \n",'br_violet')
+  cat(meta_json$dataModel$description,fill=TRUE)
+  print_colour("Data Asset Exported \n",'br_violet')
+  cat("By", meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn,"\n",fill=TRUE)
+  print_colour("\nData Class Name --- Last Updated \n",'br_violet')
+  cat(meta_json$dataModel$childDataClasses[[1]]$label,'---',meta_json$dataModel$childDataClasses[[1]]$lastUpdated,fill=TRUE)
+  print_colour("Data Class Description \n",'br_violet')
+  cat(meta_json$dataModel$childDataClasses[[1]]$description,fill=TRUE)
+
+  # Extract DataClass
+  thisDataClass <- meta_json$dataModel$childDataClasses[[1]]$childDataElements
 
   # Create unique output csv to log the results ----
   timestamp_now <- gsub(" ", "_",Sys.time())
@@ -70,16 +90,15 @@ domain_mapping <- function(dataset_desc,dataset,domain) {
     )
   # User inputs ----
 
-  select_rows <- ""
   cat("\n \n")
-  select_rows_n <- readline(prompt="RANGE OF ROWS TO PROCESS IN THE DATASET FILE (write as 'start_row,end_row' or press Enter to process all): ")
-  if (select_rows_n == "") {
-    start_row <- 1
-    end_row <- nrow(dataset)
+  select_vars_n <- readline(prompt="RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS IN THE DATASET FILE (write as 'start_var,end_var' or press Enter to process all): ")
+  if (select_vars_n == "") {
+    start_var <- 1
+    end_var <- length(thisDataClass)
   } else {
-    seperate_rows <- unlist(strsplit(select_rows_n,","))
-    start_row <- as.numeric(seperate_rows[1])
-    end_row <- as.numeric(seperate_rows[2])
+    seperate_vars <- unlist(strsplit(select_vars_n,","))
+    start_var <- as.numeric(seperate_vars[1])
+    end_var <- as.numeric(seperate_vars[2])
   }
 
   User_Initials <- ""
@@ -89,9 +108,9 @@ domain_mapping <- function(dataset_desc,dataset,domain) {
   }
 
   # Loop through each variable, request response from the user to match to a domain ----
-  for  (datarow in start_row:end_row) {
+  for  (datavar in start_var:end_var ) {
 
-    cat(paste("\n \n", "DATA ELEMENT: \n",dataset$DataElement[datarow],"\n \n DESCRIPTION: \n",dataset$Description[datarow],"\n \n DATA TYPE: \n",dataset$DataType[datarow],"\n"))
+    cat(paste("\n \n", "DATA ELEMENT: \n",thisDataClass[[datavar]]$label,"\n \n DESCRIPTION: \n",thisDataClass[[datavar]]$description,"\n \n DATA TYPE: \n",thisDataClass[[datavar]]$dataType$label,"\n"))
 
     decision <- ""
     while (decision == "") {
@@ -105,15 +124,15 @@ domain_mapping <- function(dataset_desc,dataset,domain) {
       decision_note <- readline(prompt="NOTES (write 'No' if no notes): ")
     }
 
-    new_row <- c(Initials = User_Initials,
-                DataAsset = dataset_desc$DataAsset,
-                DataClass = dataset_desc$DataClass,
-                DataElement = dataset$DataElement[datarow],
+    output_row <- c(Initials = User_Initials,
+                DataAsset = meta_json$dataModel$label,
+                DataClass = meta_json$dataModel$childDataClasses[[1]]$label,
+                DataElement = thisDataClass[[datavar]]$label,
                 Domain_code = decision,
                 Note = decision_note
     )
 
-    Output[datarow,] = new_row
+    Output[datavar,] = output_row
     Output[Output == ''] <- NA
     write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
   }

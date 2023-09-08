@@ -4,51 +4,46 @@
 \alias{domain_mapping}
 \title{domain_mapping}
 \usage{
-domain_mapping(dataset_desc, dataset, domain)
+domain_mapping(json_file, domain_file, demo_mode)
 }
 \arguments{
-\item{dataset_desc}{The metadata file for the dataset, containing general information. See the demo data file in the data folder of this package.}
+\item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file.}
 
-\item{dataset}{The metadata file for the dataset, containing information about each variable. See the demo data file in the data folder of this package.}
+\item{domain_file}{The file that lists the domains (latent concepts) of interest to be used within the research study, provided as a csv with each domain on a seperate line.}
 
-\item{domain}{The file that lists the domains (latent concepts) of interest to be used within the research study. See the demo data file in the data folder of this package.}
+\item{demo_mode}{Write TRUE to run the function in demo mode, using the demo data, and leaving the other inputs blank. See example below.}
 }
 \value{
 The function will return a log file with your chosen categorizations.
 }
 \description{
-This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from https://modelcatalogue.cs.ox.ac.uk/hdruk_live/.
+This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from metadata catalogue (https://modelcatalogue.cs.ox.ac.uk/hdruk_live).
 It will loop through all the variable names, and ask you to categorise each variable into one of your chosen domains.
-The domains (or 'latent concepts') will appear up in the Plots tab for your reference, as well as information about the dataset.
+Information about the Data Asset and Data Class will be displayed to the command window.
+The domains (or 'latent concepts') will appear up in the Plots tab for your reference.
 A log file will be saved with the categorizations you made.
 }
 \examples{
-\strong{Load in the 3 data files:}
+\strong{Run the code with the demo files}
 
-\emph{data(dataset_desc)}
-\emph{data(dataset)}
-\emph{data(domains)}
+\emph{domain_mapping(,,TRUE)}
 
-\strong{Pass loaded files into domain_mapping() function:}
+It will first output a description of the data asset and data class that you have loaded in.
 
-\emph{domain_mapping(dataset_desc,dataset,domains)}
-
-\strong{Responding to prompts:}
-
-It will ask you for a range of rows to process.
-For this demo, write '1,10' so that the dataset file can be processed quickly.
-If you press enter, it will process all the rows in the dataset file (93).
+It will ask you for a range of variables (data elements) to process from this data class.
+For this demo, write '1,10' so that the meta dataset file can be processed quickly.
+If you press enter, it will process all the variables in the dataset file (93).
 
 It will ask you for your initials.
 This is to save within the log file, to keep track of who made the categorizations.
 
-It will then loop through each row you have requested.
+It will then loop through each variable you have requested.
 It will show you the name, description and data type for each variable.
-See the Plots tab for the Domain table, and tables that summarise information about the dataset that the variables derive from.
+See the Plots tab for the Domain table.
 Respond to this prompt with a single number or multiple numbers separate by a column.
 For example 'ALF_E' would be coded as '2' (ID INFORMATION).
 The user has an option to write a note explaining their category choice.
 
-These example files (in data) started as excel or csv files.
-Use the packages like read.csv or readxl to read your own files into R as a dataframes before calling the domain_mapping function.
+\strong{Run the code with your input files}
+
 }
