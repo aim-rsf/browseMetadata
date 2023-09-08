@@ -38,7 +38,6 @@ domain_mapping <- function(json_file,domain_file,demo_mode) {
   library(rjson)
   library(gridExtra)
   library(grid)
-  #library(tidyverse)
   library(insight)
 
   # Demo mode or normal mode
