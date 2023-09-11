@@ -25,3 +25,6 @@ env.bak/
 venv.bak/
 
 .Rproj.user
+
+# Test/Input files 
+input_files/*

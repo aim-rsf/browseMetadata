@@ -2,13 +2,13 @@
 #'
 #' This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from metadata catalogue (https://modelcatalogue.cs.ox.ac.uk/hdruk_live).
 #' It will loop through all the variable names, and ask you to categorise each variable into one of your chosen domains.
-#' Information about the Data Asset and Data Class will be displayed to the command window.
-#' The domains (or 'latent concepts') will appear up in the Plots tab for your reference.
-#' A log file will be saved with the categorizations you made.
+#' Information about the Data Asset and Data Class will be displayed to the command window for reference.
+#' The domains will appear in the Plots tab, with the labels you should you for the categorisation.
+#' A log file will be saved with the categorisations you made.
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file.
-#' @param domain_file The file that lists the domains (latent concepts) of interest to be used within the research study, provided as a csv with each domain on a seperate line.
-#' @param demo_mode Write TRUE to run the function in demo mode, using the demo data, and leaving the other inputs blank. See example below.
-#' @return The function will return a log file with your chosen categorizations.
+#' @param domain_file The file that lists the domains of interest to be used within the research study, provided as a csv with each domain on a separate line, within quotations.
+#' @param demo_mode Write TRUE to run the function in demo mode, using the demo data in the package, and leaving the other inputs blank. See example below.
+#' @return The function will return a log file with your chosen categorisations.
 #' @examples
 #' \strong{Run the code with the demo files}
 #'
@@ -30,10 +30,13 @@
 #' For example 'ALF_E' would be coded as '2' (ID INFORMATION).
 #' The user has an option to write a note explaining their category choice.
 #'
-#'\strong{Run the code with your input files}
+#' \strong{Run the code with your input files}
+#'
+#' \emph{domain_mapping(your-metadata.json,your-domain-list.csv)}
+#'
 #'
 #' @export
-domain_mapping <- function(json_file,domain_file,demo_mode) {
+domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
 
   library(rjson)
   library(gridExtra)
@@ -50,9 +53,9 @@ domain_mapping <- function(json_file,domain_file,demo_mode) {
     domains <-domains_list
   } else {
     # Read in the json file containing the meta data
-    meta_json <- fromJSON(json_file)
+    meta_json <- fromJSON(file = json_file)
     # Read in the domain file containing the meta data
-    domains <- read.csv(domain_file)
+    domains <- read.csv(domain_file,header = FALSE)
   }
 
   # Present domains plots panel for user's reference ----
@@ -90,7 +93,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode) {
   # User inputs ----
 
   cat("\n \n")
-  select_vars_n <- readline(prompt="RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS IN THE DATASET FILE (write as 'start_var,end_var' or press Enter to process all): ")
+  select_vars_n <- readline(prompt="RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS (write as 'start_var,end_var' or press Enter to process all): ")
   if (select_vars_n == "") {
     start_var <- 1
     end_var <- length(thisDataClass)

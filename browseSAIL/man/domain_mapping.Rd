@@ -4,24 +4,24 @@
 \alias{domain_mapping}
 \title{domain_mapping}
 \usage{
-domain_mapping(json_file, domain_file, demo_mode)
+domain_mapping(json_file, domain_file, demo_mode = FALSE)
 }
 \arguments{
 \item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file.}
 
-\item{domain_file}{The file that lists the domains (latent concepts) of interest to be used within the research study, provided as a csv with each domain on a seperate line.}
+\item{domain_file}{The file that lists the domains of interest to be used within the research study, provided as a csv with each domain on a separate line, within quotations.}
 
-\item{demo_mode}{Write TRUE to run the function in demo mode, using the demo data, and leaving the other inputs blank. See example below.}
+\item{demo_mode}{Write TRUE to run the function in demo mode, using the demo data in the package, and leaving the other inputs blank. See example below.}
 }
 \value{
-The function will return a log file with your chosen categorizations.
+The function will return a log file with your chosen categorisations.
 }
 \description{
 This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from metadata catalogue (https://modelcatalogue.cs.ox.ac.uk/hdruk_live).
 It will loop through all the variable names, and ask you to categorise each variable into one of your chosen domains.
-Information about the Data Asset and Data Class will be displayed to the command window.
-The domains (or 'latent concepts') will appear up in the Plots tab for your reference.
-A log file will be saved with the categorizations you made.
+Information about the Data Asset and Data Class will be displayed to the command window for reference.
+The domains will appear in the Plots tab, with the labels you should you for the categorisation.
+A log file will be saved with the categorisations you made.
 }
 \examples{
 \strong{Run the code with the demo files}
@@ -45,5 +45,8 @@ For example 'ALF_E' would be coded as '2' (ID INFORMATION).
 The user has an option to write a note explaining their category choice.
 
 \strong{Run the code with your input files}
+
+\emph{domain_mapping(your-metadata.json,your-domain-list.csv)}
+
 
 }
