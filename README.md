@@ -4,8 +4,6 @@ This repo contains a demo R package, written to help the initial process of mapp
 
 ⚠️ More discussion is needed with researchers to work out how to make this package useful. It is currently just a demo.
 
-⚠️ Due to some of the latest updates, the code may only work with the demo files provided. New updates to come to make sure a user can run it with their own input files.
-
 ## Install 
 
 Download/clone this repository to your computer.
