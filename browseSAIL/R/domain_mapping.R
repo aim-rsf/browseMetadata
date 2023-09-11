@@ -84,6 +84,9 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
   output_fname <- paste0("LOG-FILE_",timestamp_now,".csv")
 
   Output <- data.frame(Initials = c(""),
+                       MetaDataVersion = c(""),
+                       MetaDataLastUpdated = c(""),
+                       DomainListDescription = c(""),
                        DataAsset = c(""),
                        DataClass = c(""),
                        DataElement = c(""),
@@ -109,6 +112,12 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
     User_Initials <- readline(prompt="ENTER INITIALS: ")
   }
 
+  DomainListDesc <- ""
+  while (DomainListDesc == "") {
+    cat("\n \n")
+    DomainListDesc <- readline(prompt="PROVIDE SOME DESCRIPTION OF DOMAIN LIST USED (version number, created by): ")
+  }
+
   # Loop through each variable, request response from the user to match to a domain ----
   for  (datavar in start_var:end_var ) {
 
@@ -127,11 +136,14 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
     }
 
     output_row <- c(Initials = User_Initials,
-                DataAsset = meta_json$dataModel$label,
-                DataClass = meta_json$dataModel$childDataClasses[[1]]$label,
-                DataElement = thisDataClass[[datavar]]$label,
-                Domain_code = decision,
-                Note = decision_note
+                    MetaDataVersion = meta_json$dataModel$documentationVersion,
+                    MetaDataLastUpdated = meta_json$dataModel$lastUpdated,
+                    DomainListDescription = DomainListDesc,
+                    DataAsset = meta_json$dataModel$label,
+                    DataClass = meta_json$dataModel$childDataClasses[[1]]$label,
+                    DataElement = thisDataClass[[datavar]]$label,
+                    Domain_code = decision,
+                    Note = decision_note
     )
 
     Output[datavar,] = output_row
@@ -144,3 +156,6 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
    print(Output)
 
 }
+
+
+
