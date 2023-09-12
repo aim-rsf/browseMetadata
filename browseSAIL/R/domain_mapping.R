@@ -60,7 +60,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
 
   # Present domains plots panel for user's reference ----
   plot.new()
-  domains_extend <- rbind(c('NO MATCH TO DOMAIN'),c('UNSURE'), c('ID INFORMATION'),domains)
+  domains_extend <- rbind(c('*NO MATCH*'),c('*UNSURE*'),c('*METADATA*'), c('*ID - PERSON*'),c('*ID - PLACE*'),domains)
   grid.table(domains_extend[1],cols='Domain',rows=0:(nrow(domains_extend)-1))
 
   # Print information about Data Asset and Class ----
@@ -75,8 +75,17 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
   print_colour("Data Class Description \n",'br_violet')
   cat(meta_json$dataModel$childDataClasses[[1]]$description,fill=TRUE)
 
-  # Extract DataClass
+  # Extract DataClass (probably a better way of dealing with jsons in R ...)
   thisDataClass <- meta_json$dataModel$childDataClasses[[1]]$childDataElements
+  thisDataClass_df <- data.frame(do.call(rbind,thisDataClass)) # nested list to dataframe
+  dataType_df <- data.frame(do.call(rbind,thisDataClass_df$dataType)) # nested list to dataframe
+
+  selectDataClass_df <- data.frame (Label  = unlist(thisDataClass_df$label),
+                                    Description = unlist(thisDataClass_df$description),
+                                    Type = unlist(dataType_df$label)
+                                    )
+
+  selectDataClass_df <- selectDataClass_df[order(selectDataClass_df$Label),]
 
   # Create unique output csv to log the results ----
   timestamp_now <- gsub(" ", "_",Sys.time())
@@ -121,7 +130,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
   # Loop through each variable, request response from the user to match to a domain ----
   for  (datavar in start_var:end_var ) {
 
-    cat(paste("\n \n", "DATA ELEMENT: \n",thisDataClass[[datavar]]$label,"\n \n DESCRIPTION: \n",thisDataClass[[datavar]]$description,"\n \n DATA TYPE: \n",thisDataClass[[datavar]]$dataType$label,"\n"))
+    cat(paste("\nDATA ELEMENT -----> ",selectDataClass_df$Label[datavar],"\n\nDESCRIPTION -----> ",selectDataClass_df$Description[datavar],"\n\nDATA TYPE -----> ",selectDataClass_df$Type[datavar],"\n"))
 
     decision <- ""
     while (decision == "") {
@@ -141,7 +150,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
                     DomainListDescription = DomainListDesc,
                     DataAsset = meta_json$dataModel$label,
                     DataClass = meta_json$dataModel$childDataClasses[[1]]$label,
-                    DataElement = thisDataClass[[datavar]]$label,
+                    DataElement = selectDataClass_df$Label[datavar],
                     Domain_code = decision,
                     Note = decision_note
     )
