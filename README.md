@@ -26,15 +26,15 @@ Follow the example in the documentation. You don't need to provide any input dat
 Remember to reference the Plots tab in R. The domains will appear in the Plot tab and give you the necessary context for the categorisations. 
 ## The log file output
 
-Running the function will output a log file with your decisions. An example log file output is shown below. The name of the log file will contain the date and time stamp. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataAsset/Class, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains. 
+Running the function will output a log file with your decisions. An example log file output is shown below. The name of the log file will contain the date and time stamp. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataAsset/Class, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. Notice that some have been auto categorised - double check them for accuracy. More than one domain is allowed to map onto each variable. 
+
+The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains. 
 
 **A** shows the log file. 
 
 **B** shows the demo domain list that was used. 
 
-On row three, if domain 7 was deemed to map onto this variable, '4,7' could have been inputted because more than one domain is allowed to map onto each variable. 
-
-<img width="1525" alt="log_file_example" src="https://github.com/aim-rsf/browse-SAIL/assets/50215726/ab8302df-8c1a-4860-93ed-7871a84781d9">
+<img width="1827" alt="logfile-example" src="https://github.com/aim-rsf/browse-SAIL/assets/50215726/8d765caf-4e6e-4cfe-aff8-fbbee90b1344">
 
 ## Contributing changes 
 
