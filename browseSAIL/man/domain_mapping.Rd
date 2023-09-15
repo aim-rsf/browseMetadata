@@ -41,7 +41,6 @@ It will then loop through each variable you have requested.
 It will show you the name, description and data type for each variable.
 See the Plots tab for the Domain table.
 Respond to this prompt with a single number or multiple numbers separate by a column.
-For example 'ALF_E' would be coded as '2' (ID INFORMATION).
 The user has an option to write a note explaining their category choice.
 
 \strong{Run the code with your input files}

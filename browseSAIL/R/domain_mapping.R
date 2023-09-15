@@ -27,7 +27,6 @@
 #' It will show you the name, description and data type for each variable.
 #' See the Plots tab for the Domain table.
 #' Respond to this prompt with a single number or multiple numbers separate by a column.
-#' For example 'ALF_E' would be coded as '2' (ID INFORMATION).
 #' The user has an option to write a note explaining their category choice.
 #'
 #' \strong{Run the code with your input files}
@@ -60,7 +59,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
 
   # Present domains plots panel for user's reference ----
   plot.new()
-  domains_extend <- rbind(c('*NO MATCH*'),c('*UNSURE*'),c('*METADATA*'), c('*ID - PERSON*'),c('*ID - PLACE*'),domains)
+  domains_extend <- rbind(c('*NO MATCH / UNSURE*'),c('*METADATA*'), c('*ALF ID*'),c('*OTHER ID*'),domains)
   grid.table(domains_extend[1],cols='Domain',rows=0:(nrow(domains_extend)-1))
 
   # Print information about Data Asset and Class ----
@@ -95,7 +94,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
   Output <- data.frame(Initials = c(""),
                        MetaDataVersion = c(""),
                        MetaDataLastUpdated = c(""),
-                       DomainListDescription = c(""),
+                       DomainListDesc = c(""),
                        DataAsset = c(""),
                        DataClass = c(""),
                        DataElement = c(""),
@@ -130,37 +129,57 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
   # Loop through each variable, request response from the user to match to a domain ----
   for  (datavar in start_var:end_var ) {
 
-    cat(paste("\nDATA ELEMENT -----> ",selectDataClass_df$Label[datavar],"\n\nDESCRIPTION -----> ",selectDataClass_df$Description[datavar],"\n\nDATA TYPE -----> ",selectDataClass_df$Type[datavar],"\n"))
+    if (grepl("ALF", selectDataClass_df$Label[datavar])) {
 
-    decision <- ""
-    while (decision == "") {
-      cat("\n \n")
-      decision <- readline(prompt="CATEGORISE THIS VARIABLE (input a comma seperated list of domain numbers): ")
+      Output [ nrow(Output) + 1 , ] <- NA
+      Output$DataElement[datavar]
+      Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
+      Output$Domain_code[datavar] <- '2'
+      Output$Note[datavar] <- 'AUTO CATEGORISED'
+
+    } else if (grepl("AVAIL_FROM_DT", selectDataClass_df$Label[datavar])) {
+
+      Output [ nrow(Output) + 1 , ] <- NA
+      Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
+      Output$Domain_code[datavar] <- '1'
+      Output$Note[datavar] <- 'AUTO CATEGORISED'
+
+    } else {
+
+      cat(paste("\nDATA ELEMENT -----> ",selectDataClass_df$Label[datavar],"\n\nDESCRIPTION -----> ",selectDataClass_df$Description[datavar],"\n\nDATA TYPE -----> ",selectDataClass_df$Type[datavar],"\n"))
+
+      decision <- ""
+      while (decision == "") {
+        cat("\n \n")
+        decision <- readline(prompt="CATEGORISE THIS VARIABLE (input a comma seperated list of domain numbers): ")
+      }
+
+      decision_note <- ""
+      while (decision_note == "") {
+        cat("\n \n")
+        decision_note <- readline(prompt="NOTES (write 'No' if no notes): ")
+      }
+
+      Output [ nrow(Output) + 1 , ] <- NA
+      Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
+      Output$Domain_code[datavar] <- decision
+      Output$Note[datavar] <- decision_note
+
     }
 
-    decision_note <- ""
-    while (decision_note == "") {
-      cat("\n \n")
-      decision_note <- readline(prompt="NOTES (write 'No' if no notes): ")
-    }
-
-    output_row <- c(Initials = User_Initials,
-                    MetaDataVersion = meta_json$dataModel$documentationVersion,
-                    MetaDataLastUpdated = meta_json$dataModel$lastUpdated,
-                    DomainListDescription = DomainListDesc,
-                    DataAsset = meta_json$dataModel$label,
-                    DataClass = meta_json$dataModel$childDataClasses[[1]]$label,
-                    DataElement = selectDataClass_df$Label[datavar],
-                    Domain_code = decision,
-                    Note = decision_note
-    )
-
-    Output[datavar,] = output_row
-    Output[Output == ''] <- NA
-    write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
   }
 
-  # Print the responses to be saved
+  # Fill in columns that have all rows identical
+  Output$Initials = User_Initials
+  Output$MetaDataVersion = meta_json$dataModel$documentationVersion
+  Output$MetaDataLastUpdated = meta_json$dataModel$lastUpdated
+  Output$DomainListDesc = DomainListDesc
+  Output$DataAsset = meta_json$dataModel$label
+  Output$DataClass = meta_json$dataModel$childDataClasses[[1]]$label
+
+  # Save file & print the responses to be saved
+   Output[Output == ''] <- NA
+   write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
    print_colour(paste("\n \n The below responses will be saved to", output_fname,"\n \n"),'blue')
    print(Output)
 
