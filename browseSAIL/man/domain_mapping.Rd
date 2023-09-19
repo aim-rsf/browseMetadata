@@ -11,41 +11,24 @@ domain_mapping(json_file, domain_file, demo_mode = FALSE)
 
 \item{domain_file}{The file that lists the domains of interest to be used within the research study, provided as a csv with each domain on a separate line, within quotations.}
 
-\item{demo_mode}{Write TRUE to run the function in demo mode, using the demo data in the package, and leaving the other inputs blank. See example below.}
+\item{demo_mode}{Write TRUE to run the function in demo mode and leave the other inputs blank. This uses the demo data in the package - see example below.}
 }
 \value{
-The function will return a log file with your chosen categorisations.
+The function will return a log file with your mapping between variables and domains, alongside details about the Data Asset.
 }
 \description{
-This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from metadata catalogue (https://modelcatalogue.cs.ox.ac.uk/hdruk_live).
-It will loop through all the variable names, and ask you to categorise each variable into one of your chosen domains.
-Information about the Data Asset and Data Class will be displayed to the command window for reference.
-The domains will appear in the Plots tab, with the labels you should you for the categorisation.
-A log file will be saved with the categorisations you made.
+This function will read in the meta-data of a Data Asset obtained from metadata catalogue: https://modelcatalogue.cs.ox.ac.uk/hdruk_live.
+It will loop through all the Data Elements (variable names) in each Data Class (table), and ask you to categorise each variable into one of your chosen domains.
+Information about the Data Asset and Data Class can be displayed to the command window for reference.
+The domains will appear in the Plots tab, with the labels you should use for the categorisation.
 }
 \examples{
-\strong{Run the code with the demo files}
-
+# Run the code with the demo files
 \emph{domain_mapping(,,TRUE)}
-
-It will first output a description of the data asset and data class that you have loaded in.
-
-It will ask you for a range of variables (data elements) to process from this data class.
-For this demo, write '1,10' so that the meta dataset file can be processed quickly.
-If you press enter, it will process all the variables in the dataset file (93).
-
-It will ask you for your initials.
-This is to save within the log file, to keep track of who made the categorizations.
-
-It will then loop through each variable you have requested.
-It will show you the name, description and data type for each variable.
-See the Plots tab for the Domain table.
-Respond to this prompt with a single number or multiple numbers separate by a column.
-The user has an option to write a note explaining their category choice.
-
-\strong{Run the code with your input files}
-
-\emph{domain_mapping(your-metadata.json,your-domain-list.csv)}
-
-
+# Respond with your initials when prompted.
+# Respond 'Demo List.' for the description of demo list.
+# Respond 'Y' if you want to see the descriptions printed out.
+# Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
+# Reference the plot tab and categorise each variable into a single ('1') or multiple  ('1,2') domain.
+# Write a note explaining your category choice (optional).
 }
