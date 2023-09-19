@@ -59,7 +59,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
 
   # Present domains plots panel for user's reference ----
   plot.new()
-  domains_extend <- rbind(c('*NO MATCH / UNSURE*'),c('*METADATA*'), c('*ALF ID*'),c('*OTHER ID*'),domains)
+  domains_extend <- rbind(c('*NO MATCH / UNSURE*'),c('*METADATA*'), c('*ALF ID*'),c('*OTHER ID*'),c('*DEMOGRAPHICS*'),domains)
   grid.table(domains_extend[1],cols='Domain',rows=0:(nrow(domains_extend)-1))
 
   # Print information about Data Asset and Class ----
@@ -129,23 +129,44 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
   # Loop through each variable, request response from the user to match to a domain ----
   for  (datavar in start_var:end_var ) {
 
-    if (grepl("ALF", selectDataClass_df$Label[datavar])) {
+    # auto categorise
+    if (grepl("AVAIL_FROM_DT", selectDataClass_df$Label[datavar])) {
 
       Output [ nrow(Output) + 1 , ] <- NA
       Output$DataElement[datavar]
       Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-      Output$Domain_code[datavar] <- '2'
+      Output$Domain_code[datavar] <- '1'
       Output$Note[datavar] <- 'AUTO CATEGORISED'
 
-    } else if (grepl("AVAIL_FROM_DT", selectDataClass_df$Label[datavar])) {
+    } else if (grepl("ALF", selectDataClass_df$Label[datavar])) {
 
       Output [ nrow(Output) + 1 , ] <- NA
       Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-      Output$Domain_code[datavar] <- '1'
+      Output$Domain_code[datavar] <- '2'
+      Output$Note[datavar] <- 'AUTO CATEGORISED'
+
+    } else if (grepl("_ID_", selectDataClass_df$Label[datavar])) {
+
+      Output [ nrow(Output) + 1 , ] <- NA
+      Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
+      Output$Domain_code[datavar] <- '3'
+      Output$Note[datavar] <- 'AUTO CATEGORISED'
+
+    } else if (grepl("AGE", selectDataClass_df$Label[datavar])
+               || grepl("DOB", selectDataClass_df$Label[datavar])
+               || grepl("WOB", selectDataClass_df$Label[datavar])
+               || grepl("ETHNIC", selectDataClass_df$Label[datavar])
+               || grepl("SEX", selectDataClass_df$Label[datavar])
+               || grepl("GENDER", selectDataClass_df$Label[datavar])) {
+
+      Output [ nrow(Output) + 1 , ] <- NA
+      Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
+      Output$Domain_code[datavar] <- '4'
       Output$Note[datavar] <- 'AUTO CATEGORISED'
 
     } else {
 
+      # user response
       cat(paste("\nDATA ELEMENT -----> ",selectDataClass_df$Label[datavar],"\n\nDESCRIPTION -----> ",selectDataClass_df$Description[datavar],"\n\nDATA TYPE -----> ",selectDataClass_df$Type[datavar],"\n"))
 
       decision <- ""
