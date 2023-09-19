@@ -38,15 +38,11 @@ When using your own inputs, take note that these domain categories will be added
 
 ## The log file output
 
-Running the function will output a log file with your decisions. An example log file output is shown below. The name of the log file will contain the date and time stamp, as well as Data Class and Data Asset. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataClass, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. Notice that some have been auto categorised - double check them for accuracy. More than one domain is allowed to map onto each variable. 
+Running the function will output a log file with your decisions. An example log file output is shown below (left) with the demo domain list that was used to create it (right). The name of the log file will contain the date and time stamp, as well as Data Class and Data Asset. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataClass, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. Notice that some have been auto categorised - double check them for accuracy. More than one domain is allowed to map onto each variable. 
+
+<img width="1864" alt="logfile-ex" src="https://github.com/aim-rsf/browse-SAIL/assets/50215726/4e2ded4f-f425-418c-b0bc-9a9cec7c6fe7">
 
 The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains. 
-
-**A** shows the log file. 
-
-**B** shows the demo domain list that was used. 
-
-<img width="1827" alt="logfile-example" src="https://github.com/aim-rsf/browse-SAIL/assets/50215726/8d765caf-4e6e-4cfe-aff8-fbbee90b1344">
 
 ## Contributing changes 
 
