@@ -8,6 +8,14 @@ For instance, if a researcher wants to access datasets within SAIL databank, how
 
 :bulb: In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on SAIL databank files. 
 
+## Related resources 
+There are more sophisticated resources with similar aims:
+- [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) - explore data dictionaries, data coverage and data completeness
+- [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
+    - https://conceptlibrary.saildatabank.com
+    - https://github.com/SwanseaUniversityMedical/concept-library/wiki/Concept-Library-Documentation
+- [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/) - the source of metadata for this R package.
+
 ## Install 
 
 Download/clone this repository to your computer.
