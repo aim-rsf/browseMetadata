@@ -9,7 +9,7 @@ For instance, if a researcher wants to access datasets within SAIL databank, how
 :bulb: In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on SAIL databank files. 
 
 ## Related resources 
-There are more sophisticated resources with similar aims:
+There are more sophisticated resources with similar (but broader) aims:
 - [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) - explore data dictionaries, data coverage and data completeness
 - [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
     - https://conceptlibrary.saildatabank.com
