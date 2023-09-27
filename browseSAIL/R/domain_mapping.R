@@ -210,7 +210,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
         decision_note <- ""
         while (decision_note == "") {
           cat("\n \n")
-          decision_note <- readline(prompt="NOTES (write 'No' if no notes): ")
+          decision_note <- readline(prompt="NOTES (write 'N' if no notes): ")
         }
 
         Output [ nrow(Output) + 1 , ] <- NA
