@@ -135,7 +135,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
     for  (datavar in start_var:end_var ) {
 
       # auto categorise (full string and partial string matches)
-      if ("NA" == selectDataClass_df$Label[datavar]) {
+      if (selectDataClass_df$Label[datavar] == "NA") {
 
         Output [ nrow(Output) + 1 , ] <- NA
         Output$DataElement[datavar]
@@ -143,7 +143,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
         Output$Domain_code[datavar] <- '0'
         Output$Note[datavar] <- 'AUTO CATEGORISED'
 
-      } else if ("AVAIL_FROM_DT" == selectDataClass_df$Label[datavar]) {
+      } else if (selectDataClass_df$Label[datavar] == "AVAIL_FROM_DT") {
 
         Output [ nrow(Output) + 1 , ] <- NA
         Output$DataElement[datavar]
@@ -151,45 +151,45 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
         Output$Domain_code[datavar] <- '1'
         Output$Note[datavar] <- 'AUTO CATEGORISED'
 
-      } else if (("ALF_E" == selectDataClass_df$Label[datavar])
-        ||  ("RALF" == selectDataClass_df$Label[datavar])
-        ||  ("ALF_STS_CD" == selectDataClass_df$Label[datavar])
-        ||  ("ALF_MTCH_PCT" == selectDataClass_df$Label[datavar])
-        ||  (grepl("_ALF_E" == selectDataClass_df$Label[datavar]))  # grepl because of MOTHER_ALF_E and CHILD_ALF_E etc.
-        ||  (grepl("_RALF" == selectDataClass_df$Label[datavar]))
-        ||  (grepl("_ALF_STS_CD" == selectDataClass_df$Label[datavar]))
-        ||  (grepl("_ALF_MTCH_PCT" == selectDataClass_df$Label[datavar])))
+      } else if ((selectDataClass_df$Label[datavar] == "ALF_E")
+        ||  (selectDataClass_df$Label[datavar] == "RALF")
+        ||  (selectDataClass_df$Label[datavar] == "ALF_STS_CD")
+        ||  (selectDataClass_df$Label[datavar] == "ALF_MTCH_PCT")
+        ||  (grepl("_ALF_E", selectDataClass_df$Label[datavar],ignore.case = TRUE))  # grepl because of MOTHER_ALF_E and CHILD_ALF_E etc.
+        ||  (grepl("_RALF", selectDataClass_df$Label[datavar],ignore.case = TRUE))
+        ||  (grepl("_ALF_STS_CD", selectDataClass_df$Label[datavar],ignore.case = TRUE))
+        ||  (grepl("_ALF_MTCH_PCT", selectDataClass_df$Label[datavar],ignore.case = TRUE)))
         {
         Output [ nrow(Output) + 1 , ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
         Output$Domain_code[datavar] <- '2'
         Output$Note[datavar] <- 'AUTO CATEGORISED'
 
-      } else if (grepl("_ID_", selectDataClass_df$Label[datavar])) { # picking up generic IDs
+      } else if (grepl("_ID_", selectDataClass_df$Label[datavar],ignore.case = TRUE)) { # picking up generic IDs
 
         Output [ nrow(Output) + 1 , ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
         Output$Domain_code[datavar] <- '3'
         Output$Note[datavar] <- 'AUTO CATEGORISED'
 
-      } else if (("AGE" == selectDataClass_df$Label[datavar]) # likely to be a better way to code this section with fewer lines
-                 || ("DOB" == selectDataClass_df$Label[datavar])
-                 || ("WOB" == selectDataClass_df$Label[datavar])
-                 || ("SEX" == selectDataClass_df$Label[datavar])
-                 || ("GENDER" == selectDataClass_df$Label[datavar])
-                 || ("GNDR" == selectDataClass_df$Label[datavar])
-                 || (grepl("_AGE" == selectDataClass_df$Label[datavar]))
-                 || (grepl("_DOB" == selectDataClass_df$Label[datavar]))
-                 || (grepl("_WOB" == selectDataClass_df$Label[datavar]))
-                 || (grepl("_SEX" == selectDataClass_df$Label[datavar]))
-                 || (grepl("_GENDER" == selectDataClass_df$Label[datavar]))
-                 || (grepl("_GNDR" == selectDataClass_df$Label[datavar]))
-                 || (grepl("AGE_" == selectDataClass_df$Label[datavar]))
-                 || (grepl("DOB_" == selectDataClass_df$Label[datavar]))
-                 || (grepl("WOB_" == selectDataClass_df$Label[datavar]))
-                 || (grepl("SEX_" == selectDataClass_df$Label[datavar]))
-                 || (grepl("GENDER_" == selectDataClass_df$Label[datavar]))
-                || (grepl("GNDR_" == selectDataClass_df$Label[datavar])))
+      } else if ((selectDataClass_df$Label[datavar] == "AGE") # likely to be a better way to code this section with fewer lines
+                 || (selectDataClass_df$Label[datavar] == "DOB")
+                 || (selectDataClass_df$Label[datavar] == "WOB")
+                 || (selectDataClass_df$Label[datavar] == "SEX")
+                 || (selectDataClass_df$Label[datavar] == "GENDER")
+                 || (selectDataClass_df$Label[datavar] == "GNDR")
+                 || (grepl("_AGE",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("_DOB",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("_WOB",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("_SEX",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("_GENDER",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("_GNDR",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("AGE_",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("DOB_",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("WOB_",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("SEX_",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                 || (grepl("GENDER_",selectDataClass_df$Label[datavar],ignore.case = TRUE))
+                || (grepl("GNDR_",selectDataClass_df$Label[datavar],ignore.case = TRUE)))
         {
         Output [ nrow(Output) + 1 , ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
@@ -236,7 +236,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
     print_colour(paste("\n \n The below responses will be saved to", output_fname,"\n \n"),'blue')
     print(Output[,c("DataClass","DataElement","Domain_code","Note")])
   }
+
+  print_colour(paste("\n \n Please check the auto categorised data elements are correct!","\n \n"),'red')
 }
-
-
 
