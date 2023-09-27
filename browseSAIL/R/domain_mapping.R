@@ -237,6 +237,6 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
     print(Output[,c("DataClass","DataElement","Domain_code","Note")])
   }
 
-  print_colour(paste("\n \n Please check the auto categorised data elements are correct!","\n \n"),'red')
+  print_colour("\n \n Please check the auto categorised data elements are accurate!\n Manually edit csv file to correct errors, if needed.\n",'red')
 }
 
