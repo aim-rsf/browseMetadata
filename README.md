@@ -1,6 +1,6 @@
 # About `browse-SAIL`
 
-As the name suggests, this repository was created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful at the *earlier* stages of a project, where datasets are being scoped out. When a researcher has not got access to the data yet they can still browse the meta data, and start to address such questions as:
+As the name suggests, this repository was created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the meta data, and start to address such questions as:
 
 :question: what datasets are available?
 
@@ -12,16 +12,18 @@ As the name suggests, this repository was created to help a researcher browse th
 
 This R package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. 
 
-If a researcher wants to access datasets within SAIL databank, how do they know which variables will be represent the concepts they care about for their research question? There is a lot of meta data already publicly available on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This demo package uses this meta data, loads it up into R, and gets the user to browse through each dataset and variable. The user is asked to categorise each variable into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
+If a researcher wants to access datasets within SAIL databank, how do they know which variables will represent the concepts they care about for their research question? There is a lot of meta data already publicly available on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This demo package uses this meta data, loads it up into R, and gets the user to browse through each dataset and variable. The user is asked to categorise each variable into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
 
 🚧 It is still in demo form and has only been tested on a limited number of metadata files.
 
 ## Beyond SAIL Databank 
 
-In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on (a limited number) of metadata files for SAIL databank. 
+In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank. 
 
 ## Getting started with meta data (and related resources)
-There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. 
+There are many existing tools that allow you to browse meta data for health datasets. 
+
+:bulb: These tools may be sufficient for you to address the questions listed above. 
 
 📢 There are more tools out there. If you know of a tool that has wide scope for health meta data, please request we add it here!
 
@@ -68,7 +70,7 @@ Follow the example in the documentation. You don't need to provide any input dat
 
 Remember to reference the Plots tab in R. The domains will appear in the Plot tab and give you the necessary context for the categorisations. 
 
-When using your own inputs, take note that these domain categories will be added to your domain list:
+When using your own inputs, take note that these domain categories will be added to your domain list by default:
 - NO MATCH / UNSURE
 - METADATA
 - ALF ID
