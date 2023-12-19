@@ -28,3 +28,5 @@ venv.bak/
 
 # Test/Input files 
 input_files/*
+output_files/*
+test_code/*
