@@ -21,7 +21,9 @@ If a researcher wants to access datasets within SAIL databank, how do they know 
 In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on (a limited number) of metadata files for SAIL databank. 
 
 ## Getting started with meta data & concept libraries 
-There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. We list some of these below. 📢 Please request to add more if you think they should be listed here too.
+There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. We list some of these below. 
+
+📢 Please request to add more if you think they should be listed here too.
 
 ### [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
 
