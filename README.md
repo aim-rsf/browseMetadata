@@ -20,10 +20,10 @@ If a researcher wants to access datasets within SAIL databank, how do they know 
 
 In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on (a limited number) of metadata files for SAIL databank. 
 
-## Getting started with meta data & concept libraries 
-There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. We list some of these below. 
+## Getting started with meta data (and related resources)
+There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. 
 
-📢 Please request to add more if you think they should be listed here too.
+📢 There are more tools out there. If you know of a tool that has wide scope for health meta data, please request we add it here!
 
 ### [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
 
@@ -40,9 +40,10 @@ The is the source of metadata for the R package in this repo `browse-SAIL`
 This dashboard allows you to explore data dictionaries, data coverage and data completeness.
 
 ### [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
-- https://conceptlibrary.saildatabank.com
-- https://github.com/SwanseaUniversityMedical/concept-library/wiki/Concept-Library-Documentation
-- descrive what it is here
+
+> "The HDR UK Phenotype Library is a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records."
+
+Also see the Concept Library - [website](https://conceptlibrary.saildatabank.com) and [GitHub](https://github.com/SwanseaUniversityMedical/concept-library) - developed by the SAIL databank team and collaborating organisations. 
 
 ## Getting started with this R package `browse-SAIL`
 
