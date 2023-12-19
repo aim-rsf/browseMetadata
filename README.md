@@ -66,7 +66,9 @@ The idea would be that this log file could be loaded up, compared across users, 
 
 ## Contributing changes 
 
-You can contribute changes via submitting an Issue to request a change, or create a PR with your direct changes. 
+You can contribute changes to this repository via submitting an Issue to request a change, or create a Pull Request with your direct changes. 
+
+If you are working on changes to the R package:
 
 To create the .rda files in the data directory of the package:
 `usethis::use_data(dataname)`
