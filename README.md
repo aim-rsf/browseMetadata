@@ -1,10 +1,6 @@
-# browse-SAIL
+# About `browse-SAIL`
 
-As the name suggests, this repository and R package was created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com).
-
-It is intended to be useful at the *earlier* stages of a project, where datasets are being scoped out. 
-
-When a researcher has not got access to the data yet they can still browse the meta data, and start to address such questions as:
+As the name suggests, this repository was created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful at the *earlier* stages of a project, where datasets are being scoped out. When a researcher has not got access to the data yet they can still browse the meta data, and start to address such questions as:
 
 :question: what datasets are available?
 
@@ -12,25 +8,27 @@ When a researcher has not got access to the data yet they can still browse the m
 
 :question: which variables within these datasets map onto my domains of interest (latent concepts)?
 
-## Will the R package give me the answers?
+## What does the R package do?
 
-No, this is very much a tool, still in demo form. 
+This R package is a tool, designed to be used alongside other tools and sources of information. It is still in demo form and has only been tested on a limited number of metadata files. 
 
-For instance, if a researcher wants to access datasets within SAIL databank, how do they know which variables will be represent the concepts they care about for their research question? There is a lot of meta data already publicly available on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This demo package uses this meta data.
+If a researcher wants to access datasets within SAIL databank, how do they know which variables will be represent the concepts they care about for their research question? There is a lot of meta data already publicly available on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This demo package uses this meta data, loads it up into R, and gets the user to browse through each dataset and variable. The user is asked to categorise each variable into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
 
-⚠️ More discussion is needed with researchers to work out how to make this package useful. It is currently just a demo and has only been tested on a limited number of metadata files. 
+## Beyond SAIL Databank 
 
-:bulb: In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on SAIL databank files. 
+In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on (a limited number) of metadata files for SAIL databank. 
 
-## Related resources 
-There are more sophisticated resources with similar (but broader) aims:
+## Getting started with meta data
+There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. We list some of these below:
 - [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) - explore data dictionaries, data coverage and data completeness
 - [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
     - https://conceptlibrary.saildatabank.com
     - https://github.com/SwanseaUniversityMedical/concept-library/wiki/Concept-Library-Documentation
 - [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/) - the source of metadata for this R package.
 
-## Install 
+## Getting started with this R package `browse-SAIL`
+
+### Install 
 
 Download/clone this repository to your computer.
 
@@ -44,7 +42,7 @@ Then in the R console run:
 
 `library(browseSAIL)`
 
-## Example run through 
+### Example run through 
 Run `?domain_mapping` in the R console to find the documentation.
 
 Follow the example in the documentation. You don't need to provide any input data!
@@ -58,7 +56,7 @@ When using your own inputs, take note that these domain categories will be added
 - OTHER ID
 - DEMOGRAPHICS
 
-## The log file output
+### The log file output
 
 Running the function will output a log file with your decisions. An example log file output is shown below (left) with the demo domain list that was used to create it (right). The name of the log file will contain the date and time stamp, as well as Data Class and Data Asset. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataClass, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. Notice that some have been auto categorised - double check them for accuracy. More than one domain is allowed to map onto each variable. 
 
