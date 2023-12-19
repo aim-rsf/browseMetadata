@@ -18,13 +18,27 @@ If a researcher wants to access datasets within SAIL databank, how do they know 
 
 In theory, this package should work for any dataset listed on the Health Data Research Gateway, as long as a json metadata file can be downloaded. In practice, it has only been tested on (a limited number) of metadata files for SAIL databank. 
 
-## Getting started with meta data
-There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. We list some of these below:
-- [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) - explore data dictionaries, data coverage and data completeness
-- [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
-    - https://conceptlibrary.saildatabank.com
-    - https://github.com/SwanseaUniversityMedical/concept-library/wiki/Concept-Library-Documentation
-- [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/) - the source of metadata for this R package.
+## Getting started with meta data & concept libraries 
+There are many existing tools that allow you to browse meta data for health datasets. These tools may be sufficient for you to address the questions listed above. We list some of these below. 📢 Please request to add more if you think they should be listed here too.
+
+### [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
+
+> "a search-engine or ‘portal’ to help you find health datasets that exist in the UK"
+
+> "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance."
+
+The is the source of metadata for the R package in this repo `browse-SAIL`
+    
+### [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
+
+> "an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales"
+
+This dashboard allows you to explore data dictionaries, data coverage and data completeness.
+
+### [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
+- https://conceptlibrary.saildatabank.com
+- https://github.com/SwanseaUniversityMedical/concept-library/wiki/Concept-Library-Documentation
+- descrive what it is here
 
 ## Getting started with this R package `browse-SAIL`
 
