@@ -1,6 +1,20 @@
-# About 
+# browse-SAIL
 
-This R package is written to help the initial process of mapping domains of interest (latent concepts) used in research, onto variables found in SAIL databank. 
+As the name suggests, this repository and R package was created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com).
+
+It is intended to be useful at the *earlier* stages of a project, where datasets are being scoped out. 
+
+When a researcher has not got access to the data yet they can still browse the meta data, and start to address such questions as:
+
+:question: what datasets are available?
+
+:question: what datasets do I need for my research question?
+
+:question: which variables within these datasets map onto my domains of interest (latent concepts)?
+
+## Will the R package give me the answers?
+
+No, this is very much a tool, still in demo form. 
 
 For instance, if a researcher wants to access datasets within SAIL databank, how do they know which variables will be represent the concepts they care about for their research question? There is a lot of meta data already publicly available on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This demo package uses this meta data.
 
