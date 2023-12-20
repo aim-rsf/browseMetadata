@@ -1,4 +1,4 @@
-Package: browseSAIL
+Package: browse-metadata
 Type: Package
 Title: Maps domains to varaibles within a dataset (SAIL databank)
 Version: 0.1.0

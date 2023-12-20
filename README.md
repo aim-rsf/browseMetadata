@@ -1,6 +1,6 @@
-# About `browse-SAIL`
+# About `browse-metadata`
 
-As the name suggests, this repository was created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the meta data, and start to address such questions as:
+This R package is created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the meta data, and start to address such questions as:
 
 :question: what datasets are available?
 
