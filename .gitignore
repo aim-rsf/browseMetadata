@@ -1,32 +1,5 @@
-# Distribution / packaging
-.Python
-build/
-downloads/
-.eggs/
-lib/
-lib64/
-var/
-*.pyc
-*~
-.DS_Store
-.*history
-.Rhistory
-
-# pyenv
-.python-version
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
+docs
 .Rproj.user
-
-# Test/Input files 
-input_files/*
-output_files/*
-test_code/*
+inst/doc
+/doc/
+/Meta/
