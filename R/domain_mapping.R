@@ -28,7 +28,7 @@ domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
   # Demo mode or normal mode
 
   if (demo_mode == TRUE) {
-    data(package='browseSAIL')
+    data(package='browse-metadata')
     data(json_metdata)
     data(domains_list)
     meta_json <- json_metdata
