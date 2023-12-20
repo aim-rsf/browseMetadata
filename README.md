@@ -104,7 +104,7 @@ To create the .rda files in the data directory of the package:
 `usethis::use_data(dataname)`
 
 To view the package data:
-`data(package='browseSAIL')`
+`data(package='browse-metadata')`
 
 To load the package data:
 `data(dataname)`
