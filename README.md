@@ -103,3 +103,10 @@ To load the package data:
 To build the documentation files:
 `library(roxygen2)`
 `roxygenise()`
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+The GNU General Public License is a free, copyleft license for software and other kinds of works. For more information, please refer to <https://www.gnu.org/licenses/gpl-3.0.en.html>.
+
