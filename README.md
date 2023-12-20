@@ -88,6 +88,12 @@ Running the function will output a log file with your decisions. An example log 
 
 The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains. 
 
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+The GNU General Public License is a free, copyleft license for software and other kinds of works. For more information, please refer to <https://www.gnu.org/licenses/gpl-3.0.en.html>.
+
 ## Contributing changes 
 
 You can contribute changes to this repository via submitting an Issue to request a change, or create a Pull Request with your direct changes. 
@@ -107,14 +113,7 @@ To build the documentation files:
 `library(roxygen2)`
 `roxygenise()`
 
-## License
-
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-The GNU General Public License is a free, copyleft license for software and other kinds of works. For more information, please refer to <https://www.gnu.org/licenses/gpl-3.0.en.html>.
-
-
-## Contributors ✨
+### Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
