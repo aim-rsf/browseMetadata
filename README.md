@@ -36,7 +36,7 @@ There are many existing tools that allow you to browse meta data for health data
 
 > "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance."
 
-The is the source of metadata for the R package in this repo `browse-SAIL`
+The is the source of metadata for the R package in this repo `browse-metadata`
     
 ### [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
 
@@ -50,7 +50,7 @@ This dashboard allows you to explore data dictionaries, data coverage and data c
 
 Also see the Concept Library - [website](https://conceptlibrary.saildatabank.com) and [GitHub](https://github.com/SwanseaUniversityMedical/concept-library) - developed by the SAIL databank team and collaborating organisations. 
 
-## Getting started with this R package `browse-SAIL`
+## Getting started with this R package `browse-metadata`
 
 ### Install 
 
@@ -62,9 +62,9 @@ Then in the R console run:
 
 `library(devtools)`
 
-`load_all("/path-to-repo/browse-SAIL/browseSAIL")`
+`load_all("/path-to-repo/browse-metadata")`
 
-`library(browseSAIL)`
+`library('browse-metadata')`
 
 ### Example run through 
 Run `?domain_mapping` in the R console to find the documentation.
@@ -84,7 +84,7 @@ When using your own inputs, take note that these domain categories will be added
 
 Running the function will output a log file with your decisions. An example log file output is shown below (left) with the demo domain list that was used to create it (right). The name of the log file will contain the date and time stamp, as well as Data Class and Data Asset. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataClass, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. Notice that some have been auto categorised - double check them for accuracy. More than one domain is allowed to map onto each variable. 
 
-<img width="1864" alt="logfile-ex" src="https://github.com/aim-rsf/browse-SAIL/assets/50215726/4e2ded4f-f425-418c-b0bc-9a9cec7c6fe7">
+<img width="1864" alt="logfile-ex" src="https://github.com/aim-rsf/browse-metadata/assets/50215726/4e2ded4f-f425-418c-b0bc-9a9cec7c6fe7">
 
 The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains. 
 
