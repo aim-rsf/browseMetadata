@@ -1,6 +1,6 @@
-# About `browse-SAIL`
+# About `browse-metadata`
 
-As the name suggests, this repository was created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the meta data, and start to address such questions as:
+This R package is created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the meta data, and start to address such questions as:
 
 :question: what datasets are available?
 
@@ -103,3 +103,10 @@ To load the package data:
 To build the documentation files:
 `library(roxygen2)`
 `roxygenise()`
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+The GNU General Public License is a free, copyleft license for software and other kinds of works. For more information, please refer to <https://www.gnu.org/licenses/gpl-3.0.en.html>.
+
