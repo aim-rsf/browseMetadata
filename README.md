@@ -30,7 +30,9 @@ There are many existing tools that allow you to browse meta data for health data
 
 📢 There are more tools out there. If you know of a tool that has wide scope for health meta data, please request we add it here!
 
-### [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
+### [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
+
+> It is "managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance."
 
 > "a search-engine or ‘portal’ to help you find health datasets that exist in the UK"
 
@@ -38,17 +40,17 @@ There are many existing tools that allow you to browse meta data for health data
 
 The is the source of metadata for the R package in this repo `browse-metadata`
     
-### [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
+### [British Heart Foundation Data Science Centre (BHF DSC) Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
 
 > "an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales"
 
 This dashboard allows you to explore data dictionaries, data coverage and data completeness.
 
-### [ONS Secure Research Service Metadata Catalogue](https://ons.metadata.works/)
+### [Office for National Statistics (ONS) Secure Research Service (SRS) Metadata Catalogue](https://ons.metadata.works/)
 
-Metadata for datasets within the Office for National Statistics (ONS) Secure Research Service (SRS). It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
+Metadata for datasets within the ONS SRS. It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
 
-### [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
+### [Health Data Research UK (HDRUK) Phenotype Library](https://phenotypes.healthdatagateway.org)
 
 > "The HDR UK Phenotype Library is a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records."
 
