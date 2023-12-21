@@ -38,7 +38,7 @@ There are many existing tools that allow you to browse meta data for health data
 
 > "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance."
 
-The is the source of metadata for the R package in this repo `browse-metadata`
+The is the source of metadata for this R package `browse-metadata`.
 
 A realted resource from HDRUK is the [Phenotype Library](https://phenotypes.healthdatagateway.org), "a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records." See also the [Concept Library](https://conceptlibrary.saildatabank.com) developed by the SAIL databank team and collaborating organisations. 
     
