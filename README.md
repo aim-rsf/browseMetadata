@@ -34,7 +34,7 @@ There are many existing tools that allow you to browse meta data for health data
 
 > It is "managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance."
 
-> "a search-engine or ‘portal’ to help you find health datasets that exist in the UK"
+> It is "a search-engine or ‘portal’ to help you find health datasets that exist in the UK"
 
 > "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance."
 
@@ -44,7 +44,7 @@ A realted resource from HDRUK is the [Phenotype Library](https://phenotypes.heal
     
 ### [British Heart Foundation Data Science Centre (BHF DSC) Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
 
-> "an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales"
+> It offers "an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales"
 
 This dashboard allows you to explore data dictionaries, data coverage and data completeness.
 
