@@ -44,6 +44,10 @@ The is the source of metadata for the R package in this repo `browse-metadata`
 
 This dashboard allows you to explore data dictionaries, data coverage and data completeness.
 
+### [ONS Secure Research Service Metadata Catalogue](https://ons.metadata.works/)
+
+Metadata for datasets within the Office for National Statistics (ONS) Secure Research Service (SRS). It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
+
 ### [HDRUK Phenotype Library](https://phenotypes.healthdatagateway.org)
 
 > "The HDR UK Phenotype Library is a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records."
