@@ -23,7 +23,7 @@ If a researcher wants to access datasets within SAIL databank, how do they know 
 
 In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank. 
 
-## Getting started with meta data (and related resources)
+## Getting started with meta data 
 There are many existing tools that allow you to browse meta data for health datasets. 
 
 :bulb: These tools may be sufficient for you to address the questions listed above. 
@@ -39,6 +39,8 @@ There are many existing tools that allow you to browse meta data for health data
 > "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance."
 
 The is the source of metadata for the R package in this repo `browse-metadata`
+
+A realted resource from HDRUK is the [Phenotype Library](https://phenotypes.healthdatagateway.org), "a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records." See also the [Concept Library](https://conceptlibrary.saildatabank.com) developed by the SAIL databank team and collaborating organisations. 
     
 ### [British Heart Foundation Data Science Centre (BHF DSC) Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
 
@@ -49,12 +51,6 @@ This dashboard allows you to explore data dictionaries, data coverage and data c
 ### [Office for National Statistics (ONS) Secure Research Service (SRS) Metadata Catalogue](https://ons.metadata.works/)
 
 Metadata for datasets within the ONS SRS. It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
-
-### [Health Data Research UK (HDRUK) Phenotype Library](https://phenotypes.healthdatagateway.org)
-
-> "The HDR UK Phenotype Library is a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records."
-
-Also see the Concept Library - [website](https://conceptlibrary.saildatabank.com) and [GitHub](https://github.com/SwanseaUniversityMedical/concept-library) - developed by the SAIL databank team and collaborating organisations. 
 
 ## Getting started with this R package `browse-metadata`
 
