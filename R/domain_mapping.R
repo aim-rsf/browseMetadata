@@ -6,7 +6,6 @@
 #'The domains will appear in the Plots tab, with the labels you should use for the categorisation.
 #'@param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file.
 #'@param domain_file The file that lists the domains of interest to be used within the research study, provided as a csv with each domain on a separate line, within quotations.
-#'@param demo_mode Write TRUE to run the function in demo mode and leave the other inputs blank. This uses the demo data in the package - see example below.
 #'@return The function will return a log file with your mapping between variables and domains, alongside details about the Data Asset.
 #'@examples
 #'# Run the code with the demo files
@@ -18,27 +17,29 @@
 #'# Reference the plot tab and categorise each variable into a single ('1') or multiple  ('1,2') domain.
 #'# Write a note explaining your category choice (optional).
 #'@export
-domain_mapping <- function(json_file,domain_file,demo_mode = FALSE) {
+domain_mapping <- function(json_file= NULL,domain_file= NULL) {
 
   library(rjson)
   library(gridExtra)
   library(grid)
   library(insight)
 
-  # Demo mode or normal mode
-
-  if (demo_mode == TRUE) {
-    data(package='browseSAIL')
-    data(json_metdata)
-    data(domains_list)
-    meta_json <- json_metdata
-    domains <-domains_list
+  # Load data: Check if demo data should be used
+  if (is.null(json_file) && is.null(domain_file)) {
+    # If both json_file and domain_file are NULL, use demo data
+    data(package='browse-metadata')
+    meta_json <- data(json_metdata)
+    domains <- data(domains_list)
+  } else if (is.null(json_file) || is.null(domain_file)) {
+    # If only one of json_file and domain_file is NULL, throw error
+    stop("Please provide both json_file and domain_file or neither")
   } else {
     # Read in the json file containing the meta data
     meta_json <- fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file,header = FALSE)
   }
+
 
   # Present domains plots panel for user's reference ----
   plot.new()
