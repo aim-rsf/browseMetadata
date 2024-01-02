@@ -17,7 +17,7 @@ This R package is a planning tool, designed to be used alongside other tools and
 
 If a researcher wants to access datasets within SAIL databank, how do they know which variables will represent the concepts they care about for their research question? There is a lot of meta data already publicly available on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This demo package uses this meta data, loads it up into R, and gets the user to browse through each dataset and variable. The user is asked to categorise each variable into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
 
-🚧 :warning: It is still in demo form and has only been tested on a limited number of metadata files.
+🚧 :warning: This package is in early development, and has only been tested on a limited number of metadata files.
 
 ## Beyond SAIL Databank 
 
