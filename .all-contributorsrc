@@ -1,0 +1,49 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "RayStick",
+      "name": "Rachael Stickland",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50215726?v=4",
+      "profile": "http://linkedin.com/in/rstickland-phd",
+      "contributions": [
+        "content",
+        "doc",
+        "maintenance",
+        "ideas"
+      ]
+    },
+    {
+      "login": "BatoolMM",
+      "name": "Batool Almarzouq",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53487593?v=4",
+      "profile": "https://batool-almarzouq.netlify.app/",
+      "contributions": [
+        "userTesting",
+        "review",
+        "ideas"
+      ]
+    },
+    {
+      "login": "Rainiefantasy",
+      "name": "Mahwish Mohammad",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43926907?v=4",
+      "profile": "https://github.com/Rainiefantasy",
+      "contributions": [
+        "userTesting"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "browse-metadata",
+  "projectOwner": "aim-rsf"
+}
