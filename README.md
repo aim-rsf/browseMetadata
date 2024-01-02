@@ -1,4 +1,4 @@
-# About `browse-metadata`
+# About `browseMetadata`
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -38,7 +38,7 @@ There are many existing tools that allow you to browse meta data for health data
 
 > "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance."
 
-The is the source of metadata for this R package `browse-metadata`.
+The is the source of metadata for this R package `browseMetadata`.
 
 A realted resource from HDRUK is the [Phenotype Library](https://phenotypes.healthdatagateway.org), "a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records." See also the [Concept Library](https://conceptlibrary.saildatabank.com) developed by the SAIL databank team and collaborating organisations. 
     
@@ -52,7 +52,7 @@ This dashboard allows you to explore data dictionaries, data coverage and data c
 
 Metadata for datasets within the ONS SRS. It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
 
-## Getting started with this R package `browse-metadata`
+## Getting started with this R package `browseMetadata`
 
 ### Install 
 
@@ -64,9 +64,9 @@ Then in the R console run:
 
 `library(devtools)`
 
-`load_all("/path-to-repo/browse-metadata")`
+`load_all("/path-to-repo/browseMetadata")`
 
-`library('browse-metadata')`
+`library('browseMetadata')`
 
 ### Example run through 
 Execute `?domain_mapping` in the R console to read the documentation.
@@ -88,7 +88,7 @@ When using your own inputs, take note that these domain categories will be added
 
 Running the function will output a log file with your decisions. An example log file output is shown below (left) with the demo domain list that was used to create it (right). The name of the log file will contain the date and time stamp, as well as Data Class and Data Asset. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataClass, the log file will contain a 'Domain_code' which labels this variable as mapping onto one or more of the domains of interest. Notice that some have been auto categorised - double check them for accuracy. More than one domain is allowed to map onto each variable. 
 
-<img width="1864" alt="logfile-ex" src="https://github.com/aim-rsf/browse-metadata/assets/50215726/4e2ded4f-f425-418c-b0bc-9a9cec7c6fe7">
+<img width="1864" alt="logfile-ex" src="https://github.com/aim-rsf/browseMetadata/assets/50215726/4e2ded4f-f425-418c-b0bc-9a9cec7c6fe7">
 
 The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains. 
 
@@ -108,7 +108,7 @@ To create the .rda files in the data directory of the package:
 `usethis::use_data(dataname)`
 
 To view the package data:
-`data(package='browse-metadata')`
+`data(package='browseMetadata')`
 
 To load the package data:
 `data(dataname)`

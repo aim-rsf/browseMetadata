@@ -30,6 +30,7 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
     meta_json <- get('json_metdata')
     domains <- get('domains_list')
     cat('\nRunning domain_mapping in demo mode using package data files')
+
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
     stop("Please provide both json_file and domain_file (or neither file, to run in demo mode)")
