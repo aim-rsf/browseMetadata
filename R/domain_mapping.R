@@ -24,7 +24,12 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
   library(grid)
   library(insight)
 
+<<<<<<< HEAD
   # Load data: Check if demo_mode data should be used
+=======
+
+  # Load data: Check if demo data should be used
+>>>>>>> 311949ca211c190b35d84187e18ae0b6802d06ee
   if (is.null(json_file) && is.null(domain_file)) {
     # If both json_file and domain_file are NULL, use demo data
     data(package='browse-metadata')
@@ -35,6 +40,7 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
     stop("Please provide both json_file and domain_file or neither")
+
   } else {
     # Read in the json file containing the meta data
     meta_json <- fromJSON(file = json_file)
