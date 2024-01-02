@@ -69,9 +69,11 @@ Then in the R console run:
 `library('browseMetadata')`
 
 ### Example run through 
-Run `?domain_mapping` in the R console to find the documentation.
+Execute `?domain_mapping` in the R console to read the documentation.
 
-Follow the example in the documentation. You don't need to provide any input data!
+Execute `domain_mapping()` in the R console to run this function in demo mode. Follow the example in the documentation. 
+
+For demo mode, you do not need to provide your own input files. It will use the package data.
 
 Remember to reference the Plots tab in R. The domains will appear in the Plot tab and give you the necessary context for the categorisations. 
 
