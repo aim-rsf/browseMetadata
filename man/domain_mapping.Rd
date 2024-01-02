@@ -4,14 +4,12 @@
 \alias{domain_mapping}
 \title{domain_mapping}
 \usage{
-domain_mapping(json_file, domain_file, demo_mode = FALSE)
+domain_mapping(json_file = NULL, domain_file = NULL)
 }
 \arguments{
 \item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file.}
 
 \item{domain_file}{The file that lists the domains of interest to be used within the research study, provided as a csv with each domain on a separate line, within quotations.}
-
-\item{demo_mode}{Write TRUE to run the function in demo mode and leave the other inputs blank. This uses the demo data in the package - see example below.}
 }
 \value{
 The function will return a log file with your mapping between variables and domains, alongside details about the Data Asset.
@@ -23,10 +21,10 @@ Information about the Data Asset and Data Class can be displayed to the command 
 The domains will appear in the Plots tab, with the labels you should use for the categorisation.
 }
 \examples{
-# Run the code with the demo files
-\emph{domain_mapping(,,TRUE)}
+# Run in demo mode by providing no inputs: domain_mapping()
+# Demo mode will use the /data files provided in this package
 # Respond with your initials when prompted.
-# Respond 'Demo List.' for the description of demo list.
+# Respond 'Demo List ' for the description of domain list.
 # Respond 'Y' if you want to see the descriptions printed out.
 # Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
 # Reference the plot tab and categorise each variable into a single ('1') or multiple  ('1,2') domain.

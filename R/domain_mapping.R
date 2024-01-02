@@ -8,10 +8,10 @@
 #'@param domain_file The file that lists the domains of interest to be used within the research study, provided as a csv with each domain on a separate line, within quotations.
 #'@return The function will return a log file with your mapping between variables and domains, alongside details about the Data Asset.
 #'@examples
-#'# Run the code with the demo files
-#'\emph{domain_mapping(,,TRUE)}
+#'# Run in demo mode by providing no inputs: domain_mapping()
+#'# Demo mode will use the /data files provided in this package
 #'# Respond with your initials when prompted.
-#'# Respond 'Demo List.' for the description of demo list.
+#'# Respond 'Demo List ' for the description of domain list.
 #'# Respond 'Y' if you want to see the descriptions printed out.
 #'# Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
 #'# Reference the plot tab and categorise each variable into a single ('1') or multiple  ('1,2') domain.
@@ -24,30 +24,21 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
   library(grid)
   library(insight)
 
-<<<<<<< HEAD
-  # Load data: Check if demo_mode data should be used
-=======
-
   # Load data: Check if demo data should be used
->>>>>>> 311949ca211c190b35d84187e18ae0b6802d06ee
   if (is.null(json_file) && is.null(domain_file)) {
     # If both json_file and domain_file are NULL, use demo data
-    data(package='browse-metadata')
-    data(json_metdata)
-    data(domains_list)
-    meta_json <- json_metdata
-    domains <-domains_list
+    meta_json <- get('json_metdata')
+    domains <- get('domains_list')
+    cat('\nRunning domain_mapping in demo mode using package data files')
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
-    stop("Please provide both json_file and domain_file or neither")
-
+    stop("Please provide both json_file and domain_file (or neither file, to run in demo mode)")
   } else {
     # Read in the json file containing the meta data
     meta_json <- fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file,header = FALSE)
   }
-
 
   # Present domains plots panel for user's reference ----
   plot.new()
@@ -75,7 +66,7 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
   print_colour("Data Asset Exported \n",'br_violet')
   cat("By", meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn,fill=TRUE)
   nDataClasses <- length(meta_json$dataModel$childDataClasses)
-  print_colour(sprintf("There are %s Data Classes (tables) in this Data Asset",nDataClasses),'br_violet')
+  print_colour(sprintf("There are %s Data Classes (tables) in this Data Asset\n\n",nDataClasses),'br_violet')
 
   dataasset_desc <- readline(prompt="Would you like to read a description of the Data Asset? (Y/N) ")
   if (dataasset_desc == "Y") {
@@ -89,8 +80,8 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
     print_colour(sprintf("\n\nProcessing Data Class (Table) %s of %s \n",dc,nDataClasses),'br_violet')
     print_colour("\nData Class Name \n",'br_violet')
     cat(meta_json$dataModel$childDataClasses[[dc]]$label,fill=TRUE)
-    print_colour("Data Class Last Updated \n",'br_violet')
-    cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated,fill=TRUE)
+    print_colour("Data Class Last Updated\n",'br_violet')
+    cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated,'\n',fill=TRUE)
 
     dataclass_desc <- readline(prompt="Would you like to read a description of the Data Class (Table)? (Y/N) ")
     if (dataclass_desc == "Y") {
@@ -242,10 +233,10 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
     # Save file & print the responses to be saved
     Output[Output == ''] <- NA
     write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
-    print_colour(paste("\n \n The below responses will be saved to", output_fname,"\n \n"),'blue')
+    cat("\n \n The below responses will be saved to", output_fname,"\n \n")
     print(Output[,c("DataClass","DataElement","Domain_code","Note")])
   }
 
-  print_colour("\n \n Please check the auto categorised data elements are accurate!\n Manually edit csv file to correct errors, if needed.\n",'red')
+  print_colour("\n\nPlease check the auto categorised data elements are accurate!\nManually edit csv file to correct errors, if needed.\n",'bg_yellow')
 }
 
