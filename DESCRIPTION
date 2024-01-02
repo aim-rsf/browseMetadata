@@ -1,8 +1,9 @@
-Package: browse-metadata
+Package: browseMetadata
 Type: Package
 Title: Maps domains to varaibles within a dataset (SAIL databank)
 Version: 0.1.0
-Author: Rachael Stickland
+Authors@R: 
+    person("Rachael", "Stickland", email = "rstickland@turing.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3398-4272"))
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
 Description: This function will read in the meta-data of a dataset (DataClass) from the SAIL databank, obtained from https://modelcatalogue.cs.ox.ac.uk/hdruk_live/.
     It will loop through all the variable names, and ask you to categorise each variable into one of your chosen domains.
