@@ -66,7 +66,7 @@ Then in the R console run:
 ```r
 library(devtools)
 
-devtools::install_github("yourusername/demopkg")
+devtools::install_github("rsf/browseMetadata")
 
 library('browseMetadata')
 ```
