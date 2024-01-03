@@ -232,7 +232,7 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
 
     # Save file & print the responses to be saved
     Output[Output == ''] <- NA
-    write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
+    utils::write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
     cat("\n \n The below responses will be saved to", output_fname,"\n \n")
     print(Output[,c("DataClass","DataElement","Domain_code","Note")])
   }
