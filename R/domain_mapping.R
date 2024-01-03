@@ -24,7 +24,7 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
   library(grid)
   library(insight)
 
-  # Load data: Check if demo data should be used
+    # Load data: Check if demo data should be used
   if (is.null(json_file) && is.null(domain_file)) {
     # If both json_file and domain_file are NULL, use demo data
     meta_json <- get('json_metdata')

@@ -62,11 +62,14 @@ Install required packages: `devtools`, `gridExtra`, `grid`, `insight`, `rjson`
 
 Then in the R console run:
 
-`library(devtools)`
 
-`load_all("/path-to-repo/browseMetadata")`
+```r
+library(devtools)
 
-`library('browseMetadata')`
+devtools::install_github("yourusername/demopkg")
+
+library('browseMetadata')
+```
 
 ### Example run through 
 Execute `?domain_mapping` in the R console to read the documentation.
@@ -116,6 +119,25 @@ To load the package data:
 To build the documentation files:
 `library(roxygen2)`
 `roxygenise()`
+
+## Citation
+
+To cite package ‘browseMetadata’ in publications use:
+
+> Stickland R (2024). _browseMetadata: Maps domains to varaibles within
+  a dataset (SAIL databank)_. R package version 0.1.0.
+
+A BibTeX entry for LaTeX users is
+
+```
+  @Manual{,
+    title = {browseMetadata: Maps domains to varaibles within a dataset (SAIL databank)},
+    author = {Rachael Stickland},
+    year = {2024},
+    note = {R package version 0.1.0},
+  }
+```
+
 
 ### Contributors ✨
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)  specification, using the ([emoji key](https://allcontributors.org/docs/en/emoji-key)). Contributions of any kind welcome!
