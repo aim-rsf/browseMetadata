@@ -66,7 +66,6 @@ Then in the R console run:
 ```r
 install.packages("devtools")
 devtools::install_github("aim-rsf/browseMetadata")
-library('browseMetadata')
 ```
 
 ### Example run through 
