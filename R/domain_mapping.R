@@ -41,7 +41,7 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
   }
 
   # Present domains plots panel for user's reference ----
-  grid::plot.new()
+  graphics::plot.new()
   domains_extend <- rbind(c('*NO MATCH / UNSURE*'),c('*METADATA*'), c('*ALF ID*'),c('*OTHER ID*'),c('*DEMOGRAPHICS*'),domains)
   gridExtra::grid.table(domains_extend[1],cols='Domain',rows=0:(nrow(domains_extend)-1))
 
