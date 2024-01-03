@@ -64,10 +64,8 @@ Then in the R console run:
 
 
 ```r
-library(devtools)
-
-devtools::install_github("yourusername/demopkg")
-
+install.packages("devtools")
+devtools::install_github("aim-rsf/browseMetadata")
 library('browseMetadata')
 ```
 
@@ -124,8 +122,7 @@ To build the documentation files:
 
 To cite package ‘browseMetadata’ in publications use:
 
-> Stickland R (2024). _browseMetadata: Maps domains to varaibles within
-  a dataset (SAIL databank)_. R package version 0.1.0.
+> Stickland R (2024). browseMetadata: Maps domains to varaibles within a dataset (SAIL databank)_. R package version 0.1.0.
 
 A BibTeX entry for LaTeX users is
 
