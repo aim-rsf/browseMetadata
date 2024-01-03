@@ -3,56 +3,29 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This R package is created to help a researcher browse the datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the meta data, and start to address such questions as:
+This `R` package was created to help a researcher browse the health datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the metadata, and start to address such questions as:
 
 :question: what datasets are available?
 
 :question: what datasets do I need for my research question?
 
-:question: which variables within these datasets map onto my domains of interest (latent concepts)?
+:question: which variables within these datasets map onto my research domains of interest? (e.g. socioeconomic factors, childhood adverse events, medical diagnoses, culture and community)
 
 ## What does the R package do?
 
-This R package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. 
+This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. 
 
-If a researcher wants to access datasets within SAIL databank, how do they know which variables will represent the concepts they care about for their research question? There is a lot of meta data already publicly available on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This demo package uses this meta data, loads it up into R, and gets the user to browse through each dataset and variable. The user is asked to categorise each variable into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
+If a researcher wants to access datasets within SAIL databank, how do they know which variables will represent the concepts they care about for their research question? For many health datasets, including SAIL, the metadata is publicly available. This `R` package uses the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This `R` package has a function which takes a metadata file as input and facilitates the process of browsing through each dataset and variable. The user is asked to categorise each variable into a domain related to their research question, and these categorisations get saved in a csv file for later reference. To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age).
 
-🚧 :warning: This package is in early development, and has only been tested on a limited number of metadata files.
+🚧 :warning: This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for **any dataset listed on the Health Data Research Gateway (not just SAIL)** as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank. 
 
-## Beyond SAIL Databank 
+## Getting started with metadata 
 
-In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank. 
+There are many existing tools that allow you to browse metadata for health datasets. These are listed in the [RESOURCES.md](RESOURCES.md) file in this repository. 
 
-## Getting started with meta data 
-There are many existing tools that allow you to browse meta data for health datasets. 
+:bulb: These tools may be sufficient for you to address the example questions listed above. 
 
-:bulb: These tools may be sufficient for you to address the questions listed above. 
-
-📢 There are more tools out there. If you know of a tool that has wide scope for health meta data, please request we add it here!
-
-### [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
-
-> It is "managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance."
-
-> It is "a search-engine or ‘portal’ to help you find health datasets that exist in the UK"
-
-> "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance."
-
-The is the source of metadata for this R package `browseMetadata`.
-
-A realted resource from HDRUK is the [Phenotype Library](https://phenotypes.healthdatagateway.org), "a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records." See also the [Concept Library](https://conceptlibrary.saildatabank.com) developed by the SAIL databank team and collaborating organisations. 
-    
-### [British Heart Foundation Data Science Centre (BHF DSC) Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
-
-> It offers "an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales"
-
-This dashboard allows you to explore data dictionaries, data coverage and data completeness.
-
-### [Office for National Statistics (ONS) Secure Research Service (SRS) Metadata Catalogue](https://ons.metadata.works/)
-
-Metadata for datasets within the ONS SRS. It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
-
-## Getting started with this R package `browseMetadata`
+## Getting started with this `R` package `browseMetadata`
 
 ### Install 
 
