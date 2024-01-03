@@ -28,16 +28,20 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
     # If both json_file and domain_file are NULL, use demo data
     meta_json <- get('json_metdata')
     domains <- get('domains_list')
-    cat('\nRunning domain_mapping in demo mode using package data files')
-
+    DomainListDesc <- 'DemoList'
+    cat('\n')
+    cli_alert_info('Running domain_mapping in demo mode using package data files')
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
-    stop("Please provide both json_file and domain_file (or neither file, to run in demo mode)")
+    cat('\n')
+    cli_alert_danger('Please provide both json_file and domain_file (or neither file, to run in demo mode)')
+    stop()
   } else {
     # Read in the json file containing the meta data
     meta_json <- rjson::fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file,header = FALSE)
+    DomainListDesc <- tools::file_path_sans_ext(basename(domain_file))
   }
 
   # Present domains plots panel for user's reference ----
@@ -52,40 +56,47 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
     User_Initials <- readline(prompt="ENTER INITIALS: ")
   }
 
-  DomainListDesc <- ""
-  while (DomainListDesc == "") {
+  # Print information about Data Asset ----
+  cli_h1("Data Asset Name")
+  cat(meta_json$dataModel$label,fill=TRUE)
+  cli_h1("Data Asset Last Updated")
+  cat(meta_json$dataModel$lastUpdated,fill=TRUE)
+  cli_h1("Data Asset File Exported By")
+  cat(meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn,fill=TRUE)
+  nDataClasses <- length(meta_json$dataModel$childDataClasses)
+  cat('\n')
+  cli_alert_info("Found {nDataClasses} Data Class{?es} ({nDataClasses} table{?s}) in this Data Asset")
+  cat('\n')
+
+  dataasset_desc <- ""
+  while (dataasset_desc != "Y" & dataasset_desc != "N") {
     cat("\n \n")
-    DomainListDesc <- readline(prompt="PROVIDE SOME DESCRIPTION OF DOMAIN LIST USED (version number, created by): ")
+    dataasset_desc <- readline(prompt="Would you like to read a description of the Data Asset? (Y/N) ")
   }
 
-  # Print information about Data Asset ----
-  print_colour("\nData Asset Name \n",'br_violet')
-  cat(meta_json$dataModel$label,fill=TRUE)
-  print_colour("Data Asset Last Updated \n",'br_violet')
-  cat(meta_json$dataModel$lastUpdated,fill=TRUE)
-  print_colour("Data Asset Exported \n",'br_violet')
-  cat("By", meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn,fill=TRUE)
-  nDataClasses <- length(meta_json$dataModel$childDataClasses)
-  print_colour(sprintf("There are %s Data Classes (tables) in this Data Asset\n\n",nDataClasses),'br_violet')
-
-  dataasset_desc <- readline(prompt="Would you like to read a description of the Data Asset? (Y/N) ")
   if (dataasset_desc == "Y") {
-    print_colour("Data Asset Description \n",'br_violet')
+    cli_h1("Data Asset Description")
     cat(meta_json$dataModel$description,fill=TRUE)
     readline(prompt="Press [enter] to proceed")
   }
 
   # Extract each DataClass (Table)
   for (dc in 1:nDataClasses) {
-    print_colour(sprintf("\n\nProcessing Data Class (Table) %s of %s \n",dc,nDataClasses),'br_violet')
-    print_colour("\nData Class Name \n",'br_violet')
+    cat('\n')
+    cli_alert_info("Processing Data Class (Table) {dc} of {nDataClasses}")
+    cli_h1("Data Class Name")
     cat(meta_json$dataModel$childDataClasses[[dc]]$label,fill=TRUE)
-    print_colour("Data Class Last Updated\n",'br_violet')
+    cli_h1("Data Class Last Updated")
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated,'\n',fill=TRUE)
 
-    dataclass_desc <- readline(prompt="Would you like to read a description of the Data Class (Table)? (Y/N) ")
+    dataclass_desc <- ""
+    while (dataclass_desc != "Y" & dataclass_desc != "N") {
+      cat("\n \n")
+      dataclass_desc <- readline(prompt="Would you like to read a description of the Data Class (Table)? (Y/N) ")
+    }
+
     if (dataclass_desc == "Y") {
-      print_colour("Data Class Description \n",'br_violet')
+      cli_h1("Data Class Description")
       cat(meta_json$dataModel$childDataClasses[[dc]]$description,fill=TRUE)
       readline(prompt="Press [enter] to proceed")
     }
@@ -199,7 +210,9 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
       } else {
 
         # user response
-        cat(paste("\nDATA ELEMENT -----> ",selectDataClass_df$Label[datavar],"\n\nDESCRIPTION -----> ",selectDataClass_df$Description[datavar],"\n\nDATA TYPE -----> ",selectDataClass_df$Type[datavar],"\n"))
+        cat(paste("\nDATA ELEMENT -----> ",selectDataClass_df$Label[datavar],
+                  "\n\nDESCRIPTION -----> ",selectDataClass_df$Description[datavar],
+                  "\n\nDATA TYPE -----> ",selectDataClass_df$Type[datavar],"\n"))
 
         decision <- ""
         while (decision == "") {
@@ -233,10 +246,14 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
     # Save file & print the responses to be saved
     Output[Output == ''] <- NA
     utils::write.csv(Output, output_fname, row.names=FALSE)  #save as we go in case session terminates prematurely
-    cat("\n \n The below responses will be saved to", output_fname,"\n \n")
+    cat("\n")
+    cli_alert_info("The below responses will be saved to {output_fname}")
+    cat("\n")
     print(Output[,c("DataClass","DataElement","Domain_code","Note")])
   }
 
-  print_colour("\n\nPlease check the auto categorised data elements are accurate!\nManually edit csv file to correct errors, if needed.\n",'bg_yellow')
+  cat("\n \n")
+  cli_alert_warning("Please check the auto categorised data elements are accurate!")
+  cli_alert_warning("Manually edit csv file to correct errors, if needed.")
 }
 
