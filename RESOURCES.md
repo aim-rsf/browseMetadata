@@ -26,4 +26,4 @@ A related resource from HDRUK is the [Phenotype Library](https://phenotypes.heal
 
 ## Tell us about a resource
 
-There are more tools out there. If you know of a tool that has wide scope for health meta data, please request we add it here!
+There are more tools and resources out there. If you know of a resource that offers accessible health metadata with good breadth and/or depth of coverage, please request we add it here!
