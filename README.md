@@ -21,9 +21,7 @@ If a researcher wants to access datasets within SAIL databank, how do they know 
 
 ## Getting started with metadata 
 
-There are many existing tools that allow you to browse metadata for health datasets. These are listed in the [RESOURCES.md](RESOURCES.md) file in this repository. 
-
-:bulb: These tools may be sufficient for you to address the example questions listed above. 
+There are many existing tools that allow you to browse metadata for health datasets. These are listed in the [RESOURCES.md](RESOURCES.md) file in this repository. :bulb: These tools may be sufficient for you to address the example questions listed above. 
 
 ## Getting started with this `R` package `browseMetadata`
 
