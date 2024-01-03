@@ -21,5 +21,4 @@ Imports:
     ggplot2,
     grid,
     gridExtra,
-    insight,
     rjson
