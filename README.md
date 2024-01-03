@@ -121,13 +121,13 @@ To build the documentation files:
 
 To cite package ‘browseMetadata’ in publications use:
 
-> Stickland R (2024). browseMetadata: Maps domains to varaibles within a dataset (SAIL databank)_. R package version 0.1.0.
+> Stickland R (2024). browseMetadata: Maps domains to varaibles within a dataset. R package version 0.1.0.
 
 A BibTeX entry for LaTeX users is
 
 ```
   @Manual{,
-    title = {browseMetadata: Maps domains to varaibles within a dataset (SAIL databank)},
+    title = {browseMetadata: Maps domains to varaibles within a dataset},
     author = {Rachael Stickland},
     year = {2024},
     note = {R package version 0.1.0},
