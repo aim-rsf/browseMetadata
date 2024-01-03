@@ -17,12 +17,11 @@
 #'# Reference the plot tab and categorise each variable into a single ('1') or multiple  ('1,2') domain.
 #'# Write a note explaining your category choice (optional).
 #'@export
+#'@importFrom graphics plot.new
+#'@importFrom utils read.csv write.csv
+
 domain_mapping <- function(json_file= NULL,domain_file= NULL) {
 
-  library(rjson)
-  library(gridExtra)
-  library(grid)
-  library(insight)
 
     # Load data: Check if demo data should be used
   if (is.null(json_file) && is.null(domain_file)) {
@@ -36,15 +35,15 @@ domain_mapping <- function(json_file= NULL,domain_file= NULL) {
     stop("Please provide both json_file and domain_file (or neither file, to run in demo mode)")
   } else {
     # Read in the json file containing the meta data
-    meta_json <- fromJSON(file = json_file)
+    meta_json <- rjson::fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file,header = FALSE)
   }
 
   # Present domains plots panel for user's reference ----
-  plot.new()
+  grid::plot.new()
   domains_extend <- rbind(c('*NO MATCH / UNSURE*'),c('*METADATA*'), c('*ALF ID*'),c('*OTHER ID*'),c('*DEMOGRAPHICS*'),domains)
-  grid.table(domains_extend[1],cols='Domain',rows=0:(nrow(domains_extend)-1))
+  gridExtra::grid.table(domains_extend[1],cols='Domain',rows=0:(nrow(domains_extend)-1))
 
   # Get user and demo list info for log file ----
   User_Initials <- ""
