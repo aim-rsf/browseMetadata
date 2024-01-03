@@ -2,7 +2,6 @@
 
 export(domain_mapping)
 import(devtools)
-import(ggplot2)
 import(grid)
 import(gridExtra)
 import(insight)
