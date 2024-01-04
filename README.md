@@ -27,12 +27,7 @@ There are many existing tools that allow you to browse metadata for health datas
 
 ### Install 
 
-Download/clone this repository to your computer.
-
-Install required packages: `devtools`, `gridExtra`, `grid`, `insight`, `rjson`
-
-Then in the R console run:
-
+Run in the R console:
 
 ```r
 install.packages("devtools")
