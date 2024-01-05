@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: 
     person("Rachael", "Stickland", email = "rstickland@turing.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3398-4272"))
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
-Description: This package currently contains one function, domain_mapping
+Description: This package currently contains one function, domain_mapping.
     This function takes two inputs which are a metadata file that has been downloaded in json format from modelcatalogue.cs.ox.ac.uk/hdruk_live
     and a csv file (created by the user, that lists research domains of interest. 
     The function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains. 
