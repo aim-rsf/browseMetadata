@@ -4,9 +4,9 @@
 \name{browseMetadata-package}
 \alias{browseMetadata}
 \alias{browseMetadata-package}
-\title{browseMetadata: A package for browsing metadata}
+\title{browseMetadata}
 \description{
-Maps domains to varaibles within a dataset such as SAIL databank.
+Browses available metadata, to catergorise/label each variable in a dataset.
 }
 \author{
 \strong{Maintainer}: Rachael Stickland \email{rstickland@turing.ac.uk} (\href{https://orcid.org/0000-0003-3398-4272}{ORCID})
