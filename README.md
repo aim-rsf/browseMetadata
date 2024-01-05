@@ -87,7 +87,7 @@ To build the documentation files:
 
 To cite package ‘browseMetadata’ in publications use:
 
-> Stickland R (2024). browseMetadata: Maps domains to variables within a dataset. R package version 0.1.0.
+> Stickland R (2024). browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset. R package version 0.1.0.
 
 A BibTeX entry for LaTeX users is
 
