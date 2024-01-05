@@ -2,6 +2,8 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
 
 This `R` package was created to help a researcher browse the health datasets in the [SAIL databank](https://saildatabank.com). It is intended to be useful in the *earlier* stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the metadata, and start to address such questions as:
 
