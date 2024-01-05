@@ -1,6 +1,6 @@
 Package: browseMetadata
 Type: Package
-Title: Maps domains to variables within a dataset
+Title: Browses available metadata, to catergorise/label each variable in a dataset. 
 Version: 0.1.0
 Authors@R: 
     person("Rachael", "Stickland", email = "rstickland@turing.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3398-4272"))
