@@ -7,19 +7,19 @@
 domain_mapping(json_file = NULL, domain_file = NULL)
 }
 \arguments{
-\item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file.}
+\item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.}
 
-\item{domain_file}{The domain list file. This should be a csv file created by the user, with each domain listed on a separate line within quotation marks.}
+\item{domain_file}{The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.}
 }
 \value{
 The function will return a log file with the mapping between dataset variables and domains, alongside details about the dataset.
 }
 \description{
-This function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains.
-The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. 
+This function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains.\cr \cr
+The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
 A log file will be saved with the catergorisations made. 
 To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables;
-these auto-categorisations should be verified by the user by checking the csv log file. 
+these auto-categorisations should be verified by the user by checking the csv log file. \cr \cr
 Example inputs are provided within the package data, for the user to run this function in a demo mode.
 }
 \examples{
