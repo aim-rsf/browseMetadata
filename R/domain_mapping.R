@@ -1,12 +1,14 @@
 #' domain_mapping
 #'
-#'This function will read in the meta-data of a Data Asset obtained from metadata catalogue: https://modelcatalogue.cs.ox.ac.uk/hdruk_live.
-#'It will loop through all the Data Elements (variable names) in each Data Class (table), and ask you to categorise each variable into one of your chosen domains.
-#'Information about the Data Asset and Data Class can be displayed to the command window for reference.
-#'The domains will appear in the Plots tab, with the labels you should use for the categorisation.
+#'This function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains.
+#'The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. 
+#'A log file will be saved with the catergorisations made. 
+#'To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables;
+#'these auto-categorisations should be verified by the user by checking the csv log file. 
+#'Example inputs are provided within the package data, for the user to run this function in a demo mode.
 #'@param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file.
-#'@param domain_file The file that lists the domains of interest to be used within the research study, provided as a csv with each domain on a separate line, within quotations.
-#'@return The function will return a log file with your mapping between variables and domains, alongside details about the Data Asset.
+#'@param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line within quotation marks.
+#'@return The function will return a log file with the mapping between dataset variables and domains, alongside details about the dataset.
 #'@examples
 #'# Run in demo mode by providing no inputs: domain_mapping()
 #'# Demo mode will use the /data files provided in this package
