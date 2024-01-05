@@ -1,6 +1,6 @@
-#' browseMetadata: A package for browsing metadata
+#' browseMetadata
 #'
-#' Maps domains to varaibles within a dataset such as SAIL databank.
+#' Browses available metadata, to catergorise/label each variable in a dataset.
 #'
 #' @import devtools grid gridExtra rjson cli
 #' @importFrom graphics plot.new
