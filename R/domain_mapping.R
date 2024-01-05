@@ -7,7 +7,7 @@
 #'these auto-categorisations should be verified by the user by checking the csv log file. 
 #'Example inputs are provided within the package data, for the user to run this function in a demo mode.
 #'@param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file.
-#'@param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line within quotation marks.
+#'@param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See data-raw/domain_list_demo.csv for a template.
 #'@return The function will return a log file with the mapping between dataset variables and domains, alongside details about the dataset.
 #'@examples
 #'# Run in demo mode by providing no inputs: domain_mapping()
