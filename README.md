@@ -27,17 +27,12 @@ There are many existing tools that allow you to browse metadata for health datas
 
 ### Install 
 
-Download/clone this repository to your computer.
+Run in the R console:
 
-Install required packages: `devtools`, `gridExtra`, `grid`, `insight`, `rjson`
-
-Then in the R console run:
-
-`library(devtools)`
-
-`load_all("/path-to-repo/browseMetadata")`
-
-`library('browseMetadata')`
+```r
+install.packages("devtools")
+devtools::install_github("aim-rsf/browseMetadata")
+```
 
 ### Example run through 
 Execute `?domain_mapping` in the R console to read the documentation.
@@ -87,6 +82,24 @@ To load the package data:
 To build the documentation files:
 `library(roxygen2)`
 `roxygenise()`
+
+## Citation
+
+To cite package ‘browseMetadata’ in publications use:
+
+> Stickland R (2024). browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset. R package version 0.1.0.
+
+A BibTeX entry for LaTeX users is
+
+```
+  @Manual{,
+    title = {browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset},
+    author = {Rachael Stickland},
+    year = {2024},
+    note = {R package version 0.1.0},
+  }
+```
+
 
 ### Contributors ✨
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)  specification, using the ([emoji key](https://allcontributors.org/docs/en/emoji-key)). Contributions of any kind welcome!
