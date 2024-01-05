@@ -1,4 +1,4 @@
-#' browseMetadata: A package for browsing metadata
+#' browseMetadata
 #'
 #' Maps domains to varaibles within a dataset such as SAIL databank.
 #'
