@@ -7,7 +7,7 @@ Authors@R:
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
 Description: This package currently contains one function, domain_mapping.
     This function takes two inputs. One input is a metadata file that has been downloaded in json format from modelcatalogue.cs.ox.ac.uk/hdruk_live.
-    and a csv file (created by the user, that lists research domains of interest. 
+    The second input is a csv file created by the user, that lists research domains of interest. 
     The function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains. 
     The domains will appear in the Plots tab and information about the dataset will be printed to the R console, for the user's reference in making these categorisations. 
     A log file will be saved with the catergorisations made. To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables; 
