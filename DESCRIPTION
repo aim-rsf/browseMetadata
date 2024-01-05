@@ -24,3 +24,8 @@ Imports:
     grid,
     gridExtra,
     rjson
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://aim-rsf.github.io/browseMetadata/
