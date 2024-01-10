@@ -14,30 +14,87 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Getting started with metadata
+
 There are many existing tools and resources that allow you to browse metadata for health datasets, and we list some of them here:
 
-### [1] [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
+### [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/)
 
-- The metadata used as input for this `R` package `browseMetadata`
+-   The metadata used as input for this `R` package `browseMetadata`
 
-- It is "managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance"
+-   It is "managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance"
 
-- It is "a search-engine or ‘portal’ to help you find health datasets that exist in the UK"
+-   It is "a search-engine or ‘portal’ to help you find health datasets that exist in the UK"
 
-- "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance"
+-   "The datasets that are discoverable through the Gateway are from organisations in the NHS, research institutes and charities, which are part of the UK Health Data Research Alliance"
 
-A related resource from HDRUK is the [Phenotype Library](https://phenotypes.healthdatagateway.org), "a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records." See also the [Concept Library](https://conceptlibrary.saildatabank.com) developed by the SAIL databank team and collaborating organisations. 
-    
-### [2] [British Heart Foundation Data Science Centre (BHF DSC) Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard) 
+A related resource from HDRUK is the [Phenotype Library](https://phenotypes.healthdatagateway.org), "a comprehensive, open access resource providing the research community with information, tools and phenotyping algorithms for UK electronic health records." See also the [Concept Library](https://conceptlibrary.saildatabank.com) developed by the SAIL databank team and collaborating organisations.
 
-- It offers "an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales"
+### [British Heart Foundation Data Science Centre (BHF DSC) Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard)
 
-- This dashboard allows you to explore data dictionaries, data coverage and data completeness.
+-   It offers "an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales"
 
-### [3] [Office for National Statistics (ONS) Secure Research Service (SRS) Metadata Catalogue](https://ons.metadata.works/)
+-   This dashboard allows you to explore data dictionaries, data coverage and data completeness.
 
-- Metadata for datasets within the ONS SRS. It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
+### [Office for National Statistics (ONS) Secure Research Service (SRS) Metadata Catalogue](https://ons.metadata.works/)
 
-## Tell us about a resource
+-   Metadata for datasets within the ONS SRS. It is possible to filter for datasets related to 'Health' by clicking this tag on the first page.
 
 There are more tools and resources out there. If you know of a resource that offers accessible health metadata with good breadth and/or depth of coverage, please request we add it here!
+
+## Getting Started Guide for `browseMetadata` R Package
+
+### Installation Instructions
+
+To install the `browseMetadata` package, follow these steps in your R console:
+
+1.  **Install Devtools Package**
+
+    ``` r
+    install.packages("devtools")
+    ```
+
+2.  **Install `browseMetadata` from GitHub**
+
+    ``` r
+    devtools::install_github("aim-rsf/browseMetadata")
+    ```
+
+### Running an Example
+
+To familiarize yourself with `browseMetadata`, here's a quick guide:
+
+1.  **Accessing Documentation**
+    -   Type `?domain_mapping` in the R console to view the function's documentation.
+2.  **Running a Demo**
+    -   Execute `domain_mapping()` to run the function in demo mode.
+    -   The demo mode uses package data, so no need for your own input files.
+    -   Follow the example provided in the documentation for guidance.
+3.  **Viewing Output**
+    -   Check the Plots tab in R. The domain mappings will be displayed there, providing context for the categorizations.
+
+### Using Your Own Inputs
+
+When using your own data, be aware of these default domain categories:
+
+-   NO MATCH / UNSURE
+-   METADATA
+-   ALF ID
+-   OTHER ID
+-   DEMOGRAPHICS
+
+### Understanding the Log File Output
+
+Each run of the function generates a log file:
+
+-   **Contents**: The log file includes your decisions, the date and time stamp, Data Class, Data Asset, and the initials of the person categorizing.
+
+-   **Structure**: For each Data Element in the DataClass, the log file assigns a 'Domain_code', indicating its domain categorization.
+
+-   **Auto-Categorization**: Some entries are auto-categorized. Please review these for accuracy. Multiple domains can map onto each variable.
+
+-   **Example**: Below is an example log file output (left) alongside the demo domain list used (right).
+
+    ![](images/example-log-file.png)
+
+-   **Usage**: This log file can be used for comparison across users and as an input in later analysis steps to determine variable representation in various domains.
