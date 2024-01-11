@@ -159,37 +159,16 @@ any kind welcome!
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 
-<!-- prettier-ignore-start -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://linkedin.com/in/rstickland-phd"><img src="https://avatars.githubusercontent.com/u/50215726?v=4?s=100" width="100px;" alt="Rachael Stickland"/><br /><sub><b>Rachael Stickland</b></sub></a><br /><a href="#content-RayStick" title="Content">🖋</a> <a href="https://github.com/aim-rsf/browse-metadata/commits?author=RayStick" title="Documentation">📖</a> <a href="#maintenance-RayStick" title="Maintenance">🚧</a> <a href="#ideas-RayStick" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://batool-almarzouq.netlify.app/"><img src="https://avatars.githubusercontent.com/u/53487593?v=4?s=100" width="100px;" alt="Batool Almarzouq"/><br /><sub><b>Batool Almarzouq</b></sub></a><br /><a href="#userTesting-BatoolMM" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browse-metadata/pulls?q=is%3Apr+reviewed-by%3ABatoolMM" title="Reviewed Pull Requests">👀</a> <a href="#ideas-BatoolMM" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Rainiefantasy"><img src="https://avatars.githubusercontent.com/u/43926907?v=4?s=100" width="100px;" alt="Mahwish Mohammad"/><br /><sub><b>Mahwish Mohammad</b></sub></a><br /><a href="#userTesting-Rainiefantasy" title="User Testing">📓</a></td>
+    </tr>
+  </tbody>
+</table>
 
-<!-- markdownlint-disable -->
-
-+----------------------+----------------------+----------------------+
-| [![Rachael           | [![Batool            | [![Mahwish           |
-| Stickland](https     | Almarzouq](http      | Mohammad](http       |
-| ://avatars.githubuse | s://avatars.githubus | s://avatars.githubus |
-| rcontent.com/u/50215 | ercontent.com/u/5348 | ercontent.com/u/4392 |
-| 726?v=4?s=100){alt=" | 7593?v=4?s=100){alt= | 6907?v=4?s=100){alt= |
-| Rachael Stickland"}\ | "Batool Almarzouq"}\ | "Mahwish Mohammad"}\ |
-| ~**Ra                | ~**B                 | ~**Mahwish\ Mohamma  |
-| chael\ Stickland**~] | atool\ Almarzouq**~] | d**~](https://github |
-| (http://linkedin.com | (https://batool-alma | .com/Rainiefantasy)\ |
-| /in/rstickland-phd)\ | rzouq.netlify.app/)\ | [📓](#u              |
-| [🖋](#content         | [📓                  | serTesting-Rainiefan |
-| -RayStick "Content") | ](#userTesting-Bato  | tasy "User Testing") |
-| [📖](htt             | olMM "User Testing") |                      |
-| ps://github.com/aim- | [👀](https:/         |                      |
-| rsf/browse-metadata/ | /github.com/aim-rsf/ |                      |
-| commits?author=RaySt | browse-metadata/pull |                      |
-| ick "Documentation") | s?q=is%3Apr+reviewed |                      |
-| [                    | -by%3ABatoolMM "Revi |                      |
-| 🚧](#maintenance-Ray | ewed Pull Requests") |                      |
-| Stick "Maintenance") | [🤔](#ideas          |                      |
-| [🤔](#ideas          | -BatoolMM "Ideas, Pl |                      |
-| -RayStick "Ideas, Pl | anning, & Feedback") |                      |
-| anning, & Feedback") |                      |                      |
-+----------------------+----------------------+----------------------+
-
-<!-- markdownlint-restore -->
 
 <!-- prettier-ignore-end -->
 
