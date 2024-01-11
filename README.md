@@ -1,11 +1,9 @@
-
 # About `browseMetadata`
-
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
 [![All
 Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 
 This `R` package was created to help a researcher browse the health
 datasets in the [SAIL databank](https://saildatabank.com). It is
