@@ -7,7 +7,6 @@
 Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-
 This `R` package was created to help a researcher browse the health
 datasets in the [SAIL databank](https://saildatabank.com). It is
 intended to be useful in the *earlier* stages of a project, where
@@ -100,7 +99,7 @@ the domains of interest. Notice that some have been auto categorised -
 double check them for accuracy. More than one domain is allowed to map
 onto each variable.
 
-![](https://github-production-user-asset-6210df.s3.amazonaws.com/50215726/268979307-4e2ded4f-f425-418c-b0bc-9a9cec7c6fe7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240110%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240110T150116Z&X-Amz-Expires=300&X-Amz-Signature=e3f02943c068a130dbb6a58e5e17d22afc5425c9235055e73fc9b688ea670c52&X-Amz-SignedHeaders=host&actor_id=53487593&key_id=0&repo_id=675673962)
+![](vignettes/images/example-log-file.png)
 
 The idea would be that this log file could be loaded up, compared across
 users, and used as an input in later analysis steps when working out
@@ -169,7 +168,5 @@ any kind welcome!
   </tbody>
 </table>
 
-
-<!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
