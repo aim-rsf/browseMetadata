@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
 # About `browseMetadata`
 
@@ -11,7 +6,7 @@ editor_options:
 [![All
 Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END --> [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
 
 This `R` package was created to help a researcher browse the health
 datasets in the [SAIL databank](https://saildatabank.com). It is
