@@ -8,6 +8,13 @@
 \description{
 Browses available metadata, to catergorise/label each variable in a dataset.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://aim-rsf.github.io/browseMetadata/}
+}
+
+}
 \author{
 \strong{Maintainer}: Rachael Stickland \email{rstickland@turing.ac.uk} (\href{https://orcid.org/0000-0003-3398-4272}{ORCID})
 

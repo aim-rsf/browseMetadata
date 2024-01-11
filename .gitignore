@@ -30,3 +30,7 @@ venv.bak/
 input_files/*
 output_files/*
 test_code/*
+inst/doc
+/doc/
+/Meta/
+docs
