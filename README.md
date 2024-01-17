@@ -114,19 +114,15 @@ and other kinds of works. For more information, please refer to
 
 ## Contributing changes
 
-You can contribute changes to this repository via submitting an Issue to
-request a change, or create a Pull Request with your direct changes.
+## Contributing
 
-If you are working on changes to the R package:
+Your contributions are what make the browseMetadata community amazing! Whether it's fixing bugs, adding new features, or improving documentation, we welcome your involvement.
 
-To create the .rda files in the data directory of the package:
-`usethis::use_data(dataname)`
+- **Report Issues**: If you find a bug or have a feature request, please report it via [GitHub Issues](https://github.com/aim-rsf/browseMetadata/issues).
+- **Submit Pull Requests**: We welcome pull requests. Please read our [CONTRIBUTING.md](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md) for guidelines on how to make contributions.
+- **Feedback and Suggestions**: We're always looking to improve, and we value feedback and suggestions. Feel free to open an issue to share your thoughts.
 
-To view the package data: `data(package='browseMetadata')`
-
-To load the package data: `data(dataname)`
-
-To build the documentation files: `library(roxygen2)` `roxygenise()`
+For more information on how to contribute, please refer to our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md).
 
 ## Citation
 
