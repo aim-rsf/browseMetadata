@@ -116,7 +116,7 @@ and other kinds of works. For more information, please refer to
 
 ## Contributing
 
-Your contributions are what make the browseMetadata community amazing! Whether it's fixing bugs, adding new features, or improving documentation, we welcome your involvement.
+We warmly welcome contributions to the browseMetadata project. Whether it's fixing bugs, adding new features, or improving documentation, we welcome your involvement. 
 
 - **Report Issues**: If you find a bug or have a feature request, please report it via [GitHub Issues](https://github.com/aim-rsf/browseMetadata/issues).
 - **Submit Pull Requests**: We welcome pull requests. Please read our [CONTRIBUTING.md](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md) for guidelines on how to make contributions.
