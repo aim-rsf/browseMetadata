@@ -112,18 +112,6 @@ The GNU General Public License is a free, copyleft license for software
 and other kinds of works. For more information, please refer to
 <https://www.gnu.org/licenses/gpl-3.0.en.html>.
 
-## Contributing changes
-
-## Contributing
-
-We warmly welcome contributions to the browseMetadata project. Whether it's fixing bugs, adding new features, or improving documentation, we welcome your involvement. 
-
-- **Report Issues**: If you find a bug or have a feature request, please report it via [GitHub Issues](https://github.com/aim-rsf/browseMetadata/issues).
-- **Submit Pull Requests**: We welcome pull requests. Please read our [CONTRIBUTING.md](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md) for guidelines on how to make contributions.
-- **Feedback and Suggestions**: We're always looking to improve, and we value feedback and suggestions. Feel free to open an issue to share your thoughts.
-
-For more information on how to contribute, please refer to our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md).
-
 ## Citation
 
 To cite package ‘browseMetadata’ in publications use:
@@ -141,6 +129,16 @@ A BibTeX entry for LaTeX users is
     note = {R package version 0.1.0},
   }
 ```
+
+## Contributing
+
+We warmly welcome contributions to the browseMetadata project. Whether it's fixing bugs, adding new features, or improving documentation, we welcome your involvement. 
+
+- **Report Issues**: If you find a bug or have a feature request, please report it via [GitHub Issues](https://github.com/aim-rsf/browseMetadata/issues).
+- **Submit Pull Requests**: We welcome pull requests. Please read our [CONTRIBUTING.md](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md) for guidelines on how to make contributions.
+- **Feedback and Suggestions**: We're always looking to improve, and we value feedback and suggestions. Feel free to open an issue to share your thoughts.
+
+For more information on how to contribute, please refer to our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md).
 
 ### Contributors ✨
 
