@@ -138,7 +138,7 @@ We warmly welcome contributions to the browseMetadata project. Whether it's fixi
 - **Submit Pull Requests**: We welcome pull requests. Please read our [CONTRIBUTING.md](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md) for guidelines on how to make contributions.
 - **Feedback and Suggestions**: We're always looking to improve, and we value feedback and suggestions. Feel free to open an issue to share your thoughts.
 
-For more information on how to contribute, please refer to our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/issues/CONTRIBUTING.md).
+For more information on how to contribute, please refer to our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/CONTRIBUTING.md).
 
 ### Contributors ✨
 
