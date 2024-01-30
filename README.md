@@ -76,22 +76,26 @@ devtools::install_github("aim-rsf/browseMetadata")
 
 ### Demo
 
-Execute `?domain_mapping` in the R console to read the documentation.
-This documentation will explain the purpose of the function, and what each input argument is. 
-
-Execute `domain_mapping()` in the R console to run this function in demo mode.
-
+Read the documentation, then run the function in demo mode:
 ``` r
-domain_mapping()
+?domain_mapping
 
+domain_mapping()
+```
+
+The R console will show:
+
+``` 
 ℹ Running domain_mapping in demo mode using package data files
 
 ENTER INITIALS: 
 ```
 
 Respond with your initials and press enter.
+It will ask you if you want to read the description of Data Assets and Data Classes (tables):
 
-```r
+
+```
 ── Data Asset Name ────────────────────────────────────────────────────────────────────
 Maternity Indicators Dataset (MIDS)
 
@@ -105,12 +109,13 @@ Rachael Stickland at 2024-01-05T13:22:09.774Z
 
 Would you like to read a description of the Data Asset? (Y/N)
 ```
-
-It will ask you if you want to read the description of Data Assets and Data Classes (tables). 
+Press Y to read these descriptions, for the purpose of the demo.
 
 For this example, the Data Asset is called MIDS and the tables inside this Data Class are BIRTH and INITIAL_ASSESSMENT.   
 
-```r
+It will then ask which variables to process:
+
+```
 RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS (write as 'start_var,end_var' or press Enter to process all): 1,10
 ```
 
@@ -128,9 +133,10 @@ DATA TYPE ----->  CHARACTER
 
 By referencing the plots tab, and other info you may have, categorise this variable with a number(s).
 A  variable can map to more than one domain.
+
 There is an (optional) note field to explain your choice. 
 
-```r
+```
 CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): 8
 
 NOTES (write 'N' if no notes): N
@@ -169,8 +175,8 @@ The intended use case for this log file is to be loaded up, compared across
 users, and used as an input in later analysis steps when working out
 which variables can be used to represent which research domains.
 
-```r
-ℹ 'The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv'
+```
+ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv
 
    DataClass         DataElement Domain_code                 Note
 1      BIRTH       AVAIL_FROM_DT           1     AUTO CATEGORISED
@@ -185,8 +191,8 @@ which variables can be used to represent which research domains.
 10     BIRTH    CHILD_ALF_STS_CD           2     AUTO CATEGORISED
 ```
 
-```r
-ℹ 'The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_INITIAL_ASSESSMENT_2024-01-30_10-43-05.csv'
+```
+ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_INITIAL_ASSESSMENT_2024-01-30_10-43-05.csv
 
             DataClass                                 DataElement Domain_code                         Note
 1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1             AUTO CATEGORISED
@@ -200,8 +206,8 @@ which variables can be used to represent which research domains.
 9  INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CARE_PLAN_CD           8                            N
 10 INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD           8                            N
  
-! 'Please check the auto categorised data elements are accurate!'
-! 'Manually edit csv file to correct errors, if needed.'
+! Please check the auto categorised data elements are accurate!
+! Manually edit csv file to correct errors, if needed.
 ```
 
 ### Using your own input files 
@@ -217,12 +223,12 @@ Run the code the same as the demo, using your own input files.
 The json file:
 - contains metadata about datasets of interest
 - downloaded from the metadata catalogue 
-- see 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download
+- see [data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json](data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json) for an example download
 - the metadata catalogue refers to datasets as 'data assets' and tables within these as 'data classes' 
 
 The domain_file:	
 - a csv file created by the user, with each domain listed on a separate line
-- see 'data-raw/domain_list_demo.csv' for a template
+- see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
 - the first 5 domains will be auto populated (see demo above)
 
 
