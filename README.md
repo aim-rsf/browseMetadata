@@ -142,7 +142,7 @@ CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): 8
 NOTES (write 'N' if no notes): N
 ```
 
-For this demo, a simple list of domains are provided, see [data_raw/domain_list_demo.csv](data_raw/domain_list_demo.csv).
+For this demo, a simple list of domains are provided, see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv).
 
 This list is in this plot tab:
 
