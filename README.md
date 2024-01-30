@@ -13,7 +13,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 This `R` package was created to help a researcher browse the health
 datasets in the [SAIL databank](https://saildatabank.com). It is
-intended to be useful in the *earlier* stages of a project, where
+intended to be useful in the earlier stages of a project, where
 datasets are being scoped out. When a research team has not yet got
 access to the data they can still browse the metadata, and start to
 address such questions as:
@@ -49,8 +49,8 @@ datasets (e.g. ID, Sex, Age).
 
 🚧 :warning: This package is in early development, and has only been
 tested on a limited number of metadata files. In theory, this package
-should work for **any dataset listed on the Health Data Research Gateway
-(not just SAIL)** as long as a json metadata file can be downloaded. In
+should work for any dataset listed on the Health Data Research Gateway
+(not just SAIL) as long as a json metadata file can be downloaded. In
 practice, it has only been tested on a limited number of metadata files
 for SAIL databank.
 
@@ -58,8 +58,10 @@ for SAIL databank.
 
 There are many existing tools that allow you to browse metadata for
 health datasets. These are listed in the [RESOURCES.md](RESOURCES.md)
-file in this repository. :bulb: These tools may be sufficient for you to
-address the example questions listed above.
+file in this repository. 
+
+**:bulb: These tools may be sufficient for you to
+address the example questions listed above.**
 
 ## Getting started with this `R` package `browseMetadata`
 
@@ -72,42 +74,163 @@ install.packages("devtools")
 devtools::install_github("aim-rsf/browseMetadata")
 ```
 
-### Example run through
+### Demo
 
-Execute `?domain_mapping` in the R console to read the documentation.
+Read the documentation, then run the function in demo mode:
+``` r
+?domain_mapping
 
-Execute `domain_mapping()` in the R console to run this function in demo
-mode. Follow the example in the documentation.
+domain_mapping()
+```
 
-For demo mode, you do not need to provide your own input files. It will
-use the package data.
+The R console will show:
 
-Remember to reference the Plots tab in R. The domains will appear in the
-Plot tab and give you the necessary context for the categorisations.
+``` 
+ℹ Running domain_mapping in demo mode using package data files
 
-When using your own inputs, take note that these domain categories will
-be added to your domain list by default: - NO MATCH / UNSURE -
-METADATA - ALF ID - OTHER ID - DEMOGRAPHICS
+ENTER INITIALS: 
+```
 
-### The log file output
+Respond with your initials and press enter.
+It will ask you if you want to read the description of Data Assets and Data Classes (tables):
 
-Running the function will output a log file with your decisions. An
-example log file output is shown below (left) with the demo domain list
-that was used to create it (right). The name of the log file will
-contain the date and time stamp, as well as Data Class and Data Asset.
-The log file will contain initials of the person making the
-catergorisations, as well as metadata about the dataset. For each Data
-Element (variable) in the DataClass, the log file will contain a
-'Domain_code' which labels this variable as mapping onto one or more of
-the domains of interest. Notice that some have been auto categorised -
-double check them for accuracy. More than one domain is allowed to map
-onto each variable.
 
-![](vignettes/images/example-log-file.png)
+```
+── Data Asset Name ────────────────────────────────────────────────────────────────────
+Maternity Indicators Dataset (MIDS)
 
-The idea would be that this log file could be loaded up, compared across
+── Data Asset Last Updated ────────────────────────────────────────────────────────────
+2023-12-04T14:13:49.131Z
+
+── Data Asset File Exported By ────────────────────────────────────────────────────────
+Rachael Stickland at 2024-01-05T13:22:09.774Z
+
+ℹ Found 2 Data Classes (2 tables) in this Data Asset
+
+Would you like to read a description of the Data Asset? (Y/N)
+```
+Press Y to read these descriptions, for the purpose of the demo.
+
+For this example, the Data Asset is called MIDS and the tables inside this Data Class are BIRTH and INITIAL_ASSESSMENT.   
+
+It will then ask which variables to process:
+
+```
+RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS (write as 'start_var,end_var' or press Enter to process all): 1,10
+```
+
+If you press enter it will process all the variables, so use a smaller number like 10 for this demo.
+
+For each data element (variable) you will be shown this structure:
+
+```
+DATA ELEMENT ----->  SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD 
+
+DESCRIPTION ----->  Code indicating whether or not the woman has an existing mental health condition. 
+
+DATA TYPE ----->  CHARACTER 
+```
+
+By referencing the plots tab, and other info you may have, categorise this variable with a number(s).
+A  variable can map to more than one domain.
+
+There is an (optional) note field to explain your choice. 
+
+```
+CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): 8
+
+NOTES (write 'N' if no notes): N
+```
+
+For this demo, a simple list of domains are provided, see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv).
+
+This list is in this plot tab:
+
+- [0] *NO MATCH / UNSURE*
+- [1] *METADATA*
+- [2] *ALF ID*
+- [3] *OTHER ID*
+- [4] *DEMOGRAPHICS*
+- [5] Socioeconomic factors 
+- [6] Location
+- [7] Education
+- [8] Health
+
+There are 5 default domains always included [0-4], appended on to any domain list given.
+
+For a research study, your domains will likely be more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'.
+
+#### Output
+
+The output of your decisions will be pasted to the R console. 
+These decisions will also be saved to a csv file.
+The csv file name includes the data asset, data class, and date stamp.
+This csv file, in addition to what is shown on the console, contains: 
+- user initials (from user input)
+- metadata version (from json)
+- date time stamp the metadata was last updated (from json) 
+- data asset (from json)
+
+The intended use case for this log file is to be loaded up, compared across
 users, and used as an input in later analysis steps when working out
-which variables can be used to represent which domains.
+which variables can be used to represent which research domains.
+
+```
+ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv
+
+   DataClass         DataElement Domain_code                 Note
+1      BIRTH       AVAIL_FROM_DT           1     AUTO CATEGORISED
+2      BIRTH       BABY_BIRTH_DT           4                    N
+3      BIRTH   BIRTH_APGAR_SCORE           8                    N
+4      BIRTH       BIRTH_MODE_CD           8                    N
+5      BIRTH         BIRTH_ORDER           8                    N
+6      BIRTH    BIRTH_OUTCOME_CD           8                    N
+7      BIRTH      BIRTH_TREAT_CD           0 No description given
+8      BIRTH BIRTH_TREAT_SITE_CD           6                    N
+9      BIRTH         CHILD_ALF_E           2     AUTO CATEGORISED
+10     BIRTH    CHILD_ALF_STS_CD           2     AUTO CATEGORISED
+```
+
+```
+ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_INITIAL_ASSESSMENT_2024-01-30_10-43-05.csv
+
+            DataClass                                 DataElement Domain_code                         Note
+1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1             AUTO CATEGORISED
+2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                            N
+3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8         Date of health visit
+4  INITIAL_ASSESSMENT                              MAT_AGE_AT_ASS           4             AUTO CATEGORISED
+5  INITIAL_ASSESSMENT                                MOTHER_ALF_E           2             AUTO CATEGORISED
+6  INITIAL_ASSESSMENT                           MOTHER_ALF_STS_CD           2             AUTO CATEGORISED
+7  INITIAL_ASSESSMENT                                     PROV_CD         6,8 Org code for health provider
+8  INITIAL_ASSESSMENT                     SERVICE_USER_GRAVIDA_CD           8                            N
+9  INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CARE_PLAN_CD           8                            N
+10 INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD           8                            N
+ 
+! Please check the auto categorised data elements are accurate!
+! Manually edit csv file to correct errors, if needed.
+```
+
+### Using your own input files 
+
+```r
+domain_mapping(json_file, domain_file)
+```
+
+This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues). 
+
+Run the code the same as the demo, using your own input files. 
+
+The json file:
+- contains metadata about datasets of interest
+- downloaded from the metadata catalogue 
+- see [data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json](data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json) for an example download
+- the metadata catalogue refers to datasets as 'data assets' and tables within these as 'data classes' 
+
+The domain_file:	
+- a csv file created by the user, with each domain listed on a separate line
+- see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
+- the first 5 domains will be auto populated (see demo above)
+
 
 ## License
 
