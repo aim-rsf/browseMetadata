@@ -72,7 +72,7 @@
 <p><a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square" alt="All Contributors"></a> <!-- ALL-CONTRIBUTORS-BADGE:END --></p>
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></p>
 <p><a href="https://doi.org/10.5281/zenodo.10581500" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg" alt="DOI"></a></p>
-<p>This <code>R</code> package was created to help a researcher browse the health datasets in the <a href="https://saildatabank.com" class="external-link">SAIL databank</a>. It is intended to be useful in the <em>earlier</em> stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the metadata, and start to address such questions as:</p>
+<p>This <code>R</code> package was created to help a researcher browse the health datasets in the <a href="https://saildatabank.com" class="external-link">SAIL databank</a>. It is intended to be useful in the earlier stages of a project, where datasets are being scoped out. When a research team has not yet got access to the data they can still browse the metadata, and start to address such questions as:</p>
 <p><span class="emoji" data-emoji="question">❓</span> what datasets are available?</p>
 <p><span class="emoji" data-emoji="question">❓</span> what datasets do I need for my research question?</p>
 <p><span class="emoji" data-emoji="question">❓</span> which variables within these datasets map onto my research domains of interest? (e.g. socioeconomic factors, childhood adverse events, medical diagnoses, culture and community)</p>
@@ -81,12 +81,13 @@
 </h2>
 <p>This <code>R</code> package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research.</p>
 <p>If a researcher wants to access datasets within SAIL databank, how do they know which variables will represent the concepts they care about for their research question? For many health datasets, including SAIL, the metadata is publicly available. This <code>R</code> package uses the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Gateway</a> and the connected <a href="https://modelcatalogue.cs.ox.ac.uk/hdruk_live/" class="external-link">Metadata Catalogue</a>. This <code>R</code> package has a function which takes a metadata file as input and facilitates the process of browsing through each dataset and variable. The user is asked to categorise each variable into a domain related to their research question, and these categorisations get saved in a csv file for later reference. To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age).</p>
-<p>🚧 <span class="emoji" data-emoji="warning">⚠️</span> This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for <strong>any dataset listed on the Health Data Research Gateway (not just SAIL)</strong> as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.</p>
+<p>🚧 <span class="emoji" data-emoji="warning">⚠️</span> This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.</p>
 </div>
 <div class="section level2">
 <h2 id="getting-started-with-metadata">Getting started with metadata<a class="anchor" aria-label="anchor" href="#getting-started-with-metadata"></a>
 </h2>
-<p>There are many existing tools that allow you to browse metadata for health datasets. These are listed in the <a href="RESOURCES.html">RESOURCES.md</a> file in this repository. <span class="emoji" data-emoji="bulb">💡</span> These tools may be sufficient for you to address the example questions listed above.</p>
+<p>There are many existing tools that allow you to browse metadata for health datasets. These are listed in the <a href="RESOURCES.html">RESOURCES.md</a> file in this repository.</p>
+<p><strong><span class="emoji" data-emoji="bulb">💡</span> These tools may be sufficient for you to address the example questions listed above.</strong></p>
 </div>
 <div class="section level2">
 <h2 id="getting-started-with-this-r-package-browsemetadata">Getting started with this <code>R</code> package <code>browseMetadata</code>
@@ -101,20 +102,112 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aim-rsf/browseMetadata"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="example-run-through">Example run through<a class="anchor" aria-label="anchor" href="#example-run-through"></a>
+<h3 id="demo">Demo<a class="anchor" aria-label="anchor" href="#demo"></a>
 </h3>
-<p>Execute <code><a href="reference/domain_mapping.html">?domain_mapping</a></code> in the R console to read the documentation.</p>
-<p>Execute <code><a href="reference/domain_mapping.html">domain_mapping()</a></code> in the R console to run this function in demo mode. Follow the example in the documentation.</p>
-<p>For demo mode, you do not need to provide your own input files. It will use the package data.</p>
-<p>Remember to reference the Plots tab in R. The domains will appear in the Plot tab and give you the necessary context for the categorisations.</p>
-<p>When using your own inputs, take note that these domain categories will be added to your domain list by default: - NO MATCH / UNSURE - METADATA - ALF ID - OTHER ID - DEMOGRAPHICS</p>
+<p>Read the documentation, then run the function in demo mode:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">domain_mapping</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>The R console will show:</p>
+<pre><code>ℹ Running domain_mapping in demo mode using package data files
+
+ENTER INITIALS: </code></pre>
+<p>Respond with your initials and press enter. It will ask you if you want to read the description of Data Assets and Data Classes (tables):</p>
+<pre><code>── Data Asset Name ────────────────────────────────────────────────────────────────────
+Maternity Indicators Dataset (MIDS)
+
+── Data Asset Last Updated ────────────────────────────────────────────────────────────
+2023-12-04T14:13:49.131Z
+
+── Data Asset File Exported By ────────────────────────────────────────────────────────
+Rachael Stickland at 2024-01-05T13:22:09.774Z
+
+ℹ Found 2 Data Classes (2 tables) in this Data Asset
+
+Would you like to read a description of the Data Asset? (Y/N)</code></pre>
+<p>Press Y to read these descriptions, for the purpose of the demo.</p>
+<p>For this example, the Data Asset is called MIDS and the tables inside this Data Class are BIRTH and INITIAL_ASSESSMENT.</p>
+<p>It will then ask which variables to process:</p>
+<pre><code>RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS (write as 'start_var,end_var' or press Enter to process all): 1,10</code></pre>
+<p>If you press enter it will process all the variables, so use a smaller number like 10 for this demo.</p>
+<p>For each data element (variable) you will be shown this structure:</p>
+<pre><code>DATA ELEMENT -----&gt;  SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD 
+
+DESCRIPTION -----&gt;  Code indicating whether or not the woman has an existing mental health condition. 
+
+DATA TYPE -----&gt;  CHARACTER </code></pre>
+<p>By referencing the plots tab, and other info you may have, categorise this variable with a number(s). A variable can map to more than one domain.</p>
+<p>There is an (optional) note field to explain your choice.</p>
+<pre><code>CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): 8
+
+NOTES (write 'N' if no notes): N</code></pre>
+<p>For this demo, a simple list of domains are provided, see <a href="data-raw/domain_list_demo.csv">data-raw/domain_list_demo.csv</a>.</p>
+<p>This list is in this plot tab:</p>
+<ul>
+<li>[0] <em>NO MATCH / UNSURE</em>
+</li>
+<li>[1] <em>METADATA</em>
+</li>
+<li>[2] <em>ALF ID</em>
+</li>
+<li>[3] <em>OTHER ID</em>
+</li>
+<li>[4] <em>DEMOGRAPHICS</em>
+</li>
+<li>[5] Socioeconomic factors</li>
+<li>[6] Location</li>
+<li>[7] Education</li>
+<li>[8] Health</li>
+</ul>
+<p>There are 5 default domains always included [0-4], appended on to any domain list given.</p>
+<p>For a research study, your domains will likely be more specific e.g. ‘Prenatal, antenatal, neonatal and birth’ or ‘Health behaviours and diet’.</p>
+<div class="section level4">
+<h4 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
+</h4>
+<p>The output of your decisions will be pasted to the R console. These decisions will also be saved to a csv file. The csv file name includes the data asset, data class, and date stamp. This csv file, in addition to what is shown on the console, contains: - user initials (from user input) - metadata version (from json) - date time stamp the metadata was last updated (from json) - data asset (from json)</p>
+<p>The intended use case for this log file is to be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which research domains.</p>
+<pre><code>ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv
+
+   DataClass         DataElement Domain_code                 Note
+1      BIRTH       AVAIL_FROM_DT           1     AUTO CATEGORISED
+2      BIRTH       BABY_BIRTH_DT           4                    N
+3      BIRTH   BIRTH_APGAR_SCORE           8                    N
+4      BIRTH       BIRTH_MODE_CD           8                    N
+5      BIRTH         BIRTH_ORDER           8                    N
+6      BIRTH    BIRTH_OUTCOME_CD           8                    N
+7      BIRTH      BIRTH_TREAT_CD           0 No description given
+8      BIRTH BIRTH_TREAT_SITE_CD           6                    N
+9      BIRTH         CHILD_ALF_E           2     AUTO CATEGORISED
+10     BIRTH    CHILD_ALF_STS_CD           2     AUTO CATEGORISED</code></pre>
+<pre><code>ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_INITIAL_ASSESSMENT_2024-01-30_10-43-05.csv
+
+            DataClass                                 DataElement Domain_code                         Note
+1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1             AUTO CATEGORISED
+2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                            N
+3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8         Date of health visit
+4  INITIAL_ASSESSMENT                              MAT_AGE_AT_ASS           4             AUTO CATEGORISED
+5  INITIAL_ASSESSMENT                                MOTHER_ALF_E           2             AUTO CATEGORISED
+6  INITIAL_ASSESSMENT                           MOTHER_ALF_STS_CD           2             AUTO CATEGORISED
+7  INITIAL_ASSESSMENT                                     PROV_CD         6,8 Org code for health provider
+8  INITIAL_ASSESSMENT                     SERVICE_USER_GRAVIDA_CD           8                            N
+9  INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CARE_PLAN_CD           8                            N
+10 INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD           8                            N
+ 
+! Please check the auto categorised data elements are accurate!
+! Manually edit csv file to correct errors, if needed.</code></pre>
+</div>
 </div>
 <div class="section level3">
-<h3 id="the-log-file-output">The log file output<a class="anchor" aria-label="anchor" href="#the-log-file-output"></a>
+<h3 id="using-your-own-input-files">Using your own input files<a class="anchor" aria-label="anchor" href="#using-your-own-input-files"></a>
 </h3>
-<p>Running the function will output a log file with your decisions. An example log file output is shown below (left) with the demo domain list that was used to create it (right). The name of the log file will contain the date and time stamp, as well as Data Class and Data Asset. The log file will contain initials of the person making the catergorisations, as well as metadata about the dataset. For each Data Element (variable) in the DataClass, the log file will contain a ‘Domain_code’ which labels this variable as mapping onto one or more of the domains of interest. Notice that some have been auto categorised - double check them for accuracy. More than one domain is allowed to map onto each variable.</p>
-<p><img src="articles/images/example-log-file.png"></p>
-<p>The idea would be that this log file could be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which domains.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span><span class="op">)</span></span></code></pre></div>
+<p>This code is in early development. To see known bugs or sub-optimal features refer to the <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">Issues</a>.</p>
+<p>Run the code the same as the demo, using your own input files.</p>
+<p>The json file: - contains metadata about datasets of interest - downloaded from the metadata catalogue - see <a href="data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json">data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json</a> for an example download - the metadata catalogue refers to datasets as ‘data assets’ and tables within these as ‘data classes’</p>
+<p>The domain_file:<br>
+- a csv file created by the user, with each domain listed on a separate line - see <a href="data-raw/domain_list_demo.csv">data-raw/domain_list_demo.csv</a> for a template - the first 5 domains will be auto populated (see demo above)</p>
 </div>
 </div>
 <div class="section level2">
