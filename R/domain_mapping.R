@@ -211,7 +211,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
         decision <- ""
         while (decision == "") {
           cat("\n \n")
-          decision <- readline(prompt = "CATEGORISE THIS VARIABLE (input a comma seperated list of domain numbers): ")
+          decision <- readline(prompt = "CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): ")
         }
 
         decision_note <- ""
