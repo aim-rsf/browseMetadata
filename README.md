@@ -8,6 +8,9 @@ Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=f
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg)](https://doi.org/10.5281/zenodo.10581500)
+
+
 This `R` package was created to help a researcher browse the health
 datasets in the [SAIL databank](https://saildatabank.com). It is
 intended to be useful in the earlier stages of a project, where
@@ -247,6 +250,7 @@ A BibTeX entry for LaTeX users is
     author = {Rachael Stickland},
     year = {2024},
     note = {R package version 0.1.0},
+    doi = {https://doi.org/10.5281/zenodo.10581500},
   }
 ```
 
