@@ -173,7 +173,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
         Output$Domain_code[datavar] <- "2"
         Output$Note[datavar] <- "AUTO CATEGORISED"
       } else if (grepl("_ID_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) { # picking up generic IDs
-
         Output[nrow(Output) + 1, ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
         Output$Domain_code[datavar] <- "3"
@@ -239,16 +238,51 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
       utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
     } # end of loop for variable
 
-    # Print the AUTO CATEGORISED responses for this DataClass
-    Output_auto <- filter(Output,Note =='AUTO CATEGORISED')
-
+    # Print the AUTO CATEGORISED responses for this DataClass - request review
+    Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     cat("\n \n")
-    cli_alert_warning("Please check the auto categorised data elements are accurate!")
-    cli_alert_warning("Manually edit csv file to correct errors, if needed.")
-
+    cli_alert_warning("Please check the auto categorised data elements are accurate:")
+    cat("\n \n")
     print(Output_auto[, c("DataClass", "DataElement", "Domain_code")])
+    cat("\n \n")
+    auto_row_str <- readline(prompt = "Enter row numbers you'd like to change (for example: 1,5,10) or press enter to accept the auto categorisations: ")
 
-    # Save final categorisations for this data class
+    if (auto_row_str != "") {
+
+      auto_row <- as.integer(unlist(strsplit(auto_row_str,","))) #probably sub-optimal coding
+
+      for  (datavar_auto in auto_row) {
+
+        # user response
+        cat(paste(
+          "\nDATA ELEMENT -----> ", selectDataClass_df$Label[datavar_auto],
+          "\n\nDESCRIPTION -----> ", selectDataClass_df$Description[datavar_auto],
+          "\n\nDATA TYPE -----> ", selectDataClass_df$Type[datavar_auto], "\n"
+        ))
+
+        decision <- ""
+        while (decision == "") {
+          cat("\n \n")
+          decision <- readline(prompt = "CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): ")
+        }
+
+        decision_note <- ""
+        while (decision_note == "") {
+          cat("\n \n")
+          decision_note <- readline(prompt = "NOTES (write 'N' if no notes): ")
+        }
+
+        Output$DataElement[datavar_auto] <- selectDataClass_df$Label[datavar]
+        Output$Domain_code[datavar_auto] <- decision
+        Output$Note[datavar_auto] <- decision_note
+
+        if (datavar_auto == length(auto_row)) {auto_finished == "Y"}
+
+        }
+
+    }
+
+    # Save final categorisations for this DataClass
     Output[Output == ""] <- NA
     utils::write.csv(Output, output_fname, row.names = FALSE)
     cat("\n")
