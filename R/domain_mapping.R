@@ -225,26 +225,35 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
         Output$Domain_code[datavar] <- decision
         Output$Note[datavar] <- decision_note
       }
-    }
 
-    # Fill in columns that have all rows identical
-    Output$Initials <- User_Initials
-    Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
-    Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
-    Output$DomainListDesc <- DomainListDesc
-    Output$DataAsset <- meta_json$dataModel$label
-    Output$DataClass <- meta_json$dataModel$childDataClasses[[dc]]$label
+      # Fill in columns that have all rows identical
+      Output$Initials <- User_Initials
+      Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
+      Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
+      Output$DomainListDesc <- DomainListDesc
+      Output$DataAsset <- meta_json$dataModel$label
+      Output$DataClass <- meta_json$dataModel$childDataClasses[[dc]]$label
 
-    # Save file & print the responses to be saved
+      # Save as we go in case session terminates prematurely
+      Output[Output == ""] <- NA
+      utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
+    } # end of loop for variable
+
+    # Print the AUTO CATEGORISED responses for this DataClass
+    Output_auto <- filter(Output,Note =='AUTO CATEGORISED')
+
+    cat("\n \n")
+    cli_alert_warning("Please check the auto categorised data elements are accurate!")
+    cli_alert_warning("Manually edit csv file to correct errors, if needed.")
+
+    print(Output_auto[, c("DataClass", "DataElement", "Domain_code")])
+
+    # Save final categorisations for this data class
     Output[Output == ""] <- NA
-    utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
+    utils::write.csv(Output, output_fname, row.names = FALSE)
     cat("\n")
-    cli_alert_info("The below responses will be saved to {output_fname}")
-    cat("\n")
-    print(Output[, c("DataClass", "DataElement", "Domain_code", "Note")])
-  }
+    cli_alert_info("Your final categorisations have been saved to {output_fname}")
 
-  cat("\n \n")
-  cli_alert_warning("Please check the auto categorised data elements are accurate!")
-  cli_alert_warning("Manually edit csv file to correct errors, if needed.")
-}
+  } # end of loop for each data class
+
+} # end of function
