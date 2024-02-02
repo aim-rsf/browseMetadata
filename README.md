@@ -76,6 +76,10 @@ devtools::install_github("aim-rsf/browseMetadata")
 
 ### Demo
 
+``` r
+library(browseMetadata)
+```
+
 Read the documentation, then run the function in demo mode:
 ``` r
 ?domain_mapping
