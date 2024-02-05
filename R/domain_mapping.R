@@ -203,7 +203,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
 
         # collect user responses
         decision_output <- user_categorisation(selectDataClass_df$Label[datavar],selectDataClass_df$Description[datavar],selectDataClass_df$Type[datavar])
-
         # input user responses into output
         Output[nrow(Output) + 1, ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
@@ -241,16 +240,42 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
 
         # collect user responses
         decision_output <- user_categorisation(selectDataClass_df$Label[datavar_auto],selectDataClass_df$Description[datavar_auto],selectDataClass_df$Type[datavar_auto])
-
         # input user responses into output
-        Output$DataElement[datavar_auto] <- selectDataClass_df$Label[datavar]
+        Output$DataElement[datavar_auto] <- selectDataClass_df$Label[datavar_auto]
         Output$Domain_code[datavar_auto] <- decision_output$decision
         Output$Note[datavar_auto] <- decision_output$decision_note
+      }
+    }
 
-        if (datavar_auto == length(auto_row)) {auto_finished == "Y"}
+    # Ask if user wants to review their responses for this DataClass
+    review_cats <- ""
+    while (review_cats != "Y" & review_cats != "N") {
+      cat("\n \n")
+      review_cats <- readline(prompt = "Would you like to review the categorisation you made? (Y/N) ")
+    }
 
+    if (review_cats == 'Y') {
+
+      Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
+      cat("\n \n")
+      print(Output_not_auto[, c("DataClass", "DataElement", "Domain_code")])
+      cat("\n \n")
+      not_auto_row_str <- readline(prompt = "Enter row numbers you'd like to change or press enter to accept: ")
+
+      if (not_auto_row_str != "") {
+
+        not_auto_row <- as.integer(unlist(strsplit(not_auto_row_str,","))) #probably sub-optimal coding
+
+        for  (datavar_not_auto in not_auto_row) {
+
+          # collect user responses
+          decision_output <- user_categorisation(selectDataClass_df$Label[datavar_not_auto],selectDataClass_df$Description[datavar_not_auto],selectDataClass_df$Type[datavar_not_auto])
+          # input user responses into output
+          Output$DataElement[datavar_not_auto] <- selectDataClass_df$Label[datavar_not_auto]
+          Output$Domain_code[datavar_not_auto] <- decision_output$decision
+          Output$Note[datavar_not_auto] <- decision_output$decision_note
         }
-
+      }
     }
 
     # Save final categorisations for this DataClass
