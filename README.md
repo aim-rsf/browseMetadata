@@ -123,7 +123,7 @@ For each table, it will ask which variables to process:
 Enter the range of variables (data elements) to process. Press Enter to process all: 1,10
 ```
 
-If you press enter it will process all the variables, so use a smaller range like 1 to 10 for this demo.
+If you press enter it will process all the variables, so use a smaller range like 1 to 10 the first time you run this demo.
 
 For each data element (variable) you will be shown this structure:
 
