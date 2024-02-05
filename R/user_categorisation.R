@@ -1,8 +1,8 @@
 #' user_categorisation
 #'
-#' This function is used within the domain_mapping function \cr \cr
-#' It displays data properties to the user and requests a categorisation into a domain \cr \cr
-#' An optional note can be included with the categorisation
+#' This function is used within the domain_mapping function. \cr \cr
+#' It displays data properties to the user and requests a categorisation into a domain. \cr \cr
+#' An optional note can be included with the categorisation.
 #'
 #' @param data_element Name of the variable
 #' @param data_desc Description of the variable
