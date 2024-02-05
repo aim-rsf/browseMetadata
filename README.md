@@ -217,7 +217,7 @@ The intended use case for this log file is to be loaded up, compared across
 users, and used as an input in later analysis steps when working out
 which variables can be used to represent which research domains.
 
-Example outputs below, running with '1,10' data elements:
+A subset of columns from the csv outputs are shown below, running with '1,10' data elements:
 
 ```
    DataClass         DataElement Domain_code                   Note
