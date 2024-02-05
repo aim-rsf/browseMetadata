@@ -7,7 +7,7 @@
 #' @param data_element Name of the variable
 #' @param data_desc Description of the variable
 #' @param data_type Data type of the variable
-#' @return A list containing the decision and decision note
+#' @return It returns a list containing the decision and decision note
 #' @export
 
 user_categorisation <- function(data_element,data_desc,data_type) {

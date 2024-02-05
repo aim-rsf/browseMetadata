@@ -14,7 +14,7 @@ user_categorisation(data_element, data_desc, data_type)
 \item{data_type}{Data type of the variable}
 }
 \value{
-A list containing the decision and decision note
+It returns a list containing the decision and decision note
 }
 \description{
 This function is used within the domain_mapping function. \cr \cr
