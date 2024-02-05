@@ -92,7 +92,7 @@ The R console will show:
 ``` 
 ℹ Running domain_mapping in demo mode using package data files
 
-ENTER INITIALS: 
+Enter Initials: RS
 ```
 
 Respond with your initials and press enter.
@@ -111,19 +111,19 @@ Rachael Stickland at 2024-01-05T13:22:09.774Z
 
 ℹ Found 2 Data Classes (2 tables) in this Data Asset
 
-Would you like to read a description of the Data Asset? (Y/N)
+Would you like to read a description of the Data Asset? (Y/N) Y
 ```
-Press Y to read these descriptions, for the purpose of the demo.
+Enter Y to read these descriptions, for the purpose of the demo.
 
 For this example, the Data Asset is called MIDS and the tables inside this Data Class are BIRTH and INITIAL_ASSESSMENT.   
 
-It will then ask which variables to process:
+For each table, it will ask which variables to process:
 
 ```
-RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS (write as 'start_var,end_var' or press Enter to process all): 1,10
+Enter the range of variables (data elements) to process. Press Enter to process all: 1,10
 ```
 
-If you press enter it will process all the variables, so use a smaller number like 10 for this demo.
+If you press enter it will process all the variables, so use a smaller range like 1 to 10 for this demo.
 
 For each data element (variable) you will be shown this structure:
 
@@ -136,19 +136,58 @@ DATA TYPE ----->  CHARACTER
 ```
 
 By referencing the plots tab, and other info you may have, categorise this variable with a number(s).
-A  variable can map to more than one domain.
+A  variable can map to more than one domain so a comma separated list of numbers can be given (7,8).
 
 There is an (optional) note field to explain your choice. 
 
 ```
-CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): 8
+Categorise this variable: 8
 
-NOTES (write 'N' if no notes): N
+Notes (write 'N' if no notes): N
 ```
+
+If you make a mistake, the next prompt allows you to redo. Or press enter if you are happy to continue.
+
+```
+Press enter to continue or write 'redo' to correct previous answer: 
+```
+
+When you get to the end of your requested number of variables it will show you variables that have been auto categorised. 
+
+If you want to change these auto categorisations, and do them manually, include the row number (1,9) in the list.
+
+```
+! Please check the auto categorised data elements are accurate:
+
+ DataClass      DataElement        Domain_code
+1      BIRTH    AVAIL_FROM_DT      1
+9      BIRTH    CHILD_ALF_E        2
+10     BIRTH    CHILD_ALF_STS_CD   2
+
+Enter row numbers you'd like to edit or press enter to accept the auto categorisations:
+```
+
+Finally, it will ask you if you want to review the categorisations you previously made. 
+
+```
+Would you like to review your categorisations? (Y/N) 
+```
+
+If you say yes (with Y) it will take you through the same review process you just did for auto categorisations.
+
+At the end of processing that Data Class (table) it will show:
+
+```
+ℹ Your final categorisations have been saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv
+```
+
+The function will then repeat the same steps for the next Data Class (table). 
+
+#### Understanding the domain list 
 
 For this demo, a simple list of domains are provided, see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv).
 
-This list is in this plot tab:
+This list shows up in the R plot tab:
 
 - [0] *NO MATCH / UNSURE*
 - [1] *METADATA*
@@ -162,12 +201,11 @@ This list is in this plot tab:
 
 There are 5 default domains always included [0-4], appended on to any domain list given.
 
-For a research study, your domains will likely be more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'.
+For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'.
 
 #### Output
 
-The output of your decisions will be pasted to the R console. 
-These decisions will also be saved to a csv file.
+The output of your decisions will be saved to a csv file.
 The csv file name includes the data asset, data class, and date stamp.
 This csv file, in addition to what is shown on the console, contains: 
 - user initials (from user input)
@@ -179,40 +217,35 @@ The intended use case for this log file is to be loaded up, compared across
 users, and used as an input in later analysis steps when working out
 which variables can be used to represent which research domains.
 
-```
-ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv
-
-   DataClass         DataElement Domain_code                 Note
-1      BIRTH       AVAIL_FROM_DT           1     AUTO CATEGORISED
-2      BIRTH       BABY_BIRTH_DT           4                    N
-3      BIRTH   BIRTH_APGAR_SCORE           8                    N
-4      BIRTH       BIRTH_MODE_CD           8                    N
-5      BIRTH         BIRTH_ORDER           8                    N
-6      BIRTH    BIRTH_OUTCOME_CD           8                    N
-7      BIRTH      BIRTH_TREAT_CD           0 No description given
-8      BIRTH BIRTH_TREAT_SITE_CD           6                    N
-9      BIRTH         CHILD_ALF_E           2     AUTO CATEGORISED
-10     BIRTH    CHILD_ALF_STS_CD           2     AUTO CATEGORISED
-```
+Example outputs below, running with '1,10' data elements:
 
 ```
-ℹ The below responses will be saved to LOG_MaternityIndicatorsDataset(MIDS)_INITIAL_ASSESSMENT_2024-01-30_10-43-05.csv
-
-            DataClass                                 DataElement Domain_code                         Note
-1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1             AUTO CATEGORISED
-2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                            N
-3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8         Date of health visit
-4  INITIAL_ASSESSMENT                              MAT_AGE_AT_ASS           4             AUTO CATEGORISED
-5  INITIAL_ASSESSMENT                                MOTHER_ALF_E           2             AUTO CATEGORISED
-6  INITIAL_ASSESSMENT                           MOTHER_ALF_STS_CD           2             AUTO CATEGORISED
-7  INITIAL_ASSESSMENT                                     PROV_CD         6,8 Org code for health provider
-8  INITIAL_ASSESSMENT                     SERVICE_USER_GRAVIDA_CD           8                            N
-9  INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CARE_PLAN_CD           8                            N
-10 INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD           8                            N
- 
-! Please check the auto categorised data elements are accurate!
-! Manually edit csv file to correct errors, if needed.
+   DataClass         DataElement Domain_code                   Note
+1      BIRTH       AVAIL_FROM_DT           1       AUTO CATEGORISED
+2      BIRTH       BABY_BIRTH_DT           4                      N
+3      BIRTH   BIRTH_APGAR_SCORE           8                      N
+4      BIRTH       BIRTH_MODE_CD           8                      N
+5      BIRTH         BIRTH_ORDER           8                      N
+6      BIRTH    BIRTH_OUTCOME_CD           8                      N
+7      BIRTH      BIRTH_TREAT_CD           0   No description given
+8      BIRTH BIRTH_TREAT_SITE_CD           6                      N
+9      BIRTH         CHILD_ALF_E           2       AUTO CATEGORISED
+10     BIRTH    CHILD_ALF_STS_CD           2       AUTO CATEGORISED
 ```
+
+```
+            DataClass                                 DataElement Domain_code                           Note
+1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1               AUTO CATEGORISED
+2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                              N
+3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8           Date of health visit
+4  INITIAL_ASSESSMENT                              MAT_AGE_AT_ASS           4               AUTO CATEGORISED
+5  INITIAL_ASSESSMENT                                MOTHER_ALF_E           2               AUTO CATEGORISED
+6  INITIAL_ASSESSMENT                           MOTHER_ALF_STS_CD           2               AUTO CATEGORISED
+7  INITIAL_ASSESSMENT                                     PROV_CD         6,8   Org code for health provider
+8  INITIAL_ASSESSMENT                     SERVICE_USER_GRAVIDA_CD           8                              N
+9  INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CARE_PLAN_CD           8                              N
+10 INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD           8                              N
+ ```
 
 ### Using your own input files 
 

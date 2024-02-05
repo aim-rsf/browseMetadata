@@ -26,14 +26,14 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     decision <- ""
     while (decision == "") {
       cat("\n \n")
-      decision <- readline(prompt = "CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): ")
+      decision <- readline(prompt = "Categorise this variable: ")
       }
 
     # ask user for note on categorisation
     decision_note <- ""
     while (decision_note == "") {
       cat("\n \n")
-      decision_note <- readline(prompt = "NOTES (write 'N' if no notes): ")
+      decision_note <- readline(prompt = "Notes (write 'N' if no notes): ")
     }
 
     # check if user wants to continue or redo
