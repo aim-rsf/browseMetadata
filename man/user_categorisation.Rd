@@ -17,7 +17,7 @@ user_categorisation(data_element, data_desc, data_type)
 A list containing the decision and decision note
 }
 \description{
-This function is used within the domain_mapping function \cr \cr
-It displays data properties to the user and requests a categorisation into a domain \cr \cr
-An optional note can be included with the categorisation
+This function is used within the domain_mapping function. \cr \cr
+It displays data properties to the user and requests a categorisation into a domain. \cr \cr
+An optional note can be included with the categorisation.
 }
