@@ -16,8 +16,8 @@
 #' # Respond 'Demo List ' for the description of domain list.
 #' # Respond 'Y' if you want to see the descriptions printed out.
 #' # Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
-#' # Reference the plot tab and categorise each variable into a single ('1')
-#' # or multiple  ('1,2') domain.
+#' # Reference the plot tab and categorise each variable into a single ('1') domain
+#' # or multiple ('1,2') domains.
 #' # Write a note explaining your category choice (optional).
 #' @export
 #' @importFrom graphics plot.new
@@ -54,7 +54,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
   User_Initials <- ""
   while (User_Initials == "") {
     cat("\n \n")
-    User_Initials <- readline(prompt = "ENTER INITIALS: ")
+    User_Initials <- readline(prompt = "Enter Initials: ")
   }
 
   # Print information about Data Asset ----
@@ -135,7 +135,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
     # User inputs ----
 
     cat("\n \n")
-    select_vars_n <- readline(prompt = "RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS (write as 'start_var,end_var' or press Enter to process all): ")
+    select_vars_n <- readline(prompt = "Enter the range of variables (data elements) to process. Press Enter to process all: ")
     if (select_vars_n == "") {
       start_var <- 1
       end_var <- length(thisDataClass)
@@ -230,7 +230,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
     cat("\n \n")
     print(Output_auto[, c("DataClass", "DataElement", "Domain_code")])
     cat("\n \n")
-    auto_row_str <- readline(prompt = "Enter row numbers you'd like to change (for example: 1,5,10) or press enter to accept the auto categorisations: ")
+    auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept the auto categorisations: ")
 
     if (auto_row_str != "") {
 
@@ -251,7 +251,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
     review_cats <- ""
     while (review_cats != "Y" & review_cats != "N") {
       cat("\n \n")
-      review_cats <- readline(prompt = "Would you like to review the categorisation you made? (Y/N) ")
+      review_cats <- readline(prompt = "Would you like to review your categorisations? (Y/N) ")
     }
 
     if (review_cats == 'Y') {
@@ -260,7 +260,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
       cat("\n \n")
       print(Output_not_auto[, c("DataClass", "DataElement", "Domain_code")])
       cat("\n \n")
-      not_auto_row_str <- readline(prompt = "Enter row numbers you'd like to change or press enter to accept: ")
+      not_auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept: ")
 
       if (not_auto_row_str != "") {
 

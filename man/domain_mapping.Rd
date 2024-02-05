@@ -29,7 +29,7 @@ Example inputs are provided within the package data, for the user to run this fu
 # Respond 'Demo List ' for the description of domain list.
 # Respond 'Y' if you want to see the descriptions printed out.
 # Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
-# Reference the plot tab and categorise each variable into a single ('1')
-# or multiple  ('1,2') domain.
+# Reference the plot tab and categorise each variable into a single ('1') domain
+# or multiple ('1,2') domains.
 # Write a note explaining your category choice (optional).
 }
