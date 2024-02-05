@@ -200,29 +200,15 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
         Output$Domain_code[datavar] <- "4"
         Output$Note[datavar] <- "AUTO CATEGORISED"
       } else {
-        # user response
-        cat(paste(
-          "\nDATA ELEMENT -----> ", selectDataClass_df$Label[datavar],
-          "\n\nDESCRIPTION -----> ", selectDataClass_df$Description[datavar],
-          "\n\nDATA TYPE -----> ", selectDataClass_df$Type[datavar], "\n"
-        ))
 
-        decision <- ""
-        while (decision == "") {
-          cat("\n \n")
-          decision <- readline(prompt = "CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): ")
-        }
+        # collect user responses
+        decision_output <- user_categorisation(selectDataClass_df$Label[datavar],selectDataClass_df$Description[datavar],selectDataClass_df$Type[datavar])
 
-        decision_note <- ""
-        while (decision_note == "") {
-          cat("\n \n")
-          decision_note <- readline(prompt = "NOTES (write 'N' if no notes): ")
-        }
-
+        # input user responses into output
         Output[nrow(Output) + 1, ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- decision
-        Output$Note[datavar] <- decision_note
+        Output$Domain_code[datavar] <- decision_output$decision
+        Output$Note[datavar] <- decision_output$decision_note
       }
 
       # Fill in columns that have all rows identical
@@ -253,28 +239,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
 
       for  (datavar_auto in auto_row) {
 
-        # user response
-        cat(paste(
-          "\nDATA ELEMENT -----> ", selectDataClass_df$Label[datavar_auto],
-          "\n\nDESCRIPTION -----> ", selectDataClass_df$Description[datavar_auto],
-          "\n\nDATA TYPE -----> ", selectDataClass_df$Type[datavar_auto], "\n"
-        ))
+        # collect user responses
+        decision_output <- user_categorisation(selectDataClass_df$Label[datavar_auto],selectDataClass_df$Description[datavar_auto],selectDataClass_df$Type[datavar_auto])
 
-        decision <- ""
-        while (decision == "") {
-          cat("\n \n")
-          decision <- readline(prompt = "CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): ")
-        }
-
-        decision_note <- ""
-        while (decision_note == "") {
-          cat("\n \n")
-          decision_note <- readline(prompt = "NOTES (write 'N' if no notes): ")
-        }
-
+        # input user responses into output
         Output$DataElement[datavar_auto] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar_auto] <- decision
-        Output$Note[datavar_auto] <- decision_note
+        Output$Domain_code[datavar_auto] <- decision_output$decision
+        Output$Note[datavar_auto] <- decision_output$decision_note
 
         if (datavar_auto == length(auto_row)) {auto_finished == "Y"}
 
