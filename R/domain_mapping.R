@@ -241,7 +241,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
         # collect user responses
         decision_output <- user_categorisation(selectDataClass_df$Label[datavar_auto],selectDataClass_df$Description[datavar_auto],selectDataClass_df$Type[datavar_auto])
         # input user responses into output
-        Output$DataElement[datavar_auto] <- selectDataClass_df$Label[datavar_auto]
         Output$Domain_code[datavar_auto] <- decision_output$decision
         Output$Note[datavar_auto] <- decision_output$decision_note
       }
@@ -271,7 +270,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
           # collect user responses
           decision_output <- user_categorisation(selectDataClass_df$Label[datavar_not_auto],selectDataClass_df$Description[datavar_not_auto],selectDataClass_df$Type[datavar_not_auto])
           # input user responses into output
-          Output$DataElement[datavar_not_auto] <- selectDataClass_df$Label[datavar_not_auto]
           Output$Domain_code[datavar_not_auto] <- decision_output$decision
           Output$Note[datavar_not_auto] <- decision_output$decision_note
         }
