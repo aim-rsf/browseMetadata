@@ -50,6 +50,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
   gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
 
+  # temp - delete later
+  cat("\n You are in the improve-auto branch \n")
+  
   # Get user and demo list info for log file ----
   User_Initials <- ""
   while (User_Initials == "") {
