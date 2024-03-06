@@ -16,8 +16,8 @@
 #' # Respond 'Demo List ' for the description of domain list.
 #' # Respond 'Y' if you want to see the descriptions printed out.
 #' # Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
-#' # Reference the plot tab and categorise each variable into a single ('1')
-#' # or multiple  ('1,2') domain.
+#' # Reference the plot tab and categorise each variable into a single ('1') domain
+#' # or multiple ('1,2') domains.
 #' # Write a note explaining your category choice (optional).
 #' @export
 #' @importFrom graphics plot.new
@@ -50,11 +50,14 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
   gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
 
+  # temp - delete later
+  cat("\n You are in the improve-auto branch \n")
+  
   # Get user and demo list info for log file ----
   User_Initials <- ""
   while (User_Initials == "") {
     cat("\n \n")
-    User_Initials <- readline(prompt = "ENTER INITIALS: ")
+    User_Initials <- readline(prompt = "Enter Initials: ")
   }
 
   # Print information about Data Asset ----
@@ -135,7 +138,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
     # User inputs ----
 
     cat("\n \n")
-    select_vars_n <- readline(prompt = "RANGE OF VARIABLES (DATA ELEMENTS) TO PROCESS (write as 'start_var,end_var' or press Enter to process all): ")
+    select_vars_n <- readline(prompt = "Enter the range of variables (data elements) to process. Press Enter to process all: ")
     if (select_vars_n == "") {
       start_var <- 1
       end_var <- length(thisDataClass)
@@ -173,7 +176,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
         Output$Domain_code[datavar] <- "2"
         Output$Note[datavar] <- "AUTO CATEGORISED"
       } else if (grepl("_ID_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) { # picking up generic IDs
-
         Output[nrow(Output) + 1, ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
         Output$Domain_code[datavar] <- "3"
@@ -201,50 +203,88 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
         Output$Domain_code[datavar] <- "4"
         Output$Note[datavar] <- "AUTO CATEGORISED"
       } else {
-        # user response
-        cat(paste(
-          "\nDATA ELEMENT -----> ", selectDataClass_df$Label[datavar],
-          "\n\nDESCRIPTION -----> ", selectDataClass_df$Description[datavar],
-          "\n\nDATA TYPE -----> ", selectDataClass_df$Type[datavar], "\n"
-        ))
 
-        decision <- ""
-        while (decision == "") {
-          cat("\n \n")
-          decision <- readline(prompt = "CATEGORISE THIS VARIABLE (input a comma separated list of domain numbers): ")
-        }
-
-        decision_note <- ""
-        while (decision_note == "") {
-          cat("\n \n")
-          decision_note <- readline(prompt = "NOTES (write 'N' if no notes): ")
-        }
-
+        # collect user responses
+        decision_output <- user_categorisation(selectDataClass_df$Label[datavar],selectDataClass_df$Description[datavar],selectDataClass_df$Type[datavar])
+        # input user responses into output
         Output[nrow(Output) + 1, ] <- NA
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- decision
-        Output$Note[datavar] <- decision_note
+        Output$Domain_code[datavar] <- decision_output$decision
+        Output$Note[datavar] <- decision_output$decision_note
+      }
+
+      # Fill in columns that have all rows identical
+      Output$Initials <- User_Initials
+      Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
+      Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
+      Output$DomainListDesc <- DomainListDesc
+      Output$DataAsset <- meta_json$dataModel$label
+      Output$DataClass <- meta_json$dataModel$childDataClasses[[dc]]$label
+
+      # Save as we go in case session terminates prematurely
+      Output[Output == ""] <- NA
+      utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
+    } # end of loop for variable
+
+    # Print the AUTO CATEGORISED responses for this DataClass - request review
+    Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
+    cat("\n \n")
+    cli_alert_warning("Please check the auto categorised data elements are accurate:")
+    cat("\n \n")
+    print(Output_auto[, c("DataClass", "DataElement", "Domain_code")])
+    cat("\n \n")
+    auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept the auto categorisations: ")
+
+    if (auto_row_str != "") {
+
+      auto_row <- as.integer(unlist(strsplit(auto_row_str,","))) #probably sub-optimal coding
+
+      for  (datavar_auto in auto_row) {
+
+        # collect user responses
+        decision_output <- user_categorisation(selectDataClass_df$Label[datavar_auto],selectDataClass_df$Description[datavar_auto],selectDataClass_df$Type[datavar_auto])
+        # input user responses into output
+        Output$Domain_code[datavar_auto] <- decision_output$decision
+        Output$Note[datavar_auto] <- decision_output$decision_note
       }
     }
 
-    # Fill in columns that have all rows identical
-    Output$Initials <- User_Initials
-    Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
-    Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
-    Output$DomainListDesc <- DomainListDesc
-    Output$DataAsset <- meta_json$dataModel$label
-    Output$DataClass <- meta_json$dataModel$childDataClasses[[dc]]$label
+    # Ask if user wants to review their responses for this DataClass
+    review_cats <- ""
+    while (review_cats != "Y" & review_cats != "N") {
+      cat("\n \n")
+      review_cats <- readline(prompt = "Would you like to review your categorisations? (Y/N) ")
+    }
 
-    # Save file & print the responses to be saved
+    if (review_cats == 'Y') {
+
+      Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
+      cat("\n \n")
+      print(Output_not_auto[, c("DataClass", "DataElement", "Domain_code")])
+      cat("\n \n")
+      not_auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept: ")
+
+      if (not_auto_row_str != "") {
+
+        not_auto_row <- as.integer(unlist(strsplit(not_auto_row_str,","))) #probably sub-optimal coding
+
+        for  (datavar_not_auto in not_auto_row) {
+
+          # collect user responses
+          decision_output <- user_categorisation(selectDataClass_df$Label[datavar_not_auto],selectDataClass_df$Description[datavar_not_auto],selectDataClass_df$Type[datavar_not_auto])
+          # input user responses into output
+          Output$Domain_code[datavar_not_auto] <- decision_output$decision
+          Output$Note[datavar_not_auto] <- decision_output$decision_note
+        }
+      }
+    }
+
+    # Save final categorisations for this DataClass
     Output[Output == ""] <- NA
-    utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
+    utils::write.csv(Output, output_fname, row.names = FALSE)
     cat("\n")
-    cli_alert_info("The below responses will be saved to {output_fname}")
-    cat("\n")
-    print(Output[, c("DataClass", "DataElement", "Domain_code", "Note")])
-  }
+    cli_alert_info("Your final categorisations have been saved to {output_fname}")
 
-  cat("\n \n")
-  cli_alert_warning("Please check the auto categorised data elements are accurate!")
-  cli_alert_warning("Manually edit csv file to correct errors, if needed.")
-}
+  } # end of loop for each data class
+
+} # end of function
