@@ -43,9 +43,12 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   if (is.null(look_up_file)) {
     cli_alert_info("Using the default look-up table in data/look-up.rda")
     lookup <- get("look_up")
-  } else {
+    }
+  else {
     lookup <- read.csv(look_up_file)
-  }
+    cli_alert_info("Using look up file inputted by user")
+    print(lookup)
+    }
 
   # Present domains plots panel for user's reference ----
   graphics::plot.new()
@@ -149,13 +152,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     # Loop through each variable, request response from the user to match to a domain ----
     for  (datavar in start_var:end_var) {
-      datavar_index <- which(look_up$DataElement == selectDataClass_df$Label[datavar]) # we should ignore the case
-      look_up_subset <- look_up[datavar_index,]
-      if (nrow(look_up_subset) == 1) {
+      datavar_index <- which(lookup$DataElement == selectDataClass_df$Label[datavar]) #we should code this to ignore the case
+      lookup_subset <- lookup[datavar_index,]
+      if (nrow(lookup_subset) == 1) {
         # auto categorisations
         Output[nrow(Output) + 1, ] <- NA #why?
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- look_up_subset$DomainCode
+        Output$Domain_code[datavar] <- lookup_subset$DomainCode
         Output$Note[datavar] <- "AUTO CATEGORISED"
         } else {
         # collect user responses
