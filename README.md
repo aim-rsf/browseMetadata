@@ -249,7 +249,7 @@ A subset of columns from the csv outputs are shown below, running with '1,10' da
 ### Using your own input files 
 
 ```r
-domain_mapping(json_file, domain_file)
+domain_mapping(json_file, domain_file, look_up_file)
 ```
 
 This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues). 
