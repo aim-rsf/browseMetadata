@@ -267,6 +267,10 @@ The domain_file:
 - see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
 - the first 5 domains will be auto populated (see demo above)
 
+The lookup file:
+- a csv created by the user, mapping data elements (variables) to domains
+- these auto-categorisations are meant for variables that come up regularly in health datasets (e.g. IDs and demographics)
+- instead of using the default, the user can provide their own look-up table in the same format as [data-raw/look-up.csv](data-raw/look-up.csv)
 
 ## License
 
