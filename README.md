@@ -249,7 +249,7 @@ A subset of columns from the csv outputs are shown below, running with '1,10' da
 ### Using your own input files 
 
 ```r
-domain_mapping(json_file, domain_file)
+domain_mapping(json_file, domain_file, look_up_file)
 ```
 
 This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues). 
@@ -267,6 +267,10 @@ The domain_file:
 - see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
 - the first 5 domains will be auto populated (see demo above)
 
+The lookup file:
+- a csv created by the user, mapping data elements (variables) to domains
+- these auto-categorisations are meant for variables that come up regularly in health datasets (e.g. IDs and demographics)
+- instead of using the default, the user can provide their own look-up table in the same format as [data-raw/look-up.csv](data-raw/look-up.csv)
 
 ## License
 
