@@ -3,27 +3,21 @@
 #' This function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains.\cr \cr
 #' The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
 #' A log file will be saved with the catergorisations made.
-#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables;
-#' these auto-categorisations should be verified by the user by checking the csv log file. \cr \cr
+#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables. \cr \cr
 #' Example inputs are provided within the package data, for the user to run this function in a demo mode.
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
+#' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
 #' @return The function will return a log file with the mapping between dataset variables and domains, alongside details about the dataset.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
 #' # Demo mode will use the /data files provided in this package
-#' # Respond with your initials when prompted.
-#' # Respond 'Demo List ' for the description of domain list.
-#' # Respond 'Y' if you want to see the descriptions printed out.
-#' # Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
-#' # Reference the plot tab and categorise each variable into a single ('1') domain
-#' # or multiple ('1,2') domains.
-#' # Write a note explaining your category choice (optional).
+#' # For detailed instructions, refer to the package README.md file and the R manual files ('man' directory).
 #' @export
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
 
-domain_mapping <- function(json_file = NULL, domain_file = NULL) {
+domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL) {
   # Load data: Check if demo data should be used
   if (is.null(json_file) && is.null(domain_file)) {
     # If both json_file and domain_file are NULL, use demo data
@@ -45,11 +39,19 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
     DomainListDesc <- tools::file_path_sans_ext(basename(domain_file))
   }
 
+  # Check if user has provided a look-up table
+  if (is.null(look_up_file)) {
+    cli_alert_info("Using the default look-up table in data/look-up.rda")
+    lookup <- get("look_up")
+  } else {
+    lookup <- read.csv(look_up_file)
+  }
+
   # Present domains plots panel for user's reference ----
   graphics::plot.new()
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
   gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
-  
+
   # Get user and demo list info for log file ----
   User_Initials <- ""
   while (User_Initials == "") {
@@ -147,64 +149,19 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL) {
 
     # Loop through each variable, request response from the user to match to a domain ----
     for  (datavar in start_var:end_var) {
-      # auto categorise (full string and partial string matches)
-      if (selectDataClass_df$Label[datavar] == "NA") {
-        Output[nrow(Output) + 1, ] <- NA
-        Output$DataElement[datavar]
+      datavar_index <- which(look_up$DataElement == selectDataClass_df$Label[datavar]) # we should ignore the case
+      look_up_subset <- look_up[datavar_index,]
+      if (nrow(look_up_subset) == 1) {
+        # auto categorisations
+        Output[nrow(Output) + 1, ] <- NA #why?
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- "0"
+        Output$Domain_code[datavar] <- look_up_subset$DomainCode
         Output$Note[datavar] <- "AUTO CATEGORISED"
-      } else if (selectDataClass_df$Label[datavar] == "AVAIL_FROM_DT") {
-        Output[nrow(Output) + 1, ] <- NA
-        Output$DataElement[datavar]
-        Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- "1"
-        Output$Note[datavar] <- "AUTO CATEGORISED"
-      } else if ((selectDataClass_df$Label[datavar] == "ALF_E") ||
-        (selectDataClass_df$Label[datavar] == "RALF") ||
-        (selectDataClass_df$Label[datavar] == "ALF_STS_CD") ||
-        (selectDataClass_df$Label[datavar] == "ALF_MTCH_PCT") ||
-        (grepl("_ALF_E", selectDataClass_df$Label[datavar], ignore.case = TRUE)) # grepl because of MOTHER_ALF_E and CHILD_ALF_E etc.
-      || (grepl("_RALF", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("_ALF_STS_CD", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("_ALF_MTCH_PCT", selectDataClass_df$Label[datavar], ignore.case = TRUE))) {
-        Output[nrow(Output) + 1, ] <- NA
-        Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- "2"
-        Output$Note[datavar] <- "AUTO CATEGORISED"
-      } else if (grepl("_ID_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) { # picking up generic IDs
-        Output[nrow(Output) + 1, ] <- NA
-        Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- "3"
-        Output$Note[datavar] <- "AUTO CATEGORISED"
-      } else if ((selectDataClass_df$Label[datavar] == "AGE") # likely to be a better way to code this section with fewer lines
-      || (selectDataClass_df$Label[datavar] == "DOB") ||
-        (selectDataClass_df$Label[datavar] == "WOB") ||
-        (selectDataClass_df$Label[datavar] == "SEX") ||
-        (selectDataClass_df$Label[datavar] == "GENDER") ||
-        (selectDataClass_df$Label[datavar] == "GNDR") ||
-        (grepl("_AGE", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("_DOB", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("_WOB", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("_SEX", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("_GENDER", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("_GNDR", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("AGE_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("DOB_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("WOB_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("SEX_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("GENDER_", selectDataClass_df$Label[datavar], ignore.case = TRUE)) ||
-        (grepl("GNDR_", selectDataClass_df$Label[datavar], ignore.case = TRUE))) {
-        Output[nrow(Output) + 1, ] <- NA
-        Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
-        Output$Domain_code[datavar] <- "4"
-        Output$Note[datavar] <- "AUTO CATEGORISED"
-      } else {
-
+        } else {
         # collect user responses
         decision_output <- user_categorisation(selectDataClass_df$Label[datavar],selectDataClass_df$Description[datavar],selectDataClass_df$Type[datavar])
         # input user responses into output
-        Output[nrow(Output) + 1, ] <- NA
+        Output[nrow(Output) + 1, ] <- NA #why?
         Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
         Output$Domain_code[datavar] <- decision_output$decision
         Output$Note[datavar] <- decision_output$decision_note

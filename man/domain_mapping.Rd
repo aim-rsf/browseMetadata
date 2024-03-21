@@ -4,12 +4,14 @@
 \alias{domain_mapping}
 \title{domain_mapping}
 \usage{
-domain_mapping(json_file = NULL, domain_file = NULL)
+domain_mapping(json_file = NULL, domain_file = NULL, look_up_file = NULL)
 }
 \arguments{
 \item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.}
 
 \item{domain_file}{The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.}
+
+\item{look_up_file}{The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.}
 }
 \value{
 The function will return a log file with the mapping between dataset variables and domains, alongside details about the dataset.
@@ -18,18 +20,11 @@ The function will return a log file with the mapping between dataset variables a
 This function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains.\cr \cr
 The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
 A log file will be saved with the catergorisations made.
-To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables;
-these auto-categorisations should be verified by the user by checking the csv log file. \cr \cr
+To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables. \cr \cr
 Example inputs are provided within the package data, for the user to run this function in a demo mode.
 }
 \examples{
 # Run in demo mode by providing no inputs: domain_mapping()
 # Demo mode will use the /data files provided in this package
-# Respond with your initials when prompted.
-# Respond 'Demo List ' for the description of domain list.
-# Respond 'Y' if you want to see the descriptions printed out.
-# Respond '1,10' to the RANGE OF VARIABLES prompt (or process the full 93 variables if you like!)
-# Reference the plot tab and categorise each variable into a single ('1') domain
-# or multiple ('1,2') domains.
-# Write a note explaining your category choice (optional).
+# For detailed instructions, refer to the package README.md file and the R manual files ('man' directory).
 }
