@@ -220,12 +220,13 @@ Enter row numbers you'd like to edit or press enter to accept the auto categoris
 <h3 id="using-your-own-input-files">Using your own input files<a class="anchor" aria-label="anchor" href="#using-your-own-input-files"></a>
 </h3>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span>, <span class="va">look_up_file</span><span class="op">)</span></span></code></pre></div>
 <p>This code is in early development. To see known bugs or sub-optimal features refer to the <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">Issues</a>.</p>
 <p>Run the code the same as the demo, using your own input files.</p>
 <p>The json file: - contains metadata about datasets of interest - downloaded from the metadata catalogue - see <a href="data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json">data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json</a> for an example download - the metadata catalogue refers to datasets as ‘data assets’ and tables within these as ‘data classes’</p>
 <p>The domain_file:<br>
 - a csv file created by the user, with each domain listed on a separate line - see <a href="data-raw/domain_list_demo.csv">data-raw/domain_list_demo.csv</a> for a template - the first 5 domains will be auto populated (see demo above)</p>
+<p>The lookup file: - a csv created by the user, mapping data elements (variables) to domains - these auto-categorisations are meant for variables that come up regularly in health datasets (e.g. IDs and demographics) - instead of using the default, the user can provide their own look-up table in the same format as <a href="data-raw/look-up.csv">data-raw/look-up.csv</a></p>
 </div>
 </div>
 <div class="section level2">
