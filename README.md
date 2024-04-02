@@ -270,7 +270,8 @@ The domain_file:
 The lookup file:
 - a csv created by the user, mapping data elements (variables) to domains
 - these auto-categorisations are meant for variables that come up regularly in health datasets (e.g. IDs and demographics)
-- instead of using the default, the user can provide their own look-up table in the same format as [data-raw/look-up.csv](data-raw/look-up.csv)
+- instead of using the default, the user can provide their own look-up table in the same format as [data-raw/look-up.csv](data-raw/look_up.csv)
+- this lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once 
 
 ## License
 
