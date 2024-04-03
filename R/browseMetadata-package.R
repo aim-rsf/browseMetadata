@@ -1,6 +1,6 @@
 #' browseMetadata
 #'
-#' Browses available metadata, to catergorise/label each variable in a dataset.
+#' Browses available metadata, to catergorise/label each data element within a dataset.
 #'
 #' @import devtools grid gridExtra rjson cli
 #' @importFrom graphics plot.new
