@@ -12,7 +12,7 @@
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
 #' # Demo mode will use the /data files provided in this package
-#' # For detailed instructions, refer to the package README.md file and the R manual files ('man' directory).
+#' # For more guidance, refer to the package README.md file and the R manual files.
 #' @export
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
