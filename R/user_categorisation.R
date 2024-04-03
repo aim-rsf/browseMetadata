@@ -26,7 +26,7 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     decision <- ""
     while (decision == "") {
       cat("\n \n")
-      decision <- readline(prompt = "Categorise this variable: ")
+      decision <- readline(prompt = "Categorise this data element: ")
       }
 
     # ask user for note on categorisation

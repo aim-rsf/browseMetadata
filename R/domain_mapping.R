@@ -71,7 +71,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   cat(meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn, fill = TRUE)
   nTables <- length(meta_json$dataModel$childDataClasses)
   cat("\n")
-  cli_alert_info("Found {nTables} Table{?es} in this Dataset")
+  cli_alert_info("Found {nTables} Table{?s} in this Dataset")
   cat("\n")
 
   Dataset_desc <- ""
