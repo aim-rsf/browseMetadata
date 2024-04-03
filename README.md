@@ -64,6 +64,11 @@ address the example questions listed above.**
 
 ## Getting started with this `R` package `browseMetadata`
 
+### Terminology 
+- *Dataset* (collection of data, can contain multiple tables) is referred to as *Data Asset* in the Metadata Catalogue
+- *Table* is referred to as *Data Class* in the Metadata Catalogue
+- *Variable* is referred to as *Data Element* in the Metadata Catalogue
+
 ### Install
 
 Run in the R console:
