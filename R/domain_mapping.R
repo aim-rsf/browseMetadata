@@ -1,14 +1,14 @@
 #' domain_mapping
 #'
-#' This function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains.\cr \cr
+#' This function will read in the metadata file for a chosen dataset, loop through all the data elements, and ask the user to catergorise/label each data element as belonging to one or more domains.\cr \cr
 #' The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
 #' A log file will be saved with the catergorisations made.
-#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables. \cr \cr
+#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring data elements. \cr \cr
 #' Example inputs are provided within the package data, for the user to run this function in a demo mode.
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
-#' @return The function will return a log file with the mapping between dataset variables and domains, alongside details about the dataset.
+#' @return The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
 #' # Demo mode will use the /data files provided in this package
@@ -132,7 +132,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       DomainListDesc = c(""),
       Dataset = c(""),
       Table = c(""),
-      Variable = c(""),
+      DataElement = c(""),
       Domain_code = c(""),
       Note = c("")
     )
@@ -140,7 +140,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     # User inputs ----
 
     cat("\n \n")
-    select_vars_n <- readline(prompt = "Enter the range of variables (variables) to process. Press Enter to process all: ")
+    select_vars_n <- readline(prompt = "Enter the range of Data Elements to process. Press Enter to process all: ")
     if (select_vars_n == "") {
       start_var <- 1
       end_var <- length(thisTable)
@@ -150,14 +150,14 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       end_var <- as.numeric(seperate_vars[2])
     }
 
-    # Loop through each variable, request response from the user to match to a domain ----
+    # Loop through each data element, request response from the user to match to a domain ----
     for  (datavar in start_var:end_var) {
-      datavar_index <- which(lookup$Variable == selectTable_df$Label[datavar]) #we should code this to ignore the case
+      datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       if (nrow(lookup_subset) == 1) {
         # auto categorisations
         Output[nrow(Output) + 1, ] <- NA #why?
-        Output$Variable[datavar] <- selectTable_df$Label[datavar]
+        Output$DataElement[datavar] <- selectTable_df$Label[datavar]
         Output$Domain_code[datavar] <- lookup_subset$DomainCode
         Output$Note[datavar] <- "AUTO CATEGORISED"
         } else {
@@ -165,7 +165,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar])
         # input user responses into output
         Output[nrow(Output) + 1, ] <- NA #why?
-        Output$Variable[datavar] <- selectTable_df$Label[datavar]
+        Output$DataElement[datavar] <- selectTable_df$Label[datavar]
         Output$Domain_code[datavar] <- decision_output$decision
         Output$Note[datavar] <- decision_output$decision_note
       }
@@ -181,14 +181,14 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       # Save as we go in case session terminates prematurely
       Output[Output == ""] <- NA
       utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
-    } # end of loop for variable
+    } # end of loop for DataElement
 
     # Print the AUTO CATEGORISED responses for this Table - request review
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     cat("\n \n")
-    cli_alert_warning("Please check the auto categorised variables are accurate:")
+    cli_alert_warning("Please check the auto categorised data elements are accurate:")
     cat("\n \n")
-    print(Output_auto[, c("Table", "Variable", "Domain_code")])
+    print(Output_auto[, c("Table", "DataElement", "Domain_code")])
     cat("\n \n")
     auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept the auto categorisations: ")
 
@@ -217,7 +217,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       cat("\n \n")
-      print(Output_not_auto[, c("Table", "Variable", "Domain_code")])
+      print(Output_not_auto[, c("Table", "DataElement", "Domain_code")])
       cat("\n \n")
       not_auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept: ")
 
