@@ -224,7 +224,7 @@ which variables can be used to represent which research domains.
 A subset of columns from the csv outputs are shown below, running with '1,10' data elements:
 
 ```
-   Table         DataElement Domain_code                   Note
+       Table         DataElement      Domain_code              Note
 1      BIRTH       AVAIL_FROM_DT           1       AUTO CATEGORISED
 2      BIRTH       BABY_BIRTH_DT           4                      N
 3      BIRTH   BIRTH_APGAR_SCORE           8                      N
@@ -238,7 +238,7 @@ A subset of columns from the csv outputs are shown below, running with '1,10' da
 ```
 
 ```
-            Table                                 DataElement Domain_code                           Note
+   Table                                              DataElement      Domain_code                      Note
 1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1               AUTO CATEGORISED
 2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                              N
 3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8           Date of health visit
