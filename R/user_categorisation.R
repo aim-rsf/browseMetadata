@@ -24,14 +24,27 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     while (decision == "") {
       cat("\n \n")
       decision <- readline(prompt = "Categorise this data element: ")
-      }
+    }
+
+    # in progress - the decision_2 is outputted differently (as a numeric array) instead of a string like before
+    # this numeric array is probably more useful - but the domain_mapping code will need to be adapted
+
+    #decision_2 <- numeric(0)
+    #cat("\n \n")
+    #cli_alert_info("Categorise this data element (one or multiple domains):")
+    #cat("\n")
+    #while (length(decision_2) == 0) {
+    #  decision_2 <- scan(file="",what=0)
+    #}
 
     # ask user for note on categorisation
-    decision_note <- ""
-    while (decision_note == "") {
-      cat("\n \n")
-      decision_note <- readline(prompt = "Notes (write 'N' if no notes): ")
-    }
+    decision_note <- character(0)
+    cat("\n \n")
+    cli_alert_info("Write a note to go with your decision (or 'None'):")
+    cat("\n")
+    while (length(decision_note) == 0) {
+      decision_note <- scan(file="",what="",n=1)
+      }
 
 return(list(decision = decision,decision_note = decision_note))
 
