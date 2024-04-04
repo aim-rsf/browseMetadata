@@ -64,6 +64,11 @@ address the example questions listed above.**
 
 ## Getting started with this `R` package `browseMetadata`
 
+### Terminology 
+- We use *Dataset* (collection of data, can contain multiple tables) - this is called *Data Asset* in the Metadata Catalogue
+- We use *Table* - this is called *Data Class* in the Metadata Catalogue
+- We use *Data Element* - the same as the Metadata Catalogue - which refers to each variable name within the table
+
 ### Install
 
 Run in the R console:
@@ -95,36 +100,36 @@ Enter Initials: RS
 ```
 
 Respond with your initials and press enter.
-It will ask you if you want to read the description of Data Assets and Data Classes (tables):
+It will ask you if you want to read the description of Datasets and Tables:
 
 
 ```
-── Data Asset Name ────────────────────────────────────────────────────────────────────
+── Dataset Name ────────────────────────────────────────────────────────────────────
 Maternity Indicators Dataset (MIDS)
 
-── Data Asset Last Updated ────────────────────────────────────────────────────────────
+── Dataset Last Updated ────────────────────────────────────────────────────────────
 2023-12-04T14:13:49.131Z
 
-── Data Asset File Exported By ────────────────────────────────────────────────────────
+── Dataset File Exported By ────────────────────────────────────────────────────────
 Rachael Stickland at 2024-01-05T13:22:09.774Z
 
-ℹ Found 2 Data Classes (2 tables) in this Data Asset
+ℹ Found 2 Tables in this Dataset
 
-Would you like to read a description of the Data Asset? (Y/N) Y
+Would you like to read a description of the Dataset? (Y/N) Y
 ```
 Enter Y to read these descriptions, for the purpose of the demo.
 
-For this example, the Data Asset is called MIDS and the tables inside this Data Class are BIRTH and INITIAL_ASSESSMENT.   
+For this example, the Dataset is called MIDS and the tables inside this Dataset are BIRTH and INITIAL_ASSESSMENT.   
 
-For each table, it will ask which variables to process:
+For each table, it will ask which data elements to process:
 
 ```
-Enter the range of variables (data elements) to process. Press Enter to process all: 1,10
+Enter the range of Data Elements to process. Press Enter to process all: 1,10
 ```
 
-If you press enter it will process all the variables, so use a smaller range like 1 to 10 the first time you run this demo.
+If you press enter it will process all the data elements, so use a smaller range like 1 to 10 the first time you run this demo.
 
-For each data element (variable) you will be shown this structure:
+For each data element you will be shown this structure:
 
 ```
 DATA ELEMENT ----->  SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD 
@@ -134,13 +139,13 @@ DESCRIPTION ----->  Code indicating whether or not the woman has an existing men
 DATA TYPE ----->  CHARACTER 
 ```
 
-By referencing the plots tab, and other info you may have, categorise this variable with a number(s).
-A  variable can map to more than one domain so a comma separated list of numbers can be given (7,8).
+By referencing the plots tab, and other info you may have, categorise this data element with a number(s).
+A  data element can map to more than one domain so a comma separated list of numbers can be given (7,8).
 
 There is an (optional) note field to explain your choice. 
 
 ```
-Categorise this variable: 8
+Categorise this data element: 8
 
 Notes (write 'N' if no notes): N
 ```
@@ -151,14 +156,14 @@ If you make a mistake, the next prompt allows you to redo. Or press enter if you
 Press enter to continue or write 'redo' to correct previous answer: 
 ```
 
-When you get to the end of your requested number of variables it will show you variables that have been auto categorised. 
+When you get to the end of your requested number of data elements it will show you data elements that have been auto categorised. 
 
 If you want to change these auto categorisations, and do them manually, include the row number (1,9) in the list.
 
 ```
 ! Please check the auto categorised data elements are accurate:
 
- DataClass      DataElement        Domain_code
+ Table      DataElement        Domain_code
 1      BIRTH    AVAIL_FROM_DT      1
 9      BIRTH    CHILD_ALF_E        2
 10     BIRTH    CHILD_ALF_STS_CD   2
@@ -174,13 +179,13 @@ Would you like to review your categorisations? (Y/N)
 
 If you say yes (with Y) it will take you through the same review process you just did for auto categorisations.
 
-At the end of processing that Data Class (table) it will show:
+At the end of processing that table it will show:
 
 ```
 ℹ Your final categorisations have been saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv
 ```
 
-The function will then repeat the same steps for the next Data Class (table). 
+The function will then repeat the same steps for the next table in the dataset (if there is more than one). 
 
 #### Understanding the domain list 
 
@@ -205,12 +210,12 @@ For a research study, your domains are likely to be much more specific e.g. 'Pre
 #### Output
 
 The output of your decisions will be saved to a csv file.
-The csv file name includes the data asset, data class, and date stamp.
+The csv file name includes the dataset, table, and date stamp.
 This csv file, in addition to what is shown on the console, contains: 
 - user initials (from user input)
 - metadata version (from json)
 - date time stamp the metadata was last updated (from json) 
-- data asset (from json)
+- dataset name (from json)
 
 The intended use case for this log file is to be loaded up, compared across
 users, and used as an input in later analysis steps when working out
@@ -219,7 +224,7 @@ which variables can be used to represent which research domains.
 A subset of columns from the csv outputs are shown below, running with '1,10' data elements:
 
 ```
-   DataClass         DataElement Domain_code                   Note
+       Table         DataElement      Domain_code              Note
 1      BIRTH       AVAIL_FROM_DT           1       AUTO CATEGORISED
 2      BIRTH       BABY_BIRTH_DT           4                      N
 3      BIRTH   BIRTH_APGAR_SCORE           8                      N
@@ -233,7 +238,7 @@ A subset of columns from the csv outputs are shown below, running with '1,10' da
 ```
 
 ```
-            DataClass                                 DataElement Domain_code                           Note
+   Table                                              DataElement      Domain_code                      Note
 1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1               AUTO CATEGORISED
 2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                              N
 3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8           Date of health visit
@@ -259,8 +264,7 @@ Run the code the same as the demo, using your own input files.
 The json file:
 - contains metadata about datasets of interest
 - downloaded from the metadata catalogue 
-- see [data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json](data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json) for an example download
-- the metadata catalogue refers to datasets as 'data assets' and tables within these as 'data classes' 
+- see [data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json](data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json) for an example download 
 
 The domain_file:	
 - a csv file created by the user, with each domain listed on a separate line

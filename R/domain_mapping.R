@@ -1,18 +1,18 @@
 #' domain_mapping
 #'
-#' This function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains.\cr \cr
+#' This function will read in the metadata file for a chosen dataset, loop through all the data elements, and ask the user to catergorise/label each data element as belonging to one or more domains.\cr \cr
 #' The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
 #' A log file will be saved with the catergorisations made.
-#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables. \cr \cr
+#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring data elements. \cr \cr
 #' Example inputs are provided within the package data, for the user to run this function in a demo mode.
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
-#' @return The function will return a log file with the mapping between dataset variables and domains, alongside details about the dataset.
+#' @return The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
 #' # Demo mode will use the /data files provided in this package
-#' # For detailed instructions, refer to the package README.md file and the R manual files ('man' directory).
+#' # For more guidance, refer to the package README.md file and the R manual files.
 #' @export
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
@@ -62,62 +62,62 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     User_Initials <- readline(prompt = "Enter Initials: ")
   }
 
-  # Print information about Data Asset ----
-  cli_h1("Data Asset Name")
+  # Print information about Dataset ----
+  cli_h1("Dataset Name")
   cat(meta_json$dataModel$label, fill = TRUE)
-  cli_h1("Data Asset Last Updated")
+  cli_h1("Dataset Last Updated")
   cat(meta_json$dataModel$lastUpdated, fill = TRUE)
-  cli_h1("Data Asset File Exported By")
+  cli_h1("Dataset File Exported By")
   cat(meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn, fill = TRUE)
-  nDataClasses <- length(meta_json$dataModel$childDataClasses)
+  nTables <- length(meta_json$dataModel$childDataClasses)
   cat("\n")
-  cli_alert_info("Found {nDataClasses} Data Class{?es} ({nDataClasses} table{?s}) in this Data Asset")
+  cli_alert_info("Found {nTables} Table{?s} in this Dataset")
   cat("\n")
 
-  dataasset_desc <- ""
-  while (dataasset_desc != "Y" & dataasset_desc != "N") {
+  Dataset_desc <- ""
+  while (Dataset_desc != "Y" & Dataset_desc != "N") {
     cat("\n \n")
-    dataasset_desc <- readline(prompt = "Would you like to read a description of the Data Asset? (Y/N) ")
+    Dataset_desc <- readline(prompt = "Would you like to read a description of the Dataset? (Y/N) ")
   }
 
-  if (dataasset_desc == "Y") {
-    cli_h1("Data Asset Description")
+  if (Dataset_desc == "Y") {
+    cli_h1("Dataset Description")
     cat(meta_json$dataModel$description, fill = TRUE)
     readline(prompt = "Press [enter] to proceed")
   }
 
-  # Extract each DataClass (Table)
-  for (dc in 1:nDataClasses) {
+  # Extract each Table
+  for (dc in 1:nTables) {
     cat("\n")
-    cli_alert_info("Processing Data Class (Table) {dc} of {nDataClasses}")
-    cli_h1("Data Class Name")
+    cli_alert_info("Processing Table {dc} of {nTables}")
+    cli_h1("Table Name")
     cat(meta_json$dataModel$childDataClasses[[dc]]$label, fill = TRUE)
-    cli_h1("Data Class Last Updated")
+    cli_h1("Table Last Updated")
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
-    dataclass_desc <- ""
-    while (dataclass_desc != "Y" & dataclass_desc != "N") {
+    table_desc <- ""
+    while (table_desc != "Y" & table_desc != "N") {
       cat("\n \n")
-      dataclass_desc <- readline(prompt = "Would you like to read a description of the Data Class (Table)? (Y/N) ")
+      table_desc <- readline(prompt = "Would you like to read a description of the table? (Y/N) ")
     }
 
-    if (dataclass_desc == "Y") {
-      cli_h1("Data Class Description")
+    if (table_desc == "Y") {
+      cli_h1("Table Description")
       cat(meta_json$dataModel$childDataClasses[[dc]]$description, fill = TRUE)
       readline(prompt = "Press [enter] to proceed")
     }
 
-    thisDataClass <- meta_json$dataModel$childDataClasses[[dc]]$childDataElements #  probably a better way of dealing with complex json files in R ...
-    thisDataClass_df <- data.frame(do.call(rbind, thisDataClass)) # nested list to dataframe
-    dataType_df <- data.frame(do.call(rbind, thisDataClass_df$dataType)) # nested list to dataframe
+    thisTable <- meta_json$dataModel$childDataClasses[[dc]]$childDataElements #  probably a better way of dealing with complex json files in R ...
+    thisTable_df <- data.frame(do.call(rbind, thisTable)) # nested list to dataframe
+    dataType_df <- data.frame(do.call(rbind, thisTable_df$dataType)) # nested list to dataframe
 
-    selectDataClass_df <- data.frame(
-      Label = unlist(thisDataClass_df$label),
-      Description = unlist(thisDataClass_df$description),
+    selectTable_df <- data.frame(
+      Label = unlist(thisTable_df$label),
+      Description = unlist(thisTable_df$description),
       Type = unlist(dataType_df$label)
     )
 
-    selectDataClass_df <- selectDataClass_df[order(selectDataClass_df$Label), ]
+    selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
     # Create unique output csv to log the results ----
     timestamp_now <- gsub(" ", "_", Sys.time())
@@ -130,8 +130,8 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       MetaDataVersion = c(""),
       MetaDataLastUpdated = c(""),
       DomainListDesc = c(""),
-      DataAsset = c(""),
-      DataClass = c(""),
+      Dataset = c(""),
+      Table = c(""),
       DataElement = c(""),
       Domain_code = c(""),
       Note = c("")
@@ -140,32 +140,32 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     # User inputs ----
 
     cat("\n \n")
-    select_vars_n <- readline(prompt = "Enter the range of variables (data elements) to process. Press Enter to process all: ")
+    select_vars_n <- readline(prompt = "Enter the range of Data Elements to process. Press Enter to process all: ")
     if (select_vars_n == "") {
       start_var <- 1
-      end_var <- length(thisDataClass)
+      end_var <- length(thisTable)
     } else {
       seperate_vars <- unlist(strsplit(select_vars_n, ","))
       start_var <- as.numeric(seperate_vars[1])
       end_var <- as.numeric(seperate_vars[2])
     }
 
-    # Loop through each variable, request response from the user to match to a domain ----
+    # Loop through each data element, request response from the user to match to a domain ----
     for  (datavar in start_var:end_var) {
-      datavar_index <- which(lookup$DataElement == selectDataClass_df$Label[datavar]) #we should code this to ignore the case
+      datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       if (nrow(lookup_subset) == 1) {
         # auto categorisations
         Output[nrow(Output) + 1, ] <- NA #why?
-        Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
+        Output$DataElement[datavar] <- selectTable_df$Label[datavar]
         Output$Domain_code[datavar] <- lookup_subset$DomainCode
         Output$Note[datavar] <- "AUTO CATEGORISED"
         } else {
         # collect user responses
-        decision_output <- user_categorisation(selectDataClass_df$Label[datavar],selectDataClass_df$Description[datavar],selectDataClass_df$Type[datavar])
+        decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar])
         # input user responses into output
         Output[nrow(Output) + 1, ] <- NA #why?
-        Output$DataElement[datavar] <- selectDataClass_df$Label[datavar]
+        Output$DataElement[datavar] <- selectTable_df$Label[datavar]
         Output$Domain_code[datavar] <- decision_output$decision
         Output$Note[datavar] <- decision_output$decision_note
       }
@@ -175,20 +175,20 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
       Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
       Output$DomainListDesc <- DomainListDesc
-      Output$DataAsset <- meta_json$dataModel$label
-      Output$DataClass <- meta_json$dataModel$childDataClasses[[dc]]$label
+      Output$Dataset <- meta_json$dataModel$label
+      Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
 
       # Save as we go in case session terminates prematurely
       Output[Output == ""] <- NA
       utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
-    } # end of loop for variable
+    } # end of loop for DataElement
 
-    # Print the AUTO CATEGORISED responses for this DataClass - request review
+    # Print the AUTO CATEGORISED responses for this Table - request review
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     cat("\n \n")
     cli_alert_warning("Please check the auto categorised data elements are accurate:")
     cat("\n \n")
-    print(Output_auto[, c("DataClass", "DataElement", "Domain_code")])
+    print(Output_auto[, c("Table", "DataElement", "Domain_code")])
     cat("\n \n")
     auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept the auto categorisations: ")
 
@@ -199,14 +199,14 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       for  (datavar_auto in auto_row) {
 
         # collect user responses
-        decision_output <- user_categorisation(selectDataClass_df$Label[datavar_auto],selectDataClass_df$Description[datavar_auto],selectDataClass_df$Type[datavar_auto])
+        decision_output <- user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto])
         # input user responses into output
         Output$Domain_code[datavar_auto] <- decision_output$decision
         Output$Note[datavar_auto] <- decision_output$decision_note
       }
     }
 
-    # Ask if user wants to review their responses for this DataClass
+    # Ask if user wants to review their responses for this Table
     review_cats <- ""
     while (review_cats != "Y" & review_cats != "N") {
       cat("\n \n")
@@ -217,7 +217,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       cat("\n \n")
-      print(Output_not_auto[, c("DataClass", "DataElement", "Domain_code")])
+      print(Output_not_auto[, c("Table", "DataElement", "Domain_code")])
       cat("\n \n")
       not_auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept: ")
 
@@ -228,7 +228,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         for  (datavar_not_auto in not_auto_row) {
 
           # collect user responses
-          decision_output <- user_categorisation(selectDataClass_df$Label[datavar_not_auto],selectDataClass_df$Description[datavar_not_auto],selectDataClass_df$Type[datavar_not_auto])
+          decision_output <- user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto])
           # input user responses into output
           Output$Domain_code[datavar_not_auto] <- decision_output$decision
           Output$Note[datavar_not_auto] <- decision_output$decision_note
@@ -236,12 +236,12 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       }
     }
 
-    # Save final categorisations for this DataClass
+    # Save final categorisations for this Table
     Output[Output == ""] <- NA
     utils::write.csv(Output, output_fname, row.names = FALSE)
     cat("\n")
     cli_alert_info("Your final categorisations have been saved to {output_fname}")
 
-  } # end of loop for each data class
+  } # end of loop for each table
 
 } # end of function
