@@ -71,10 +71,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   cat(meta_json$dataModel$lastUpdated, fill = TRUE)
   cli_h1("Dataset File Exported By")
   cat(meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn, fill = TRUE)
-  nTables <- length(meta_json$dataModel$childDataClasses)
-  cat("\n")
-  cli_alert_info("Found {nTables} Table{?s} in this Dataset")
-  cat("\n")
 
   Dataset_desc <- logical(0)
   while (length(Dataset_desc) != 1) {
@@ -90,8 +86,24 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     readline(prompt = "Press any key to proceed")
   }
 
-  # Extract each Table
+  nTables <- length(meta_json$dataModel$childDataClasses)
+  cat("\n")
+  cli_alert_info("Found {nTables} Table{?s} in this Dataset")
   for (dc in 1:nTables) {
+    cat("\n")
+    cat(dc,meta_json$dataModel$childDataClasses[[dc]]$label, fill = TRUE)
+  }
+
+  nTables_Process <- numeric(0)
+  while (length(nTables_Process) == 0) {
+    cat("\n \n")
+    cli_alert_info("Press enter the table numbers you want to browse in this interactive session.")
+    cat("\n")
+    nTables_Process <- scan(file="",what=0)
+  }
+
+  # Extract each Table
+  for (dc in nTables_Process) {
     cat("\n")
     cli_alert_info("Processing Table {dc} of {nTables}")
     cli_h1("Table Name")
