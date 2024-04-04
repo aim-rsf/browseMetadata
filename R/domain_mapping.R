@@ -25,7 +25,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     domains <- get("domain_list")
     DomainListDesc <- "DemoList"
     cat("\n")
-    cli_alert_info("Running domain_mapping in demo mode using package data files")
+    cli_alert_success("Running domain_mapping in demo mode using package data files")
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
     cat("\n")
@@ -41,12 +41,12 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
   # Check if user has provided a look-up table
   if (is.null(look_up_file)) {
-    cli_alert_info("Using the default look-up table in data/look-up.rda")
+    cli_alert_success("Using the default look-up table in data/look-up.rda")
     lookup <- get("look_up")
     }
   else {
     lookup <- read.csv(look_up_file)
-    cli_alert_info("Using look up file inputted by user")
+    cli_alert_success("Using look up file inputted by user")
     print(lookup)
     }
 
@@ -56,10 +56,12 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
 
   # Get user and demo list info for log file ----
-  User_Initials <- ""
-  while (User_Initials == "") {
+  User_Initials <- character(0)
+  while (length(User_Initials) != 1) {
     cat("\n \n")
-    User_Initials <- readline(prompt = "Enter Initials: ")
+    cli_alert_info("Enter your initials:")
+    cat("\n")
+    User_Initials <- scan(file="",what="",n=1)
   }
 
   # Print information about Dataset ----
@@ -74,16 +76,18 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   cli_alert_info("Found {nTables} Table{?s} in this Dataset")
   cat("\n")
 
-  Dataset_desc <- ""
-  while (Dataset_desc != "Y" & Dataset_desc != "N") {
+  Dataset_desc <- logical(0)
+  while (length(Dataset_desc) != 1) {
     cat("\n \n")
-    Dataset_desc <- readline(prompt = "Would you like to read a description of the Dataset? (Y/N) ")
-  }
+    cli_alert_info("Would you like to read a description of the Dataset? (TRUE/FALSE)")
+    cat("\n")
+    Dataset_desc <- scan(file="",what=FALSE,n=1)
+    }
 
-  if (Dataset_desc == "Y") {
+  if (Dataset_desc == TRUE) {
     cli_h1("Dataset Description")
     cat(meta_json$dataModel$description, fill = TRUE)
-    readline(prompt = "Press [enter] to proceed")
+    readline(prompt = "Press any key to proceed")
   }
 
   # Extract each Table
@@ -95,16 +99,18 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cli_h1("Table Last Updated")
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
-    table_desc <- ""
-    while (table_desc != "Y" & table_desc != "N") {
+    table_desc <- logical(0)
+    while (length(table_desc) != 1) {
       cat("\n \n")
-      table_desc <- readline(prompt = "Would you like to read a description of the table? (Y/N) ")
+      cli_alert_info("Would you like to read a description of the table? (TRUE/FALSE)")
+      cat("\n")
+      table_desc <- scan(file="",what=FALSE,n=1)
     }
 
-    if (table_desc == "Y") {
+    if (table_desc == TRUE) {
       cli_h1("Table Description")
       cat(meta_json$dataModel$childDataClasses[[dc]]$description, fill = TRUE)
-      readline(prompt = "Press [enter] to proceed")
+      readline(prompt = "Press any key to proceed")
     }
 
     thisTable <- meta_json$dataModel$childDataClasses[[dc]]$childDataElements #  probably a better way of dealing with complex json files in R ...
@@ -137,21 +143,17 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       Note = c("")
     )
 
-    # User inputs ----
+    # Loop through each data element, request response from the user to match to a domain ----
 
-    cat("\n \n")
-    select_vars_n <- readline(prompt = "Enter the range of Data Elements to process. Press Enter to process all: ")
-    if (select_vars_n == "") {
-      start_var <- 1
-      end_var <- length(thisTable)
+    if (is.null(json_file) && is.null(domain_file)) {
+      end_var = 20
+      cat("\n \n")
+      cli_alert_success("Only processing 20 data elements (demo mode)")
     } else {
-      seperate_vars <- unlist(strsplit(select_vars_n, ","))
-      start_var <- as.numeric(seperate_vars[1])
-      end_var <- as.numeric(seperate_vars[2])
+      end_var = nrow(selectTable_df)
     }
 
-    # Loop through each data element, request response from the user to match to a domain ----
-    for  (datavar in start_var:end_var) {
+    for (datavar in 1:end_var) {
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       if (nrow(lookup_subset) == 1) {
@@ -189,14 +191,16 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cli_alert_warning("Please check the auto categorised data elements are accurate:")
     cat("\n \n")
     print(Output_auto[, c("Table", "DataElement", "Domain_code")])
+
+    auto_row <- numeric(0)
     cat("\n \n")
-    auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept the auto categorisations: ")
+    cli_alert_info("Press enter to accept these auto categorisations, or enter each row number you'd like to edit:")
+    cat("\n")
+    auto_row <- scan(file="",what=0)
 
-    if (auto_row_str != "") {
+    if (length(auto_row) != 0) {
 
-      auto_row <- as.integer(unlist(strsplit(auto_row_str,","))) #probably sub-optimal coding
-
-      for  (datavar_auto in auto_row) {
+      for  (datavar_auto in 1:length(auto_row)) {
 
         # collect user responses
         decision_output <- user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto])
@@ -207,25 +211,28 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     }
 
     # Ask if user wants to review their responses for this Table
-    review_cats <- ""
-    while (review_cats != "Y" & review_cats != "N") {
+    review_cats <- logical(0)
+    while (length(review_cats) != 1) {
       cat("\n \n")
-      review_cats <- readline(prompt = "Would you like to review your categorisations? (Y/N) ")
+      cli_alert_info("Would you like to review your categorisations? (TRUE/FALSE)")
+      cat("\n")
+      review_cats <- scan(file="",what=FALSE,n=1)
     }
 
-    if (review_cats == 'Y') {
-
+    if (review_cats == TRUE) {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       cat("\n \n")
       print(Output_not_auto[, c("Table", "DataElement", "Domain_code")])
       cat("\n \n")
-      not_auto_row_str <- readline(prompt = "Enter row numbers you'd like to edit or press enter to accept: ")
+      not_auto_row <- numeric(0)
+      cat("\n \n")
+      cli_alert_info("Press enter to accept your categorisations, or enter each row number you'd like to edit:")
+      cat("\n")
+      not_auto_row <- scan(file="",what=0)
 
-      if (not_auto_row_str != "") {
+      if (length(not_auto_row) != 0) {
 
-        not_auto_row <- as.integer(unlist(strsplit(not_auto_row_str,","))) #probably sub-optimal coding
-
-        for  (datavar_not_auto in not_auto_row) {
+        for  (datavar_not_auto in 1:length(not_auto_row)) {
 
           # collect user responses
           decision_output <- user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto])
@@ -240,7 +247,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     Output[Output == ""] <- NA
     utils::write.csv(Output, output_fname, row.names = FALSE)
     cat("\n")
-    cli_alert_info("Your final categorisations have been saved to {output_fname}")
+    cli_alert_success("Your final categorisations have been saved to {output_fname}")
 
   } # end of loop for each table
 
