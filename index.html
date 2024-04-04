@@ -94,6 +94,15 @@
 <a class="anchor" aria-label="anchor" href="#getting-started-with-this-r-package-browsemetadata"></a>
 </h2>
 <div class="section level3">
+<h3 id="terminology">Terminology<a class="anchor" aria-label="anchor" href="#terminology"></a>
+</h3>
+<ul>
+<li>We use <em>Dataset</em> (collection of data, can contain multiple tables) - this is called <em>Data Asset</em> in the Metadata Catalogue</li>
+<li>We use <em>Table</em> - this is called <em>Data Class</em> in the Metadata Catalogue</li>
+<li>We use <em>Data Element</em> - the same as the Metadata Catalogue - which refers to each variable name within the table</li>
+</ul>
+</div>
+<div class="section level3">
 <h3 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
 </h3>
 <p>Run in the R console:</p>
@@ -115,42 +124,42 @@
 <pre><code>ℹ Running domain_mapping in demo mode using package data files
 
 Enter Initials: RS</code></pre>
-<p>Respond with your initials and press enter. It will ask you if you want to read the description of Data Assets and Data Classes (tables):</p>
-<pre><code>── Data Asset Name ────────────────────────────────────────────────────────────────────
+<p>Respond with your initials and press enter. It will ask you if you want to read the description of Datasets and Tables:</p>
+<pre><code>── Dataset Name ────────────────────────────────────────────────────────────────────
 Maternity Indicators Dataset (MIDS)
 
-── Data Asset Last Updated ────────────────────────────────────────────────────────────
+── Dataset Last Updated ────────────────────────────────────────────────────────────
 2023-12-04T14:13:49.131Z
 
-── Data Asset File Exported By ────────────────────────────────────────────────────────
+── Dataset File Exported By ────────────────────────────────────────────────────────
 Rachael Stickland at 2024-01-05T13:22:09.774Z
 
-ℹ Found 2 Data Classes (2 tables) in this Data Asset
+ℹ Found 2 Tables in this Dataset
 
-Would you like to read a description of the Data Asset? (Y/N) Y</code></pre>
+Would you like to read a description of the Dataset? (Y/N) Y</code></pre>
 <p>Enter Y to read these descriptions, for the purpose of the demo.</p>
-<p>For this example, the Data Asset is called MIDS and the tables inside this Data Class are BIRTH and INITIAL_ASSESSMENT.</p>
-<p>For each table, it will ask which variables to process:</p>
-<pre><code>Enter the range of variables (data elements) to process. Press Enter to process all: 1,10</code></pre>
-<p>If you press enter it will process all the variables, so use a smaller range like 1 to 10 the first time you run this demo.</p>
-<p>For each data element (variable) you will be shown this structure:</p>
+<p>For this example, the Dataset is called MIDS and the tables inside this Dataset are BIRTH and INITIAL_ASSESSMENT.</p>
+<p>For each table, it will ask which data elements to process:</p>
+<pre><code>Enter the range of Data Elements to process. Press Enter to process all: 1,10</code></pre>
+<p>If you press enter it will process all the data elements, so use a smaller range like 1 to 10 the first time you run this demo.</p>
+<p>For each data element you will be shown this structure:</p>
 <pre><code>DATA ELEMENT -----&gt;  SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD 
 
 DESCRIPTION -----&gt;  Code indicating whether or not the woman has an existing mental health condition. 
 
 DATA TYPE -----&gt;  CHARACTER </code></pre>
-<p>By referencing the plots tab, and other info you may have, categorise this variable with a number(s). A variable can map to more than one domain so a comma separated list of numbers can be given (7,8).</p>
+<p>By referencing the plots tab, and other info you may have, categorise this data element with a number(s). A data element can map to more than one domain so a comma separated list of numbers can be given (7,8).</p>
 <p>There is an (optional) note field to explain your choice.</p>
-<pre><code>Categorise this variable: 8
+<pre><code>Categorise this data element: 8
 
 Notes (write 'N' if no notes): N</code></pre>
 <p>If you make a mistake, the next prompt allows you to redo. Or press enter if you are happy to continue.</p>
 <pre><code>Press enter to continue or write 'redo' to correct previous answer: </code></pre>
-<p>When you get to the end of your requested number of variables it will show you variables that have been auto categorised.</p>
+<p>When you get to the end of your requested number of data elements it will show you data elements that have been auto categorised.</p>
 <p>If you want to change these auto categorisations, and do them manually, include the row number (1,9) in the list.</p>
 <pre><code>! Please check the auto categorised data elements are accurate:
 
- DataClass      DataElement        Domain_code
+ Table      DataElement        Domain_code
 1      BIRTH    AVAIL_FROM_DT      1
 9      BIRTH    CHILD_ALF_E        2
 10     BIRTH    CHILD_ALF_STS_CD   2
@@ -159,9 +168,9 @@ Enter row numbers you'd like to edit or press enter to accept the auto categoris
 <p>Finally, it will ask you if you want to review the categorisations you previously made.</p>
 <pre><code>Would you like to review your categorisations? (Y/N) </code></pre>
 <p>If you say yes (with Y) it will take you through the same review process you just did for auto categorisations.</p>
-<p>At the end of processing that Data Class (table) it will show:</p>
+<p>At the end of processing that table it will show:</p>
 <pre><code>ℹ Your final categorisations have been saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv</code></pre>
-<p>The function will then repeat the same steps for the next Data Class (table).</p>
+<p>The function will then repeat the same steps for the next table in the dataset (if there is more than one).</p>
 <div class="section level4">
 <h4 id="understanding-the-domain-list">Understanding the domain list<a class="anchor" aria-label="anchor" href="#understanding-the-domain-list"></a>
 </h4>
@@ -189,10 +198,10 @@ Enter row numbers you'd like to edit or press enter to accept the auto categoris
 <div class="section level4">
 <h4 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
 </h4>
-<p>The output of your decisions will be saved to a csv file. The csv file name includes the data asset, data class, and date stamp. This csv file, in addition to what is shown on the console, contains: - user initials (from user input) - metadata version (from json) - date time stamp the metadata was last updated (from json) - data asset (from json)</p>
+<p>The output of your decisions will be saved to a csv file. The csv file name includes the dataset, table, and date stamp. This csv file, in addition to what is shown on the console, contains: - user initials (from user input) - metadata version (from json) - date time stamp the metadata was last updated (from json) - dataset name (from json)</p>
 <p>The intended use case for this log file is to be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which research domains.</p>
 <p>A subset of columns from the csv outputs are shown below, running with ‘1,10’ data elements:</p>
-<pre><code>   DataClass         DataElement Domain_code                   Note
+<pre><code>       Table         DataElement      Domain_code              Note
 1      BIRTH       AVAIL_FROM_DT           1       AUTO CATEGORISED
 2      BIRTH       BABY_BIRTH_DT           4                      N
 3      BIRTH   BIRTH_APGAR_SCORE           8                      N
@@ -203,7 +212,7 @@ Enter row numbers you'd like to edit or press enter to accept the auto categoris
 8      BIRTH BIRTH_TREAT_SITE_CD           6                      N
 9      BIRTH         CHILD_ALF_E           2       AUTO CATEGORISED
 10     BIRTH    CHILD_ALF_STS_CD           2       AUTO CATEGORISED</code></pre>
-<pre><code>            DataClass                                 DataElement Domain_code                           Note
+<pre><code>   Table                                              DataElement      Domain_code                      Note
 1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1               AUTO CATEGORISED
 2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                              N
 3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8           Date of health visit
@@ -223,7 +232,7 @@ Enter row numbers you'd like to edit or press enter to accept the auto categoris
 <code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span>, <span class="va">look_up_file</span><span class="op">)</span></span></code></pre></div>
 <p>This code is in early development. To see known bugs or sub-optimal features refer to the <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">Issues</a>.</p>
 <p>Run the code the same as the demo, using your own input files.</p>
-<p>The json file: - contains metadata about datasets of interest - downloaded from the metadata catalogue - see <a href="data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json">data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json</a> for an example download - the metadata catalogue refers to datasets as ‘data assets’ and tables within these as ‘data classes’</p>
+<p>The json file: - contains metadata about datasets of interest - downloaded from the metadata catalogue - see <a href="data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json">data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json</a> for an example download</p>
 <p>The domain_file:<br>
 - a csv file created by the user, with each domain listed on a separate line - see <a href="data-raw/domain_list_demo.csv">data-raw/domain_list_demo.csv</a> for a template - the first 5 domains will be auto populated (see demo above)</p>
 <p>The lookup file: - a <a href="data-raw/look_up.csv">default lookup file</a> is used by the domain_mapping function - optional: a csv can be created by the user (using the same format as the default) and provided as the input - the lookup file makes auto-categorisations - intended for variables that come up regularly in health datasets (e.g. IDs and demographics) - the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file</p>
