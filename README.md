@@ -11,10 +11,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 
 This `R` package was created to help a researcher browse the health
-datasets in the [SAIL databank](https://saildatabank.com). It is
-intended to be useful in the earlier stages of a project, where
-datasets are being scoped out. When a research team has not yet got
-access to the data they can still browse the metadata, and start to
+datasets in [SAIL databank](https://saildatabank.com). It has scope
+to be applied to other health datasets. It is intended to be useful 
+in the earlier stages of a project. When a research team has not yet 
+got access to the data they can still browse the metadata, and 
 address such questions as:
 
 :question: what datasets are available?
@@ -29,22 +29,16 @@ events, medical diagnoses, culture and community)
 
 This `R` package is a planning tool, designed to be used alongside other
 tools and sources of information about health datasets for research.
-
-If a researcher wants to access datasets within SAIL databank, how do
-they know which variables will represent the concepts they care about
-for their research question? For many health datasets, including SAIL,
-the metadata is publicly available. This `R` package uses the [Health
-Data Research
-Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets)
-and the connected [Metadata
-Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This `R`
-package has a function which takes a metadata file as input and
-facilitates the process of browsing through each dataset and variable.
-The user is asked to categorise each variable into a domain related to
-their research question, and these categorisations get saved in a csv
-file for later reference. To speed up this process, the function
-automatically categorises some variables that regularly appear in health
-datasets (e.g. ID, Sex, Age).
+For many health datasets, including SAIL, the metadata is publicly available. 
+This `R` package uses the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets)
+and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). 
+This `R` package takes a metadata file as input and facilitates the process 
+of browsing through each table within a chosen dataset. The user is asked to 
+categorise each data element (variable) within a table into a domain related 
+to their research question, and these categorisations get saved in a csv file 
+for later reference. To speed up this process, the function automatically 
+categorises some variables that regularly appear in health datasets 
+(e.g. ID, Sex, Age).
 
 🚧 :warning: This package is in early development, and has only been
 tested on a limited number of metadata files. In theory, this package
