@@ -19,9 +19,6 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     "\n\nDATA TYPE -----> ", data_type, "\n"
   ))
 
-  state <- "redo"
-  while (state == "redo") {
-
     # ask user for categorisation
     decision <- ""
     while (decision == "") {
@@ -35,12 +32,6 @@ user_categorisation <- function(data_element,data_desc,data_type) {
       cat("\n \n")
       decision_note <- readline(prompt = "Notes (write 'N' if no notes): ")
     }
-
-    # check if user wants to continue or redo
-    cat("\n \n")
-    state <- readline(prompt = "Press enter to continue or write 'redo' to correct previous answer: ")
-
-  }
 
 return(list(decision = decision,decision_note = decision_note))
 
