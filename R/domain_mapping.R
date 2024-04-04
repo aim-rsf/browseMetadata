@@ -147,13 +147,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     if (is.null(json_file) && is.null(domain_file)) {
       end_var = 20
-      cat("\n \n")
-      cli_alert_success("Only processing 20 data elements (demo mode)")
     } else {
       end_var = nrow(selectTable_df)
     }
 
     for (datavar in 1:end_var) {
+      cat("\n \n")
+      cli_alert_success("Processing data element {datavar} of {end_var}")
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       if (nrow(lookup_subset) == 1) {
