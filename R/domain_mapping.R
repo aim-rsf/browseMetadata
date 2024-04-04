@@ -97,7 +97,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   nTables_Process <- numeric(0)
   while (length(nTables_Process) == 0) {
     cat("\n \n")
-    cli_alert_info("Press enter the table numbers you want to browse in this interactive session.")
+    cli_alert_info("Enter each table number you want to process in this interactive session.")
     cat("\n")
     nTables_Process <- scan(file="",what=0)
   }
