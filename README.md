@@ -264,8 +264,7 @@ Run the code the same as the demo, using your own input files.
 The json file:
 - contains metadata about datasets of interest
 - downloaded from the metadata catalogue 
-- see [data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json](data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json) for an example download
-- the metadata catalogue refers to datasets as 'data assets' and tables within these as 'data classes' 
+- see [data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json](data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json) for an example download 
 
 The domain_file:	
 - a csv file created by the user, with each domain listed on a separate line
