@@ -233,7 +233,7 @@ We chose 8 because that corresponds to the 'Health' domain in the table. More th
 It will then ask us to write a note for this categorisation:
 
 ```
-ℹ Write a note to go with each decision (or 'N'):
+ℹ Write a note to go with this decision (or 'N'):
 
 1: N
 ```
