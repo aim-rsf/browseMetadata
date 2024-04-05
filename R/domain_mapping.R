@@ -143,16 +143,16 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     output_fname <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
 
-    Output <- data.frame(
-      Initials = c(""),
-      MetaDataVersion = c(""),
-      MetaDataLastUpdated = c(""),
-      DomainListDesc = c(""),
-      Dataset = c(""),
-      Table = c(""),
-      DataElement = c(""),
-      Domain_code = c(""),
-      Note = c("")
+    row_Output <- data.frame(
+      Initials = character(0),
+      MetaDataVersion = character(0),
+      MetaDataLastUpdated = character(0),
+      DomainListDesc = character(0),
+      Dataset = character(0),
+      Table = character(0),
+      DataElement = character(0),
+      Domain_code = character(0),
+      Note = character(0)
     )
 
     # Loop through each data element, request response from the user to match to a domain ----
@@ -163,46 +163,40 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       end_var = nrow(selectTable_df)
     }
 
+    Output <- row_Output
     for (datavar in 1:end_var) {
+      this_Output <- row_Output
+      this_Output[nrow(this_Output) + 1 , ] <- NA
       cat("\n \n")
       cli_alert_success("Processing data element {datavar} of {end_var}")
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       if (nrow(lookup_subset) == 1) {
         # auto categorisations
-        Output[nrow(Output) + 1, ] <- NA #why?
-        Output$DataElement[datavar] <- selectTable_df$Label[datavar]
-        Output$Domain_code[datavar] <- lookup_subset$DomainCode
-        Output$Note[datavar] <- "AUTO CATEGORISED"
+        this_Output$DataElement[1] <- selectTable_df$Label[datavar]
+        this_Output$Domain_code[1] <- lookup_subset$DomainCode
+        this_Output$Note[1] <- "AUTO CATEGORISED"
         } else {
         # collect user responses
         decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar])
         # input user responses into output
-        Output[nrow(Output) + 1, ] <- NA #why?
-        Output$DataElement[datavar] <- selectTable_df$Label[datavar]
-        Output$Domain_code[datavar] <- decision_output$decision
-        Output$Note[datavar] <- decision_output$decision_note
-      }
-
-      # Fill in columns that have all rows identical
-      Output$Initials <- User_Initials
-      Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
-      Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
-      Output$DomainListDesc <- DomainListDesc
-      Output$Dataset <- meta_json$dataModel$label
-      Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
+        this_Output$DataElement[1] <- selectTable_df$Label[datavar]
+        this_Output$Domain_code[1] <- decision_output$decision
+        this_Output$Note[1] <- decision_output$decision_note
+        }
 
       # Save as we go in case session terminates prematurely
-      Output[Output == ""] <- NA
+      Output <- rbind(Output,this_Output)
       utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
+
     } # end of loop for DataElement
 
     # Print the AUTO CATEGORISED responses for this Table - request review
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     cat("\n \n")
-    cli_alert_warning("Please check the auto categorised data elements are accurate:")
+    cli_alert_warning("Please check the auto categorised data elements are accurate for table {meta_json$dataModel$childDataClasses[[dc]]$label}:")
     cat("\n \n")
-    print(Output_auto[, c("Table", "DataElement", "Domain_code")])
+    print(Output_auto[, c("DataElement", "Domain_code")])
 
     auto_row <- numeric(0)
     cat("\n \n")
@@ -212,7 +206,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     if (length(auto_row) != 0) {
 
-      for  (datavar_auto in 1:length(auto_row)) {
+      for  (datavar_auto in auto_row) {
 
         # collect user responses
         decision_output <- user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto])
@@ -234,17 +228,17 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     if (review_cats == TRUE) {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       cat("\n \n")
-      print(Output_not_auto[, c("Table", "DataElement", "Domain_code")])
+      print(Output_not_auto[, c("DataElement", "Domain_code")])
       cat("\n \n")
       not_auto_row <- numeric(0)
       cat("\n \n")
-      cli_alert_info("Press enter to accept your categorisations, or enter each row number you'd like to edit:")
+      cli_alert_info("Press enter to accept your categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label}, or enter each row number you'd like to edit:")
       cat("\n")
       not_auto_row <- scan(file="",what=0)
 
       if (length(not_auto_row) != 0) {
 
-        for  (datavar_not_auto in 1:length(not_auto_row)) {
+        for  (datavar_not_auto in not_auto_row) {
 
           # collect user responses
           decision_output <- user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto])
@@ -255,8 +249,15 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       }
     }
 
+    # Fill in columns that have all rows identical
+    Output$Initials <- User_Initials
+    Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
+    Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
+    Output$DomainListDesc <- DomainListDesc
+    Output$Dataset <- meta_json$dataModel$label
+    Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
+
     # Save final categorisations for this Table
-    Output[Output == ""] <- NA
     utils::write.csv(Output, output_fname, row.names = FALSE)
     cat("\n")
     cli_alert_success("Your final categorisations have been saved to {output_fname}")
