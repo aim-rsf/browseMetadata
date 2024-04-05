@@ -27,15 +27,14 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     while (length(decision) == 0) {
       decision <- scan(file="",what=0)
     }
-    print(decision)
 
     # ask user for note on categorisation
     decision_note <- character(0)
     cat("\n \n")
-    cli_alert_info("Write a note to go with each decision (or 'None'):")
+    cli_alert_info("Write a note to go with this decision (or 'None'):")
     cat("\n")
     while (length(decision_note) == 0) {
-      decision_note <- scan(file="",what="",n=length(decision))
+      decision_note <- scan(file="",what="",n=1)
       }
 
 return(list(decision = decision,decision_note = decision_note))
