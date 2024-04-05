@@ -19,24 +19,24 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     "\n\nDATA TYPE -----> ", data_type, "\n"
   ))
 
-    # ask user for categorisation
-    decision <- numeric(0)
-    cat("\n \n")
-    cli_alert_info("Categorise this data element (one or multiple domains):")
-    cat("\n")
-    while (length(decision) == 0) {
-      decision <- scan(file="",what=0)
+  # ask user for categorisation
+  decision <- character(0)
+  cat("\n \n")
+  cli_alert_info("Categorise this data element into one or more domains, e.g. 5 or 5,8:")
+  cat("\n")
+  while (length(decision) == 0) {
+    decision <- scan(file="",what="",n=1)
     }
 
-    # ask user for note on categorisation
-    decision_note <- character(0)
-    cat("\n \n")
-    cli_alert_info("Write a note to go with this decision (or 'None'):")
-    cat("\n")
-    while (length(decision_note) == 0) {
-      decision_note <- scan(file="",what="",n=1)
-      }
+  # ask user for note on categorisation
+  decision_note <- character(0)
+  cat("\n \n")
+  cli_alert_info("Write a note to go with this decision (or 'N'):")
+  cat("\n")
+  while (length(decision_note) == 0) {
+    decision_note <- scan(file="",what="",n=1)
+    }
 
-return(list(decision = decision,decision_note = decision_note))
+  return(list(decision = decision,decision_note = decision_note))
 
-}
+  }
