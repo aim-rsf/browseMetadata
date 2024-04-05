@@ -187,7 +187,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
           this_Output[nrow(this_Output) + 1 , ] <- NA
           this_Output$DataElement[1] <- selectTable_df$Label[datavar]
           this_Output$Domain_code[1] <- decision_output$decision[d]
-          this_Output$Note[1] <- decision_output$decision_note[d]
+          this_Output$Note[1] <- decision_output$decision_note[1]
           Output <- rbind(Output,this_Output)
           utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
           }
