@@ -75,7 +75,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   Dataset_desc <- ""
   while (Dataset_desc != "Y" & Dataset_desc != "N") {
     cat("\n \n")
-    Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (Y/N) ")
+    Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (Y/N): ")
   }
 
   if (Dataset_desc == 'Y') {
@@ -120,7 +120,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     table_desc <- ""
     while (table_desc != "Y" & table_desc != "N") {
       cat("\n \n")
-      table_desc <- readline(prompt = "Would you like to read a description of the table? (Y/N) ")
+      table_desc <- readline(prompt = "Would you like to read a description of the table? (Y/N): ")
     }
 
     if (table_desc == 'Y') {
@@ -232,7 +232,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     review_cats <- ""
     while (review_cats != "Y" & review_cats != "N") {
       cat("\n \n")
-      review_cats <- readline(prompt = "Would you like to review your categorisations? (Y/N) ")
+      review_cats <- readline(prompt = "Would you like to review your categorisations? (Y/N): ")
     }
 
     if (review_cats == 'Y') {
