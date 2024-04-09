@@ -157,11 +157,10 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     # Loop through each data element, request response from the user to match to a domain ----
 
-    if (is.null(json_file) && is.null(domain_file)) {
+    # if it's the demo run, only loop through a max of 20 data elements
+    if (is.null(json_file) && is.null(domain_file) && nrow(selectTable_df) > 20) {
       end_var = 20
-    } else {
-      end_var = nrow(selectTable_df)
-    }
+      } else {end_var = nrow(selectTable_df)}
 
     Output <- row_Output
     for (datavar in 1:end_var) {
@@ -185,8 +184,8 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         this_Output <- row_Output
         this_Output[nrow(this_Output) + 1 , ] <- NA
         this_Output$DataElement[1] <- selectTable_df$Label[datavar]
-        this_Output$Domain_code[1] <- decision_output$decision[1]
-        this_Output$Note[1] <- decision_output$decision_note[1]
+        this_Output$Domain_code[1] <- decision_output$decision
+        this_Output$Note[1] <- decision_output$decision_note
         Output <- rbind(Output,this_Output)
         utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
         }
