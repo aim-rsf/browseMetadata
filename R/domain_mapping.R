@@ -56,12 +56,10 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
 
   # Get user and demo list info for log file ----
-  User_Initials <- character(0)
-  while (length(User_Initials) != 1) {
-    cat("\n \n")
-    cli_alert_info("Enter your initials:")
-    cat("\n")
-    User_Initials <- scan(file="",what="",n=1)
+  User_Initials <- ""
+  cat("\n \n")
+  while (User_Initials == "") {
+    User_Initials <- readline("Enter your initials: ")
   }
 
   # Print information about Dataset ----
@@ -72,15 +70,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   cli_h1("Dataset File Exported By")
   cat(meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn, fill = TRUE)
 
-  Dataset_desc <- logical(0)
-  while (length(Dataset_desc) != 1) {
+  Dataset_desc <- ""
+  while (Dataset_desc != "Y" & Dataset_desc != "N") {
     cat("\n \n")
-    cli_alert_info("Would you like to read a description of the Dataset? (TRUE/FALSE)")
-    cat("\n")
-    Dataset_desc <- scan(file="",what=FALSE,n=1)
-    }
+    Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (Y/N) ")
+  }
 
-  if (Dataset_desc == TRUE) {
+  if (Dataset_desc == 'Y') {
     cli_h1("Dataset Description")
     cat(meta_json$dataModel$description, fill = TRUE)
     readline(prompt = "Press any key to proceed")
@@ -111,15 +107,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cli_h1("Table Last Updated")
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
-    table_desc <- logical(0)
-    while (length(table_desc) != 1) {
+    table_desc <- ""
+    while (table_desc != "Y" & table_desc != "N") {
       cat("\n \n")
-      cli_alert_info("Would you like to read a description of the table? (TRUE/FALSE)")
-      cat("\n")
-      table_desc <- scan(file="",what=FALSE,n=1)
+      table_desc <- readline(prompt = "Would you like to read a description of the table? (Y/N) ")
     }
 
-    if (table_desc == TRUE) {
+    if (table_desc == 'Y') {
       cli_h1("Table Description")
       cat(meta_json$dataModel$childDataClasses[[dc]]$description, fill = TRUE)
       readline(prompt = "Press any key to proceed")
@@ -217,15 +211,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     }
 
     # Ask if user wants to review their responses for this Table
-    review_cats <- logical(0)
-    while (length(review_cats) != 1) {
+    review_cats <- ""
+    while (review_cats != "Y" & review_cats != "N") {
       cat("\n \n")
-      cli_alert_info("Would you like to review your categorisations? (TRUE/FALSE)")
-      cat("\n")
-      review_cats <- scan(file="",what=FALSE,n=1)
+      review_cats <- readline(prompt = "Would you like to review your categorisations? (Y/N) ")
     }
 
-    if (review_cats == TRUE) {
+    if (review_cats == 'Y') {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       cat("\n \n")
       print(Output_not_auto[, c("DataElement", "Domain_code")])
