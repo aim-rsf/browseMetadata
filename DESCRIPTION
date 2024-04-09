@@ -21,6 +21,7 @@ Depends:
 Imports: 
     cli,
     devtools,
+    dplyr,
     grid,
     gridExtra,
     rjson
