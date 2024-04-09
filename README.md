@@ -113,12 +113,10 @@ The 5 default domains are always included [0-4], appended on to any domain list 
 ✔ Running domain_mapping in demo mode using package data files
 ✔ Using the default look-up table in data/look-up.rda
  
-ℹ Enter your initials:
-
-1: RS
+Enter your initials: RS
 ```
 
-Respond with your initials after the **1:** prompt and press enter.
+Respond with your initials after the prompt and press enter.
 It will then print the name of the dataset and where it was retrieved from:
 
 ```
@@ -131,12 +129,10 @@ National Community Child Health Database (NCCHD)
 ── Dataset File Exported By ──────────────────────────────────────────────────────────────────────────────────────────
 Rachael Stickland at 2024-04-05T13:01:23.109Z
 
-ℹ Would you like to read a description of the Dataset? (TRUE/FALSE)
-
-1: TRUE
+Would you like to read a description of the dataset? (Y/N): Y
 ```
 
-Enter TRUE after the prompt to read the description, for the purpose of the demo. 
+Enter Y after the prompt to read the description, for the purpose of the demo. 
 
 After reading the description of this dataset it will show:
 
@@ -199,12 +195,10 @@ CHILD
 ── Table Last Updated ────────────────────────────────────────────────────────────────────────────────────────────────
 2024-03-14T17:40:46.509Z 
 
-ℹ Would you like to read a description of the table? (TRUE/FALSE)
-
-1: TRUE
+Would you like to read a description of the table? (Y/N): Y
 ```
 
-Enter TRUE after the prompt to read the description, for the purpose of the demo.
+Enter Y after the prompt to read the description, for the purpose of the demo.
 
 It will now start looping through the data elements. If it skips over one it means it was auto-categorised (more on that later).
 
@@ -223,19 +217,14 @@ DESCRIPTION ----->  APGAR 1 score. This is a measure of a baby's physical state 
 
 DATA TYPE ----->  CHARACTER 
 
- 
-ℹ Categorise this data element into one or more domains, e.g. 5 or 5,8:
-
-1: 8
+Categorise this data element into one or more domains, e.g. 5 or 5,8: 8
 ```
-We chose 8 because that corresponds to the 'Health' domain in the table. More than one domain can be chosen. 
+We chose to respond with '8' because that corresponds to the 'Health' domain in the table. More than one domain can be chosen. 
 
 It will then ask us to write a note for this categorisation:
 
 ```
-ℹ Write a note to go with this decision (or 'N'):
-
-1: N
+Write a note to go with this decision (or 'N'): N
 ```
 
 After completing 20, it will then ask you to review the auto-categorisations it made. 
@@ -250,21 +239,16 @@ After completing 20, it will then ask you to review the auto-categorisations it 
 6  AVAIL_FROM_DT           1
 19       GNDR_CD           4
 
-ℹ Press enter to accept these auto categorisations, or enter each row number you'd like to edit:
+ℹ Press enter to accept the auto categorisations for table CHILD or enter each row you'd like to edit:
 
 1: 
 ```
 
-Press enter for now. It will then ask you if you want to review the categorisations you made:
+Press enter for now. It will then ask you if you want to review the categorisations you made. Respond Y to review:
 
 ```
-ℹ Would you like to review your categorisations? (TRUE/FALSE)
+Would you like to review your categorisations? (Y/N): Y
 
-1: TRUE
-```
-Respond TRUE to review. 
-
-```
             DataElement Domain_code
 4               APGAR_1           8
 5               APGAR_2           8
@@ -287,7 +271,6 @@ Respond TRUE to review.
 1: 8
 2: 14
 3: 
-
 ```
 
 If you want to change your categorisation, enter in the row number (e.g. 8 for BIRTH_TM and 14 for CURR_LHB_CD_BIRTH). 
