@@ -18,7 +18,9 @@
 #' @importFrom utils read.csv write.csv
 
 domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL) {
-  # Load data: Check if demo data should be used
+
+  ## Load data: Check if demo data should be used ----
+
   if (is.null(json_file) && is.null(domain_file)) {
     # If both json_file and domain_file are NULL, use demo data
     meta_json <- get("json_metadata")
@@ -50,19 +52,19 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     print(lookup)
     }
 
-  # Present domains plots panel for user's reference ----
+  ## Present domains plots panel for user's reference ----
   graphics::plot.new()
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
   gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
 
-  # Get user and demo list info for log file ----
+  ## Get user and demo list info for log file ----
   User_Initials <- ""
   cat("\n \n")
   while (User_Initials == "") {
     User_Initials <- readline("Enter your initials: ")
   }
 
-  # Print information about Dataset ----
+  ## Print information about Dataset ----
   cli_h1("Dataset Name")
   cat(meta_json$dataModel$label, fill = TRUE)
   cli_h1("Dataset Last Updated")
@@ -82,6 +84,8 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     readline(prompt = "Press any key to proceed")
   }
 
+  ## Ask user which tables to process  ----
+
   nTables <- length(meta_json$dataModel$childDataClasses)
   cat("\n")
   cli_alert_info("Found {nTables} Table{?s} in this Dataset")
@@ -91,14 +95,20 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   }
 
   nTables_Process <- numeric(0)
-  while (length(nTables_Process) == 0) {
-    cat("\n \n")
-    cli_alert_info("Enter each table number you want to process in this interactive session.")
-    cat("\n")
-    nTables_Process <- scan(file="",what=0)
+  nTables_Process_Error <- TRUE
+  nTables_Process_OutOfRange <- FALSE
+  while (length(nTables_Process) == 0 | nTables_Process_Error==TRUE | nTables_Process_OutOfRange == TRUE) {
+    tryCatch({
+      cat("\n \n");
+      cli_alert_info("Enter each table number you want to process in this interactive session:");
+      cat("\n");
+      nTables_Process <- scan(file="",what=0);
+      nTables_Process_Error <- FALSE;
+      nTables_Process_OutOfRange = any(nTables_Process > nTables)},
+      error=function(e) {nTables_Process_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, reference the table numbers and try again')})
   }
 
-  # Extract each Table
+  # Extract each Table  ----
   for (dc in nTables_Process) {
     cat("\n")
     cli_alert_info("Processing Table {dc} of {nTables}")
@@ -185,18 +195,26 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         }
     } # end of loop for DataElement
 
-    # Print the AUTO CATEGORISED responses for this Table - request review
+    ## Print the AUTO CATEGORISED responses for this Table and request review  ----
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     cat("\n \n")
     cli_alert_warning("Please check the auto categorised data elements are accurate for table {meta_json$dataModel$childDataClasses[[dc]]$label}:")
     cat("\n \n")
     print(Output_auto[, c("DataElement", "Domain_code")])
 
-    auto_row <- numeric(0)
-    cat("\n \n")
-    cli_alert_info("Press enter to accept these auto categorisations, or enter each row number you'd like to edit:")
-    cat("\n")
-    auto_row <- scan(file="",what=0)
+    # extract the rows to edit
+    auto_row_Error <- TRUE
+    auto_row_OutOfRange <- FALSE
+    while (auto_row_Error==TRUE | auto_row_OutOfRange == TRUE) {
+      tryCatch({
+        cat("\n \n");
+        cli_alert_info("Press enter to accept the auto categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
+        cat("\n");
+        auto_row <- scan(file="",what=0);
+        auto_row_Error <- FALSE;
+        auto_row_OutOfRange = any(auto_row > nrow(selectTable_df))},
+        error=function(e) {auto_row_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, reference the row numbers and try again')})
+    }
 
     if (length(auto_row) != 0) {
 
@@ -210,7 +228,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       }
     }
 
-    # Ask if user wants to review their responses for this Table
+    ## Ask if user wants to review their responses for this Table ----
     review_cats <- ""
     while (review_cats != "Y" & review_cats != "N") {
       cat("\n \n")
@@ -222,11 +240,20 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       cat("\n \n")
       print(Output_not_auto[, c("DataElement", "Domain_code")])
       cat("\n \n")
-      not_auto_row <- numeric(0)
-      cat("\n \n")
-      cli_alert_info("Press enter to accept your categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label}, or enter each row number you'd like to edit:")
-      cat("\n")
-      not_auto_row <- scan(file="",what=0)
+
+      # extract the rows to edit
+      not_auto_row_Error <- TRUE
+      not_auto_row_OutOfRange <- FALSE
+      while (not_auto_row_Error==TRUE | not_auto_row_OutOfRange == TRUE) {
+        tryCatch({
+          cat("\n \n");
+          cli_alert_info("Press enter to accept your categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
+          cat("\n");
+          not_auto_row <- scan(file="",what=0);
+          not_auto_row_Error <- FALSE;
+          not_auto_row_OutOfRange = any(not_auto_row > nrow(selectTable_df))},
+          error=function(e) {not_auto_row_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, reference the row numbers and try again')})
+      }
 
       if (length(not_auto_row) != 0) {
 
@@ -241,7 +268,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       }
     }
 
-    # Fill in columns that have all rows identical
+    ## Fill in columns that have all rows identical ----
     Output$Initials <- User_Initials
     Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
     Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
@@ -249,7 +276,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     Output$Dataset <- meta_json$dataModel$label
     Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
 
-    # Save final categorisations for this Table
+    ## Save final categorisations for this Table  ----
     utils::write.csv(Output, output_fname, row.names = FALSE)
     cat("\n")
     cli_alert_success("Your final categorisations have been saved to {output_fname}")
