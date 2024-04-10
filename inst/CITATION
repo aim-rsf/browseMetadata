@@ -3,7 +3,7 @@ bibentry(
   title    = "browseMetadata: Browses available metadata, to catergorise or
 label each variable in a dataset",
   author = "Rachael Stickland",
-  year  = 2023,
-  note = "R package version 0.1.0",
+  year  = 2024,
+  note = "R package version 1.0.0",
   url = "https://github.com/aim-rsf/browseMetadata",
 )
