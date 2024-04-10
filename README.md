@@ -53,6 +53,7 @@ for SAIL databank.
 ## Getting started with `browseMetadata`
 
 ### Terminology 
+
 - We use *Dataset* (collection of data, can contain multiple tables) - this is called *Data Asset* in the Metadata Catalogue
 - We use *Table* - this is called *Data Class* in the Metadata Catalogue
 - We use *Data Element* - the same as the Metadata Catalogue - which refers to each variable name within the table
@@ -280,7 +281,8 @@ All finished! Take a look at the csv output.
 
 The output of your decisions will be saved to a csv file.
 The csv file name includes the dataset, table, and date stamp.
-This csv file, in addition to what is shown on the console, contains: 
+This csv file, in addition to what is shown on the console, contains:
+
 - user initials (from user input)
 - metadata version (from json)
 - date time stamp the metadata was last updated (from json) 
@@ -301,20 +303,23 @@ This code is in early development. To see known bugs or sub-optimal features ref
 Run the code the same as the demo, using your own input files. 
 
 The json file:
+
 - contains metadata about datasets of interest
 - downloaded from the metadata catalogue 
 - see [data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json](data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json) for an example download 
 
 The domain_file:	
+
 - a csv file created by the user, with each domain listed on a separate line
 - see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
 - the first 5 domains will be auto populated (see demo above)
 
 The lookup file:
-- a [default lookup file](data-raw/look_up.csv) is used by the domain_mapping function
-- optional: a csv can be created by the user (using the same format as the default) and provided as the input
-- the lookup file makes auto-categorisations - intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
-- the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file
+
+ - a [default lookup file](dataraw/look_up.csv) is used by the domain_mapping function
+ - optional: a csv can be created by the user (using the same format as the default) and provided as the input
+ - the lookup file makes autocategorisations  intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
+ - the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file
 
 ## License
 
