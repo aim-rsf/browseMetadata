@@ -28,7 +28,7 @@ events, medical diagnoses, culture and community)
 There are many existing tools that allow you to browse metadata for
 health datasets, read more [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html). 
 
-## What does the R package do?
+## What does this R package do?
 
 This `R` package is a planning tool, designed to be used alongside other
 tools and sources of information about health datasets for research.
