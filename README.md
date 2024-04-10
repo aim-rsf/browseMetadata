@@ -288,9 +288,9 @@ This csv file, in addition to what is shown on the console, contains:
 - date time stamp the metadata was last updated (from json) 
 - dataset name (from json)
 
-The intended use case for this log file is to be loaded up, compared across
-users, and used as an input in later analysis steps when working out
-which variables can be used to represent which research domains.
+Intended use-cases:
+- Compare categorisations across researchers (see the function [R/compare_csv_outputs.R](R/compare_csv_outputs.R))
+- Use as an input in later analysis steps to filter variables and visualise how they map to research domains
 
 ### Using your own input files 
 
