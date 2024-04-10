@@ -73,9 +73,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   cat(meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn, fill = TRUE)
 
   Dataset_desc <- ""
-  while (Dataset_desc != "Y" & Dataset_desc != "N") {
+  while (Dataset_desc != "Y" & Dataset_desc != "y" & Dataset_desc != "N" & Dataset_desc != "n") {
     cat("\n \n")
-    Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (Y/N): ")
+    Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (y/n): ")
   }
 
   if (Dataset_desc == 'Y') {
@@ -118,9 +118,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
     table_desc <- ""
-    while (table_desc != "Y" & table_desc != "N") {
+    while (table_desc != "Y" & table_desc != "y" & table_desc != "N" & table_desc != "n") {
       cat("\n \n")
-      table_desc <- readline(prompt = "Would you like to read a description of the table? (Y/N): ")
+      table_desc <- readline(prompt = "Would you like to read a description of the table? (y/n): ")
     }
 
     if (table_desc == 'Y') {
@@ -230,9 +230,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     ## Ask if user wants to review their responses for this Table ----
     review_cats <- ""
-    while (review_cats != "Y" & review_cats != "N") {
+    while (review_cats != "Y" & review_cats != "y" & review_cats != "N" & review_cats != "n") {
       cat("\n \n")
-      review_cats <- readline(prompt = "Would you like to review your categorisations? (Y/N): ")
+      review_cats <- readline(prompt = "Would you like to review your categorisations? (y/n): ")
     }
 
     if (review_cats == 'Y') {
