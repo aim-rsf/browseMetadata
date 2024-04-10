@@ -1,17 +1,11 @@
 Package: browseMetadata
 Type: Package
 Title: Browses available metadata, to catergorise or label each variable in a dataset
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     person("Rachael", "Stickland", email = "rstickland@turing.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3398-4272"))
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
-Description: This package currently contains one function, domain_mapping.
-    This function takes two inputs. One input is a metadata file that has been downloaded in json format from modelcatalogue.cs.ox.ac.uk/hdruk_live.
-    The second input is a csv file created by the user, that lists research domains of interest. 
-    The function will read in the metadata file for a chosen dataset, loop through all the variables, and ask the user to catergorise/label each variable as belonging to one or more domains. 
-    The domains will appear in the Plots tab and information about the dataset will be printed to the R console, for the user's reference in making these categorisations. 
-    A log file will be saved with the catergorisations made. To speed up this process, some auto-categorisations will be made by the function for commonly occurring variables; 
-    these should be verified by the user by checking the csv log file. Example inputs are provided within the package data, for the user to run this function in a demo mode.
+Description: See https://github.com/aim-rsf/browseMetadata/main/README.md
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
