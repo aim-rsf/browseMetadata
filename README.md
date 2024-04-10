@@ -50,7 +50,7 @@ should work for any dataset listed on the Health Data Research Gateway
 practice, it has only been tested on a limited number of metadata files
 for SAIL databank.
 
-## Getting started with this `R` package `browseMetadata`
+## Getting started with `browseMetadata`
 
 ### Terminology 
 - We use *Dataset* (collection of data, can contain multiple tables) - this is called *Data Asset* in the Metadata Catalogue
