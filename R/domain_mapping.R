@@ -98,6 +98,8 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   nTables_Process_Error <- TRUE
   nTables_Process_OutOfRange <- FALSE
   while (length(nTables_Process) == 0 | nTables_Process_Error==TRUE | nTables_Process_OutOfRange == TRUE) {
+    if (nTables_Process_OutOfRange == TRUE) {
+      cli_alert_danger('That table number is not within the range displayed, please try again.')}
     tryCatch({
       cat("\n \n");
       cli_alert_info("Enter each table number you want to process in this interactive session:");
@@ -204,16 +206,18 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     # extract the rows to edit
     auto_row_Error <- TRUE
-    auto_row_OutOfRange <- FALSE
-    while (auto_row_Error==TRUE | auto_row_OutOfRange == TRUE) {
+    auto_row_InRange <- TRUE
+    while (auto_row_Error==TRUE | auto_row_InRange == FALSE) {
+      if (auto_row_InRange == FALSE) {
+        cli_alert_danger('The row numbers you provided are not in range. Reference the auto categorised row numbers on the screen and try again')}
       tryCatch({
         cat("\n \n");
         cli_alert_info("Press enter to accept the auto categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
         cat("\n");
         auto_row <- scan(file="",what=0);
         auto_row_Error <- FALSE;
-        auto_row_OutOfRange = any(auto_row > nrow(selectTable_df))},
-        error=function(e) {auto_row_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, reference the row numbers and try again')})
+        auto_row_InRange <- all(auto_row %in% which(Output$Note == 'AUTO CATEGORISED'))},
+        error=function(e) {auto_row_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, try again')})
     }
 
     if (length(auto_row) != 0) {
@@ -243,15 +247,17 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
       # extract the rows to edit
       not_auto_row_Error <- TRUE
-      not_auto_row_OutOfRange <- FALSE
-      while (not_auto_row_Error==TRUE | not_auto_row_OutOfRange == TRUE) {
+      not_auto_row_InRange <- TRUE
+      while (not_auto_row_Error==TRUE | not_auto_row_InRange == FALSE) {
+        if (not_auto_row_InRange == FALSE) {
+          cli_alert_danger('The row numbers you provided are not in range. Reference the row numbers on the screen and try again')}
         tryCatch({
           cat("\n \n");
           cli_alert_info("Press enter to accept your categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
           cat("\n");
           not_auto_row <- scan(file="",what=0);
           not_auto_row_Error <- FALSE;
-          not_auto_row_OutOfRange = any(not_auto_row > nrow(selectTable_df))},
+          not_auto_row_InRange <- all(not_auto_row %in% which(Output$Note != 'AUTO CATEGORISED'))},
           error=function(e) {not_auto_row_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, reference the row numbers and try again')})
       }
 
