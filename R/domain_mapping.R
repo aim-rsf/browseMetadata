@@ -78,7 +78,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (y/n): ")
   }
 
-  if (Dataset_desc == 'Y' | 'y') {
+  if (Dataset_desc == 'Y' | review_cats == 'y') {
     cli_h1("Dataset Description")
     cat(meta_json$dataModel$description, fill = TRUE)
     readline(prompt = "Press any key to proceed")
@@ -123,7 +123,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       table_desc <- readline(prompt = "Would you like to read a description of the table? (y/n): ")
     }
 
-    if (table_desc == 'Y' | 'y') {
+    if (table_desc == 'Y' | review_cats == 'y') {
       cli_h1("Table Description")
       cat(meta_json$dataModel$childDataClasses[[dc]]$description, fill = TRUE)
       readline(prompt = "Press any key to proceed")
@@ -200,7 +200,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cat("\n \n")
     cli_alert_warning("Please check the auto categorised data elements are accurate for table {meta_json$dataModel$childDataClasses[[dc]]$label}:")
     cat("\n \n")
-    print(Output_auto[, c("DataElement", "Domain_code")])
+    print(Output_auto[, c("DataElement", "Domain_code","Note")])
 
     # extract the rows to edit
     auto_row_Error <- TRUE
@@ -235,10 +235,10 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       review_cats <- readline(prompt = "Would you like to review your categorisations? (y/n): ")
     }
 
-    if (review_cats == 'Y' | 'y') {
+    if (review_cats == 'Y' | review_cats == 'y') {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       cat("\n \n")
-      print(Output_not_auto[, c("DataElement", "Domain_code")])
+      print(Output_not_auto[, c("DataElement", "Domain_code","Note")])
       cat("\n \n")
 
       # extract the rows to edit
