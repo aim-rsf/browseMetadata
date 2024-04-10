@@ -269,7 +269,13 @@ Optional note to explain decision (or press enter to continue): </code></pre>
 <div class="section level4">
 <h4 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
 </h4>
-<p>The output of your decisions will be saved to a csv file. The csv file name includes the dataset, table, and date stamp. This csv file, in addition to what is shown on the console, contains: - user initials (from user input) - metadata version (from json) - date time stamp the metadata was last updated (from json) - dataset name (from json)</p>
+<p>The output of your decisions will be saved to a csv file. The csv file name includes the dataset, table, and date stamp. This csv file, in addition to what is shown on the console, contains:</p>
+<ul>
+<li>user initials (from user input)</li>
+<li>metadata version (from json)</li>
+<li>date time stamp the metadata was last updated (from json)</li>
+<li>dataset name (from json)</li>
+</ul>
 <p>The intended use case for this log file is to be loaded up, compared across users, and used as an input in later analysis steps when working out which variables can be used to represent which research domains.</p>
 </div>
 </div>
@@ -280,10 +286,25 @@ Optional note to explain decision (or press enter to continue): </code></pre>
 <code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span>, <span class="va">look_up_file</span><span class="op">)</span></span></code></pre></div>
 <p>This code is in early development. To see known bugs or sub-optimal features refer to the <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">Issues</a>.</p>
 <p>Run the code the same as the demo, using your own input files.</p>
-<p>The json file: - contains metadata about datasets of interest - downloaded from the metadata catalogue - see <a href="data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json">data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json</a> for an example download</p>
-<p>The domain_file:<br>
-- a csv file created by the user, with each domain listed on a separate line - see <a href="data-raw/domain_list_demo.csv">data-raw/domain_list_demo.csv</a> for a template - the first 5 domains will be auto populated (see demo above)</p>
-<p>The lookup file: - a <a href="data-raw/look_up.csv">default lookup file</a> is used by the domain_mapping function - optional: a csv can be created by the user (using the same format as the default) and provided as the input - the lookup file makes auto-categorisations - intended for variables that come up regularly in health datasets (e.g. IDs and demographics) - the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file</p>
+<p>The json file:</p>
+<ul>
+<li>contains metadata about datasets of interest</li>
+<li>downloaded from the metadata catalogue</li>
+<li>see <a href="data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json">data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json</a> for an example download</li>
+</ul>
+<p>The domain_file:</p>
+<ul>
+<li>a csv file created by the user, with each domain listed on a separate line</li>
+<li>see <a href="data-raw/domain_list_demo.csv">data-raw/domain_list_demo.csv</a> for a template</li>
+<li>the first 5 domains will be auto populated (see demo above)</li>
+</ul>
+<p>The lookup file:</p>
+<ul>
+<li>a <a href="dataraw/look_up.csv">default lookup file</a> is used by the domain_mapping function</li>
+<li>optional: a csv can be created by the user (using the same format as the default) and provided as the input</li>
+<li>the lookup file makes autocategorisations intended for variables that come up regularly in health datasets (e.g. IDs and demographics)</li>
+<li>the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file</li>
+</ul>
 </div>
 </div>
 <div class="section level2">
