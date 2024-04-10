@@ -7,7 +7,7 @@
 #' @param csv_file_2 CSV output file from running domain_mapping (different to csv_file_1)
 #' @param json_file The metadata file used when running domain_mapping (should be the same for csv_file_1 and csv_file_2)
 #' @return It returns csv_3, with consensus decisions
-#' @importFrom dplyr left_join select
+#' @importFrom dplyr left_join select join_by
 #' @export
 
 compare_csv_outputs <- function(csv_file_1,csv_file_2,json_file) {
