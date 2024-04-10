@@ -19,29 +19,18 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     "\n\nDATA TYPE -----> ", data_type, "\n"
   ))
 
-  state <- "redo"
-  while (state == "redo") {
+  # ask user for categorisation
 
-    # ask user for categorisation
-    decision <- ""
-    while (decision == "") {
-      cat("\n \n")
-      decision <- readline(prompt = "Categorise this data element: ")
-      }
-
-    # ask user for note on categorisation
-    decision_note <- ""
-    while (decision_note == "") {
-      cat("\n \n")
-      decision_note <- readline(prompt = "Notes (write 'N' if no notes): ")
-    }
-
-    # check if user wants to continue or redo
-    cat("\n \n")
-    state <- readline(prompt = "Press enter to continue or write 'redo' to correct previous answer: ")
-
+  decision <- ""
+  cat("\n \n")
+  while (decision == "") {
+    decision <- readline("Categorise this data element into one or more domains, e.g. 5 or 5,8: ")
   }
 
-return(list(decision = decision,decision_note = decision_note))
+  # ask user for note on categorisation
+  cat("\n \n")
+  decision_note <- readline("Optional note to explain decision (or press enter to continue): ")
 
-}
+  return(list(decision = decision,decision_note = decision_note))
+
+  }

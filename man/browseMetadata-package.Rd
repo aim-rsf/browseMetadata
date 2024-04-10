@@ -6,7 +6,7 @@
 \alias{browseMetadata-package}
 \title{browseMetadata}
 \description{
-Browses available metadata, to catergorise/label each variable in a dataset.
+Browses available metadata, to catergorise/label each data element within a dataset.
 }
 \seealso{
 Useful links:

@@ -72,134 +72,215 @@ install.packages("devtools")
 devtools::install_github("aim-rsf/browseMetadata")
 ```
 
-### Demo
+### Demo (use R Studio)
 
+Load the library:
 ``` r
 library(browseMetadata)
 ```
 
-Read the documentation, then run the function in demo mode:
-``` r
+Read the documentation:
+```
 ?domain_mapping
+```
 
+Run the function in demo mode:
+``` r
 domain_mapping()
 ```
 
-The R console will show:
-
-``` 
-ℹ Running domain_mapping in demo mode using package data files
-
-Enter Initials: RS
-```
-
-Respond with your initials and press enter.
-It will ask you if you want to read the description of Datasets and Tables:
-
-
-```
-── Dataset Name ────────────────────────────────────────────────────────────────────
-Maternity Indicators Dataset (MIDS)
-
-── Dataset Last Updated ────────────────────────────────────────────────────────────
-2023-12-04T14:13:49.131Z
-
-── Dataset File Exported By ────────────────────────────────────────────────────────
-Rachael Stickland at 2024-01-05T13:22:09.774Z
-
-ℹ Found 2 Tables in this Dataset
-
-Would you like to read a description of the Dataset? (Y/N) Y
-```
-Enter Y to read these descriptions, for the purpose of the demo.
-
-For this example, the Dataset is called MIDS and the tables inside this Dataset are BIRTH and INITIAL_ASSESSMENT.   
-
-For each table, it will ask which data elements to process:
-
-```
-Enter the range of Data Elements to process. Press Enter to process all: 1,10
-```
-
-If you press enter it will process all the data elements, so use a smaller range like 1 to 10 the first time you run this demo.
-
-For each data element you will be shown this structure:
-
-```
-DATA ELEMENT ----->  SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD 
-
-DESCRIPTION ----->  Code indicating whether or not the woman has an existing mental health condition. 
-
-DATA TYPE ----->  CHARACTER 
-```
-
-By referencing the plots tab, and other info you may have, categorise this data element with a number(s).
-A  data element can map to more than one domain so a comma separated list of numbers can be given (7,8).
-
-There is an (optional) note field to explain your choice. 
-
-```
-Categorise this data element: 8
-
-Notes (write 'N' if no notes): N
-```
-
-If you make a mistake, the next prompt allows you to redo. Or press enter if you are happy to continue.
-
-```
-Press enter to continue or write 'redo' to correct previous answer: 
-```
-
-When you get to the end of your requested number of data elements it will show you data elements that have been auto categorised. 
-
-If you want to change these auto categorisations, and do them manually, include the row number (1,9) in the list.
-
-```
-! Please check the auto categorised data elements are accurate:
-
- Table      DataElement        Domain_code
-1      BIRTH    AVAIL_FROM_DT      1
-9      BIRTH    CHILD_ALF_E        2
-10     BIRTH    CHILD_ALF_STS_CD   2
-
-Enter row numbers you'd like to edit or press enter to accept the auto categorisations:
-```
-
-Finally, it will ask you if you want to review the categorisations you previously made. 
-
-```
-Would you like to review your categorisations? (Y/N) 
-```
-
-If you say yes (with Y) it will take you through the same review process you just did for auto categorisations.
-
-At the end of processing that table it will show:
-
-```
-ℹ Your final categorisations have been saved to LOG_MaternityIndicatorsDataset(MIDS)_BIRTH_2024-01-30_10-42-15.csv
-```
-
-The function will then repeat the same steps for the next table in the dataset (if there is more than one). 
-
-#### Understanding the domain list 
-
-For this demo, a simple list of domains are provided, see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv).
-
-This list shows up in the R plot tab:
+Take note of the **Plots** tab in R Studio which should show a table of domains with this info:
 
 - [0] *NO MATCH / UNSURE*
 - [1] *METADATA*
 - [2] *ALF ID*
 - [3] *OTHER ID*
 - [4] *DEMOGRAPHICS*
-- [5] Socioeconomic factors 
-- [6] Location
-- [7] Education
-- [8] Health
+- [5] Socioeconomic info 
+- [6] Location info 
+- [7] Education info
+- [8] Health info
 
-There are 5 default domains always included [0-4], appended on to any domain list given.
+Reference this Plots tab throughout the demo run. You will be asked to label data elements with one (or more) of these numbers [0-8].
+
+Here we have very simple domains [5-8] for the demo run. 
 
 For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'.
+
+The 5 default domains are always included [0-4], appended on to any domain list given.
+
+``` 
+✔ Running domain_mapping in demo mode using package data files
+✔ Using the default look-up table in data/look-up.rda
+ 
+Enter your initials: RS
+```
+
+Respond with your initials after the prompt and press enter.
+It will then print the name of the dataset and where it was retrieved from:
+
+```
+── Dataset Name ──────────────────────────────────────────────────────────────────────────────────────────────────────
+National Community Child Health Database (NCCHD)
+
+── Dataset Last Updated ──────────────────────────────────────────────────────────────────────────────────────────────
+2024-03-14T17:40:57.463Z
+
+── Dataset File Exported By ──────────────────────────────────────────────────────────────────────────────────────────
+Rachael Stickland at 2024-04-05T13:01:23.109Z
+
+Would you like to read a description of the dataset? (y/n): y
+```
+
+Enter Y after the prompt to read the description, for the purpose of the demo. 
+
+After reading the description of this dataset it will show:
+
+```
+ℹ Found 13 Tables in this Dataset
+
+1 EXAM
+
+2 CHILD
+
+3 REFR_IMM_VAC
+
+4 IMM
+
+5 BREAST_FEEDING
+
+6 PATH_BLOOD_TESTS
+
+7 CHE_HEALTHYCHILDWALESPROGRAMME
+
+8 BLOOD_TEST
+
+9 CHILD_TRUST
+
+10 PATH_SPCM_DETAIL
+
+11 CHILD_MEASUREMENT_PROGRAM
+
+12 CHILD_BIRTHS
+
+13 SIG_COND
+
+ℹ Enter each table number you want to process in this interactive session.
+
+1: 2
+2: 
+
+```
+
+For the purpose of this demo, type 2 to just process the CHILD table only. Leave the prompt on the second row blank and press enter. 
+
+To process multiple tables at once (e.g. CHILD, SIG_COND) include their numbers on multiple lines:
+
+```
+ℹ Enter each table number you want to process in this interactive session.
+
+1: 1
+2: 13
+3:
+```
+
+It will then ask if you want to read a description of this table:
+
+```
+ℹ Processing Table 2 of 13
+
+── Table Name ────────────────────────────────────────────────────────────────────────────────────────────────────────
+CHILD
+
+── Table Last Updated ────────────────────────────────────────────────────────────────────────────────────────────────
+2024-03-14T17:40:46.509Z 
+
+Would you like to read a description of the table? (y/n): y
+```
+
+Enter Y after the prompt to read the description, for the purpose of the demo.
+
+It will now start looping through the data elements. If it skips over one it means it was auto-categorised (more on that later).
+
+```
+✔ Processing data element 1 of 20
+
+✔ Processing data element 2 of 20
+
+✔ Processing data element 3 of 20
+
+✔ Processing data element 4 of 20
+
+DATA ELEMENT ----->  APGAR_1 
+
+DESCRIPTION ----->  APGAR 1 score. This is a measure of a baby's physical state at birth with particular reference to asphyxia - taken at 1 minute. Scores 3 and below are generally regarded as critically low; 4-6 fairly low, and 7-10 generally normal. Field can contain high amount of unknowns/non-entries. 
+
+DATA TYPE ----->  CHARACTER 
+
+Categorise this data element into one or more domains, e.g. 5 or 5,8: 8
+
+Optional note to explain decision (or press enter to continue): 
+```
+
+We chose to respond with '8' because that corresponds to the 'Health' domain in the table. More than one domain can be chosen. 
+
+A note can be included to explain why a categorisation has been made. Or press enter for no note. 
+
+After completing 20, it will then ask you to review the auto-categorisations it made. 
+
+```
+! Please check the auto categorised data elements are accurate for table CHILD:
+
+     DataElement    Domain_code  Note
+1    ALF_E          2            AUTO CATEGORISED
+2    ALF_MTCH_PCT   2            AUTO CATEGORISED
+3    ALF_STS_CD     2            AUTO CATEGORISED
+6    AVAIL_FROM_DT  1            AUTO CATEGORISED  
+19   GNDR_CD        4            AUTO CATEGORISED
+
+ℹ Press enter to accept the auto categorisations for table CHILD or enter each row you'd like to edit:
+
+1: 
+```
+
+Press enter for now. It will then ask you if you want to review the categorisations you made. Respond Y to review:
+
+```
+Would you like to review your categorisations? (y/n): y
+
+      DataElement             Domain_code Note
+4     APGAR_1                 8
+5     APGAR_2                 8
+7     BIRTH_ORDER             8           10% missingness
+8     BIRTH_TM                1,8         20% missingness 
+9     BIRTH_WEIGHT            8
+10    BIRTH_WEIGHT_DEC        8
+11    BREASTFEED_8_WKS_FLG    8
+12    BREASTFEED_BIRTH_FLG    8
+13    CHILD_ID_E              3
+14    CURR_LHB_CD_BIRTH       6,8         Place of birth
+15    DEL_CD                  8
+16    DOD                     4,8
+17    ETHNIC_GRP_CD           4
+18    GEST_AGE                4,8
+20    HEALTH_VISITOR_CD_E     3
+
+ℹ Press enter to accept your categorisations for table CHILD, or enter each row number you'd like to edit:
+
+1: 8
+2: 14
+3: 
+```
+
+If you want to change your categorisation, enter in the row number (e.g. 8 for BIRTH_TM and 14 for CURR_LHB_CD_BIRTH). 
+
+It will then take you through the same process as before, and you can over-write your previous categorisation. 
+
+```
+✔ Your final categorisations have been saved to LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+```
+
+All finished! Take a look at the csv output. 
 
 #### Output
 
@@ -215,36 +296,6 @@ The intended use case for this log file is to be loaded up, compared across
 users, and used as an input in later analysis steps when working out
 which variables can be used to represent which research domains.
 
-A subset of columns from the csv outputs are shown below, running with '1,10' data elements:
-
-```
-       Table         DataElement      Domain_code              Note
-1      BIRTH       AVAIL_FROM_DT           1       AUTO CATEGORISED
-2      BIRTH       BABY_BIRTH_DT           4                      N
-3      BIRTH   BIRTH_APGAR_SCORE           8                      N
-4      BIRTH       BIRTH_MODE_CD           8                      N
-5      BIRTH         BIRTH_ORDER           8                      N
-6      BIRTH    BIRTH_OUTCOME_CD           8                      N
-7      BIRTH      BIRTH_TREAT_CD           0   No description given
-8      BIRTH BIRTH_TREAT_SITE_CD           6                      N
-9      BIRTH         CHILD_ALF_E           2       AUTO CATEGORISED
-10     BIRTH    CHILD_ALF_STS_CD           2       AUTO CATEGORISED
-```
-
-```
-   Table                                              DataElement      Domain_code                      Note
-1  INITIAL_ASSESSMENT                               AVAIL_FROM_DT           1               AUTO CATEGORISED
-2  INITIAL_ASSESSMENT                                  GEST_WEEKS           8                              N
-3  INITIAL_ASSESSMENT                              INITIAL_ASS_DT           8           Date of health visit
-4  INITIAL_ASSESSMENT                              MAT_AGE_AT_ASS           4               AUTO CATEGORISED
-5  INITIAL_ASSESSMENT                                MOTHER_ALF_E           2               AUTO CATEGORISED
-6  INITIAL_ASSESSMENT                           MOTHER_ALF_STS_CD           2               AUTO CATEGORISED
-7  INITIAL_ASSESSMENT                                     PROV_CD         6,8   Org code for health provider
-8  INITIAL_ASSESSMENT                     SERVICE_USER_GRAVIDA_CD           8                              N
-9  INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CARE_PLAN_CD           8                              N
-10 INITIAL_ASSESSMENT SERVICE_USER_HAS_MENTAL_HEALTH_CONDITION_CD           8                              N
- ```
-
 ### Using your own input files 
 
 ```r
@@ -258,7 +309,7 @@ Run the code the same as the demo, using your own input files.
 The json file:
 - contains metadata about datasets of interest
 - downloaded from the metadata catalogue 
-- see [data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json](data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json) for an example download 
+- see [data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json](data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json) for an example download 
 
 The domain_file:	
 - a csv file created by the user, with each domain listed on a separate line
