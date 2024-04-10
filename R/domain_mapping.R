@@ -109,7 +109,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   }
 
   # Extract each Table  ----
-  for (dc in nTables_Process) {
+  for (dc in unique(nTables_Process)) {
     cat("\n")
     cli_alert_info("Processing Table {dc} of {nTables}")
     cli_h1("Table Name")
@@ -218,7 +218,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     if (length(auto_row) != 0) {
 
-      for  (datavar_auto in auto_row) {
+      for  (datavar_auto in unique(auto_row)) {
 
         # collect user responses
         decision_output <- user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto])
@@ -257,7 +257,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
       if (length(not_auto_row) != 0) {
 
-        for  (datavar_not_auto in not_auto_row) {
+        for  (datavar_not_auto in unique(not_auto_row)) {
 
           # collect user responses
           decision_output <- user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto])
