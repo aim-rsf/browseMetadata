@@ -68,7 +68,17 @@
     
     
 <div class="section level2">
-<h2 id="getting-started-with-metadata">Getting started with metadata<a class="anchor" aria-label="anchor" href="#getting-started-with-metadata"></a>
+<h2 id="what-is-metadata">What is metadata?<a class="anchor" aria-label="anchor" href="#what-is-metadata"></a>
+</h2>
+<p>Metadata is data that provides information about other data. Metadata
+is a useful way to record relevant information about datasets, to help
+users find the right data for their use case, and understand the data’s
+history. Metadata does not contain the full content, like the data
+itself, but it describes features and properties about the data, making
+it easier to use.</p>
+</div>
+<div class="section level2">
+<h2 id="getting-started-with-health-metadata">Getting started with (health) metadata<a class="anchor" aria-label="anchor" href="#getting-started-with-health-metadata"></a>
 </h2>
 <p>There are many existing tools and resources that allow you to browse
 metadata for health datasets, and we list some of them here:</p>
@@ -125,95 +135,29 @@ depth of coverage, please request we add it here!</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="getting-started-guide-for-browsemetadata-r-package">Getting Started Guide for <code>browseMetadata</code> R Package<a class="anchor" aria-label="anchor" href="#getting-started-guide-for-browsemetadata-r-package"></a>
+<h2 id="getting-with-the-browsemetadata-r-package">Getting with the <code>browseMetadata</code> R Package<a class="anchor" aria-label="anchor" href="#getting-with-the-browsemetadata-r-package"></a>
 </h2>
+<p>You might find that the tools and resources listed above are
+sufficient for your needs.</p>
+<p>If not, why not check out this R package!</p>
+<p>The README provides installation instructions as well as instructions
+for a demo run through (you do not need to provide your own data).</p>
 <div class="section level3">
-<h3 id="installation-instructions">Installation Instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
+<h3 id="what-will-this-package-generate">What will this package generate?<a class="anchor" aria-label="anchor" href="#what-will-this-package-generate"></a>
 </h3>
-<p>To install the <code>browseMetadata</code> package, follow these
-steps in your R console:</p>
-<ol style="list-style-type: decimal">
-<li>
-<p><strong>Install Devtools Package</strong></p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span></code></pre></div>
-</li>
-<li>
-<p><strong>Install <code>browseMetadata</code> from
-GitHub</strong></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aim-rsf/browseMetadata"</span><span class="op">)</span></span></code></pre></div>
-</li>
-</ol>
-</div>
-<div class="section level3">
-<h3 id="running-an-example">Running an Example<a class="anchor" aria-label="anchor" href="#running-an-example"></a>
-</h3>
-<p>To familiarize yourself with <code>browseMetadata</code>, here’s a
-quick guide:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Accessing Documentation</strong>
+<p>Each run of the domain_mapping function in this package will generate
+a log file containing:</p>
 <ul>
-<li>Type <code><a href="../reference/domain_mapping.html">?domain_mapping</a></code> in the R console to view the
-function’s documentation.</li>
+<li>metadata about the dataset of interest</li>
+<li>initials and timestamp of the user that created this log file</li>
+<li>the user’s decisions on which category (domain) each data element
+(variable) belongs to</li>
+<li>auto-categorised data elements that commonly occur in health
+datasets</li>
 </ul>
-</li>
-<li>
-<strong>Running a Demo</strong>
-<ul>
-<li>Execute <code><a href="../reference/domain_mapping.html">domain_mapping()</a></code> to run the function in demo
-mode.</li>
-<li>The demo mode uses package data, so no need for your own input
-files.</li>
-<li>Follow the example provided in the documentation for guidance.</li>
-</ul>
-</li>
-<li>
-<strong>Viewing Output</strong>
-<ul>
-<li>Check the Plots tab in R. The domain mappings will be displayed
-there, providing context for the categorizations.</li>
-</ul>
-</li>
-</ol>
-</div>
-<div class="section level3">
-<h3 id="using-your-own-inputs">Using Your Own Inputs<a class="anchor" aria-label="anchor" href="#using-your-own-inputs"></a>
-</h3>
-<p>When using your own data, be aware of these default domain
-categories:</p>
-<ul>
-<li>NO MATCH / UNSURE</li>
-<li>METADATA</li>
-<li>ALF ID</li>
-<li>OTHER ID</li>
-<li>DEMOGRAPHICS</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="understanding-the-log-file-output">Understanding the Log File Output<a class="anchor" aria-label="anchor" href="#understanding-the-log-file-output"></a>
-</h3>
-<p>Each run of the function generates a log file:</p>
-<ul>
-<li><p><strong>Contents</strong>: The log file includes your decisions,
-the date and time stamp, Data Class, Data Asset, and the initials of the
-person categorizing.</p></li>
-<li><p><strong>Structure</strong>: For each Data Element in the
-DataClass, the log file assigns a ‘Domain_code’, indicating its domain
-categorization.</p></li>
-<li><p><strong>Auto-Categorization</strong>: Some entries are
-auto-categorized. Please review these for accuracy. Multiple domains can
-map onto each variable.</p></li>
-<li>
-<p><strong>Example</strong>: Below is an example log file output
-(left) alongside the demo domain list used (right).</p>
-<p><img src="images/example-log-file.png"></p>
-</li>
-<li><p><strong>Usage</strong>: This log file can be used for comparison
-across users and as an input in later analysis steps to determine
-variable representation in various domains.</p></li>
-</ul>
+<p>The log file can be compared across users. It can be used in later
+analysis steps to filter variables and to visualise how they map to
+research domains.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
