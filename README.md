@@ -25,6 +25,9 @@ address such questions as:
 domains of interest? (e.g. socioeconomic factors, childhood adverse
 events, medical diagnoses, culture and community)
 
+There are many existing tools that allow you to browse metadata for
+health datasets, read more [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html). 
+
 ## What does the R package do?
 
 This `R` package is a planning tool, designed to be used alongside other
@@ -46,15 +49,6 @@ should work for any dataset listed on the Health Data Research Gateway
 (not just SAIL) as long as a json metadata file can be downloaded. In
 practice, it has only been tested on a limited number of metadata files
 for SAIL databank.
-
-## Getting started with metadata
-
-There are many existing tools that allow you to browse metadata for
-health datasets. These are listed in the [RESOURCES.md](RESOURCES.md)
-file in this repository. 
-
-**:bulb: These tools may be sufficient for you to
-address the example questions listed above.**
 
 ## Getting started with this `R` package `browseMetadata`
 
