@@ -14,7 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Getting started with metadata
+## What is metadata?
+
+Metadata is data that provides information about other data. Metadata is a useful way to record relevant information about datasets, to help users find the right data for their use case, and understand the data's history. Metadata does not contain the full content, like the data itself, but it describes features and properties about the data, making it easier to use. 
+
+## Getting started with (health) metadata 
 
 There are many existing tools and resources that allow you to browse metadata for health datasets, and we list some of them here:
 
@@ -38,61 +42,21 @@ A related resource from HDRUK is the [Phenotype Library](https://phenotypes.heal
 
 There are more tools and resources out there. If you know of a resource that offers accessible health metadata with good breadth and/or depth of coverage, please request we add it here!
 
+## Getting started with the `browseMetadata` R Package
 
+You might find that the tools and resources listed above are sufficient for your needs. 
 
-## Getting Started Guide for `browseMetadata` R Package
+If not, why not check out this R package!
 
-### Installation Instructions
+The README provides installation instructions as well as instructions for a demo run through (you do not need to provide your own data). 
 
-To install the `browseMetadata` package, follow these steps in your R console:
+### What will this package generate?
 
-1.  **Install Devtools Package**
+Each run of the domain_mapping function in this package will generate a log file containing:
 
-    ``` r
-    install.packages("devtools")
-    ```
+- metadata about the dataset of interest
+- initials and timestamp of the user that created this log file
+- the user's decisions on which category (domain) each data element (variable) belongs to 
+- auto-categorised data elements that commonly occur in health datasets 
 
-2.  **Install `browseMetadata` from GitHub**
-
-    ``` r
-    devtools::install_github("aim-rsf/browseMetadata")
-    ```
-
-### Running an Example
-
-To familiarize yourself with `browseMetadata`, here's a quick guide:
-
-1.  **Accessing Documentation**
-    -   Type `?domain_mapping` in the R console to view the function's documentation.
-2.  **Running a Demo**
-    -   Execute `domain_mapping()` to run the function in demo mode.
-    -   The demo mode uses package data, so no need for your own input files.
-    -   Follow the example provided in the documentation for guidance.
-3.  **Viewing Output**
-    -   Check the Plots tab in R. The domain mappings will be displayed there, providing context for the categorizations.
-
-### Using Your Own Inputs
-
-When using your own data, be aware of these default domain categories:
-
--   NO MATCH / UNSURE
--   METADATA
--   ALF ID
--   OTHER ID
--   DEMOGRAPHICS
-
-### Understanding the Log File Output
-
-Each run of the function generates a log file:
-
--   **Contents**: The log file includes your decisions, the date and time stamp, Data Class, Data Asset, and the initials of the person categorizing.
-
--   **Structure**: For each Data Element in the DataClass, the log file assigns a 'Domain_code', indicating its domain categorization.
-
--   **Auto-Categorization**: Some entries are auto-categorized. Please review these for accuracy. Multiple domains can map onto each variable.
-
--   **Example**: Below is an example log file output (left) alongside the demo domain list used (right).
-
-    ![](images/example-log-file.png)
-
--   **Usage**: This log file can be used for comparison across users and as an input in later analysis steps to determine variable representation in various domains.
+The log file can be compared across users. It can be used in later analysis steps to filter variables and to visualise how they map to research domains.
