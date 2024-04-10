@@ -100,7 +100,7 @@ compare_csv_outputs <- function(csv_file_1,csv_file_2,json_file) {
   selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
   # find the mismatches and ask for consensus decisions
-  for (datavar in 1:nrow(selectTable_df)) {
+  for (datavar in 1:nrow(csv_join)) {
     cat("\n \n")
       # collect user responses
     if (csv_join$Domain_code_csv1[datavar] != csv_join$Domain_code_csv2[datavar]){
