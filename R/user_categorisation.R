@@ -28,11 +28,8 @@ user_categorisation <- function(data_element,data_desc,data_type) {
   }
 
   # ask user for note on categorisation
-  decision_note <- ""
   cat("\n \n")
-  while (decision_note == "") {
-    decision_note <- readline("Write a note to go with this decision (or 'N'): ")
-    }
+  decision_note <- readline("Optional note to explain decision (or press enter to continue): ")
 
   return(list(decision = decision,decision_note = decision_note))
 

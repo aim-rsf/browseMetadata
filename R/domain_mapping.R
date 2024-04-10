@@ -78,7 +78,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (y/n): ")
   }
 
-  if (Dataset_desc == 'Y' | review_cats == 'y') {
+  if (Dataset_desc == 'Y' | Dataset_desc == 'y') {
     cli_h1("Dataset Description")
     cat(meta_json$dataModel$description, fill = TRUE)
     readline(prompt = "Press any key to proceed")
@@ -123,7 +123,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       table_desc <- readline(prompt = "Would you like to read a description of the table? (y/n): ")
     }
 
-    if (table_desc == 'Y' | review_cats == 'y') {
+    if (table_desc == 'Y' | table_desc == 'y') {
       cli_h1("Table Description")
       cat(meta_json$dataModel$childDataClasses[[dc]]$description, fill = TRUE)
       readline(prompt = "Press any key to proceed")

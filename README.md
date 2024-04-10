@@ -129,7 +129,7 @@ National Community Child Health Database (NCCHD)
 ── Dataset File Exported By ──────────────────────────────────────────────────────────────────────────────────────────
 Rachael Stickland at 2024-04-05T13:01:23.109Z
 
-Would you like to read a description of the dataset? (Y/N): Y
+Would you like to read a description of the dataset? (y/n): y
 ```
 
 Enter Y after the prompt to read the description, for the purpose of the demo. 
@@ -195,7 +195,7 @@ CHILD
 ── Table Last Updated ────────────────────────────────────────────────────────────────────────────────────────────────
 2024-03-14T17:40:46.509Z 
 
-Would you like to read a description of the table? (Y/N): Y
+Would you like to read a description of the table? (y/n): y
 ```
 
 Enter Y after the prompt to read the description, for the purpose of the demo.
@@ -218,26 +218,25 @@ DESCRIPTION ----->  APGAR 1 score. This is a measure of a baby's physical state 
 DATA TYPE ----->  CHARACTER 
 
 Categorise this data element into one or more domains, e.g. 5 or 5,8: 8
+
+Optional note to explain decision (or press enter to continue): 
 ```
+
 We chose to respond with '8' because that corresponds to the 'Health' domain in the table. More than one domain can be chosen. 
 
-It will then ask us to write a note for this categorisation:
-
-```
-Write a note to go with this decision (or 'N'): N
-```
+A note can be included to explain why a categorisation has been made. Or press enter for no note. 
 
 After completing 20, it will then ask you to review the auto-categorisations it made. 
 
 ```
 ! Please check the auto categorised data elements are accurate for table CHILD:
 
-     DataElement Domain_code
-1          ALF_E           2
-2   ALF_MTCH_PCT           2
-3     ALF_STS_CD           2
-6  AVAIL_FROM_DT           1
-19       GNDR_CD           4
+     DataElement    Domain_code  Note
+1    ALF_E          2            AUTO CATEGORISED
+2    ALF_MTCH_PCT   2            AUTO CATEGORISED
+3    ALF_STS_CD     2            AUTO CATEGORISED
+6    AVAIL_FROM_DT  1            AUTO CATEGORISED  
+19   GNDR_CD        4            AUTO CATEGORISED
 
 ℹ Press enter to accept the auto categorisations for table CHILD or enter each row you'd like to edit:
 
@@ -247,24 +246,24 @@ After completing 20, it will then ask you to review the auto-categorisations it 
 Press enter for now. It will then ask you if you want to review the categorisations you made. Respond Y to review:
 
 ```
-Would you like to review your categorisations? (Y/N): Y
+Would you like to review your categorisations? (y/n): y
 
-            DataElement Domain_code
-4               APGAR_1           8
-5               APGAR_2           8
-7           BIRTH_ORDER           8
-8              BIRTH_TM         1,8
-9          BIRTH_WEIGHT           8
-10     BIRTH_WEIGHT_DEC           8
-11 BREASTFEED_8_WKS_FLG           8
-12 BREASTFEED_BIRTH_FLG           8
-13           CHILD_ID_E           3
-14    CURR_LHB_CD_BIRTH         6,8
-15               DEL_CD           8
-16                  DOD         4,8
-17        ETHNIC_GRP_CD           4
-18             GEST_AGE         4,8
-20  HEALTH_VISITOR_CD_E           3
+      DataElement             Domain_code Note
+4     APGAR_1                 8
+5     APGAR_2                 8
+7     BIRTH_ORDER             8           10% missingness
+8     BIRTH_TM                1,8         20% missingness 
+9     BIRTH_WEIGHT            8
+10    BIRTH_WEIGHT_DEC        8
+11    BREASTFEED_8_WKS_FLG    8
+12    BREASTFEED_BIRTH_FLG    8
+13    CHILD_ID_E              3
+14    CURR_LHB_CD_BIRTH       6,8         Place of birth
+15    DEL_CD                  8
+16    DOD                     4,8
+17    ETHNIC_GRP_CD           4
+18    GEST_AGE                4,8
+20    HEALTH_VISITOR_CD_E     3
 
 ℹ Press enter to accept your categorisations for table CHILD, or enter each row number you'd like to edit:
 
