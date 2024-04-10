@@ -102,7 +102,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       cli_alert_danger('That table number is not within the range displayed, please try again.')}
     tryCatch({
       cat("\n \n");
-      cli_alert_info("Enter each table number you want to process in this interactive session:");
+      cli_alert_info("Enter each table number you want to process in this session (one number on each line):");
       cat("\n");
       nTables_Process <- scan(file="",what=0);
       nTables_Process_Error <- FALSE;
