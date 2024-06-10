@@ -37,7 +37,7 @@ This `R` package uses the [Health Data Research Gateway](https://web.www.healthd
 and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). 
 This `R` package takes a metadata file as input and facilitates the process 
 of browsing through each table within a chosen dataset. The user is asked to 
-categorise each data element (variable) within a table into a domain related 
+categorise each data element (each variable) within a table into a domain related 
 to their research question, and these categorisations get saved in a csv file 
 for later reference. To speed up this process, the function automatically 
 categorises some variables that regularly appear in health datasets 
