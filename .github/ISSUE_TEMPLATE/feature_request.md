@@ -9,8 +9,8 @@ assignees: ''
 
 <!-- Please add the appropriate labels to this issue, if possible -->
 
-**Please describe a change you would like to see implemented in this project:**
-<!-- A clear description of what change you want to see. -->
+**I would like to see this change implemented:**
+<!-- A clear description of what change you want to see and why. -->
 <!-- A clear description of any solutions or features you've considered.-->
 -
 -
