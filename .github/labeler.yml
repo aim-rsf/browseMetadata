@@ -1,0 +1,11 @@
+Documentation:
+  - changed-files:
+      - any-glob-to-any-file: ['README.md','CONTRIBUTING.md','man/*']
+
+Internal:
+  - changed-files:
+      - any-glob-to-any-file: ['.github/*','.all-contributorsrc']
+      
+# Testing:
+#   - changed-files:
+#      - any-glob-to-any-file: []
