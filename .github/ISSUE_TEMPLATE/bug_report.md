@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Describe the bug**
-<!--A clear and concise description of what the bug is.-->
+<!--A clear description of what the bug is.-->
 - 
 - 
 
@@ -21,7 +21,7 @@ assignees: ''
 -
 
 **Expected behavior:**
-<!-- A clear and concise description of what you expected to happen. -->
+<!-- A clear description of what you expected to happen. -->
 -
 -
 
