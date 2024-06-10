@@ -7,12 +7,13 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+**Description of the bug:**
 <!--A clear description of what the bug is.-->
 - 
 - 
 
-**Steps to reproduce the behavior (include screenshots if helpful)**
+**Steps to reproduce the behavior:**
+<!-- include screenshots if helpful -->
 <!-- 1. Go to '...' -->
 <!-- 2. Click on '....' -->
 <!-- 3. Scroll down to '....' -->
@@ -25,7 +26,7 @@ assignees: ''
 -
 -
 
-**Please describe your software set-up:**
+**My software set-up:**
 <!-- E.g. Windows, MacOS -->
 <!-- E.g. R version 4.2 -->
 -
