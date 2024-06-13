@@ -4,7 +4,12 @@
 \alias{domain_mapping}
 \title{domain_mapping}
 \usage{
-domain_mapping(json_file = NULL, domain_file = NULL, look_up_file = NULL)
+domain_mapping(
+  json_file = NULL,
+  domain_file = NULL,
+  look_up_file = NULL,
+  output_dir = NULL
+)
 }
 \arguments{
 \item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.}
@@ -12,6 +17,8 @@ domain_mapping(json_file = NULL, domain_file = NULL, look_up_file = NULL)
 \item{domain_file}{The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.}
 
 \item{look_up_file}{The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.}
+
+\item{output_dir}{The path to the directory where the csv output log will be saved. By default, the current working directory is used.}
 }
 \value{
 The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.

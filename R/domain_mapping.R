@@ -8,6 +8,7 @@
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
+#' @param output_dir The path to the directory where the csv output log will be saved. By default, the current working directory is used. 
 #' @return The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
@@ -17,7 +18,7 @@
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
 
-domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL) {
+domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL) {
 
   ## Load data: Check if demo data should be used ----
 
@@ -148,7 +149,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     # Create unique output csv to log the results ----
     timestamp_now <- gsub(" ", "_", Sys.time())
     timestamp_now <- gsub(":", "-", timestamp_now)
-
+    
     output_fname <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
 
     row_Output <- data.frame(
@@ -294,10 +295,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
 
     ## Save final categorisations for this Table  ----
-    utils::write.csv(Output, output_fname, row.names = FALSE)
+    if (is.null(output_dir)) {
+      output_dir = getwd() } 
+    
+    utils::write.csv(Output, paste(output_dir,output_fname,sep='/'), row.names = FALSE)
     cat("\n")
     cli_alert_success("Your final categorisations have been saved to {output_fname}")
-
+    
   } # end of loop for each table
 
 } # end of function
