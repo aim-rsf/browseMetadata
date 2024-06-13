@@ -197,14 +197,21 @@ Enter Y after the prompt to read the description, for the purpose of the demo.
 
 It will now start looping through the data elements. If it skips over one it means it was auto-categorised (more on that later).
 
+For this demo, it will only process 20 data elements (out of the 35 total).
+
 ```
-✔ Processing data element 1 of 20
 
-✔ Processing data element 2 of 20
+ℹ 20 left to process in this session
+✔ Processing data element 1 of 35
 
-✔ Processing data element 3 of 20
+ℹ 19 left to process in this session
+✔ Processing data element 2 of 35
 
-✔ Processing data element 4 of 20
+ℹ 18 left to process in this session
+✔ Processing data element 3 of 35
+
+ℹ 17 left to process in this session
+✔ Processing data element 4 of 35
 
 DATA ELEMENT ----->  APGAR_1 
 
@@ -301,6 +308,8 @@ domain_mapping(json_file, domain_file, look_up_file)
 This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues). 
 
 Run the code the same as the demo, using your own input files. 
+
+It will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).  
 
 The json file:
 
