@@ -193,13 +193,19 @@ CHILD
 Would you like to read a description of the table? (y/n): y</code></pre>
 <p>Enter Y after the prompt to read the description, for the purpose of the demo.</p>
 <p>It will now start looping through the data elements. If it skips over one it means it was auto-categorised (more on that later).</p>
-<pre><code>✔ Processing data element 1 of 20
+<p>For this demo, it will only process 20 data elements (out of the 35 total).</p>
+<pre><code>
+ℹ 20 left to process in this session
+✔ Processing data element 1 of 35
 
-✔ Processing data element 2 of 20
+ℹ 19 left to process in this session
+✔ Processing data element 2 of 35
 
-✔ Processing data element 3 of 20
+ℹ 18 left to process in this session
+✔ Processing data element 3 of 35
 
-✔ Processing data element 4 of 20
+ℹ 17 left to process in this session
+✔ Processing data element 4 of 35
 
 DATA ELEMENT -----&gt;  APGAR_1 
 
@@ -274,6 +280,7 @@ Optional note to explain decision (or press enter to continue): </code></pre>
 <code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span>, <span class="va">look_up_file</span><span class="op">)</span></span></code></pre></div>
 <p>This code is in early development. To see known bugs or sub-optimal features refer to the <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">Issues</a>.</p>
 <p>Run the code the same as the demo, using your own input files.</p>
+<p>It will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).</p>
 <p>The json file:</p>
 <ul>
 <li>contains metadata about datasets of interest</li>

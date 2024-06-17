@@ -57,7 +57,12 @@ Example inputs are provided within the package data, for the user to run this fu
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">domain_mapping</span><span class="op">(</span>json_file <span class="op">=</span> <span class="cn">NULL</span>, domain_file <span class="op">=</span> <span class="cn">NULL</span>, look_up_file <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">domain_mapping</span><span class="op">(</span></span>
+<span>  json_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  domain_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  look_up_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  output_dir <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,6 +77,10 @@ Example inputs are provided within the package data, for the user to run this fu
 
 <dt>look_up_file</dt>
 <dd><p>The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.</p></dd>
+
+
+<dt>output_dir</dt>
+<dd><p>The path to the directory where the csv output log will be saved. By default, the current working directory is used.</p></dd>
 
 </dl></div>
     <div class="section level2">
