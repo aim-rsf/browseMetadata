@@ -8,6 +8,7 @@
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
+#' @param output_dir The path to the directory where the csv output log will be saved. By default, the current working directory is used. 
 #' @return The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
@@ -17,7 +18,7 @@
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
 
-domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL) {
+domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL) {
 
   ## Load data: Check if demo data should be used ----
 
@@ -28,12 +29,14 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     DomainListDesc <- "DemoList"
     cat("\n")
     cli_alert_success("Running domain_mapping in demo mode using package data files")
+    demo_mode = TRUE
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
     cat("\n")
     cli_alert_danger("Please provide both json_file and domain_file (or neither file, to run in demo mode)")
     stop()
   } else {
+    demo_mode = FALSE
     # Read in the json file containing the meta data
     meta_json <- rjson::fromJSON(file = json_file)
     # Read in the domain file containing the meta data
@@ -142,11 +145,11 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     )
 
     selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
-
+    
     # Create unique output csv to log the results ----
     timestamp_now <- gsub(" ", "_", Sys.time())
     timestamp_now <- gsub(":", "-", timestamp_now)
-
+    
     output_fname <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
 
     row_Output <- data.frame(
@@ -156,6 +159,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       DomainListDesc = character(0),
       Dataset = character(0),
       Table = character(0),
+      DataElement_N = character(0),
       DataElement = character(0),
       Domain_code = character(0),
       Note = character(0)
@@ -164,14 +168,22 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     # Loop through each data element, request response from the user to match to a domain ----
 
     # if it's the demo run, only loop through a max of 20 data elements
-    if (is.null(json_file) && is.null(domain_file) && nrow(selectTable_df) > 20) {
-      end_var = 20
-      } else {end_var = nrow(selectTable_df)}
+    if (demo_mode == TRUE) {
+      start_var = 1
+      end_var = min(20,nrow(selectTable_df))
+    } else {
+      cli_h1(paste('There are',as.character(nrow(selectTable_df)),'data elements (variables) in this table.'))
+      cat("\n")
+      start_var <- readline(prompt = "Start variable (write 1 to process all): ")
+      cat("\n")
+      end_var <- readline(prompt = paste("End variable (write", nrow(selectTable_df), "to process all): "))
+      }
 
     Output <- row_Output
-    for (datavar in 1:end_var) {
+    for (datavar in start_var:end_var) {
       cat("\n \n")
-      cli_alert_success("Processing data element {datavar} of {end_var}")
+      cli_alert_info(paste(length(datavar:end_var),'left to process in this session'))
+      cli_alert_success("Processing data element {datavar} of {nrow(selectTable_df)}")
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       if (nrow(lookup_subset) == 1) {
@@ -179,10 +191,10 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         this_Output <- row_Output
         this_Output[nrow(this_Output) + 1 , ] <- NA
         this_Output$DataElement[1] <- selectTable_df$Label[datavar]
+        this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
         this_Output$Domain_code[1] <- lookup_subset$DomainCode
         this_Output$Note[1] <- "AUTO CATEGORISED"
         Output <- rbind(Output,this_Output)
-        utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
         } else {
         # collect user responses
         decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar])
@@ -190,10 +202,10 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         this_Output <- row_Output
         this_Output[nrow(this_Output) + 1 , ] <- NA
         this_Output$DataElement[1] <- selectTable_df$Label[datavar]
+        this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
         this_Output$Domain_code[1] <- decision_output$decision
         this_Output$Note[1] <- decision_output$decision_note
         Output <- rbind(Output,this_Output)
-        utils::write.csv(Output, output_fname, row.names = FALSE) # save as we go in case session terminates prematurely
         }
     } # end of loop for DataElement
 
@@ -283,10 +295,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
 
     ## Save final categorisations for this Table  ----
-    utils::write.csv(Output, output_fname, row.names = FALSE)
+    if (is.null(output_dir)) {
+      output_dir = getwd() } 
+    
+    utils::write.csv(Output, paste(output_dir,output_fname,sep='/'), row.names = FALSE)
     cat("\n")
     cli_alert_success("Your final categorisations have been saved to {output_fname}")
-
+    
   } # end of loop for each table
 
 } # end of function
