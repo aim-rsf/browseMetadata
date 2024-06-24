@@ -43,7 +43,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     meta_json <- rjson::fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file, header = FALSE)
-    colnames(domains)[1] = "Domain"
+    colnames(domains)[1] = "Domain Name"
     DomainListDesc <- tools::file_path_sans_ext(basename(domain_file))
   }
 
