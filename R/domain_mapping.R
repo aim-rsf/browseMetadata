@@ -15,8 +15,10 @@
 #' # Demo mode will use the /data files provided in this package
 #' # For more guidance, refer to the package README.md file and the R manual files.
 #' @export
+#' @import ggplot2
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
+#' @importFrom dplyr %>% arrange count group_by
 
 domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL) {
 
@@ -41,6 +43,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     meta_json <- rjson::fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file, header = FALSE)
+    colnames(domains)[1] = "Domain"
     DomainListDesc <- tools::file_path_sans_ext(basename(domain_file))
   }
 
@@ -58,7 +61,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   ## Present domains plots panel for user's reference ----
   graphics::plot.new()
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
-  gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
+  gridExtra::grid.table(domains_extend[1], rows = 0:(nrow(domains_extend) - 1))
 
   ## Get user and demo list info for log file ----
   User_Initials <- ""
