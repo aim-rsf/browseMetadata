@@ -278,11 +278,17 @@ If you want to change your categorisation, enter in the row number (e.g. 8 for B
 
 It will then take you through the same process as before, and you can over-write your previous categorisation. 
 
+All finished! Take a look at the csv log output:
+
 ```
 ✔ Your final categorisations have been saved to LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
 ```
 
-All finished! Take a look at the csv output. 
+There is an accompanying png output saved which plots the count of domain codes for each table:
+
+```
+✔ A summary plot has been saved to PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.png
+```
 
 #### Output
 
