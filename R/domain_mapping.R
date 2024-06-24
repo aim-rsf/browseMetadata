@@ -61,7 +61,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   ## Present domains plots panel for user's reference ----
   graphics::plot.new()
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
-  gridExtra::grid.table(domains_extend[1], rows = 0:(nrow(domains_extend) - 1))
+  Code <- data.frame(Code = 0:(nrow(domains_extend) - 1))
+  Domain_table <- tableGrob(cbind(Code,domains_extend),rows = NULL,theme = ttheme_default())
+  grid.arrange(Domain_table,nrow=1,ncol=1)
 
   ## Get user and demo list info for log file ----
   User_Initials <- ""
@@ -316,10 +318,8 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       theme_gray(base_size = 18) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
       xlab('Domain Code') +
-      ylab('Count')
-
-    Code <- data.frame(Code = 0:(nrow(domains_extend) - 1))
-    Domain_table <- tableGrob(cbind(Code,domains_extend),rows = NULL,theme = ttheme_default())
+      ylab('Count') +
+      scale_y_continuous(breaks=seq(0,max(counts$n),1))
 
     full_plot <- grid.arrange(Domain_plot, Domain_table,nrow=1,ncol=2)
     ggsave(plot = full_plot,paste(output_dir,output_fname_png,sep='/'),width = 14, height = 8, units = "in")
