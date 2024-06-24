@@ -258,8 +258,10 @@ Optional note to explain decision (or press enter to continue): </code></pre>
 3: </code></pre>
 <p>If you want to change your categorisation, enter in the row number (e.g. 8 for BIRTH_TM and 14 for CURR_LHB_CD_BIRTH).</p>
 <p>It will then take you through the same process as before, and you can over-write your previous categorisation.</p>
+<p>All finished! Take a look at the csv log output:</p>
 <pre><code>✔ Your final categorisations have been saved to LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv</code></pre>
-<p>All finished! Take a look at the csv output.</p>
+<p>There is an accompanying png output saved which plots the count of domain codes for each table:</p>
+<pre><code>✔ A summary plot has been saved to PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.png</code></pre>
 <div class="section level4">
 <h4 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
 </h4>
@@ -276,7 +278,7 @@ Optional note to explain decision (or press enter to continue): </code></pre>
 <div class="section level3">
 <h3 id="using-your-own-input-files">Using your own input files<a class="anchor" aria-label="anchor" href="#using-your-own-input-files"></a>
 </h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span>, <span class="va">look_up_file</span><span class="op">)</span></span></code></pre></div>
 <p>This code is in early development. To see known bugs or sub-optimal features refer to the <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">Issues</a>.</p>
 <p>Run the code the same as the demo, using your own input files.</p>
