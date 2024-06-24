@@ -8,15 +8,17 @@
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
-#' @param output_dir The path to the directory where the csv output log will be saved. By default, the current working directory is used. 
+#' @param output_dir The path to the directory where the csv output log will be saved. By default, the current working directory is used.
 #' @return The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
 #' # Demo mode will use the /data files provided in this package
 #' # For more guidance, refer to the package README.md file and the R manual files.
 #' @export
+#' @import ggplot2
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
+#' @importFrom dplyr %>% arrange count group_by
 
 domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL) {
 
@@ -41,6 +43,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     meta_json <- rjson::fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file, header = FALSE)
+    colnames(domains)[1] = "Domain Name"
     DomainListDesc <- tools::file_path_sans_ext(basename(domain_file))
   }
 
@@ -58,7 +61,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   ## Present domains plots panel for user's reference ----
   graphics::plot.new()
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
-  gridExtra::grid.table(domains_extend[1], cols = "Domain", rows = 0:(nrow(domains_extend) - 1))
+  Code <- data.frame(Code = 0:(nrow(domains_extend) - 1))
+  Domain_table <- tableGrob(cbind(Code,domains_extend),rows = NULL,theme = ttheme_default())
+  grid.arrange(Domain_table,nrow=1,ncol=1)
 
   ## Get user and demo list info for log file ----
   User_Initials <- ""
@@ -145,12 +150,13 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     )
 
     selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
-    
+
     # Create unique output csv to log the results ----
     timestamp_now <- gsub(" ", "_", Sys.time())
     timestamp_now <- gsub(":", "-", timestamp_now)
-    
-    output_fname <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
+
+    output_fname_csv <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
+    output_fname_png <- paste0("PLOT_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".png")
 
     row_Output <- data.frame(
       Initials = character(0),
@@ -296,12 +302,31 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     ## Save final categorisations for this Table  ----
     if (is.null(output_dir)) {
-      output_dir = getwd() } 
-    
-    utils::write.csv(Output, paste(output_dir,output_fname,sep='/'), row.names = FALSE)
+      output_dir = getwd() }
+
+    utils::write.csv(Output, paste(output_dir,output_fname_csv,sep='/'), row.names = FALSE)
     cat("\n")
-    cli_alert_success("Your final categorisations have been saved to {output_fname}")
-    
+    cli_alert_success("Your final categorisations have been saved to {output_fname_csv}")
+
+    ## Create and save a summary plot
+    counts <- Output %>% group_by(Domain_code) %>% count() %>% arrange(n)
+
+    Domain_plot <- counts %>%
+      ggplot(aes(x=reorder(Domain_code, -n), y=n)) +
+      geom_col() +
+      ggtitle(paste("Data Elements in", meta_json$dataModel$childDataClasses[[dc]]$label, "grouped by Domain code")) +
+      theme_gray(base_size = 18) +
+      theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+      xlab('Domain Code') +
+      ylab('Count') +
+      scale_y_continuous(breaks=seq(0,max(counts$n),1))
+
+    full_plot <- grid.arrange(Domain_plot, Domain_table,nrow=1,ncol=2)
+    ggsave(plot = full_plot,paste(output_dir,output_fname_png,sep='/'),width = 14, height = 8, units = "in")
+    cat("\n")
+    cli_alert_success("A summary plot has been saved to {output_fname_png}")
+
+
   } # end of loop for each table
 
 } # end of function

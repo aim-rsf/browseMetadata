@@ -16,6 +16,7 @@ Imports:
     cli,
     devtools,
     dplyr,
+    ggplot2,
     grid,
     gridExtra,
     rjson
