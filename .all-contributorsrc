@@ -40,6 +40,16 @@
         "review",
         "ideas"
       ]
+    },
+    {
+      "login": "DDelbarre",
+      "name": "Daniel Delbarre",
+      "avatar_url": "https://avatars.githubusercontent.com/u/108824056?v=4",
+      "profile": "https://github.com/DDelbarre",
+      "contributions": [
+        "ideas",
+        "userTesting"
+      ]
     }
   ],
   "contributorsPerLine": 7,
