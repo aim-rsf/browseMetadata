@@ -3,7 +3,7 @@
 #' A simplified list of domains, to demo the function domain_mapping.R \cr \cr
 #' This data was created with these two steps:
 #' \enumerate{
-#'  \item \code{domain_list <- read.csv('browseMetadata/data-raw/domain_list_demo.csv')}
+#'  \item \code{domain_list <- read.csv('browseMetadata/data-raw/domain_list_demo.csv',header=FALSE)}
 #'  \item \code{usethis::use_data(domain_list)}
 #' }
 #' @docType data
