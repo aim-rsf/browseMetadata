@@ -12,25 +12,39 @@
 
 user_categorisation <- function(data_element,data_desc,data_type) {
 
-  # print text to R console
-  cat(paste(
-    "\nDATA ELEMENT -----> ", data_element,
-    "\n\nDESCRIPTION -----> ", data_desc,
-    "\n\nDATA TYPE -----> ", data_type, "\n"
-  ))
+  first_run = TRUE
+  go_back = ''
 
-  # ask user for categorisation
+  while (go_back == "Y" | go_back == "y" | first_run == TRUE) {
 
-  decision <- ""
-  cat("\n \n")
-  while (decision == "") {
-    decision <- readline("Categorise this data element into one or more domains, e.g. 5 or 5,8: ")
+    go_back = ''
+    # print text to R console
+    cat(paste(
+      "\nDATA ELEMENT -----> ", data_element,
+      "\n\nDESCRIPTION -----> ", data_desc,
+      "\n\nDATA TYPE -----> ", data_type, "\n"
+    ))
+
+    # ask user for categorisation
+
+    decision <- ""
+    cat("\n \n")
+    while (decision == "") {
+      decision <- readline("Categorise data element into domain(s). E.g. 5 or 5,8: ")
+    }
+
+    # ask user for note on categorisation
+    cat("\n \n")
+    decision_note <- readline("Categorisation note (or press enter to continue): ")
+
+    while (go_back != "Y" & go_back != "y" & go_back != "N" & go_back != "n") {
+      cat("\n \n")
+      go_back <- readline(prompt = "Re-do last categorisation? (y/n): ")
+    }
+
+    first_run = FALSE
   }
-
-  # ask user for note on categorisation
-  cat("\n \n")
-  decision_note <- readline("Optional note to explain decision (or press enter to continue): ")
 
   return(list(decision = decision,decision_note = decision_note))
 
-  }
+}

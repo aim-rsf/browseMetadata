@@ -219,14 +219,21 @@ DESCRIPTION ----->  APGAR 1 score. This is a measure of a baby's physical state 
 
 DATA TYPE ----->  CHARACTER 
 
-Categorise this data element into one or more domains, e.g. 5 or 5,8: 8
+Categorise data element into domain(s). E.g. 5 or 5,8: 8
 
-Optional note to explain decision (or press enter to continue): 
+Categorisation note (or press enter to continue): your note here 
+
 ```
 
 We chose to respond with '8' because that corresponds to the 'Health' domain in the table. More than one domain can be chosen. 
 
 A note can be included to explain why a categorisation has been made. Or press enter for no note. 
+
+You have the option to re-do the categorisation you just made, by replying 'y' to the question:
+
+```
+Re-do last categorisation? (y/n): y
+```
 
 After completing 20, it will then ask you to review the auto-categorisations it made. 
 
