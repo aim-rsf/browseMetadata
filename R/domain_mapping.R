@@ -43,7 +43,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     meta_json <- rjson::fromJSON(file = json_file)
     # Read in the domain file containing the meta data
     domains <- read.csv(domain_file, header = FALSE)
-    colnames(domains)[1] = "Domain Name"
     DomainListDesc <- tools::file_path_sans_ext(basename(domain_file))
   }
 
@@ -59,6 +58,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     }
 
   ## Present domains plots panel for user's reference ----
+  colnames(domains)[1] = "Domain Name"
   graphics::plot.new()
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ALF ID*"), c("*OTHER ID*"), c("*DEMOGRAPHICS*"), domains)
   Code <- data.frame(Code = 0:(nrow(domains_extend) - 1))
