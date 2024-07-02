@@ -88,21 +88,20 @@ Take note of the **Plots** tab in R Studio which should show a table of domains 
 
 - [0] *NO MATCH / UNSURE*
 - [1] *METADATA*
-- [2] *ALF ID*
-- [3] *OTHER ID*
-- [4] *DEMOGRAPHICS*
-- [5] Socioeconomic info 
-- [6] Location info 
-- [7] Education info
-- [8] Health info
+- [2] *ID*
+- [3] *DEMOGRAPHICS*
+- [4] Socioeconomic info 
+- [5] Location info 
+- [6] Education info
+- [7] Health info
 
-Reference this Plots tab throughout the demo run. You will be asked to label data elements with one (or more) of these numbers [0-8].
+Reference this Plots tab throughout the demo run. You will be asked to label data elements with one (or more) of these numbers [0-7].
 
-Here we have very simple domains [5-8] for the demo run. 
+Here we have very simple domains [4-7] for the demo run. 
 
 For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'.
 
-The 5 default domains are always included [0-4], appended on to any domain list given.
+The 4 default domains are always included [0-3], appended on to any domain list given.
 
 ``` 
 ✔ Running domain_mapping in demo mode using package data files
@@ -219,13 +218,13 @@ DESCRIPTION ----->  APGAR 1 score. This is a measure of a baby's physical state 
 
 DATA TYPE ----->  CHARACTER 
 
-Categorise data element into domain(s). E.g. 5 or 5,8: 8
+Categorise data element into domain(s). E.g. 3 or 3,4: 7
 
 Categorisation note (or press enter to continue): your note here 
 
 ```
 
-We chose to respond with '8' because that corresponds to the 'Health' domain in the table. More than one domain can be chosen. 
+We chose to respond with '7' because that corresponds to the 'Health info' domain in the table. More than one domain can be chosen. 
 
 A note can be included to explain why a categorisation has been made. Or press enter for no note. 
 
@@ -237,6 +236,8 @@ Re-do last categorisation? (y/n): y
 
 After completing 20, it will then ask you to review the auto-categorisations it made. 
 
+These auto-categorisations are based on the mappings included in the [data-raw/look_up.csv](data-raw/look_up.csv). This look-up file can be changed (see the section 'Using your own input files' below). ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank. 
+
 ```
 ! Please check the auto categorised data elements are accurate for table CHILD:
 
@@ -245,7 +246,7 @@ After completing 20, it will then ask you to review the auto-categorisations it 
 2    ALF_MTCH_PCT   2            AUTO CATEGORISED
 3    ALF_STS_CD     2            AUTO CATEGORISED
 6    AVAIL_FROM_DT  1            AUTO CATEGORISED  
-19   GNDR_CD        4            AUTO CATEGORISED
+19   GNDR_CD        3            AUTO CATEGORISED
 
 ℹ Press enter to accept the auto categorisations for table CHILD or enter each row you'd like to edit:
 
@@ -258,21 +259,21 @@ Press enter for now. It will then ask you if you want to review the categorisati
 Would you like to review your categorisations? (y/n): y
 
       DataElement             Domain_code Note
-4     APGAR_1                 8
-5     APGAR_2                 8
-7     BIRTH_ORDER             8           10% missingness
-8     BIRTH_TM                1,8         20% missingness 
-9     BIRTH_WEIGHT            8
-10    BIRTH_WEIGHT_DEC        8
-11    BREASTFEED_8_WKS_FLG    8
-12    BREASTFEED_BIRTH_FLG    8
-13    CHILD_ID_E              3
-14    CURR_LHB_CD_BIRTH       6,8         Place of birth
-15    DEL_CD                  8
-16    DOD                     4,8
-17    ETHNIC_GRP_CD           4
-18    GEST_AGE                4,8
-20    HEALTH_VISITOR_CD_E     3
+4     APGAR_1                 7
+5     APGAR_2                 7
+7     BIRTH_ORDER             7           10% missingness
+8     BIRTH_TM                1,7         20% missingness 
+9     BIRTH_WEIGHT            7
+10    BIRTH_WEIGHT_DEC        7
+11    BREASTFEED_8_WKS_FLG    7
+12    BREASTFEED_BIRTH_FLG    7
+13    CHILD_ID_E              2
+14    CURR_LHB_CD_BIRTH       5,7         Place of birth
+15    DEL_CD                  7
+16    DOD                     3,7
+17    ETHNIC_GRP_CD           3
+18    GEST_AGE                3,7
+20    HEALTH_VISITOR_CD_E     2
 
 ℹ Press enter to accept your categorisations for table CHILD, or enter each row number you'd like to edit:
 
@@ -332,9 +333,9 @@ The json file:
 
 The domain_file:	
 
-- a csv file created by the user, with each domain listed on a separate line
+- a csv file created by the user, with each domain listed on a separate line, no header
 - see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
-- the first 5 domains will be auto populated (see demo above)
+- the first 4 domains will be auto populated (see demo above)
 
 The lookup file:
 

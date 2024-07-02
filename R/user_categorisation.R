@@ -30,7 +30,7 @@ user_categorisation <- function(data_element,data_desc,data_type) {
     decision <- ""
     cat("\n \n")
     while (decision == "") {
-      decision <- readline("Categorise data element into domain(s). E.g. 5 or 5,8: ")
+      decision <- readline("Categorise data element into domain(s). E.g. 3 or 3,4: ")
     }
 
     # ask user for note on categorisation
