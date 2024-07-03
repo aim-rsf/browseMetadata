@@ -139,6 +139,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       readline(prompt = "Press any key to proceed")
     }
 
+    cat("\n \n")
+    table_note <- readline("Optional free text note about this table (or press enter to continue): ")
+
     thisTable <- meta_json$dataModel$childDataClasses[[dc]]$childDataElements #  probably a better way of dealing with complex json files in R ...
     thisTable_df <- data.frame(do.call(rbind, thisTable)) # nested list to dataframe
     dataType_df <- data.frame(do.call(rbind, thisTable_df$dataType)) # nested list to dataframe
@@ -155,16 +158,24 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     timestamp_now <- gsub(" ", "_", Sys.time())
     timestamp_now <- gsub(":", "-", timestamp_now)
 
-    output_fname_csv <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
+    output_fname_csv <- paste0("OUTPUT_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
+    output_fname_log_csv <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
     output_fname_png <- paste0("PLOT_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".png")
 
+    log_Output <- data.frame(
+      timestamp = character(1),
+      browseMetadata = character(1),
+      Initials = character(1),
+      MetaDataVersion = character(1),
+      MetaDataLastUpdated = character(1),
+      DomainListDesc = character(1),
+      Dataset = character(1),
+      Table = character(1),
+      Table_note = character(1)
+    )
+
     row_Output <- data.frame(
-      Initials = character(0),
-      MetaDataVersion = character(0),
-      MetaDataLastUpdated = character(0),
-      DomainListDesc = character(0),
-      Dataset = character(0),
-      Table = character(0),
+      timestamp = character(0),
       DataElement_N = character(0),
       DataElement = character(0),
       Domain_code = character(0),
@@ -293,20 +304,26 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     }
 
     ## Fill in columns that have all rows identical ----
-    Output$Initials <- User_Initials
-    Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
-    Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
-    Output$DomainListDesc <- DomainListDesc
-    Output$Dataset <- meta_json$dataModel$label
-    Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
+    log_Output$timestamp <- timestamp_now
+    log_Output$browseMetadata <- packageVersion("browseMetadata")
+    log_Output$Initials <- User_Initials
+    log_Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
+    log_Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
+    log_Output$DomainListDesc <- DomainListDesc
+    log_Output$Dataset <- meta_json$dataModel$label
+    log_Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
+    log_Output$Table_note <- table_note
 
     ## Save final categorisations for this Table  ----
+    Output$timestamp <- timestamp_now
     if (is.null(output_dir)) {
       output_dir = getwd() }
 
     utils::write.csv(Output, paste(output_dir,output_fname_csv,sep='/'), row.names = FALSE)
+    utils::write.csv(log_Output, paste(output_dir,output_fname_log_csv,sep='/'), row.names = FALSE)
     cat("\n")
-    cli_alert_success("Your final categorisations have been saved to {output_fname_csv}")
+    cli_alert_success("Your final categorisations have been saved:\n{output_fname_csv}")
+    cli_alert_success("Your session log has been saved:\n{output_fname_log_csv}")
 
     ## Create and save a summary plot
     counts <- Output %>% group_by(Domain_code) %>% count() %>% arrange(n)
@@ -323,8 +340,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     full_plot <- grid.arrange(Domain_plot, Domain_table,nrow=1,ncol=2)
     ggsave(plot = full_plot,paste(output_dir,output_fname_png,sep='/'),width = 14, height = 8, units = "in")
-    cat("\n")
-    cli_alert_success("A summary plot has been saved to {output_fname_png}")
+    cli_alert_success("A summary plot has been saved:\n{output_fname_png}")
 
 
   } # end of loop for each table
