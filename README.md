@@ -286,32 +286,19 @@ If you want to change your categorisation, enter in the row number (e.g. 8 for B
 
 It will then take you through the same process as before, and you can over-write your previous categorisation. 
 
-All finished! Take a look at the csv log output:
+All finished! Take a look at the outputs:
 
 ```
-✔ Your final categorisations have been saved to LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+✔ Your final categorisations have been saved:
+OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+✔ Your session log has been saved:
+LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+✔ A summary plot has been saved:
+PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.png
 ```
 
-There is an accompanying png output saved which plots the count of domain codes for each table:
-
-```
-✔ A summary plot has been saved to PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.png
-```
-
-#### Output
-
-The output of your decisions will be saved to a csv file.
-The csv file name includes the dataset, table, and date stamp.
-This csv file, in addition to what is shown on the console, contains:
-
-- user initials (from user input)
-- metadata version (from json)
-- date time stamp the metadata was last updated (from json) 
-- dataset name (from json)
-
-Intended use-cases:
-- Compare categorisations across researchers (see the function [R/compare_csv_outputs.R](R/compare_csv_outputs.R))
-- Use as an input in later analysis steps to filter variables and visualise how they map to research domains
+The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. 
+These two csv files contain the same timestamp column. The PLOT png file saves a simple plot displaying the count of domain codes for that table.
 
 ### Using your own input files 
 
@@ -341,8 +328,14 @@ The lookup file:
 
  - a [default lookup file](dataraw/look_up.csv) is used by the domain_mapping function
  - optional: a csv can be created by the user (using the same format as the default) and provided as the input
- - the lookup file makes autocategorisations  intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
+ - the lookup file makes auto-categorisations  intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
  - the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file
+
+### Potential use-cases for the output files
+
+The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
+
+Categorisations across researchers can be compared by using the function [R/compare_csv_outputs.R](R/compare_csv_outputs.R). Type `?compare_csv_outputs` to read the manual on how to run this function. In brief, it compares outputs from two sessions, finds their differences, and asks for a consensus.
 
 ## License
 
