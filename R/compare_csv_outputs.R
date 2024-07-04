@@ -1,83 +1,99 @@
 #' compare_csv_outputs
 #'
 #' This function is to be used after running the domain_mapping function. \cr \cr
-#' It compares two csv outputs, finds their differences, and asks for a consensus. \cr \cr
+#' It compares outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
 #'
-#' @param csv_file_1 CSV output file from running domain_mapping
-#' @param csv_file_2 CSV output file from running domain_mapping (different to csv_file_1)
-#' @param json_file The metadata file used when running domain_mapping (should be the same for csv_file_1 and csv_file_2)
-#' @return It returns csv_3, with consensus decisions
+#' @param csv_file_1a CSV log output file from running domain_mapping (session 1)
+#' @param csv_file_1b CSV file from running domain_mapping (session 1)
+#' @param csv_file_2a CSV log output file from running domain_mapping (session 2)
+#' @param csv_file_2b CSV file from running domain_mapping (session 2)
+#' @param json_file The metadata file used when running domain_mapping (should be the same for session 1 and session 2)
+#' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
 #' @importFrom dplyr left_join select join_by
 #' @export
 
-compare_csv_outputs <- function(csv_file_1,csv_file_2,json_file) {
+compare_csv_outputs <- function(csv_file_1a,csv_file_1b,csv_file_2a,csv_file_2b,json_file) {
 
   timestamp_now <- gsub(" ", "_", Sys.time())
   timestamp_now <- gsub(":", "-", timestamp_now)
 
-  # read in input files
-  csv_1 <- read.csv(csv_file_1)
-  csv_2 <- read.csv(csv_file_2)
+  # read in the log input files:
+
+  csv_1a <- read.csv(csv_file_1a)
+  csv_2a <- read.csv(csv_file_2a)
+  csv_1b <- read.csv(csv_file_1b)
+  csv_2b <- read.csv(csv_file_2b)
   meta_json <- rjson::fromJSON(file = json_file)
 
-  # check the csv files can be compared
-  if (csv_1$MetaDataVersion[1] != csv_2$MetaDataVersion[1]){
+  # check the session csvs can be compared to each other and to the json (min requirements):
+
+  if (csv_1a$DomainListDesc[1] != csv_2a$DomainListDesc[1]){
     cat("\n\n")
-    cli_alert_danger("Cannot compare csv 1 and csv 2: different metadata versions")
+    cli_alert_danger("Cannot compare session 1 and 2: different domain lists")
     stop()}
 
-  if (csv_1$MetaDataLastUpdated[1] != csv_2$MetaDataLastUpdated[1]){
+  if (csv_1a$Dataset[1] != csv_2a$Dataset[1]){
     cat("\n\n")
-    cli_alert_danger("Cannot compare csv 1 and csv 2: different dates for metadata")
+    cli_alert_danger("Cannot compare session 1 and 2: different datasets")
     stop()}
 
-  if (csv_1$DomainListDesc[1] != csv_2$DomainListDesc[1]){
+  if (csv_1a$Table[1] != csv_2a$Table[1]){
     cat("\n\n")
-    cli_alert_danger("Cannot compare csv 1 and csv 2: different domain lists")
+    cli_alert_danger("Cannot compare session 1 and 2: different tables")
     stop()}
 
-  if (csv_1$Dataset[1] != csv_2$Dataset[1]){
-    cat("\n\n")
-    cli_alert_danger("Cannot compare csv 1 and csv 2: different datasets")
-    stop()}
-
-  if (csv_1$Table[1] != csv_2$Table[1]){
-    cat("\n\n")
-    cli_alert_danger("Cannot compare csv 1 and csv 2: different tables")
-    stop()}
-
-  if (length(csv_1) != length(csv_2)){
-    cat("\n\n")
-    cli_alert_warning("Different number of rows in csv 1 and csv 2 - please check")}
-
-  # check the csv files can be compared to the meta_json
-  if (csv_1$MetaDataVersion[1] != meta_json$dataModel$documentationVersion){
-    cat("\n\n")
-    cli_alert_danger("The csv files do not match the json: different metadata versions")
-    stop()}
-
-  if (csv_1$MetaDataLastUpdated[1] != meta_json$dataModel$lastUpdated){
-    cat("\n\n")
-    cli_alert_danger("The csv files do not match the json: different dates for metadata")
-    stop()}
-
-  if (csv_1$Dataset[1] != meta_json$dataModel$label){
+  if (csv_1a$Dataset[1] != meta_json$dataModel$label){
     cat("\n\n")
     cli_alert_danger("The csv files do not match the json: different datasets")
     stop()}
 
-  # print details about each csv
-  cat("\n\n")
-  cli_alert_success("Comparing csv 1 and csv 2")
-  cli_alert_success("csv_1 -> {csv_file_1}")
-  cli_alert_success("csv_2 -> {csv_file_2}")
-  cli_alert_success("csv_1 created by {csv_1$Initials[1]} and csv_2 created by {csv_2$Initials[2]}")
+  # check the session csvs can be compared to each other and to the json (warnings for user to check):
 
-  # join csv_1 and csv_2 in order to compare
-  csv_join <- left_join(csv_1,csv_2,suffix = c("_csv1","_csv2"),join_by(MetaDataVersion,MetaDataLastUpdated,DomainListDesc,Dataset,Table,DataElement))
-  csv_join$Domain_code_join <- NA
-  csv_join$Note_join <- NA
-  csv_join <- select(csv_join,2,3,4,5,6,7,1,8,9,10,11,12,13,14)
+  if (csv_1a$browseMetadata[1] != csv_2a$browseMetadata[1]){
+    cat("\n\n")
+    cli_alert_warning("Different version of browseMetadata for session 1 and 2!\nValid comparison may not be possible - please check!")
+    continue <- readline("Press enter to continue or Esc to cancel: ")}
+
+  if (csv_1a$MetaDataVersion[1] != csv_2a$MetaDataVersion[1]){
+    cat("\n\n")
+    cli_alert_warning("Different metadata versions for session 1 and 2\nValid comparison may not be possible - please check!")
+    continue <- readline("Press enter to continue or Esc to cancel: ")}
+
+  if (csv_1a$MetaDataVersion[1] != meta_json$dataModel$documentationVersion){
+    cat("\n\n")
+    cli_alert_warning("The session files do not match the json (different metadata versions)\nValid comparison may not be possible - please check!")
+    continue <- readline("Press enter to continue or Esc to cancel: ")}
+
+  if (csv_1a$MetaDataLastUpdated[1] != csv_2a$MetaDataLastUpdated[1]){
+    cat("\n\n")
+    cli_alert_warning("Different metadata date for session 1 and 2\nValid comparison may not be possible - please check!")
+    continue <- readline("Press enter to continue or Esc to cancel: ")}
+
+  if (csv_1a$MetaDataLastUpdated[1] != meta_json$dataModel$lastUpdated){
+    cat("\n\n")
+    cli_alert_warning("The session files do not match the json (different dates for metadata)\nValid comparison may not be possible - please check!")
+    continue <- readline("Press enter to continue or Esc to cancel: ")}
+
+  if (nrow(csv_1b) != nrow(csv_2b)){
+    cat("\n\n")
+    cli_alert_warning("Different number of data elements for session 1 and 2\nValid comparison may not be possible - please check!")
+    continue <- readline("Press enter to continue or Esc to cancel: ")}
+
+  # print details about each session
+  cat("\n\n")
+  cli_alert_success("Comparing session 1 and session 2")
+  cli_alert_success("Session 1 created by {csv_1a$Initials[1]} and session 2 created by {csv_2a$Initials[1]}")
+
+  # join csv_1b and csv_2b in order to compare
+  ses_join <- left_join(csv_1b,csv_2b,suffix = c("_ses1","_ses2"),join_by(DataElement))
+  ses_join$Domain_code_join <- NA
+  ses_join$Note_join <- NA
+  ses_join <- select(ses_join,
+                     'timestamp_ses1','timestamp_ses2',
+                     'DataElement_N_ses1','DataElement_N_ses2',
+                     'Domain_code_ses1','Domain_code_ses2',
+                     'Note_ses1','Note_ses2',
+                     'Domain_code_join','Note_join')
 
   # extract table from meta_json - same code as domain_mapping
   table_find <- data.frame(table_n = numeric(length(meta_json$dataModel$childDataClasses)),table_label = character(length(meta_json$dataModel$childDataClasses)))
@@ -86,7 +102,7 @@ compare_csv_outputs <- function(csv_file_1,csv_file_2,json_file) {
     table_find$table_label[t] = meta_json$dataModel$childDataClasses[[t]]$label
   }
 
-  table_n = table_find$table_n[table_find$table_label == csv_1$Table[1]]
+  table_n = table_find$table_n[table_find$table_label == csv_1a$Table[1]]
   thisTable <- meta_json$dataModel$childDataClasses[[table_n]]$childDataElements
   thisTable_df <- data.frame(do.call(rbind, thisTable)) # nested list to dataframe
   dataType_df <- data.frame(do.call(rbind, thisTable_df$dataType)) # nested list to dataframe
@@ -100,30 +116,29 @@ compare_csv_outputs <- function(csv_file_1,csv_file_2,json_file) {
   selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
   # find the mismatches and ask for consensus decisions
-  for (datavar in 1:nrow(csv_join)) {
-    cat("\n \n")
+  for (datavar in 1:nrow(ses_join)) {
       # collect user responses
-    if (csv_join$Domain_code_csv1[datavar] != csv_join$Domain_code_csv2[datavar]){
+    if (ses_join$Domain_code_ses1[datavar] != ses_join$Domain_code_ses2[datavar]){
       cat("\n\n")
-      cli_alert_info("Mismatch of DataElement {csv_join$DataElement[datavar]}")
+      cli_alert_info("Mismatch of DataElement {ses_join$DataElement[datavar]}")
       cat(paste(
-        "\nDOMAIN CODE (note) for csv 1 --> ",csv_join$Domain_code_csv1[datavar],'(',csv_join$Note_csv1[datavar],')',
-        "\nDOMAIN CODE (note) for csv 2 --> ",csv_join$Domain_code_csv2[datavar],'(',csv_join$Note_csv2[datavar],')'
+        "\nDOMAIN CODE (note) for session 1 --> ",ses_join$Domain_code_ses1[datavar],'(',ses_join$Note_ses1[datavar],')',
+        "\nDOMAIN CODE (note) for session 2 --> ",ses_join$Domain_code_ses2[datavar],'(',ses_join$Note_ses2[datavar],')'
       ))
       cat("\n\n")
       cli_alert_info("Provide concensus decision for this DataElement:")
       decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar])
-      csv_join$Domain_code_join <- decision_output$decision
-      csv_join$Note_join <- decision_output$decision_note
+      ses_join$Domain_code_join[datavar] <- decision_output$decision
+      ses_join$Note_join[datavar] <- decision_output$decision_note
     } else {
-      csv_join$Domain_code_join <- csv_join$Domain_code_csv1[datavar]
-      csv_join$Note_join <- 'No mismatch'
+      ses_join$Domain_code_join[datavar] <- ses_join$Domain_code_ses1[datavar]
+      ses_join$Note_join[datavar] <- 'No mismatch!'
     }
   } # end of loop for DataElement
 
   # save to new csv
-  output_fname <- paste0("CONCENSUS_LOG_", gsub(" ", "", meta_json$dataModel$label), "_", table_find$table_label[table_n], "_", timestamp_now, ".csv")
-  utils::write.csv(csv_join, output_fname, row.names = FALSE)
+  output_fname <- paste0("CONCENSUS_OUTPUT_", gsub(" ", "", meta_json$dataModel$label), "_", table_find$table_label[table_n], "_", timestamp_now, ".csv")
+  utils::write.csv(ses_join, output_fname, row.names = FALSE)
   cat("\n")
   cli_alert_success("Your concensus categorisations have been saved to {output_fname}")
 }
