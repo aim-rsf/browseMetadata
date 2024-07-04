@@ -231,7 +231,7 @@ A note can be included to explain why a categorisation has been made. Or press e
 You have the option to re-do the categorisation you just made, by replying 'y' to the question:
 
 ```
-Re-do last categorisation? (y/n): y
+Response to be saved is '7'. Would you like to re-do? (y/n): y
 ```
 
 After completing 20, it will then ask you to review the auto-categorisations it made. 

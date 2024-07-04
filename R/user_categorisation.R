@@ -59,7 +59,7 @@ user_categorisation <- function(data_element,data_desc,data_type,domain_code_max
 
     while (go_back != "Y" & go_back != "y" & go_back != "N" & go_back != "n") {
       cat("\n \n")
-      go_back <- readline(prompt = paste0("Respone to be saved is '",decision,"'. Would you like to re-do? (y/n): "))
+      go_back <- readline(prompt = paste0("Response to be saved is '",decision,"'. Would you like to re-do? (y/n): "))
     }
 
     first_run = FALSE
