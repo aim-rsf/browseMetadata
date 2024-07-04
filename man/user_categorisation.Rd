@@ -4,7 +4,7 @@
 \alias{user_categorisation}
 \title{user_categorisation}
 \usage{
-user_categorisation(data_element, data_desc, data_type)
+user_categorisation(data_element, data_desc, data_type, domain_code_max)
 }
 \arguments{
 \item{data_element}{Name of the variable}
@@ -12,6 +12,8 @@ user_categorisation(data_element, data_desc, data_type)
 \item{data_desc}{Description of the variable}
 
 \item{data_type}{Data type of the variable}
+
+\item{domain_code_max}{Max code in the domain list (0-3 auto included, then N included via domain_file)}
 }
 \value{
 It returns a list containing the decision and decision note

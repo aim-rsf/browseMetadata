@@ -214,7 +214,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         Output <- rbind(Output,this_Output)
         } else {
         # collect user responses
-        decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar])
+        decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
         # input user responses into output
         this_Output <- row_Output
         this_Output[nrow(this_Output) + 1 , ] <- NA
@@ -254,7 +254,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       for  (datavar_auto in unique(auto_row)) {
 
         # collect user responses
-        decision_output <- user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto])
+        decision_output <- user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto],max(Code$Code))
         # input user responses into output
         Output$Domain_code[datavar_auto] <- decision_output$decision
         Output$Note[datavar_auto] <- decision_output$decision_note
@@ -295,7 +295,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         for  (datavar_not_auto in unique(not_auto_row)) {
 
           # collect user responses
-          decision_output <- user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto])
+          decision_output <- user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto],max(Code$Code))
           # input user responses into output
           Output$Domain_code[datavar_not_auto] <- decision_output$decision
           Output$Note[datavar_not_auto] <- decision_output$decision_note
