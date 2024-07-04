@@ -4,19 +4,29 @@
 \alias{compare_csv_outputs}
 \title{compare_csv_outputs}
 \usage{
-compare_csv_outputs(csv_file_1, csv_file_2, json_file)
+compare_csv_outputs(
+  csv_file_1a,
+  csv_file_1b,
+  csv_file_2a,
+  csv_file_2b,
+  json_file
+)
 }
 \arguments{
-\item{csv_file_1}{CSV output file from running domain_mapping}
+\item{csv_file_1a}{CSV log output file from running domain_mapping (session 1)}
 
-\item{csv_file_2}{CSV output file from running domain_mapping (different to csv_file_1)}
+\item{csv_file_1b}{CSV file from running domain_mapping (session 1)}
 
-\item{json_file}{The metadata file used when running domain_mapping (should be the same for csv_file_1 and csv_file_2)}
+\item{csv_file_2a}{CSV log output file from running domain_mapping (session 2)}
+
+\item{csv_file_2b}{CSV file from running domain_mapping (session 2)}
+
+\item{json_file}{The metadata file used when running domain_mapping (should be the same for session 1 and session 2)}
 }
 \value{
-It returns csv_3, with consensus decisions
+It returns a csv output, which represents the consensus decisions between session 1 and session 2
 }
 \description{
 This function is to be used after running the domain_mapping function. \cr \cr
-It compares two csv outputs, finds their differences, and asks for a consensus. \cr \cr
+It compares outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
 }
