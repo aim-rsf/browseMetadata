@@ -1,7 +1,7 @@
-#' compare_csv_outputs
+#' compare_sessions
 #'
 #' This function is to be used after running the domain_mapping function. \cr \cr
-#' It compares outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
+#' It compares csv outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
 #'
 #' @param session_dir This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.
 #' @param session1_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05_16-07-38.599493'
@@ -12,7 +12,7 @@
 #' @importFrom dplyr left_join select join_by
 #' @export
 
-compare_csv_outputs <- function(session_dir,session1_base,session2_base,json_file,domain_file) {
+compare_sessions <- function(session_dir,session1_base,session2_base,json_file,domain_file) {
 
   timestamp_now <- gsub(" ", "_", Sys.time())
   timestamp_now <- gsub(":", "-", timestamp_now)

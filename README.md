@@ -335,7 +335,7 @@ The lookup file:
 
 The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
 
-Categorisations across researchers can be compared by using the function [R/compare_csv_outputs.R](R/compare_csv_outputs.R). Type `?compare_csv_outputs` to read the manual on how to run this function. In brief, it compares outputs from two sessions, finds their differences, and asks for a consensus.
+Categorisations across researchers can be compared by using the function [R/compare_sessions.R](R/compare_sessions.R). Type `?compare__sessions` to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
 
 ## License
 
