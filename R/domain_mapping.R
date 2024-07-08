@@ -9,6 +9,7 @@
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
 #' @param output_dir The path to the directory where the csv output log will be saved. By default, the current working directory is used.
+#' @param table_copy Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you make for the last table you processed will be carried over to another, as long as the csv files share an output_dir.
 #' @return The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
@@ -20,7 +21,7 @@
 #' @importFrom utils read.csv write.csv
 #' @importFrom dplyr %>% arrange count group_by
 
-domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL) {
+domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
 
   ## Load data: Check if demo data should be used ----
 
@@ -55,7 +56,18 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     lookup <- read.csv(look_up_file)
     cli_alert_success("Using look up file inputted by user")
     print(lookup)
-    }
+  }
+
+  # Check if previous table output exists in this output_dir (for table copying)
+  if (table_copy == TRUE){
+    dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
+    csv_list <- data.frame(file = list.files('.',pattern = dataset_search))
+    csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
+    csv_last_filename <- csv_list[which.min(csv_list$date),]
+    csv_last <- read.csv(csv_last_filename$file)
+    cat("\n \n")
+    cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
+  }
 
   ## Present domains plots panel for user's reference ----
   colnames(domains)[1] = "Domain Name"
@@ -155,8 +167,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
     # Create unique output csv to log the results ----
-    timestamp_now <- gsub(" ", "_", Sys.time())
-    timestamp_now <- gsub(":", "-", timestamp_now)
+    timestamp_now <- format(Sys.time(),"%Y-%m-%d-%H-%M-%S")
 
     output_fname_csv <- paste0("OUTPUT_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
     output_fname_log_csv <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
@@ -204,7 +215,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       if (nrow(lookup_subset) == 1) {
-        # auto categorisations
+        # auto categorisations ------- HERE, ADD THE SEACH FOR THE CSV LAST TABLE, IF FOUND. WRITE 'COPIED FROM TABLE X' IN NOTE
         this_Output <- row_Output
         this_Output[nrow(this_Output) + 1 , ] <- NA
         this_Output$DataElement[1] <- selectTable_df$Label[datavar]

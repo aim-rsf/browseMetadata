@@ -290,11 +290,11 @@ All finished! Take a look at the outputs:
 
 ```
 ✔ Your final categorisations have been saved:
-OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 ✔ Your session log has been saved:
-LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 ✔ A summary plot has been saved:
-PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.png
+PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png
 ```
 
 The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. 

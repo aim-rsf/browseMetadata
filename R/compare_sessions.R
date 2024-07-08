@@ -4,8 +4,8 @@
 #' It compares csv outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
 #'
 #' @param session_dir This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.
-#' @param session1_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05_16-07-38.599493'
-#' @param session2_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08_12-03-30.429336'
+#' @param session1_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38'
+#' @param session2_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'
 #' @param json_file The full path to the metadata file used when running domain_mapping (should be the same for session 1 and session 2)
 #' @param domain_file The full path to the domain file used when running domain_mapping (should be the same for session 1 and session 2)
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
