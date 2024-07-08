@@ -5,23 +5,23 @@
 \title{compare_csv_outputs}
 \usage{
 compare_csv_outputs(
-  csv_file_1a,
-  csv_file_1b,
-  csv_file_2a,
-  csv_file_2b,
-  json_file
+  session_dir,
+  session1_base,
+  session2_base,
+  json_file,
+  domain_file
 )
 }
 \arguments{
-\item{csv_file_1a}{CSV log output file from running domain_mapping (session 1)}
+\item{session_dir}{This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.}
 
-\item{csv_file_1b}{CSV file from running domain_mapping (session 1)}
+\item{session1_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05_16-07-38.599493'}
 
-\item{csv_file_2a}{CSV log output file from running domain_mapping (session 2)}
+\item{session2_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08_12-03-30.429336'}
 
-\item{csv_file_2b}{CSV file from running domain_mapping (session 2)}
+\item{json_file}{The full path to the metadata file used when running domain_mapping (should be the same for session 1 and session 2)}
 
-\item{json_file}{The metadata file used when running domain_mapping (should be the same for session 1 and session 2)}
+\item{domain_file}{The full path to the domain file used when running domain_mapping (should be the same for session 1 and session 2)}
 }
 \value{
 It returns a csv output, which represents the consensus decisions between session 1 and session 2

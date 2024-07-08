@@ -3,34 +3,30 @@
 #' This function is to be used after running the domain_mapping function. \cr \cr
 #' It compares outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
 #'
-#' @param csv_file_1a CSV log output file from running domain_mapping (session 1)
-#' @param csv_file_1b CSV file from running domain_mapping (session 1)
-#' @param csv_file_2a CSV log output file from running domain_mapping (session 2)
-#' @param csv_file_2b CSV file from running domain_mapping (session 2)
-#' @param json_file The metadata file used when running domain_mapping (should be the same for session 1 and session 2)
+#' @param session_dir This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.
+#' @param session1_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05_16-07-38.599493'
+#' @param session2_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08_12-03-30.429336'
+#' @param json_file The full path to the metadata file used when running domain_mapping (should be the same for session 1 and session 2)
+#' @param domain_file The full path to the domain file used when running domain_mapping (should be the same for session 1 and session 2)
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
 #' @importFrom dplyr left_join select join_by
 #' @export
 
-compare_csv_outputs <- function(csv_file_1a,csv_file_1b,csv_file_2a,csv_file_2b,json_file) {
+compare_csv_outputs <- function(session_dir,session1_base,session2_base,json_file,domain_file) {
 
   timestamp_now <- gsub(" ", "_", Sys.time())
   timestamp_now <- gsub(":", "-", timestamp_now)
 
-  # read in the log input files:
+  # read in the input files:
 
-  csv_1a <- read.csv(csv_file_1a)
-  csv_2a <- read.csv(csv_file_2a)
-  csv_1b <- read.csv(csv_file_1b)
-  csv_2b <- read.csv(csv_file_2b)
+  csv_1a <- read.csv(paste0(session_dir,'/','LOG_',session1_base,'.csv'))
+  csv_2a <- read.csv(paste0(session_dir,'/','LOG_',session2_base,'.csv'))
+  csv_1b <- read.csv(paste0(session_dir,'/','OUTPUT_',session1_base,'.csv'))
+  csv_2b <- read.csv(paste0(session_dir,'/','OUTPUT_',session2_base,'.csv'))
   meta_json <- rjson::fromJSON(file = json_file)
+  domains <- read.csv(domain_file, header = FALSE)
 
   # check the session csvs can be compared to each other and to the json (min requirements):
-
-  if (csv_1a$DomainListDesc[1] != csv_2a$DomainListDesc[1]){
-    cat("\n\n")
-    cli_alert_danger("Cannot compare session 1 and 2: different domain lists")
-    stop()}
 
   if (csv_1a$Dataset[1] != csv_2a$Dataset[1]){
     cat("\n\n")
@@ -84,6 +80,14 @@ compare_csv_outputs <- function(csv_file_1a,csv_file_1b,csv_file_2a,csv_file_2b,
   cli_alert_success("Comparing session 1 and session 2")
   cli_alert_success("Session 1 created by {csv_1a$Initials[1]} and session 2 created by {csv_2a$Initials[1]}")
 
+  # Present domains plots panel for user's reference (as in domain_mapping)
+  colnames(domains)[1] = "Domain Name"
+  graphics::plot.new()
+  domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ID*"), c("*DEMOGRAPHICS*"), domains)
+  Code <- data.frame(Code = 0:(nrow(domains_extend) - 1))
+  Domain_table <- tableGrob(cbind(Code,domains_extend),rows = NULL,theme = ttheme_default())
+  grid.arrange(Domain_table,nrow=1,ncol=1)
+
   # join csv_1b and csv_2b in order to compare
   ses_join <- left_join(csv_1b,csv_2b,suffix = c("_ses1","_ses2"),join_by(DataElement))
   ses_join$Domain_code_join <- NA
@@ -127,7 +131,7 @@ compare_csv_outputs <- function(csv_file_1a,csv_file_1b,csv_file_2a,csv_file_2b,
       ))
       cat("\n\n")
       cli_alert_info("Provide concensus decision for this DataElement:")
-      decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar])
+      decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
       ses_join$Domain_code_join[datavar] <- decision_output$decision
       ses_join$Note_join[datavar] <- decision_output$decision_note
     } else {
