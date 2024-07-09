@@ -8,7 +8,8 @@ domain_mapping(
   json_file = NULL,
   domain_file = NULL,
   look_up_file = NULL,
-  output_dir = NULL
+  output_dir = NULL,
+  table_copy = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ domain_mapping(
 \item{look_up_file}{The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.}
 
 \item{output_dir}{The path to the directory where the csv output log will be saved. By default, the current working directory is used.}
+
+\item{table_copy}{Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you make for the last table you processed will be carried over to another, as long as the csv files share an output_dir.}
 }
 \value{
 The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
