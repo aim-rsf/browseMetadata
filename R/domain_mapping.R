@@ -31,7 +31,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     domains <- get("domain_list")
     DomainListDesc <- "DemoList"
     cat("\n")
-    cli_alert_success("Running domain_mapping in demo mode using package data files")
+    cli_alert_info("Running domain_mapping in demo mode using package data files")
     demo_mode = TRUE
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
@@ -49,12 +49,12 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
   # Check if user has provided a look-up table
   if (is.null(look_up_file)) {
-    cli_alert_success("Using the default look-up table in data/look-up.rda")
+    cli_alert_info("Using the default look-up table in data/look-up.rda")
     lookup <- get("look_up")
     }
   else {
     lookup <- read.csv(look_up_file)
-    cli_alert_success("Using look up file inputted by user")
+    cli_alert_info("Using look up file inputted by user")
     print(lookup)
   }
 
@@ -62,12 +62,14 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   if (table_copy == TRUE){
     dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
     csv_list <- data.frame(file = list.files('.',pattern = dataset_search))
-    csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
-    csv_last_filename <- csv_list[which.min(csv_list$date),]
-    csv_last <- read.csv(csv_last_filename$file)
-    cat("\n \n")
-    cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
-  }
+    if (nrow(csv_list) != 0){
+      csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
+      csv_last_filename <- csv_list[which.min(csv_list$date),]
+      csv_last <- read.csv(csv_last_filename$file)
+      csv_last_exist <- TRUE
+      cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
+    } else {csv_last_exist <- FALSE}
+    } else {csv_last_exist <- FALSE}
 
   ## Present domains plots panel for user's reference ----
   colnames(domains)[1] = "Domain Name"
@@ -211,31 +213,36 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     for (datavar in start_var:end_var) {
       cat("\n \n")
       cli_alert_info(paste(length(datavar:end_var),'left to process in this session'))
-      cli_alert_success("Processing data element {datavar} of {nrow(selectTable_df)}")
+      cli_alert_info("Processing data element {datavar} of {nrow(selectTable_df)}")
+      # prepare output
+      this_Output <- row_Output
+      this_Output[nrow(this_Output) + 1 , ] <- NA
+      this_Output$DataElement[1] <- selectTable_df$Label[datavar]
+      this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
+      # search if this data element matches with auto categorisations in lookup
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
-      if (nrow(lookup_subset) == 1) {
-        # auto categorisations ------- HERE, ADD THE SEACH FOR THE CSV LAST TABLE, IF FOUND. WRITE 'COPIED FROM TABLE X' IN NOTE
-        this_Output <- row_Output
-        this_Output[nrow(this_Output) + 1 , ] <- NA
-        this_Output$DataElement[1] <- selectTable_df$Label[datavar]
-        this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
+      # search if this data element matches with any data elements processed in previous table
+      if (csv_last_exist == TRUE) {
+        datavar_index <- which(csv_last$DataElement == selectTable_df$Label[datavar])
+        csv_last_subset <- csv_last[datavar_index,]
+        } else {csv_last_subset <- data.frame()}
+      # decide how to process the data element out of 3 options
+      if (nrow(lookup_subset) == 1) { # 1 - auto categorisation
         this_Output$Domain_code[1] <- lookup_subset$DomainCode
         this_Output$Note[1] <- "AUTO CATEGORISED"
         Output <- rbind(Output,this_Output)
-        } else {
-        # collect user responses
-        decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
-        # input user responses into output
-        this_Output <- row_Output
-        this_Output[nrow(this_Output) + 1 , ] <- NA
-        this_Output$DataElement[1] <- selectTable_df$Label[datavar]
-        this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
-        this_Output$Domain_code[1] <- decision_output$decision
-        this_Output$Note[1] <- decision_output$decision_note
-        Output <- rbind(Output,this_Output)
-        }
-    } # end of loop for DataElement
+        } else if (csv_last_exist == TRUE & nrow(csv_last_subset) == 1){ # 2 - copy from previous table
+          this_Output$Domain_code[1] <- csv_last_subset$Domain_code
+          suppressWarnings(this_Output$Note[1] <- paste0("COPIED FROM: ",csv_last_filename))
+          Output <- rbind(Output,this_Output)
+        } else { # 3 - collect user responses
+          decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
+          this_Output$Domain_code[1] <- decision_output$decision
+          this_Output$Note[1] <- decision_output$decision_note
+          Output <- rbind(Output,this_Output)
+          }
+      } # end of loop for DataElement
 
     ## Print the AUTO CATEGORISED responses for this Table and request review  ----
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
@@ -281,8 +288,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     if (review_cats == 'Y' | review_cats == 'y') {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
+      Output_not_auto['Note (first 12 chars)'] <- substring(Output_not_auto$Note,1,11)
       cat("\n \n")
-      print(Output_not_auto[, c("DataElement", "Domain_code","Note")])
+      print(Output_not_auto[, c("DataElement", "Domain_code","Note (first 12 chars)")])
       cat("\n \n")
 
       # extract the rows to edit
