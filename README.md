@@ -39,9 +39,13 @@ This `R` package takes a metadata file as input and facilitates the process
 of browsing through each table within a chosen dataset. The user is asked to 
 categorise each data element (variable) within a table into a domain related 
 to their research question, and these categorisations get saved in a csv file 
-for later reference. To speed up this process, the function automatically 
-categorises some variables that regularly appear in health datasets 
-(e.g. ID, Sex, Age).
+for later reference. 
+
+To speed up this process, the function automatically categorises some variables 
+that regularly appear in health datasets (e.g. ID, Sex, Age). The function also 
+accounts for the same data element appearing in multiple tables across a dataset, 
+and allows the user to active a table copying function which copies categorisations
+they've done for one table, onto the current table they are processing. 
 
 🚧 :warning: This package is in early development, and has only been
 tested on a limited number of metadata files. In theory, this package
@@ -78,6 +82,10 @@ Read the documentation:
 ```
 ?domain_mapping
 ```
+Set your working directory to be an empty folder you just created:
+```
+setwd("/Users/your-username/test-browseMetadata")
+```
 
 Run the function in demo mode:
 ``` r
@@ -104,8 +112,8 @@ For a research study, your domains are likely to be much more specific e.g. 'Pre
 The 4 default domains are always included [0-3], appended on to any domain list given.
 
 ``` 
-✔ Running domain_mapping in demo mode using package data files
-✔ Using the default look-up table in data/look-up.rda
+ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
  
 Enter your initials: RS
 ```
@@ -194,7 +202,9 @@ Would you like to read a description of the table? (y/n): y
 
 Enter Y after the prompt to read the description, for the purpose of the demo.
 
-It will now start looping through the data elements. If it skips over one it means it was auto-categorised (more on that later).
+You can provide an optional free text note about this table, this will be saved in the log file. 
+
+It will now start looping through the data elements. If it skips over one it means it was auto-categorised or copied from a previous table already processed (more on that later).
 
 For this demo, it will only process 20 data elements (out of the 35 total).
 
@@ -258,17 +268,17 @@ Press enter for now. It will then ask you if you want to review the categorisati
 ```
 Would you like to review your categorisations? (y/n): y
 
-      DataElement             Domain_code Note
+      DataElement             Domain_code   Note (first 12 chars)
 4     APGAR_1                 7
 5     APGAR_2                 7
-7     BIRTH_ORDER             7           10% missingness
-8     BIRTH_TM                1,7         20% missingness 
+7     BIRTH_ORDER             7             10% missingness
+8     BIRTH_TM                1,7           20% missingness 
 9     BIRTH_WEIGHT            7
 10    BIRTH_WEIGHT_DEC        7
 11    BREASTFEED_8_WKS_FLG    7
 12    BREASTFEED_BIRTH_FLG    7
 13    CHILD_ID_E              2
-14    CURR_LHB_CD_BIRTH       5,7         Place of birth
+14    CURR_LHB_CD_BIRTH       5,7           Place of birth
 15    DEL_CD                  7
 16    DOD                     3,7
 17    ETHNIC_GRP_CD           3
@@ -303,33 +313,77 @@ These two csv files contain the same timestamp column. The PLOT png file saves a
 ### Using your own input files 
 
 ```r
-domain_mapping(json_file, domain_file, look_up_file)
+domain_mapping(json_file, domain_file, look_up_file, output_dir, table_copy)
 ```
 
 This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues). 
 
-Run the code the same as the demo, using your own input files. 
+First, change the json file and domain file inputs. Later, consider changing the other 3 inputs, depending on your use-case. For example:
 
-It will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).  
+```r
+domain_mapping(json_file = 'path/your-json.json', domain_file = 'path/your-domains.csv')
+```
 
-The json file:
+Unlike in demo mode, it will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).  
 
+#### json file:
 - contains metadata about datasets of interest
 - downloaded from the metadata catalogue 
 - see [data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json](data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json) for an example download 
 
-The domain_file:	
-
+#### domain_file:	
 - a csv file created by the user, with each domain listed on a separate line, no header
 - see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
 - the first 4 domains will be auto populated (see demo above)
 
-The lookup file:
-
+#### lookup file:
  - a [default lookup file](dataraw/look_up.csv) is used by the domain_mapping function
  - optional: a csv can be created by the user (using the same format as the default) and provided as the input
  - the lookup file makes auto-categorisations  intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
  - the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file
+
+ #### output dir:
+ - the path to the directory where the two csv output files will be saved. By default, the current working directory is used
+
+#### table_copy: 
+- default is TRUE, so set this to FALSE if you want to deactivate table copying 
+- table copying means that the categorisations you make for the last table you processed will be carried over to this table, as long as the csv files share an output_dir 
+- this can be useful because the same data elements (variables) appear across multiple tables within one dataset
+- copying from one table to the next will save the user time, and ensure consistency of categorisations across tables 
+- the 'Note' column in the output csv file will indicate that the categorisation has been copied and where from
+- a typical session could look like this: 
+
+*Run 1, select table 'EXAM'*
+
+```
+ domain_mapping()
+
+ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
+```
+
+*Run 2, select table 'CHILD' (the function notices we have already run the table 'EXAM')*
+
+```
+ domain_mapping()
+
+ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
+ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_EXAM_[datetime].csv
+```
+
+*Run 3, select table 'REFR_IMM_VAC' (the function notices we have already run the table 'CHILD')*
+
+```
+ domain_mapping()
+
+ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
+ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv
+```
+
+*And so on ...*  Each run has the potential to be shorter for the user to complete because if there are the same data elements that appear across tables, the user will not be asked to categorise them twice. 
+
 
 ### Potential use-cases for the output files
 
