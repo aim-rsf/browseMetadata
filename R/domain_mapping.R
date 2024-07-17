@@ -61,7 +61,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   # Check if previous table output exists in this output_dir (for table copying)
   if (table_copy == TRUE){
     dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
-    csv_list <- data.frame(file = list.files('.',pattern = dataset_search))
+    csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
     if (nrow(csv_list) != 0){
       csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
       csv_last_filename <- csv_list[which.min(csv_list$date),]
