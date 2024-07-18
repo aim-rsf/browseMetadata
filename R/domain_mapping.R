@@ -64,8 +64,8 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
     if (nrow(csv_list) != 0){
       csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
-      csv_last_filename <- paste0(output_dir,csv_list[which.min(csv_list$date),])
-      csv_last <- read.csv(csv_last_filename$file)
+      csv_last_filename <- csv_list[which.min(csv_list$date),]
+      csv_last <- read.csv(paste0(output_dir,csv_last_filename)$file)
       csv_last_exist <- TRUE
       cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
     } else {csv_last_exist <- FALSE}
