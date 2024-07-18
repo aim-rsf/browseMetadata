@@ -58,18 +58,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     print(lookup)
   }
 
-  # Check if previous table output exists in this output_dir (for table copying)
-  if (table_copy == TRUE){
-    dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
-    csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
-    if (nrow(csv_list) != 0){
-      csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
-      csv_last_filename <- csv_list[which.min(csv_list$date),]
-      csv_last <- read.csv(paste0(output_dir,csv_last_filename)$file)
-      csv_last_exist <- TRUE
-      cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
-    } else {csv_last_exist <- FALSE}
-    } else {csv_last_exist <- FALSE}
+  # If user has not provider output_dir, use current working dir:
+  if (is.null(output_dir)) {
+    output_dir = getwd() }
 
   ## Present domains plots panel for user's reference ----
   colnames(domains)[1] = "Domain Name"
@@ -140,6 +131,20 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cat(meta_json$dataModel$childDataClasses[[dc]]$label, fill = TRUE)
     cli_h1("Table Last Updated")
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
+
+    # Check if previous table output exists in this output_dir (for table copying)
+    if (table_copy == TRUE){
+      dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
+      csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
+      if (nrow(csv_list) != 0){
+        csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
+        csv_last_filename <- csv_list[which.min(csv_list$date),]
+        csv_last <- read.csv(paste0(output_dir,'/',csv_last_filename$file))
+        csv_last_exist <- TRUE
+        cat("\n")
+        cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
+      } else {csv_last_exist <- FALSE}
+      } else {csv_last_exist <- FALSE}
 
     table_desc <- ""
     while (table_desc != "Y" & table_desc != "y" & table_desc != "N" & table_desc != "n") {
@@ -335,9 +340,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     ## Save final categorisations for this Table  ----
     Output$timestamp <- timestamp_now
-    if (is.null(output_dir)) {
-      output_dir = getwd() }
-
     utils::write.csv(Output, paste(output_dir,output_fname_csv,sep='/'), row.names = FALSE)
     utils::write.csv(log_Output, paste(output_dir,output_fname_log_csv,sep='/'), row.names = FALSE)
     cat("\n")
