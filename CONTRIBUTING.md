@@ -29,7 +29,7 @@ This document provides guidelines for contributing to this repository.
 - Update the README or other documentation if necessary.
 - Clearly describe the changes you've made and their benefits.
 
-## Contributing to the R Package - author or reviewr of a PR
+## Contributing to the R Package - as an author or reviewer of a PR
 
 If your contribution involves changes to the R package itself (as an author or reviewer of a PR), here are some specific guidelines, assuming you are using RStudio as your editor:
 
