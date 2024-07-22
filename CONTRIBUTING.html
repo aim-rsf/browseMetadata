@@ -69,8 +69,16 @@
 </ul></div>
 </div>
 <div class="section level2">
-<h2 id="contributing-to-the-r-package">Contributing to the R Package<a class="anchor" aria-label="anchor" href="#contributing-to-the-r-package"></a></h2>
-<p>If your contribution involves changes to the R package itself, here are some specific guidelines to follow:</p>
+<h2 id="contributing-to-the-r-package---as-an-author-or-reviewer-of-a-pr">Contributing to the R Package - as an author or reviewer of a PR<a class="anchor" aria-label="anchor" href="#contributing-to-the-r-package---as-an-author-or-reviewer-of-a-pr"></a></h2>
+<p>If your contribution involves changes to the R package itself (as an author or reviewer of a PR), here are some specific guidelines, assuming you are using RStudio as your editor:</p>
+<ol style="list-style-type: decimal"><li>Clone this GitHub repository locally and ensure all branches you need are up to date with remote. &gt; In R Studio, you can clone it by clicking on <code>File</code> &gt; <code>New Project...</code>, then select <code>Version Control</code>, and choose <code>Git</code>. Enter the repository URL (e.g., <code>https://github.com/aim-rsf/browseMetadata</code>), select the directory to clone the repository into, and click <code>Create Project</code>.</li>
+<li>You should have a <strong>Git</strong> tab in your workspace.</li>
+<li>In this <strong>Git</strong> tab, move to the branch you want to make changes in (or review and test the changes of someone else).</li>
+<li>Ensure that your current working directory is the R package directory you cloned (<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> to check and <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> to change).</li>
+<li>Run <code><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">devtools::load_all()</a></code> in the R console. You should see <code>ℹ Loading browseMetadata</code> returned.</li>
+<li>Test the function runs by running <code><a href="reference/domain_mapping.html">domain_mapping()</a></code> in the R console.</li>
+<li>Make your changes (or review changes made by others), and commit these changes in the way you choose to interact with git locally!</li>
+</ol><p>If you run into issues with branches not seeming to be up to date in the R Studio workspace, consider running <code>remove.packages("browseMetadata")</code> and trying the above steps again, in case a previously installed package library is getting in the way somehow.</p>
 <div class="section level3">
 <h3 id="working-with-package-data">Working with Package Data<a class="anchor" aria-label="anchor" href="#working-with-package-data"></a></h3>
 <ul><li>
