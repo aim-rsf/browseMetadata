@@ -61,7 +61,8 @@
 <div class="section level2">
 <h2 id="what-is-the-browsemetadata-package">What is the <code>browseMetadata</code> package?<a class="anchor" aria-label="anchor" href="#what-is-the-browsemetadata-package"></a>
 </h2>
-<p>This <code>R</code> package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. For many health datasets, including SAIL, the metadata is publicly available. This <code>R</code> package uses the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Gateway</a> and the connected <a href="https://modelcatalogue.cs.ox.ac.uk/hdruk_live/" class="external-link">Metadata Catalogue</a>. This <code>R</code> package takes a metadata file as input and facilitates the process of browsing through each table within a chosen dataset. The user is asked to categorise each data element (variable) within a table into a domain related to their research question, and these categorisations get saved in a csv file for later reference. To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age).</p>
+<p>This <code>R</code> package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. For many health datasets, including SAIL, the metadata is publicly available. This <code>R</code> package uses the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Gateway</a> and the connected <a href="https://modelcatalogue.cs.ox.ac.uk/hdruk_live/" class="external-link">Metadata Catalogue</a>. This <code>R</code> package takes a metadata file as input and facilitates the process of browsing through each table within a chosen dataset. The user is asked to categorise each data element (variable) within a table into a domain related to their research question, and these categorisations get saved in a csv file for later reference.</p>
+<p>To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The function also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to active a table copying function which copies categorisations they’ve done for one table, onto the current table they are processing.</p>
 <p>🚧 <span class="emoji" data-emoji="warning">⚠️</span> This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.</p>
 </div>
 <div class="section level2">
@@ -93,8 +94,10 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://aim-rsf.github.io/browseMetadata/">browseMetadata</a></span><span class="op">)</span></span></code></pre></div>
 <p>Read the documentation:</p>
 <pre><code><span><span class="op">?</span><span class="va">domain_mapping</span></span></code></pre>
+<p>Set your working directory to be an empty folder you just created:</p>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/Users/your-username/test-browseMetadata"</span><span class="op">)</span></span></code></pre>
 <p>Run the function in demo mode:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Take note of the <strong>Plots</strong> tab in R Studio which should show a table of domains with this info:</p>
 <ul>
@@ -115,8 +118,8 @@
 <p>Here we have very simple domains [4-7] for the demo run.</p>
 <p>For a research study, your domains are likely to be much more specific e.g. ‘Prenatal, antenatal, neonatal and birth’ or ‘Health behaviours and diet’.</p>
 <p>The 4 default domains are always included [0-3], appended on to any domain list given.</p>
-<pre><code>✔ Running domain_mapping in demo mode using package data files
-✔ Using the default look-up table in data/look-up.rda
+<pre><code>ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
 
 Enter your initials: RS</code></pre>
 <p>Respond with your initials after the prompt and press enter. It will then print the name of the dataset and where it was retrieved from:</p>
@@ -183,7 +186,8 @@ CHILD
 
 Would you like to read a description of the table? (y/n): y</code></pre>
 <p>Enter Y after the prompt to read the description, for the purpose of the demo.</p>
-<p>It will now start looping through the data elements. If it skips over one it means it was auto-categorised (more on that later).</p>
+<p>You can provide an optional free text note about this table, this will be saved in the log file.</p>
+<p>It will now start looping through the data elements. If it skips over one it means it was auto-categorised or copied from a previous table already processed (more on that later).</p>
 <p>For this demo, it will only process 20 data elements (out of the 35 total).</p>
 <pre><code>
 ℹ 20 left to process in this session
@@ -229,17 +233,17 @@ Categorisation note (or press enter to continue): your note here
 <p>Press enter for now. It will then ask you if you want to review the categorisations you made. Respond Y to review:</p>
 <pre><code>Would you like to review your categorisations? (y/n): y
 
-      DataElement             Domain_code Note
+      DataElement             Domain_code   Note (first 12 chars)
 4     APGAR_1                 7
 5     APGAR_2                 7
-7     BIRTH_ORDER             7           10% missingness
-8     BIRTH_TM                1,7         20% missingness
+7     BIRTH_ORDER             7             10% missingness
+8     BIRTH_TM                1,7           20% missingness
 9     BIRTH_WEIGHT            7
 10    BIRTH_WEIGHT_DEC        7
 11    BREASTFEED_8_WKS_FLG    7
 12    BREASTFEED_BIRTH_FLG    7
 13    CHILD_ID_E              2
-14    CURR_LHB_CD_BIRTH       5,7         Place of birth
+14    CURR_LHB_CD_BIRTH       5,7           Place of birth
 15    DEL_CD                  7
 16    DOD                     3,7
 17    ETHNIC_GRP_CD           3
@@ -255,40 +259,82 @@ Categorisation note (or press enter to continue): your note here
 <p>It will then take you through the same process as before, and you can over-write your previous categorisation.</p>
 <p>All finished! Take a look at the outputs:</p>
 <pre><code>✔ Your final categorisations have been saved:
-OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 ✔ Your session log has been saved:
-LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.csv
+LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 ✔ A summary plot has been saved:
-PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05_14-37-36.png</code></pre>
+PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png</code></pre>
 <p>The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. The PLOT png file saves a simple plot displaying the count of domain codes for that table.</p>
 </div>
 <div class="section level3">
 <h3 id="using-your-own-input-files">Using your own input files<a class="anchor" aria-label="anchor" href="#using-your-own-input-files"></a>
 </h3>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span>, <span class="va">look_up_file</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span><span class="va">json_file</span>, <span class="va">domain_file</span>, <span class="va">look_up_file</span>, <span class="va">output_dir</span>, <span class="va">table_copy</span><span class="op">)</span></span></code></pre></div>
 <p>This code is in early development. To see known bugs or sub-optimal features refer to the <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">Issues</a>.</p>
-<p>Run the code the same as the demo, using your own input files.</p>
-<p>It will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).</p>
-<p>The json file:</p>
+<p>First, change the json file and domain file inputs. Later, consider changing the other 3 inputs, depending on your use-case. For example:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/domain_mapping.html">domain_mapping</a></span><span class="op">(</span>json_file <span class="op">=</span> <span class="st">'path/your-json.json'</span>, domain_file <span class="op">=</span> <span class="st">'path/your-domains.csv'</span><span class="op">)</span></span></code></pre></div>
+<p>Unlike in demo mode, it will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).</p>
+<div class="section level4">
+<h4 id="json-file">json file:<a class="anchor" aria-label="anchor" href="#json-file"></a>
+</h4>
 <ul>
 <li>contains metadata about datasets of interest</li>
 <li>downloaded from the metadata catalogue</li>
 <li>see <a href="data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json">data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json</a> for an example download</li>
 </ul>
-<p>The domain_file:</p>
+</div>
+<div class="section level4">
+<h4 id="domain_file">domain_file:<a class="anchor" aria-label="anchor" href="#domain_file"></a>
+</h4>
 <ul>
 <li>a csv file created by the user, with each domain listed on a separate line, no header</li>
 <li>see <a href="data-raw/domain_list_demo.csv">data-raw/domain_list_demo.csv</a> for a template</li>
 <li>the first 4 domains will be auto populated (see demo above)</li>
 </ul>
-<p>The lookup file:</p>
+</div>
+<div class="section level4">
+<h4 id="lookup-file">lookup file:<a class="anchor" aria-label="anchor" href="#lookup-file"></a>
+</h4>
 <ul>
 <li>a <a href="dataraw/look_up.csv">default lookup file</a> is used by the domain_mapping function</li>
 <li>optional: a csv can be created by the user (using the same format as the default) and provided as the input</li>
 <li>the lookup file makes auto-categorisations intended for variables that come up regularly in health datasets (e.g. IDs and demographics)</li>
 <li>the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file</li>
 </ul>
+<p>#### output dir: - the path to the directory where the two csv output files will be saved. By default, the current working directory is used</p>
+</div>
+<div class="section level4">
+<h4 id="table_copy">table_copy:<a class="anchor" aria-label="anchor" href="#table_copy"></a>
+</h4>
+<ul>
+<li>default is TRUE, so set this to FALSE if you want to deactivate table copying</li>
+<li>table copying means that the categorisations you make for the last table you processed will be carried over to this table, as long as the csv files share an output_dir</li>
+<li>this can be useful because the same data elements (variables) appear across multiple tables within one dataset</li>
+<li>copying from one table to the next will save the user time, and ensure consistency of categorisations across tables</li>
+<li>the ‘Note’ column in the output csv file will indicate that the categorisation has been copied and where from</li>
+<li>a typical session could look like this:</li>
+</ul>
+<p><em>Run 1, select table ‘EXAM’</em></p>
+<pre><code> domain_mapping()
+
+ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda</code></pre>
+<p><em>Run 2, select table ‘CHILD’ (the function notices we have already run the table ‘EXAM’)</em></p>
+<pre><code> domain_mapping()
+
+ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
+ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_EXAM_[datetime].csv</code></pre>
+<p><em>Run 3, select table ‘REFR_IMM_VAC’ (the function notices we have already run the table ‘CHILD’)</em></p>
+<pre><code> domain_mapping()
+
+ℹ Running domain_mapping in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
+ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv</code></pre>
+<p><em>And so on …</em> Each run has the potential to be shorter for the user to complete because if there are the same data elements that appear across tables, the user will not be asked to categorise them twice.</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="potential-use-cases-for-the-output-files">Potential use-cases for the output files<a class="anchor" aria-label="anchor" href="#potential-use-cases-for-the-output-files"></a>
