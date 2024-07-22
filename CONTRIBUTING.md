@@ -33,7 +33,7 @@ This document provides guidelines for contributing to this repository.
 
 If your contribution involves changes to the R package itself (as an author or reviewer of a PR), here are some specific guidelines, assuming you are using RStudio as your editor:
 
-1. Clone this GitHub repository and ensure all branches you need are up to date with remote.
+1. Clone this GitHub repository and ensure all branches you need are up to date with remote. You can clone it by clicking on `File` > `New Project...`, then select `Version Control`, and choose `Git`. Enter the repository URL (e.g., `https://github.com/aim-rsf/browseMetadata`), select the directory to clone the repository into, and click `Create Project`.
 2. You should have a **Git** tab in your workspace.
 3. In this **Git** tab, move to the branch you want to make changes in (or review and test the changes of someone else).
 4. Ensure that your current working directory is the R package directory you cloned (`getwd()` to check and `setwd()` to change).
