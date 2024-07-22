@@ -31,7 +31,7 @@ This document provides guidelines for contributing to this repository.
 
 ## Contributing to the R Package - author or reviewr of a PR
 
-If your contribution involves changes to the R package itself (author or reviewer of a PR) here are some specific guidelines to follow:
+If your contribution involves changes to the R package itself (as an author or reviewer of a PR), here are some specific guidelines, assuming you are using RStudio as your editor:
 
 1. Clone this GitHub repository and ensure all branches you need are up to date with remote.
 2. Open up R Studio and ensure you have a **Git** tab in your workspace.
