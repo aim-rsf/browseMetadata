@@ -2,14 +2,15 @@
 #'
 #' This function will read in the metadata file for a chosen dataset, loop through all the data elements, and ask the user to catergorise/label each data element as belonging to one or more domains.\cr \cr
 #' The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
-#' A log file will be saved with the catergorisations made.
-#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring data elements. \cr \cr
+#' These categorisations will be saved to a csv file, alongside a log file which summarises the session details.
+#' To speed up this process, some auto-categorisations will be made by the function for commonly occurring data elements and categorisations for the same data element can be copied from one table to another. \cr \cr
 #' Example inputs are provided within the package data, for the user to run this function in a demo mode.
 #' @param json_file The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
-#' @param output_dir The path to the directory where the csv output log will be saved. By default, the current working directory is used.
-#' @return The function will return a log file with the mapping between data elements and domains, alongside details about the dataset.
+#' @param output_dir The path to the directory where the two csv output files will be saved. By default, the current working directory is used.
+#' @param table_copy Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you make for the last table you processed will be carried over to another, as long as the csv files share an output_dir.
+#' @return The function will return two csv files: 'OUTPUT_' which contains the mappings and 'LOG_' which contains details about the dataset and session.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
 #' # Demo mode will use the /data files provided in this package
@@ -20,7 +21,7 @@
 #' @importFrom utils read.csv write.csv
 #' @importFrom dplyr %>% arrange count group_by
 
-domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL) {
+domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
 
   ## Load data: Check if demo data should be used ----
 
@@ -30,7 +31,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     domains <- get("domain_list")
     DomainListDesc <- "DemoList"
     cat("\n")
-    cli_alert_success("Running domain_mapping in demo mode using package data files")
+    cli_alert_info("Running domain_mapping in demo mode using package data files")
     demo_mode = TRUE
   } else if (is.null(json_file) || is.null(domain_file)) {
     # If only one of json_file and domain_file is NULL, throw error
@@ -48,14 +49,18 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
   # Check if user has provided a look-up table
   if (is.null(look_up_file)) {
-    cli_alert_success("Using the default look-up table in data/look-up.rda")
+    cli_alert_info("Using the default look-up table in data/look-up.rda")
     lookup <- get("look_up")
     }
   else {
     lookup <- read.csv(look_up_file)
-    cli_alert_success("Using look up file inputted by user")
+    cli_alert_info("Using look up file inputted by user")
     print(lookup)
-    }
+  }
+
+  # If user has not provider output_dir, use current working dir:
+  if (is.null(output_dir)) {
+    output_dir = getwd() }
 
   ## Present domains plots panel for user's reference ----
   colnames(domains)[1] = "Domain Name"
@@ -127,6 +132,20 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cli_h1("Table Last Updated")
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
+    # Check if previous table output exists in this output_dir (for table copying)
+    if (table_copy == TRUE){
+      dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
+      csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
+      if (nrow(csv_list) != 0){
+        csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
+        csv_last_filename <- csv_list[which.min(csv_list$date),]
+        csv_last <- read.csv(paste0(output_dir,'/',csv_last_filename$file))
+        csv_last_exist <- TRUE
+        cat("\n")
+        cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
+      } else {csv_last_exist <- FALSE}
+      } else {csv_last_exist <- FALSE}
+
     table_desc <- ""
     while (table_desc != "Y" & table_desc != "y" & table_desc != "N" & table_desc != "n") {
       cat("\n \n")
@@ -155,8 +174,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
     # Create unique output csv to log the results ----
-    timestamp_now <- gsub(" ", "_", Sys.time())
-    timestamp_now <- gsub(":", "-", timestamp_now)
+    timestamp_now <- format(Sys.time(),"%Y-%m-%d-%H-%M-%S")
 
     output_fname_csv <- paste0("OUTPUT_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
     output_fname_log_csv <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
@@ -200,31 +218,36 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     for (datavar in start_var:end_var) {
       cat("\n \n")
       cli_alert_info(paste(length(datavar:end_var),'left to process in this session'))
-      cli_alert_success("Processing data element {datavar} of {nrow(selectTable_df)}")
+      cli_alert_info("Processing data element {datavar} of {nrow(selectTable_df)}")
+      # prepare output
+      this_Output <- row_Output
+      this_Output[nrow(this_Output) + 1 , ] <- NA
+      this_Output$DataElement[1] <- selectTable_df$Label[datavar]
+      this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
+      # search if this data element matches with auto categorisations in lookup
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
-      if (nrow(lookup_subset) == 1) {
-        # auto categorisations
-        this_Output <- row_Output
-        this_Output[nrow(this_Output) + 1 , ] <- NA
-        this_Output$DataElement[1] <- selectTable_df$Label[datavar]
-        this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
+      # search if this data element matches with any data elements processed in previous table
+      if (csv_last_exist == TRUE) {
+        datavar_index <- which(csv_last$DataElement == selectTable_df$Label[datavar])
+        csv_last_subset <- csv_last[datavar_index,]
+        } else {csv_last_subset <- data.frame()}
+      # decide how to process the data element out of 3 options
+      if (nrow(lookup_subset) == 1) { # 1 - auto categorisation
         this_Output$Domain_code[1] <- lookup_subset$DomainCode
         this_Output$Note[1] <- "AUTO CATEGORISED"
         Output <- rbind(Output,this_Output)
-        } else {
-        # collect user responses
-        decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
-        # input user responses into output
-        this_Output <- row_Output
-        this_Output[nrow(this_Output) + 1 , ] <- NA
-        this_Output$DataElement[1] <- selectTable_df$Label[datavar]
-        this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
-        this_Output$Domain_code[1] <- decision_output$decision
-        this_Output$Note[1] <- decision_output$decision_note
-        Output <- rbind(Output,this_Output)
-        }
-    } # end of loop for DataElement
+        } else if (csv_last_exist == TRUE & nrow(csv_last_subset) == 1){ # 2 - copy from previous table
+          this_Output$Domain_code[1] <- csv_last_subset$Domain_code
+          suppressWarnings(this_Output$Note[1] <- paste0("COPIED FROM: ",csv_last_filename))
+          Output <- rbind(Output,this_Output)
+        } else { # 3 - collect user responses
+          decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
+          this_Output$Domain_code[1] <- decision_output$decision
+          this_Output$Note[1] <- decision_output$decision_note
+          Output <- rbind(Output,this_Output)
+          }
+      } # end of loop for DataElement
 
     ## Print the AUTO CATEGORISED responses for this Table and request review  ----
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
@@ -270,8 +293,9 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     if (review_cats == 'Y' | review_cats == 'y') {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
+      Output_not_auto['Note (first 12 chars)'] <- substring(Output_not_auto$Note,1,11)
       cat("\n \n")
-      print(Output_not_auto[, c("DataElement", "Domain_code","Note")])
+      print(Output_not_auto[, c("DataElement", "Domain_code","Note (first 12 chars)")])
       cat("\n \n")
 
       # extract the rows to edit
@@ -316,9 +340,6 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     ## Save final categorisations for this Table  ----
     Output$timestamp <- timestamp_now
-    if (is.null(output_dir)) {
-      output_dir = getwd() }
-
     utils::write.csv(Output, paste(output_dir,output_fname_csv,sep='/'), row.names = FALSE)
     utils::write.csv(log_Output, paste(output_dir,output_fname_log_csv,sep='/'), row.names = FALSE)
     cat("\n")

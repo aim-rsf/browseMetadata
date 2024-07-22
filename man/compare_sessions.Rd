@@ -15,9 +15,9 @@ compare_sessions(
 \arguments{
 \item{session_dir}{This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.}
 
-\item{session1_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05_16-07-38.599493'}
+\item{session1_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38'}
 
-\item{session2_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08_12-03-30.429336'}
+\item{session2_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'}
 
 \item{json_file}{The full path to the metadata file used when running domain_mapping (should be the same for session 1 and session 2)}
 
