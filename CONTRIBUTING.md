@@ -34,7 +34,7 @@ This document provides guidelines for contributing to this repository.
 If your contribution involves changes to the R package itself (as an author or reviewer of a PR), here are some specific guidelines, assuming you are using RStudio as your editor:
 
 1. Clone this GitHub repository and ensure all branches you need are up to date with remote.
-2. Open up R Studio and ensure you have a **Git** tab in your workspace.
+2. You should have a **Git** tab in your workspace.
 3. In this **Git** tab, move to the branch you want to make changes in (or review and test the changes of someone else).
 4. Ensure that your current working directory is the R package directory you cloned (`getwd()` to check and `setwd()` to change).
 5. Run `devtools::load_all()` in the R console. You should see `ℹ Loading browseMetadata` returned.
