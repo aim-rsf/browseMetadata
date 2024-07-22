@@ -369,6 +369,7 @@ Unlike in demo mode, it will ask you to specify the range of variables you want 
 
 ℹ Running domain_mapping in demo mode using package data files
 ℹ Using the default look-up table in data/look-up.rda
+...
 ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_EXAM_[datetime].csv
 ```
 
@@ -379,6 +380,7 @@ Unlike in demo mode, it will ask you to specify the range of variables you want 
 
 ℹ Running domain_mapping in demo mode using package data files
 ℹ Using the default look-up table in data/look-up.rda
+...
 ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv
 ```
 
