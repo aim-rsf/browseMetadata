@@ -29,10 +29,21 @@ This document provides guidelines for contributing to this repository.
 - Update the README or other documentation if necessary.
 - Clearly describe the changes you've made and their benefits.
 
-## Contributing to the R Package
+## Contributing to the R Package - as an author or reviewer of a PR
 
-If your contribution involves changes to the R package itself, here are some specific guidelines to follow:
+If your contribution involves changes to the R package itself (as an author or reviewer of a PR), here are some specific guidelines, assuming you are using RStudio as your editor:
 
+1. Clone this GitHub repository locally and ensure all branches you need are up to date with remote. 
+> In R Studio, you can clone it by clicking on `File` > `New Project...`, then select `Version Control`, and choose `Git`. Enter the repository URL (e.g., `https://github.com/aim-rsf/browseMetadata`), select the directory to clone the repository into, and click `Create Project`.
+2. You should have a **Git** tab in your workspace.
+3. In this **Git** tab, move to the branch you want to make changes in (or review and test the changes of someone else).
+4. Ensure that your current working directory is the R package directory you cloned (`getwd()` to check and `setwd()` to change).
+5. Run `devtools::load_all()` in the R console. You should see `ℹ Loading browseMetadata` returned.
+6. Test the function runs by running `domain_mapping()` in the R console.
+7. Make your changes (or review changes made by others), and commit these changes in the way you choose to interact with git locally!
+
+If you run into issues with branches not seeming to be up to date in the R Studio workspace, consider running `remove.packages("browseMetadata")` and trying the above steps again, in case a previously installed package library is getting in the way somehow. 
+   
 ### Working with Package Data
 
 - **Creating .rda Files**: To create `.rda` files in the data directory of the package, use the following command in R:
