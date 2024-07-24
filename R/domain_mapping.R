@@ -9,7 +9,7 @@
 #' @param domain_file The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.
 #' @param look_up_file The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.
 #' @param output_dir The path to the directory where the two csv output files will be saved. By default, the current working directory is used.
-#' @param table_copy Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you make for the last table you processed will be carried over to another, as long as the csv files share an output_dir.
+#' @param table_copy Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you made for all other tables in this dataset will be copied over (if 'OUTPUT_' files are found in output_dir).
 #' @return The function will return two csv files: 'OUTPUT_' which contains the mappings and 'LOG_' which contains details about the dataset and session.
 #' @examples
 #' # Run in demo mode by providing no inputs: domain_mapping()
@@ -19,7 +19,7 @@
 #' @import ggplot2
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
-#' @importFrom dplyr %>% arrange count group_by
+#' @importFrom dplyr %>% arrange count group_by distinct
 
 domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
 
@@ -132,19 +132,24 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cli_h1("Table Last Updated")
     cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
-    # Check if previous table output exists in this output_dir (for table copying)
+    # Check if previous table output(s) exists in this output_dir (for table copying)
     if (table_copy == TRUE){
       dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
       csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
       if (nrow(csv_list) != 0){
-        csv_list$date <- as.POSIXct(substring(csv_list$file,nchar(csv_list$file)-22,nchar(csv_list$file)-4), format="%Y-%m-%d-%H-%M-%S")
-        csv_last_filename <- csv_list[which.min(csv_list$date),]
-        csv_last <- read.csv(paste0(output_dir,'/',csv_last_filename$file))
-        csv_last_exist <- TRUE
+        df_list <- lapply(paste0(output_dir,'/',csv_list$file), read.csv)
+        df_combined <- do.call("rbind", df_list) #combine all df
+        df_combined$timestamp2 <- as.POSIXct(df_combined$timestamp, format="%Y-%m-%d-%H-%M-%S") #create new date column
+        df_combined <- df_combined[order(df_combined$timestamp2),] #order by earliest datetime
+        df_combined <- df_combined %>% distinct(DataElement, .keep_all = TRUE) #remove duplicates, keep earliest categorisation
+        df_combined <- df_combined[-(which(df_combined$Note %in% "AUTO CATEGORISED")),] #remove auto categorised
+        df_combined_exist <- TRUE
         cat("\n")
-        cli_alert_info(paste0("Copying from previous session: ",csv_last_filename$file))
-      } else {csv_last_exist <- FALSE}
-      } else {csv_last_exist <- FALSE}
+        cli_alert_info(paste0("Copying from previous session(s): "))
+        cat("\n")
+        print(csv_list$file)
+      } else {df_combined_exist <- FALSE}
+      } else {df_combined_exist <- FALSE}
 
     table_desc <- ""
     while (table_desc != "Y" & table_desc != "y" & table_desc != "N" & table_desc != "n") {
@@ -194,6 +199,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     row_Output <- data.frame(
       timestamp = character(0),
+      Table = character(0),
       DataElement_N = character(0),
       DataElement = character(0),
       Domain_code = character(0),
@@ -222,24 +228,25 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       # prepare output
       this_Output <- row_Output
       this_Output[nrow(this_Output) + 1 , ] <- NA
+      this_Output$Table[1] <- meta_json$dataModel$childDataClasses[[dc]]$label
       this_Output$DataElement[1] <- selectTable_df$Label[datavar]
       this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
       # search if this data element matches with auto categorisations in lookup
       datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
       lookup_subset <- lookup[datavar_index,]
       # search if this data element matches with any data elements processed in previous table
-      if (csv_last_exist == TRUE) {
-        datavar_index <- which(csv_last$DataElement == selectTable_df$Label[datavar])
-        csv_last_subset <- csv_last[datavar_index,]
-        } else {csv_last_subset <- data.frame()}
+      if (df_combined_exist == TRUE) {
+        datavar_index <- which(df_combined$DataElement == selectTable_df$Label[datavar])
+        df_combined_subset <- df_combined[datavar_index,]
+        } else {df_combined_subset <- data.frame()}
       # decide how to process the data element out of 3 options
       if (nrow(lookup_subset) == 1) { # 1 - auto categorisation
         this_Output$Domain_code[1] <- lookup_subset$DomainCode
         this_Output$Note[1] <- "AUTO CATEGORISED"
         Output <- rbind(Output,this_Output)
-        } else if (csv_last_exist == TRUE & nrow(csv_last_subset) == 1){ # 2 - copy from previous table
-          this_Output$Domain_code[1] <- csv_last_subset$Domain_code
-          suppressWarnings(this_Output$Note[1] <- paste0("COPIED FROM: ",csv_last_filename))
+        } else if (df_combined_exist == TRUE & nrow(df_combined_subset) == 1){ # 2 - copy from previous table
+          this_Output$Domain_code[1] <- df_combined_subset$Domain_code
+          suppressWarnings(this_Output$Note[1] <- paste0("COPIED FROM: ",df_combined_subset$Table))
           Output <- rbind(Output,this_Output)
         } else { # 3 - collect user responses
           decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))

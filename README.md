@@ -22,11 +22,13 @@ There are many existing tools that allow you to browse metadata for health datas
 
 ## What is the `browseMetadata` package?
 
+
 This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. For many health datasets, including SAIL, the metadata is publicly available. This `R` package uses the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This `R` package takes a metadata file as input and facilitates the process of browsing through each table within a chosen dataset. The user is asked to categorise each data element (variable) within a table into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
 
 To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The function also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to active a table copying function which copies categorisations they've done for one table, onto the current table they are processing.
 
 🚧 :warning: This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.
+
 
 ## Getting started with `browseMetadata`
 
@@ -320,7 +322,9 @@ Unlike in demo mode, it will ask you to specify the range of variables you want 
 -   the lookup file makes auto-categorisations intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
 -   the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file
 
-\#### output dir: - the path to the directory where the two csv output files will be saved. By default, the current working directory is used
+#### output dir: 
+
+- the path to the directory where the two csv output files will be saved. By default, the current working directory is used
 
 #### table_copy:
 
@@ -331,38 +335,72 @@ Unlike in demo mode, it will ask you to specify the range of variables you want 
 -   the 'Note' column in the output csv file will indicate that the categorisation has been copied and where from
 -   a typical session could look like this:
 
-*Run 1, select table 'EXAM'*
+
+
+*Run 1, select table 'CHILD'*
+
 
 ```         
  domain_mapping()
 
-ℹ Running domain_mapping in demo mode using package data files
-ℹ Using the default look-up table in data/look-up.rda
+```
+ℹ Processing Table 6 of 13
+
+
+── Table Name ──
+CHILD
+
+── Table Last Updated ──
+[datetime]
 ```
 
-*Run 2, select table 'CHILD' (the function notices we have already run the table 'EXAM')*
+*Run 2, select table 'CHILD_BIRTHS' (the function notices we have already run the table 'CHILD')*
+
 
 ```         
  domain_mapping()
+=======
+```
+ℹ Processing Table 7 of 13
 
-ℹ Running domain_mapping in demo mode using package data files
-ℹ Using the default look-up table in data/look-up.rda
+
+── Table Name ──
+CHILD_BIRTHS
+
+── Table Last Updated ──
+[datetime]
 ...
-ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_EXAM_[datetime].csv
+ℹ Copying from previous session(s): 
+
+[1] "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv"
+
 ```
 
-*Run 3, select table 'REFR_IMM_VAC' (the function notices we have already run the table 'CHILD')*
+*Run 3, select table 'PATH_BLOOD_TESTS' (the function notices we have already run the table 'CHILD' and 'CHILD_BIRTHS')*
 
 ```         
  domain_mapping()
-
-ℹ Running domain_mapping in demo mode using package data files
-ℹ Using the default look-up table in data/look-up.rda
-...
-ℹ Copying from previous session: OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv
+=======
 ```
+ℹ Processing Table 8 of 13
+
+
+── Table Name ──
+PATH_BLOOD_TESTS
+
+── Table Last Updated ──
+[datetime]
+...
+ℹ Copying from previous session(s): 
+
+[1] "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv"
+[2] "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_BIRTHS_[datetime].csv"
+
+```
+
 
 *And so on ...* Each run has the potential to be shorter for the user to complete because if there are the same data elements that appear across tables, the user will not be asked to categorise them twice.
+
 
 ### Potential use-cases for the output files
 
