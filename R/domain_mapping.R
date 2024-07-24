@@ -19,7 +19,7 @@
 #' @import ggplot2
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
-#' @importFrom dplyr %>% arrange count group_by
+#' @importFrom dplyr %>% arrange count group_by distinct
 
 domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
 
