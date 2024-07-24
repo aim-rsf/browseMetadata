@@ -21,7 +21,7 @@ domain_mapping(
 
 \item{output_dir}{The path to the directory where the two csv output files will be saved. By default, the current working directory is used.}
 
-\item{table_copy}{Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you make for the last table you processed will be carried over to another, as long as the csv files share an output_dir.}
+\item{table_copy}{Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you made for all other tables in this dataset will be copied over (if 'OUTPUT_' files are found in output_dir).}
 }
 \value{
 The function will return two csv files: 'OUTPUT_' which contains the mappings and 'LOG_' which contains details about the dataset and session.
