@@ -25,7 +25,7 @@ There are many existing tools that allow you to browse metadata for health datas
 
 This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. For many health datasets, including SAIL, the metadata is publicly available. This `R` package uses the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This `R` package takes a metadata file as input and facilitates the process of browsing through each table within a chosen dataset. The user is asked to categorise each data element (variable) within a table into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
 
-To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The function also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to active a table copying function which copies categorisations they've done for one table, onto the current table they are processing.
+To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The function also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to active a table copying function which copies categorisations they've done for previous tables, into the current table they are processing.
 
 🚧 :warning: This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.
 
@@ -329,7 +329,7 @@ Unlike in demo mode, it will ask you to specify the range of variables you want 
 #### table_copy:
 
 -   default is TRUE, so set this to FALSE if you want to deactivate table copying
--   table copying means that the categorisations you make for the last table you processed will be carried over to this table, as long as the csv files share an output_dir
+- table copying means that the categorisations you made for previous tables will be carried over to this table, as long as the csv files share an output_dir
 -   this can be useful because the same data elements (variables) appear across multiple tables within one dataset
 -   copying from one table to the next will save the user time, and ensure consistency of categorisations across tables
 -   the 'Note' column in the output csv file will indicate that the categorisation has been copied and where from
@@ -388,7 +388,7 @@ PATH_BLOOD_TESTS
 
 ```
 
-*And so on ...* Each run has the potential to be shorter for the user to complete because if there are the same data elements that appear across tables, the user will not be asked to categorise them twice.
+*And so on ...* Each run where you process a table has the potential to be shorter for the user to complete because if there are the same data elements that appear across tables, the user will not be asked to categorise them twice.
 
 ### Potential use-cases for the output files
 
