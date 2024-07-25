@@ -4,6 +4,6 @@ bibentry(
 label each variable in a dataset",
   author = "Rachael Stickland",
   year  = 2024,
-  note = "R package version 1.0.0",
+  note = "R package version 1.2.1",
   url = "https://github.com/aim-rsf/browseMetadata",
 )
