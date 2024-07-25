@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Browses available metadata, to catergorise or label each variable in a dataset • browseMetadata</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
@@ -13,6 +19,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Browses available metadata, to catergorise or label each variable in a dataset">
 <meta name="description" content="See https://github.com/aim-rsf/browseMetadata/main/README.md">
 <meta property="og:description" content="See https://github.com/aim-rsf/browseMetadata/main/README.md">
+<meta property="og:image" content="https://aim-rsf.github.io/browseMetadata/logo.png">
 <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
@@ -47,8 +54,11 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="browsemetadata">browseMetadata<a class="anchor" aria-label="anchor" href="#browsemetadata"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="browsemetadata">browseMetadata<a class="anchor" aria-label="anchor" href="#browsemetadata"></a>
+</h1>
+</div>
+<p><a href="https://aim-rsf.github.io/browseMetadata/"><img src="reference/figures/logo.png" align="right" height="120" alt="browseMetadata website"></a></p>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <p><a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square" alt="All Contributors"></a> <!-- ALL-CONTRIBUTORS-BADGE:END --></p>
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></p>
@@ -166,8 +176,7 @@ Would you like to read a description of the dataset? (y/n): y</code></pre>
 ℹ Enter each table number you want to process in this interactive session.
 
 1: 2
-2:
-</code></pre>
+2: </code></pre>
 <p>For the purpose of this demo, type 2 to just process the CHILD table only. Leave the prompt on the second row blank and press enter.</p>
 <p>To process multiple tables at once (e.g. CHILD, SIG_COND) include their numbers on multiple lines:</p>
 <pre><code>ℹ Enter each table number you want to process in this interactive session.
@@ -210,8 +219,7 @@ DATA TYPE -----&gt;  CHARACTER
 
 Categorise data element into domain(s). E.g. 3 or 3,4: 7
 
-Categorisation note (or press enter to continue): your note here
-</code></pre>
+Categorisation note (or press enter to continue): your note here </code></pre>
 <p>We chose to respond with ‘7’ because that corresponds to the ‘Health info’ domain in the table. More than one domain can be chosen.</p>
 <p>A note can be included to explain why a categorisation has been made. Or press enter for no note.</p>
 <p>You have the option to re-do the categorisation you just made, by replying ‘y’ to the question:</p>
@@ -303,7 +311,13 @@ PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png</
 <li>the lookup file makes auto-categorisations intended for variables that come up regularly in health datasets (e.g. IDs and demographics)</li>
 <li>the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file</li>
 </ul>
-<p>#### output dir: - the path to the directory where the two csv output files will be saved. By default, the current working directory is used</p>
+</div>
+<div class="section level4">
+<h4 id="output-dir">output dir:<a class="anchor" aria-label="anchor" href="#output-dir"></a>
+</h4>
+<ul>
+<li>the path to the directory where the two csv output files will be saved. By default, the current working directory is used</li>
+</ul>
 </div>
 <div class="section level4">
 <h4 id="table_copy">table_copy:<a class="anchor" aria-label="anchor" href="#table_copy"></a>
@@ -320,17 +334,21 @@ PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png</
 <pre><code>ℹ Processing Table 6 of 13
 
 ── Table Name ──
+
 CHILD
 
 ── Table Last Updated ──
+
 [datetime]</code></pre>
 <p><em>Run 2, select table ‘CHILD_BIRTHS’ (the function notices we have already run the table ‘CHILD’)</em></p>
 <pre><code>ℹ Processing Table 7 of 13
 
 ── Table Name ──
+
 CHILD_BIRTHS
 
 ── Table Last Updated ──
+
 [datetime]
 ...
 ℹ Copying from previous session(s):
@@ -341,9 +359,11 @@ CHILD_BIRTHS
 <pre><code>ℹ Processing Table 8 of 13
 
 ── Table Name ──
+
 PATH_BLOOD_TESTS
 
 ── Table Last Updated ──
+
 [datetime]
 ...
 ℹ Copying from previous session(s):
@@ -358,7 +378,7 @@ PATH_BLOOD_TESTS
 <h3 id="potential-use-cases-for-the-output-files">Potential use-cases for the output files<a class="anchor" aria-label="anchor" href="#potential-use-cases-for-the-output-files"></a>
 </h3>
 <p>The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.</p>
-<p>Categorisations across researchers can be compared by using the function <a href="R/compare_sessions.R">R/compare_sessions.R</a>. Type <code>?compare__sessions</code> to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.</p>
+<p>Categorisations across researchers can be compared by using the function <a href="R/compare_sessions.R">R/compare_sessions.R</a>. Type <code><a href="reference/compare_sessions.html">?compare_sessions</a></code> to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.</p>
 </div>
 </div>
 <div class="section level2">
@@ -403,20 +423,31 @@ PATH_BLOOD_TESTS
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<table class="table"><tbody><tr>
-<td align="center" valign="top" width="14.28%">
-<a href="http://linkedin.com/in/rstickland-phd" class="external-link"><img src="https://avatars.githubusercontent.com/u/50215726?v=4?s=100" width="100px;" alt="Rachael Stickland"><br><sub><b>Rachael Stickland</b></sub></a><br><a href="#content-RayStick" title="Content">🖋</a> <a href="https://github.com/aim-rsf/browseMetadata/commits?author=RayStick" title="Documentation" class="external-link">📖</a> <a href="#maintenance-RayStick" title="Maintenance">🚧</a> <a href="#ideas-RayStick" title="Ideas, Planning, &amp; Feedback">🤔</a>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="27%">
+<col width="28%">
+<col width="14%">
+</colgroup>
+<tbody><tr class="odd">
+<td>
+<a href="http://link%20edin.com/in/rs%20tickland-phd" class="external-link"><img src="h%20ttps://avatars%20.githubusercon%20tent.com/u/502%2015726?v=4?s=10%200" alt="Rachae l Stickland"><br>
+~<strong>Rachae l Stickland</strong> ~</a><br><a href="#content-RaySt%20ick" title="Content">🖋</a> <a href="https://gith%20ub.com/aim-rsf%20/browseMetadat%20a/commits?auth%20or=RayStick" title="D ocumentation" class="external-link">📖</a> <a href="#mainten%20ance-RayStick%20%22Maintenance%22">🚧</a> <a href="#ide%20as-RayStick" title="I deas, Planning , &amp; Feedback">🤔</a>
 </td>
-<td align="center" valign="top" width="14.28%">
-<a href="https://batool-almarzouq.netlify.app/" class="external-link"><img src="https://avatars.githubusercontent.com/u/53487593?v=4?s=100" width="100px;" alt="Batool Almarzouq"><br><sub><b>Batool Almarzouq</b></sub></a><br><a href="#userTesting-BatoolMM" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ABatoolMM" title="Reviewed Pull Requests" class="external-link">👀</a> <a href="#ideas-BatoolMM" title="Ideas, Planning, &amp; Feedback">🤔</a>
+<td>
+<a href="https://bat%20ool-almarzouq.%20netlify.app/" class="external-link"><img src="https://avatar%20s.githubuserco%20ntent.com/u/53%20487593?v=4?s=1%2000" alt="Batoo l Almarzouq"><br>
+~<strong>Batoo l Almarzouq</strong> ~</a><br>
+[📓](#userTest ing-BatoolMM ” User Testing”) <a href="https://%20github.com/aim%20-rsf/browseMet%20adata/pulls?q=%20is%3Apr+review%20ed-by%3ABatool%20MM" title="Reviewed P ull Requests" class="external-link">👀</a> <a href="#ide%20as-BatoolMM" title="I deas, Planning , &amp; Feedback">🤔</a>
 </td>
-<td align="center" valign="top" width="14.28%">
-<a href="https://github.com/Rainiefantasy" class="external-link"><img src="https://avatars.githubusercontent.com/u/43926907?v=4?s=100" width="100px;" alt="Mahwish Mohammad"><br><sub><b>Mahwish Mohammad</b></sub></a><br><a href="#userTesting-Rainiefantasy" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ARainiefantasy" title="Reviewed Pull Requests" class="external-link">👀</a> <a href="#ideas-Rainiefantasy" title="Ideas, Planning, &amp; Feedback">🤔</a>
+<td>
+<a href="https:%20//github.com/R%20ainiefantasy"><img src="https://avatar%20s.githubuserco%20ntent.com/u/43%20926907?v=4?s=1%2000" alt="Mahwi sh Mohammad"><br><sub><strong>Mahwish Moham mad</strong></sub></a><br>
+[📓]( #userTesting-R ainiefantasy ” User Testing”) [👀] (<a href="https://githu" class="external-link uri">https://githu</a> b.com/aim-rsf/ browseMetadata /pulls?q=is%3A pr+reviewed-by %3ARainiefanta sy “Reviewed P ull Requests”) <a href="#ideas-Ra%20iniefantasy" title="I deas, Planning , &amp; Feedback">🤔</a>
 </td>
-<td align="center" valign="top" width="14.28%">
-<a href="https://github.com/DDelbarre" class="external-link"><img src="https://avatars.githubusercontent.com/u/108824056?v=4?s=100" width="100px;" alt="Daniel Delbarre"><br><sub><b>Daniel Delbarre</b></sub></a><br><a href="#ideas-DDelbarre" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#userTesting-DDelbarre" title="User Testing">📓</a>
-</td>
-</tr></tbody></table>
+<td>
+<a href="ht%20tps://github.c%20om/DDelbarre"><img src="https://avatar%20s.githubuserco%20ntent.com/u/10%208824056?v=4?s=%20100" alt="Dani el Delbarre"><br><sub><strong>Daniel D elbarre</strong></sub></a><br><a href="#idea%20s-DDelbarre" title="I deas, Planning , &amp; Feedback">🤔</a> [ 📓](#userTesti ng-DDelbarre ” User Testing”)</td>
+</tr></tbody>
+</table>
 <!-- markdownlint-restore --><!-- prettier-ignore-end --><!-- ALL-CONTRIBUTORS-LIST:END -->
 </div>
 <div class="section level3">
