@@ -1,6 +1,7 @@
 url: https://aim-rsf.github.io/browseMetadata/
 home:
   title: Browses available metadata, to catergorise or label each variable in a dataset
+  logo: man/figures/logo.png
 authors:
   Rachael Stickland:
     href: https://www.turing.ac.uk/people/researchers/rachael-stickland
