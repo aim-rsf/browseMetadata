@@ -335,39 +335,31 @@ Unlike in demo mode, it will ask you to specify the range of variables you want 
 -   the 'Note' column in the output csv file will indicate that the categorisation has been copied and where from
 -   a typical session could look like this:
 
-
-
 *Run 1, select table 'CHILD'*
 
-
 ```         
- domain_mapping()
-
-```
 ℹ Processing Table 6 of 13
 
-
 ── Table Name ──
+
 CHILD
 
 ── Table Last Updated ──
+
 [datetime]
 ```
 
 *Run 2, select table 'CHILD_BIRTHS' (the function notices we have already run the table 'CHILD')*
 
-
-```         
- domain_mapping()
-=======
 ```
 ℹ Processing Table 7 of 13
 
-
 ── Table Name ──
+
 CHILD_BIRTHS
 
 ── Table Last Updated ──
+
 [datetime]
 ...
 ℹ Copying from previous session(s): 
@@ -378,17 +370,15 @@ CHILD_BIRTHS
 
 *Run 3, select table 'PATH_BLOOD_TESTS' (the function notices we have already run the table 'CHILD' and 'CHILD_BIRTHS')*
 
-```         
- domain_mapping()
-=======
 ```
 ℹ Processing Table 8 of 13
 
-
 ── Table Name ──
+
 PATH_BLOOD_TESTS
 
 ── Table Last Updated ──
+
 [datetime]
 ...
 ℹ Copying from previous session(s): 
@@ -398,15 +388,13 @@ PATH_BLOOD_TESTS
 
 ```
 
-
 *And so on ...* Each run has the potential to be shorter for the user to complete because if there are the same data elements that appear across tables, the user will not be asked to categorise them twice.
-
 
 ### Potential use-cases for the output files
 
 The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
 
-Categorisations across researchers can be compared by using the function [R/compare_sessions.R](R/compare_sessions.R). Type `?compare__sessions` to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
+Categorisations across researchers can be compared by using the function [R/compare_sessions.R](R/compare_sessions.R). Type `?compare_sessions` to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
 
 ## License
 
