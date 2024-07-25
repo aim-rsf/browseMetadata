@@ -285,7 +285,9 @@ LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png
 ```
 
-The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. The PLOT png file saves a simple plot displaying the count of domain codes for that table.
+The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [R/convert_output.R](R/convert_output.R) for an alternative. 
+
+The PLOT png file saves a simple plot displaying the count of domain codes for that table.
 
 ### Using your own input files
 
