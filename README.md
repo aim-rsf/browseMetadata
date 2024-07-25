@@ -408,7 +408,7 @@ The GNU General Public License is a free, copyleft license for software and othe
 
 To cite package ‘browseMetadata’ in publications use:
 
-> Stickland R (2024). browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset. R package version 1.0.0
+> Stickland R (2024). browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset. R package version 1.2.1
 
 A BibTeX entry for LaTeX users is
 
@@ -417,8 +417,8 @@ A BibTeX entry for LaTeX users is
     title = {browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset},
     author = {Rachael Stickland},
     year = {2024},
-    note = {R package version 1.0.0},
-    doi = {https://doi.org/10.5281/zenodo.10581500},
+    note = {R package version 1.2.1},
+    doi = {https://doi.org/10.5281/zenodo.10581499}, 
   }
 ```
 
