@@ -434,22 +434,27 @@ For more information on how to contribute, please refer to our [Contribution Gui
 
 ### Contributors ✨
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification, using the ([emoji key](https://allcontributors.org/docs/en/emoji-key)). Contributions of any kind welcome!
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification, using the ([emoji
+key](https://allcontributors.org/docs/en/emoji-key)). Contributions of
+any kind welcome!
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
 <!-- prettier-ignore-start -->
-
 <!-- markdownlint-disable -->
-
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
-| [![Rachael Stickland](h%20ttps://avatars%20.githubusercon%20tent.com/u/502%2015726?v=4?s=10%200){alt="Rachae l Stickland"}\                                                                                                                          | [![Batool Almarzouq](https://avatar%20s.githubuserco%20ntent.com/u/53%20487593?v=4?s=1%2000){alt="Batoo l Almarzouq"}\                                                                                                                   | [![Mahwish Mohammad](https://avatar%20s.githubuserco%20ntent.com/u/43%20926907?v=4?s=1%2000){alt="Mahwi sh Mohammad"}\                                                                                                                          | [![Daniel Delbarre](https://avatar%20s.githubuserco%20ntent.com/u/10%208824056?v=4?s=%20100){alt="Dani el Delbarre"}\ |
-| \~**Rachae l Stickland** \~](http://link%20edin.com/in/rs%20tickland-phd)\                                                                                                                                                                           | \~**Batoo l Almarzouq** \~](https://bat%20ool-almarzouq.%20netlify.app/)\                                                                                                                                                                | ~**Mahwish Moham\ mad**~](https:%20//github.com/R%20ainiefantasy)\                                                                                                                                                                              | ~**Daniel D\ elbarre**~](ht%20tps://github.c%20om/DDelbarre)\                                                         |
-| [🖋](#content-RaySt%20ick "Content") [📖](https://gith%20ub.com/aim-rsf%20/browseMetadat%20a/commits?auth%20or=RayStick "D ocumentation") [🚧](#mainten%20ance-RayStick%20%22Maintenance%22) [🤔](#ide%20as-RayStick "I deas, Planning , & Feedback") | [📓](#userTest ing-BatoolMM " User Testing") [👀](https://%20github.com/aim%20-rsf/browseMet%20adata/pulls?q=%20is%3Apr+review%20ed-by%3ABatool%20MM "Reviewed P ull Requests") [🤔](#ide%20as-BatoolMM "I deas, Planning , & Feedback") | [📓]( #userTesting-R ainiefantasy " User Testing") [👀] (<https://githu> b.com/aim-rsf/ browseMetadata /pulls?q=is%3A pr+reviewed-by %3ARainiefanta sy "Reviewed P ull Requests") [🤔](#ideas-Ra%20iniefantasy "I deas, Planning , & Feedback") | [🤔](#idea%20s-DDelbarre "I deas, Planning , & Feedback") [ 📓](#userTesti ng-DDelbarre " User Testing")              |
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://linkedin.com/in/rstickland-phd"><img src="https://avatars.githubusercontent.com/u/50215726?v=4?s=100" width="100px;" alt="Rachael Stickland"/><br /><sub><b>Rachael Stickland</b></sub></a><br /><a href="#content-RayStick" title="Content">🖋</a> <a href="https://github.com/aim-rsf/browseMetadata/commits?author=RayStick" title="Documentation">📖</a> <a href="#maintenance-RayStick" title="Maintenance">🚧</a> <a href="#ideas-RayStick" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://batool-almarzouq.netlify.app/"><img src="https://avatars.githubusercontent.com/u/53487593?v=4?s=100" width="100px;" alt="Batool Almarzouq"/><br /><sub><b>Batool Almarzouq</b></sub></a><br /><a href="#userTesting-BatoolMM" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ABatoolMM" title="Reviewed Pull Requests">👀</a> <a href="#ideas-BatoolMM" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Rainiefantasy"><img src="https://avatars.githubusercontent.com/u/43926907?v=4?s=100" width="100px;" alt="Mahwish Mohammad"/><br /><sub><b>Mahwish Mohammad</b></sub></a><br /><a href="#userTesting-Rainiefantasy" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ARainiefantasy" title="Reviewed Pull Requests">👀</a> <a href="#ideas-Rainiefantasy" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/DDelbarre"><img src="https://avatars.githubusercontent.com/u/108824056?v=4?s=100" width="100px;" alt="Daniel Delbarre"/><br /><sub><b>Daniel Delbarre</b></sub></a><br /><a href="#ideas-DDelbarre" title="Ideas, Planning, & Feedback">🤔</a> <a href="#userTesting-DDelbarre" title="User Testing">📓</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
-
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
