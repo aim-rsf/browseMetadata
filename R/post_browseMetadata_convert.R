@@ -1,9 +1,9 @@
-#' convert_output
+#' post_browseMetadata_convert
 #'
 #' The 'OUTPUT_' file groups multiple categorisations onto one line e.g. '1,3' \cr \cr
 #' This function creates a new longer output 'L-OUTPUT_' which gives each categorisation its own row \cr \cr
 #' This 'L-OUTPUT_' may be more useful when using these csv files in later analyses
-#' @param output_csv The name of the 'OUTPUT_' csv file that was created from domain_mapping.R
+#' @param output_csv The name of the 'OUTPUT_' csv file that was created from browseMetadata.R
 #' @param output_dir The location of output_csv
 #' @return The function will return 'L-OUTPUT_' in the same output_dir
 #' @export

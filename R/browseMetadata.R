@@ -1,4 +1,4 @@
-#' domain_mapping
+#' browseMetadata
 #'
 #' This function will read in the metadata file for a chosen dataset, loop through all the data elements, and ask the user to catergorise/label each data element as belonging to one or more domains.\cr \cr
 #' The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
@@ -12,7 +12,7 @@
 #' @param table_copy Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you made for all other tables in this dataset will be copied over (if 'OUTPUT_' files are found in output_dir).
 #' @return The function will return two csv files: 'OUTPUT_' which contains the mappings and 'LOG_' which contains details about the dataset and session.
 #' @examples
-#' # Run in demo mode by providing no inputs: domain_mapping()
+#' # Run in demo mode by providing no inputs: browseMetadata()
 #' # Demo mode will use the /data files provided in this package
 #' # For more guidance, refer to the package README.md file and the R manual files.
 #' @export
@@ -21,84 +21,39 @@
 #' @importFrom utils read.csv write.csv
 #' @importFrom dplyr %>% arrange count group_by distinct
 
-domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
+browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
 
-  ## Load data: Check if demo data should be used ----
-
-  if (is.null(json_file) && is.null(domain_file)) {
-    # If both json_file and domain_file are NULL, use demo data
-    meta_json <- get("json_metadata")
-    domains <- get("domain_list")
-    DomainListDesc <- "DemoList"
-    cat("\n")
-    cli_alert_info("Running domain_mapping in demo mode using package data files")
-    demo_mode = TRUE
-  } else if (is.null(json_file) || is.null(domain_file)) {
-    # If only one of json_file and domain_file is NULL, throw error
-    cat("\n")
-    cli_alert_danger("Please provide both json_file and domain_file (or neither file, to run in demo mode)")
-    stop()
-  } else {
-    demo_mode = FALSE
-    # Read in the json file containing the meta data
-    meta_json <- rjson::fromJSON(file = json_file)
-    # Read in the domain file containing the meta data
-    domains <- read.csv(domain_file, header = FALSE)
-    DomainListDesc <- tools::file_path_sans_ext(basename(domain_file))
-  }
-
-  # Check if user has provided a look-up table
-  if (is.null(look_up_file)) {
-    cli_alert_info("Using the default look-up table in data/look-up.rda")
-    lookup <- get("look_up")
-    }
-  else {
-    lookup <- read.csv(look_up_file)
-    cli_alert_info("Using look up file inputted by user")
-    print(lookup)
-  }
-
-  # If user has not provider output_dir, use current working dir:
+  # Set output_dir to current wd if user not provided
   if (is.null(output_dir)) {
     output_dir = getwd() }
 
-  ## Present domains plots panel for user's reference ----
-  colnames(domains)[1] = "Domain Name"
-  graphics::plot.new()
-  domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ID*"), c("*DEMOGRAPHICS*"), domains)
-  Code <- data.frame(Code = 0:(nrow(domains_extend) - 1))
-  Domain_table <- tableGrob(cbind(Code,domains_extend),rows = NULL,theme = ttheme_default())
-  grid.arrange(Domain_table,nrow=1,ncol=1)
+  # Collect inputs needed for this function (defaults or user inputs)
+  data <- browseMetadata_load_data(json_file, domain_file,look_up_file)
 
-  ## Get user and demo list info for log file ----
-  User_Initials <- ""
-  cat("\n \n")
-  while (User_Initials == "") {
-    User_Initials <- readline("Enter your initials: ")
-  }
+  # Present domains as a plot for the user's reference (and save as df for later use)
+  df_plots <- browseMetadata_ref_plot(data$domains)
 
-  ## Print information about Dataset ----
+  # Get user initials for the log file
+  User_Initials <- browseMetadata_user_prompt(prompt_text = "Enter your initials: ",any_keys = TRUE)
+
+  # Print information about Dataset --------------- COULD THIS BE PRE-PROMPT TEXT?
   cli_h1("Dataset Name")
-  cat(meta_json$dataModel$label, fill = TRUE)
+  cat(data$meta_json$dataModel$label, fill = TRUE)
   cli_h1("Dataset Last Updated")
-  cat(meta_json$dataModel$lastUpdated, fill = TRUE)
+  cat(data$meta_json$dataModel$lastUpdated, fill = TRUE)
   cli_h1("Dataset File Exported By")
-  cat(meta_json$exportMetadata$exportedBy, "at", meta_json$exportMetadata$exportedOn, fill = TRUE)
+  cat(data$meta_json$exportMetadata$exportedBy, "at", data$meta_json$exportMetadata$exportedOn, fill = TRUE)
 
-  Dataset_desc <- ""
-  while (Dataset_desc != "Y" & Dataset_desc != "y" & Dataset_desc != "N" & Dataset_desc != "n") {
-    cat("\n \n")
-    Dataset_desc <- readline(prompt = "Would you like to read a description of the dataset? (y/n): ")
-  }
+  # Ask if user wants to read desc of dataset
+  Dataset_decision <- browseMetadata_user_prompt(prompt_text = "Would you like to read a description of the dataset? (y/n): ",any_keys = FALSE)
 
-  if (Dataset_desc == 'Y' | Dataset_desc == 'y') {
+  if (Dataset_decision == 'Y' | Dataset_decision == 'y') {
     cli_h1("Dataset Description")
-    cat(meta_json$dataModel$description, fill = TRUE)
-    readline(prompt = "Press any key to proceed")
+    cat(data$meta_json$dataModel$description, fill = TRUE)  #--------------- COULD THIS BE POST-PROMPT TEXT?
+    readline(prompt = "Press any key to proceed") #--------------- COULD THIS USE THE USER_PROMPT fun?
   }
 
   ## Ask user which tables to process  ----
-
   nTables <- length(meta_json$dataModel$childDataClasses)
   cat("\n")
   cli_alert_info("Found {nTables} Table{?s} in this Dataset")
@@ -249,7 +204,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
           suppressWarnings(this_Output$Note[1] <- paste0("COPIED FROM: ",df_combined_subset$Table))
           Output <- rbind(Output,this_Output)
         } else { # 3 - collect user responses
-          decision_output <- user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
+          decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
           this_Output$Domain_code[1] <- decision_output$decision
           this_Output$Note[1] <- decision_output$decision_note
           Output <- rbind(Output,this_Output)
@@ -284,7 +239,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       for  (datavar_auto in unique(auto_row)) {
 
         # collect user responses
-        decision_output <- user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto],max(Code$Code))
+        decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto],max(Code$Code))
         # input user responses into output
         Output$Domain_code[datavar_auto] <- decision_output$decision
         Output$Note[datavar_auto] <- decision_output$decision_note
@@ -326,7 +281,7 @@ domain_mapping <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         for  (datavar_not_auto in unique(not_auto_row)) {
 
           # collect user responses
-          decision_output <- user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto],max(Code$Code))
+          decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto],max(Code$Code))
           # input user responses into output
           Output$Domain_code[datavar_not_auto] <- decision_output$decision
           Output$Note[datavar_not_auto] <- decision_output$decision_note

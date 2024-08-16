@@ -2,7 +2,6 @@
 % Please edit documentation in R/browseMetadata-package.R
 \docType{package}
 \name{browseMetadata-package}
-\alias{browseMetadata}
 \alias{browseMetadata-package}
 \title{browseMetadata}
 \description{
