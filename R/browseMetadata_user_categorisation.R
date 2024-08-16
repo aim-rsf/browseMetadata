@@ -9,7 +9,6 @@
 #' @param data_type Data type of the variable
 #' @param domain_code_max Max code in the domain list (0-3 auto included, then N included via domain_file)
 #' @return It returns a list containing the decision and decision note
-#' @export
 
 browseMetadata_user_categorisation <- function(data_element,data_desc,data_type,domain_code_max) {
 
