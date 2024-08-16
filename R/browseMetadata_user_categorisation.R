@@ -11,7 +11,7 @@
 #' @return It returns a list containing the decision and decision note
 #' @export
 
-user_categorisation <- function(data_element,data_desc,data_type,domain_code_max) {
+browseMetadata_user_categorisation <- function(data_element,data_desc,data_type,domain_code_max) {
 
   first_run = TRUE
   go_back = ''

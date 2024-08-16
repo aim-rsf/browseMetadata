@@ -9,7 +9,7 @@
 #' @export
 #' @importFrom utils read.csv write.csv
 
-convert_output <- function(output_csv,output_dir) {
+post_browseMetadata_convert <- function(output_csv,output_dir) {
 
 output <- read.csv(paste0(output_dir,'/',output_csv))
 output_long <- output[0,] #make duplicate
