@@ -6,8 +6,8 @@
 #' @param session_dir This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.
 #' @param session1_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38'
 #' @param session2_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'
-#' @param json_file The full path to the metadata file used when running domain_mapping (should be the same for session 1 and session 2)
-#' @param domain_file The full path to the domain file used when running domain_mapping (should be the same for session 1 and session 2)
+#' @param json_file The full path to the metadata file used when running browseMetadata (should be the same for session 1 and session 2)
+#' @param domain_file The full path to the domain file used when running browseMetadata (should be the same for session 1 and session 2)
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
 #' @importFrom dplyr left_join select join_by
 #' @export
@@ -80,7 +80,7 @@ post_browseMetadata_compare <- function(session_dir,session1_base,session2_base,
   cli_alert_success("Comparing session 1 and session 2")
   cli_alert_success("Session 1 created by {csv_1a$Initials[1]} and session 2 created by {csv_2a$Initials[1]}")
 
-  # Present domains plots panel for user's reference (as in domain_mapping)
+  # Present domains plots panel for user's reference (as in browseMetadata)
   colnames(domains)[1] = "Domain Name"
   graphics::plot.new()
   domains_extend <- rbind(c("*NO MATCH / UNSURE*"), c("*METADATA*"), c("*ID*"), c("*DEMOGRAPHICS*"), domains)
@@ -99,7 +99,7 @@ post_browseMetadata_compare <- function(session_dir,session1_base,session2_base,
                      'Note_ses1','Note_ses2',
                      'Domain_code_join','Note_join')
 
-  # extract table from meta_json - same code as domain_mapping
+  # extract table from meta_json - same code as browseMetadata
   table_find <- data.frame(table_n = numeric(length(meta_json$dataModel$childDataClasses)),table_label = character(length(meta_json$dataModel$childDataClasses)))
   for (t in 1:length(meta_json$dataModel$childDataClasses)) {
     table_find$table_n[t] = t

@@ -8,7 +8,7 @@ browseMetadata_load_data <- function(json_file, domain_file,look_up_file, output
     domains <- get("domain_list")
     DomainListDesc <- "DemoList"
     cat("\n")
-    cli_alert_info("Running domain_mapping in demo mode using package data files")
+    cli_alert_info("Running browseMetadata in demo mode using package data files")
     demo_mode = TRUE
   } else if (is.null(json_file) || is.null(domain_file)) { # if only one of json_file and domain_file is NULL, throw error
     cat("\n")

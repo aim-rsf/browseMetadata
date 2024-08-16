@@ -58,7 +58,7 @@ library(browseMetadata)
 Read the documentation:
 
 ```         
-?domain_mapping
+?browseMetadata
 ```
 
 Set your working directory to be an empty folder you just created:
@@ -70,7 +70,7 @@ setwd("/Users/your-username/test-browseMetadata")
 Run the function in demo mode:
 
 ``` r
-domain_mapping()
+browseMetadata()
 ```
 
 Take note of the **Plots** tab in R Studio which should show a table of domains with this info:
@@ -93,7 +93,7 @@ For a research study, your domains are likely to be much more specific e.g. 'Pre
 The 4 default domains are always included [0-3], appended on to any domain list given.
 
 ```         
-ℹ Running domain_mapping in demo mode using package data files
+ℹ Running browseMetadata in demo mode using package data files
 ℹ Using the default look-up table in data/look-up.rda
  
 Enter your initials: RS
@@ -285,14 +285,14 @@ LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png
 ```
 
-The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [R/convert_output.R](R/convert_output.R) for an alternative. 
+The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [R/post_browseMetadata_convert.R](R/post_browseMetadata_convert.R) for an alternative. 
 
 The PLOT png file saves a simple plot displaying the count of domain codes for that table.
 
 ### Using your own input files
 
 ``` r
-domain_mapping(json_file, domain_file, look_up_file, output_dir, table_copy)
+browseMetadata(json_file, domain_file, look_up_file, output_dir, table_copy)
 ```
 
 This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues).
@@ -300,7 +300,7 @@ This code is in early development. To see known bugs or sub-optimal features ref
 First, change the json file and domain file inputs. Later, consider changing the other 3 inputs, depending on your use-case. For example:
 
 ``` r
-domain_mapping(json_file = 'path/your-json.json', domain_file = 'path/your-domains.csv')
+browseMetadata(json_file = 'path/your-json.json', domain_file = 'path/your-domains.csv')
 ```
 
 Unlike in demo mode, it will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).
@@ -319,7 +319,7 @@ Unlike in demo mode, it will ask you to specify the range of variables you want 
 
 #### lookup file:
 
--   a [default lookup file](dataraw/look_up.csv) is used by the domain_mapping function
+-   a [default lookup file](dataraw/look_up.csv) is used by the browseMetadata function
 -   optional: a csv can be created by the user (using the same format as the default) and provided as the input
 -   the lookup file makes auto-categorisations intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
 -   the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file
@@ -396,7 +396,7 @@ PATH_BLOOD_TESTS
 
 The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
 
-Categorisations across researchers can be compared by using the function [R/compare_sessions.R](R/compare_sessions.R). Type `?compare_sessions` to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
+Categorisations across researchers can be compared by using the function [R/post_browseMetadata_compare.R](R/post_browseMetadata_compare.R). Type `?post_browseMetadata_compare` to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
 
 ## License
 
