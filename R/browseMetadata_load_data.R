@@ -9,6 +9,7 @@ browseMetadata_load_data <- function(json_file, domain_file,look_up_file, output
     DomainListDesc <- "DemoList"
     cat("\n")
     cli_alert_info("Running browseMetadata in demo mode using package data files")
+    cat("\n ")
     demo_mode = TRUE
   } else if (is.null(json_file) || is.null(domain_file)) { # if only one of json_file and domain_file is NULL, throw error
     cat("\n")
@@ -24,11 +25,13 @@ browseMetadata_load_data <- function(json_file, domain_file,look_up_file, output
   # Collect look up table
   if (is.null(look_up_file)) {
     cli_alert_info("Using the default look-up table in data/look-up.rda")
+    cat("\n ")
     lookup <- get("look_up")
   }
   else {
     lookup <- read.csv(look_up_file)
     cli_alert_info("Using look up file inputted by user")
+    cat("\n ")
     print(lookup)
   }
 

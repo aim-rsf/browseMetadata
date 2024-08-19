@@ -20,10 +20,13 @@
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
 #' @importFrom dplyr %>% arrange count group_by distinct
+#' @importFrom tidyverse %>% add_row
 
 browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
 
-  # Set output_dir to current wd if user not provided
+  timestamp_now <- format(Sys.time(),"%Y-%m-%d-%H-%M-%S")
+
+  # Set output_dir to current wd if user has not provided it
   if (is.null(output_dir)) {
     output_dir = getwd() }
 
@@ -36,30 +39,26 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
   # Get user initials for the log file
   User_Initials <- browseMetadata_user_prompt(prompt_text = "Enter your initials: ",any_keys = TRUE)
 
-  # Print information about Dataset --------------- COULD THIS BE PRE-PROMPT TEXT?
-  cli_h1("Dataset Name")
-  cat(data$meta_json$dataModel$label, fill = TRUE)
-  cli_h1("Dataset Last Updated")
-  cat(data$meta_json$dataModel$lastUpdated, fill = TRUE)
-  cli_h1("Dataset File Exported By")
-  cat(data$meta_json$exportMetadata$exportedBy, "at", data$meta_json$exportMetadata$exportedOn, fill = TRUE)
+  # Print info about dataset and ask if user wants to read desc of dataset ----
+  pre_prompt_text <- data.frame(Heading = logical(0),Text = character(0))
+  pre_prompt_text <- pre_prompt_text %>% add_row(Heading = TRUE, Text = 'Dataset Name')
+  pre_prompt_text <- pre_prompt_text %>% add_row(Heading = FALSE, Text = paste(data$meta_json$dataModel$label))
+  pre_prompt_text <- pre_prompt_text %>% add_row(Heading = TRUE, Text = 'Dataset File Exported By')
+  pre_prompt_text <- pre_prompt_text %>% add_row(Heading = FALSE, Text = paste(data$meta_json$exportMetadata$exportedBy, "at", data$meta_json$exportMetadata$exportedOn))
+  prompt_text <- "Would you like to read a description of the dataset? (y/n): "
+  post_yes_text <- data.frame(Heading = logical(0),Text = character(0))
+  post_yes_text <- post_yes_text %>% add_row(Heading = TRUE, Text = 'Dataset Description')
+  post_yes_text <- post_yes_text %>% add_row(Heading = FALSE, Text = paste(data$meta_json$dataModel$description))
 
-  # Ask if user wants to read desc of dataset
-  Dataset_decision <- browseMetadata_user_prompt(prompt_text = "Would you like to read a description of the dataset? (y/n): ",any_keys = FALSE)
+  browseMetadata_user_prompt(pre_prompt_text = pre_prompt_text, prompt_text = prompt_text, any_keys = FALSE, post_yes_text = post_yes_text)
 
-  if (Dataset_decision == 'Y' | Dataset_decision == 'y') {
-    cli_h1("Dataset Description")
-    cat(data$meta_json$dataModel$description, fill = TRUE)  #--------------- COULD THIS BE POST-PROMPT TEXT?
-    readline(prompt = "Press any key to proceed") #--------------- COULD THIS USE THE USER_PROMPT fun?
-  }
-
-  ## Ask user which tables to process  ----
-  nTables <- length(meta_json$dataModel$childDataClasses)
+  # Ask user which tables to process  ----
+  nTables <- length(data$meta_json$dataModel$childDataClasses)
   cat("\n")
   cli_alert_info("Found {nTables} Table{?s} in this Dataset")
   for (dc in 1:nTables) {
     cat("\n")
-    cat(dc,meta_json$dataModel$childDataClasses[[dc]]$label, fill = TRUE)
+    cat(dc,data$meta_json$dataModel$childDataClasses[[dc]]$label, fill = TRUE)
   }
 
   nTables_Process <- numeric(0)
@@ -83,13 +82,14 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cat("\n")
     cli_alert_info("Processing Table {dc} of {nTables}")
     cli_h1("Table Name")
-    cat(meta_json$dataModel$childDataClasses[[dc]]$label, fill = TRUE)
+    thisTable_name <- data$meta_json$dataModel$childDataClasses[[dc]]$label
+    cat(thisTable_name, fill = TRUE)
     cli_h1("Table Last Updated")
-    cat(meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
+    cat(data$meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
     # Check if previous table output(s) exists in this output_dir (for table copying)
     if (table_copy == TRUE){
-      dataset_search = paste0("^OUTPUT_",gsub(" ", "", meta_json$dataModel$label),'*')
+      dataset_search = paste0("^OUTPUT_",gsub(" ", "", data$meta_json$dataModel$label),'*')
       csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
       if (nrow(csv_list) != 0){
         df_list <- lapply(paste0(output_dir,'/',csv_list$file), read.csv)
@@ -104,24 +104,20 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         cat("\n")
         print(csv_list$file)
       } else {df_combined_exist <- FALSE}
-      } else {df_combined_exist <- FALSE}
+    } else {df_combined_exist <- FALSE}
 
-    table_desc <- ""
-    while (table_desc != "Y" & table_desc != "y" & table_desc != "N" & table_desc != "n") {
-      cat("\n \n")
-      table_desc <- readline(prompt = "Would you like to read a description of the table? (y/n): ")
-    }
+    # Ask if user wants to read desc of table
+    prompt_text = "Would you like to read a description of the table? (y/n): "
+    post_yes_text <- data.frame(Heading = logical(0),Text = character(0))
+    post_yes_text <- post_yes_text %>% add_row(Heading = TRUE, Text = 'Table Description')
+    post_yes_text <- post_yes_text %>% add_row(Heading = FALSE, Text = paste(data$meta_json$dataModel$childDataClasses[[dc]]$description))
 
-    if (table_desc == 'Y' | table_desc == 'y') {
-      cli_h1("Table Description")
-      cat(meta_json$dataModel$childDataClasses[[dc]]$description, fill = TRUE)
-      readline(prompt = "Press any key to proceed")
-    }
+    browseMetadata_user_prompt(prompt_text = prompt_text, any_keys = FALSE, post_yes_text = post_yes_text)
 
-    cat("\n \n")
     table_note <- readline("Optional free text note about this table (or press enter to continue): ")
 
-    thisTable <- meta_json$dataModel$childDataClasses[[dc]]$childDataElements #  probably a better way of dealing with complex json files in R ...
+    # Extract data for this table into a data frame
+    thisTable <- data$meta_json$dataModel$childDataClasses[[dc]]$childDataElements #  probably a better way of dealing with complex json files in R ...
     thisTable_df <- data.frame(do.call(rbind, thisTable)) # nested list to dataframe
     dataType_df <- data.frame(do.call(rbind, thisTable_df$dataType)) # nested list to dataframe
 
@@ -133,38 +129,13 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
-    # Create unique output csv to log the results ----
-    timestamp_now <- format(Sys.time(),"%Y-%m-%d-%H-%M-%S")
-
-    output_fname_csv <- paste0("OUTPUT_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
-    output_fname_log_csv <- paste0("LOG_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
-    output_fname_png <- paste0("PLOT_", gsub(" ", "", meta_json$dataModel$label), "_", gsub(" ", "", meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".png")
-
-    log_Output <- data.frame(
-      timestamp = character(1),
-      browseMetadata = character(1),
-      Initials = character(1),
-      MetaDataVersion = character(1),
-      MetaDataLastUpdated = character(1),
-      DomainListDesc = character(1),
-      Dataset = character(1),
-      Table = character(1),
-      Table_note = character(1)
-    )
-
-    row_Output <- data.frame(
-      timestamp = character(0),
-      Table = character(0),
-      DataElement_N = character(0),
-      DataElement = character(0),
-      Domain_code = character(0),
-      Note = character(0)
-    )
-
     # Loop through each data element, request response from the user to match to a domain ----
 
+    log_Output <- get("log_Output")
+    Output <- get("Output")
+
     # if it's the demo run, only loop through a max of 20 data elements
-    if (demo_mode == TRUE) {
+    if (data$demo_mode == TRUE) {
       start_var = 1
       end_var = min(20,nrow(selectTable_df))
     } else {
@@ -175,20 +146,14 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       end_var <- readline(prompt = paste("End variable (write", nrow(selectTable_df), "to process all): "))
       }
 
-    Output <- row_Output
     for (datavar in start_var:end_var) {
       cat("\n \n")
       cli_alert_info(paste(length(datavar:end_var),'left to process in this session'))
       cli_alert_info("Processing data element {datavar} of {nrow(selectTable_df)}")
-      # prepare output
-      this_Output <- row_Output
-      this_Output[nrow(this_Output) + 1 , ] <- NA
-      this_Output$Table[1] <- meta_json$dataModel$childDataClasses[[dc]]$label
-      this_Output$DataElement[1] <- selectTable_df$Label[datavar]
-      this_Output$DataElement_N[1] <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
-      # search if this data element matches with auto categorisations in lookup
-      datavar_index <- which(lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
-      lookup_subset <- lookup[datavar_index,]
+      this_DataElement <- selectTable_df$Label[datavar]
+      this_DataElement_N <- paste(as.character(datavar),'of',as.character(nrow(selectTable_df)))
+      datavar_index <- which(data$lookup$DataElement == selectTable_df$Label[datavar]) #we should code this to ignore the case
+      lookup_subset <- data$lookup[datavar_index,]
       # search if this data element matches with any data elements processed in previous table
       if (df_combined_exist == TRUE) {
         datavar_index <- which(df_combined$DataElement == selectTable_df$Label[datavar])
@@ -196,25 +161,23 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         } else {df_combined_subset <- data.frame()}
       # decide how to process the data element out of 3 options
       if (nrow(lookup_subset) == 1) { # 1 - auto categorisation
-        this_Output$Domain_code[1] <- lookup_subset$DomainCode
-        this_Output$Note[1] <- "AUTO CATEGORISED"
-        Output <- rbind(Output,this_Output)
+        Output <- Output %>% add_row(timestamp = timestamp_now, Table = thisTable_name, DataElement = this_DataElement, DataElement_N = this_DataElement_N,
+                                     Domain_code = as.character(lookup_subset$DomainCode), Note = 'AUTO CATEGORISED')
+        #Output <- rbind(Output,this_Output)
         } else if (df_combined_exist == TRUE & nrow(df_combined_subset) == 1){ # 2 - copy from previous table
-          this_Output$Domain_code[1] <- df_combined_subset$Domain_code
-          suppressWarnings(this_Output$Note[1] <- paste0("COPIED FROM: ",df_combined_subset$Table))
-          Output <- rbind(Output,this_Output)
+          Output <- Output %>% add_row(timestamp = timestamp_now, Table = thisTable_name, DataElement = this_DataElement, DataElement_N = this_DataElement_N,
+                                       Domain_code = as.character(df_combined_subset$Domain_code), Note = paste0("COPIED FROM: ",df_combined_subset$Table))
         } else { # 3 - collect user responses
-          decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(Code$Code))
-          this_Output$Domain_code[1] <- decision_output$decision
-          this_Output$Note[1] <- decision_output$decision_note
-          Output <- rbind(Output,this_Output)
+          decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar],selectTable_df$Description[datavar],selectTable_df$Type[datavar],max(df_plots$Code$Code))
+          Output <- Output %>% add_row(timestamp = timestamp_now, Table = thisTable_name, DataElement = this_DataElement, DataElement_N = this_DataElement_N,
+                                       Domain_code = decision_output$decision, Note = decision_output$decision_note)
           }
       } # end of loop for DataElement
 
     ## Print the AUTO CATEGORISED responses for this Table and request review  ----
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     cat("\n \n")
-    cli_alert_warning("Please check the auto categorised data elements are accurate for table {meta_json$dataModel$childDataClasses[[dc]]$label}:")
+    cli_alert_warning("Please check the auto categorised data elements are accurate for table {data$meta_json$dataModel$childDataClasses[[dc]]$label}:")
     cat("\n \n")
     print(Output_auto[, c("DataElement", "Domain_code","Note")])
 
@@ -226,7 +189,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         cli_alert_danger('The row numbers you provided are not in range. Reference the auto categorised row numbers on the screen and try again')}
       tryCatch({
         cat("\n \n");
-        cli_alert_info("Press enter to accept the auto categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
+        cli_alert_info("Press enter to accept the auto categorisations for table {data$meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
         cat("\n");
         auto_row <- scan(file="",what=0);
         auto_row_Error <- FALSE;
@@ -239,7 +202,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       for  (datavar_auto in unique(auto_row)) {
 
         # collect user responses
-        decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto],max(Code$Code))
+        decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto],max(df_plots$Code$Code))
         # input user responses into output
         Output$Domain_code[datavar_auto] <- decision_output$decision
         Output$Note[datavar_auto] <- decision_output$decision_note
@@ -247,11 +210,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     }
 
     ## Ask if user wants to review their responses for this Table ----
-    review_cats <- ""
-    while (review_cats != "Y" & review_cats != "y" & review_cats != "N" & review_cats != "n") {
-      cat("\n \n")
-      review_cats <- readline(prompt = "Would you like to review your categorisations? (y/n): ")
-    }
+    browseMetadata_user_prompt(prompt_text = "Would you like to review your categorisations? (y/n): ",any_keys = FALSE)
 
     if (review_cats == 'Y' | review_cats == 'y') {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
@@ -268,7 +227,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
           cli_alert_danger('The row numbers you provided are not in range. Reference the row numbers on the screen and try again')}
         tryCatch({
           cat("\n \n");
-          cli_alert_info("Press enter to accept your categorisations for table {meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
+          cli_alert_info("Press enter to accept your categorisations for table {data$meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
           cat("\n");
           not_auto_row <- scan(file="",what=0);
           not_auto_row_Error <- FALSE;
@@ -281,7 +240,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
         for  (datavar_not_auto in unique(not_auto_row)) {
 
           # collect user responses
-          decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto],max(Code$Code))
+          decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar_not_auto],selectTable_df$Description[datavar_not_auto],selectTable_df$Type[datavar_not_auto],max(df_plots$Code$Code))
           # input user responses into output
           Output$Domain_code[datavar_not_auto] <- decision_output$decision
           Output$Note[datavar_not_auto] <- decision_output$decision_note
@@ -289,19 +248,23 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       }
     }
 
-    ## Fill in columns that have all rows identical ----
+    ## Fill in log output ----
     log_Output$timestamp <- timestamp_now
     log_Output$browseMetadata <- packageVersion("browseMetadata")
     log_Output$Initials <- User_Initials
-    log_Output$MetaDataVersion <- meta_json$dataModel$documentationVersion
-    log_Output$MetaDataLastUpdated <- meta_json$dataModel$lastUpdated
+    log_Output$MetaDataVersion <- data$meta_json$dataModel$documentationVersion
+    log_Output$MetaDataLastUpdated <- data$meta_json$dataModel$lastUpdated
     log_Output$DomainListDesc <- DomainListDesc
-    log_Output$Dataset <- meta_json$dataModel$label
-    log_Output$Table <- meta_json$dataModel$childDataClasses[[dc]]$label
+    log_Output$Dataset <- data$meta_json$dataModel$label
+    log_Output$Table <- data$meta_json$dataModel$childDataClasses[[dc]]$label
     log_Output$Table_note <- table_note
 
+    # Create output file names ----
+    output_fname_csv <- paste0("OUTPUT_", gsub(" ", "", data$meta_json$dataModel$label), "_", gsub(" ", "", data$meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
+    output_fname_log_csv <- paste0("LOG_", gsub(" ", "", data$meta_json$dataModel$label), "_", gsub(" ", "", data$meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
+    output_fname_png <- paste0("PLOT_", gsub(" ", "", data$meta_json$dataModel$label), "_", gsub(" ", "", data$meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".png")
+
     ## Save final categorisations for this Table  ----
-    Output$timestamp <- timestamp_now
     utils::write.csv(Output, paste(output_dir,output_fname_csv,sep='/'), row.names = FALSE)
     utils::write.csv(log_Output, paste(output_dir,output_fname_log_csv,sep='/'), row.names = FALSE)
     cat("\n")
@@ -314,7 +277,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     Domain_plot <- counts %>%
       ggplot(aes(x=reorder(Domain_code, -n), y=n)) +
       geom_col() +
-      ggtitle(paste("Data Elements in", meta_json$dataModel$childDataClasses[[dc]]$label, "grouped by Domain code")) +
+      ggtitle(paste("Data Elements in", data$meta_json$dataModel$childDataClasses[[dc]]$label, "grouped by Domain code")) +
       theme_gray(base_size = 18) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
       xlab('Domain Code') +
@@ -324,7 +287,6 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     full_plot <- grid.arrange(Domain_plot, Domain_table,nrow=1,ncol=2)
     ggsave(plot = full_plot,paste(output_dir,output_fname_png,sep='/'),width = 14, height = 8, units = "in")
     cli_alert_success("A summary plot has been saved:\n{output_fname_png}")
-
 
   } # end of loop for each table
 
