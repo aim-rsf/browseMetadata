@@ -50,26 +50,34 @@ browseMetadata <- function(
 
   timestamp_now <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 
-  # Extract Dataset from json
-  Dataset <- data$meta_json$dataModel
-  Dataset_Name <- Dataset$label
+  # DEFINE INPUTS AND OUTPUTS ----
 
-  # Set output_dir to current wd if user has not provided it
+  ## Set output_dir to current wd if user has not provided it
   if (is.null(output_dir)) {
     output_dir = getwd()
   }
 
-  # Collect inputs needed for this function (defaults or user inputs)
+  ## Use 'load_data.R' to collect inputs (defaults or user inputs)
   data <- load_data(json_file, domain_file, look_up_file)
 
-  # Present domains as a plot for the user's reference (save df for later use)
+  ## Extract Dataset from json_file
+  Dataset <- data$meta_json$dataModel
+  Dataset_Name <- Dataset$label
+
+  ## Read in prepared output data frames
+  log_Output <- get("log_Output")
+  Output <- get("Output")
+
+  ## Use 'ref_plot.R' to plot domains for the user's ref (save df for later use)
   df_plots <- ref_plot(data$domains)
 
-  # Get user initials for the log file
+  ## Use 'user_prompt.R' to get user initials for the log file
   User_Initials <- user_prompt(
     prompt_text = "Enter your initials: ", any_keys = TRUE)
 
-  # Print info about dataset and ask if user wants to read desc of dataset ----
+  # DISPLAY DATASET ----
+
+  ## Use 'user_prompt.R' to print info about dataset based on user input
   pre_prompt_text <- data.frame(Heading = logical(0), Text = character(0))
   pre_prompt_text <- pre_prompt_text %>% add_row(Heading = TRUE,
                                                  Text = 'Dataset Name')
@@ -88,70 +96,51 @@ browseMetadata <- function(
   post_yes_text <- post_yes_text %>% add_row(
     Heading = FALSE,Text = paste(Dataset$description))
 
-  browseMetadata_user_prompt(
+  user_prompt(
     pre_prompt_text = pre_prompt_text,
     prompt_text = prompt_text,
     any_keys = FALSE,
     post_yes_text = post_yes_text
   )
 
-  # Ask user which tables to process  ----
+  # WHICH TABLES FROM THE DATASET? ----
+  ## Use 'user_prompt_list.R' to ask user which tables to process
   nTables <- length(Dataset$childDataClasses)
   table_df <- data.frame(Table_Name = character(0), Table_Number = integer(0))
   for (dc in 1:nTables) {
     table_df <- table_df %>% add_row(
       Table_Number = dc,
-      Table_Name = Dataset$childDataClasses[[dc]]$label
-    )
-  }
+      Table_Name = Dataset$childDataClasses[[dc]]$label)
+    }
 
   nTables_Process <- user_prompt_list(
     pre_prompt_df = table_df,
     pre_prompt_df_rows = FALSE,
     prompt_text =
-      paste('Found',nTables,'table(s) in this Dataset. Enter table numbers you
-            want to process (one table number on each line):'),
+      paste('Found',nTables,'table(s) in this Dataset.','Enter table numbers',
+            'you want to process (one table number on each line):'),
     list_allowed = seq(from = 1, to = nTables, by = 1)
   )
-  # Extract each Table  ----
+
+  # PROCESS EACH CHOSEN TABLE ----
+  ## Extract each Table
   for (dc in unique(nTables_Process)) {
     cat("\n")
     cli_alert_info("Processing Table {dc} of {nTables}")
     cli_h1("Table Name")
     Table_name <- Dataset$childDataClasses[[dc]]$label
-    cat(Table_name, fill = TRUE)
-    cli_h1("Table Last Updated")
-    cat(Dataset$childDataClasses[[dc]]$lastUpdated,
-        "\n",
-        fill = TRUE)
+    cat(Table_name,"\n",fill = TRUE)
 
-    # Can we copy from previous table output(s) in output_dir? ----
+    ### Use 'copy_previous.R' to copy from previous output(s) if they exist ----
     if (table_copy == TRUE) {
-      o_search = paste0("^OUTPUT_",
-                        gsub(" ", "", Dataset_Name),'*')
-      csv_list <- data.frame(file = list.files(output_dir, pattern = o_search))
-      if (nrow(csv_list) != 0) {
-        df_list <- lapply(paste0(output_dir, '/', csv_list$file), read.csv)
-        df_prev <- do.call("rbind", df_list) #combine all df
-        # make a new date column, order by earliest, remove duplicates & auto
-        df_prev$timestamp2 <- as.POSIXct(
-          df_prev$timestamp, format = "%Y-%m-%d-%H-%M-%S")
-        df_prev <- df_prev[order(df_prev$timestamp2), ]
-        df_prev <- df_prev %>% distinct(DataElement, .keep_all = TRUE)
-        df_prev <- df_prev[-(which(df_prev$Note %in% "AUTO CATEGORISED")), ]
-        df_prev_exist <- TRUE
-        cat("\n")
-        cli_alert_info(paste0("Copying from previous session(s): "))
-        cat("\n")
-        print(csv_list$file)
-      } else {
-        df_prev_exist <- FALSE
-      }
+      output <- copy_previous(Dataset_Name,output_dir)
+      df_prev_exist <- output$df_prev_exist
+      df_prev <- output$df_prev
     } else {
       df_prev_exist <- FALSE
     }
 
-    # Ask if user wants to read desc of table ----
+    ## Use 'user_prompt.R' to ask if user wants to read desc of table ----
     prompt_text = "Would you like to read a description of the table? (y/n): "
     post_yes_text <- data.frame(Heading = logical(0), Text = character(0))
     post_yes_text <- post_yes_text %>% add_row(
@@ -161,16 +150,16 @@ browseMetadata <- function(
       Text = paste(Dataset$childDataClasses[[dc]]$description)
     )
 
-    browseMetadata_user_prompt(
+    user_prompt(
       prompt_text = prompt_text,
       any_keys = FALSE,
       post_yes_text = post_yes_text
     )
 
-    table_note <- readline("Optional free text note about this table
-                           (or press enter to continue): ")
+    table_note <- readline(paste('Optional free text note about this table',
+                                 '(or press enter to continue): '))
 
-    # Extract data for this table into a data frame ----
+    ## Extract data for this table into a data frame ----
     Table <- Dataset$childDataClasses[[dc]]$childDataElements #probably a better way of dealing with complex json files in R ...
     Table_df <- data.frame(do.call(rbind, Table)) # nested list to df
     dataType_df <- data.frame(do.call(rbind, Table_df$dataType)) # nested list to df
@@ -183,12 +172,9 @@ browseMetadata <- function(
 
     selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
-    # Loop through each data element, request categorisation from user ----
+    ## Loop through each data element, request categorisation from user ----
 
-    log_Output <- get("log_Output")
-    Output <- get("Output")
-
-    # if it's the demo run, only loop through a max of 20 data elements ----
+    ### if it's the demo run, only loop through a max of 20 data elements ----
     if (data$demo_mode == TRUE) {
       start_v = 1
       end_v = min(20, nrow(selectTable_df))
@@ -219,7 +205,7 @@ browseMetadata <- function(
       data_v_index <- which(data$lookup$DataElement ==
                               selectTable_df$Label[data_v]) #we should code this to ignore the case
       lookup_subset <- data$lookup[data_v_index, ]
-      # search if data element matches any data elements from previous table
+      #### search if data element matches any data elements from previous table
       if (df_prev_exist == TRUE) {
         data_v_index <- which(df_prev$DataElement ==
                                 selectTable_df$Label[data_v])
@@ -227,9 +213,9 @@ browseMetadata <- function(
       } else {
         df_prev_subset <- data.frame()
       }
-      # decide how to process the data element out of 3 options
+      #### decide how to process the data element out of 3 options
       if (nrow(lookup_subset) == 1) {
-        # 1 - auto categorisation
+        ##### 1 - auto categorisation
         Output <- Output %>% add_row(
           timestamp = timestamp_now,
           Table = Table_name,
@@ -238,10 +224,9 @@ browseMetadata <- function(
           Domain_code = as.character(lookup_subset$DomainCode),
           Note = 'AUTO CATEGORISED'
         )
-        #Output <- rbind(Output,this_Output)
       } else if (df_prev_exist == TRUE &
                  nrow(df_prev_subset) == 1) {
-        # 2 - copy from previous table
+        ##### 2 - copy from previous table
         Output <- Output %>% add_row(
           timestamp = timestamp_now,
           Table = Table_name,
@@ -251,7 +236,7 @@ browseMetadata <- function(
           Note = paste0("COPIED FROM: ", df_prev_subset$Table)
         )
       } else {
-        # 3 - collect user responses
+        ##### 3 - collect user responses with 'user_categorisation.R'
         decision_output <- user_categorisation(
           selectTable_df$Label[data_v],
           selectTable_df$Description[data_v],
@@ -267,36 +252,39 @@ browseMetadata <- function(
           Note = decision_output$decision_note
         )
       }
-    } # end of loop for DataElement
+    } ##### end of loop for DataElement
 
-    # Review auto categorized data elements ----
+    ## Review auto categorized data elements ----
+    ### Use 'user_prompt_list.R' to ask the user which rows to edit
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     Output_auto <- Output_auto[, c("DataElement", "Domain_code", "Note")]
 
     auto_row <- user_prompt_list(
       pre_prompt_df = Output_auto,
       pre_prompt_df_rows = TRUE,
-      prompt_text = 'These are the auto categorised data elements.
-      Enter row numbers for the ones you want to edit: ',
+      prompt_text =paste('These are the auto categorised data elements.'
+                         'Enter row numbers for those you want to edit: '),
       list_allowed = which(Output$Note == 'AUTO CATEGORISED')
     )
 
     if (length(auto_row) != 0) {
       for (data_v_auto in unique(auto_row)) {
-        # collect user responses
+        #### collect user responses with with 'user_categorisation.R'
         decision_output <- user_categorisation(
           selectTable_df$Label[data_v_auto],
           selectTable_df$Description[data_v_auto],
           selectTable_df$Type[data_v_auto],
           max(df_plots$Code$Code)
         )
-        # input user responses into output
+        #### input user responses into output
         Output$Domain_code[data_v_auto] <- decision_output$decision
         Output$Note[data_v_auto] <- decision_output$decision_note
       }
     }
 
-    # Review user categorized data elements (optional) ----
+    ## Review user categorized data elements (optional) ----
+    ### Use 'user_prompt.R' to ask the user if they want to review
+    ### Use 'user_prompt_list.R' to ask the user which rows to edit
     review_cats <- user_prompt(
       prompt_text = "Would you like to review your categorisations? (y/n): ",
       any_keys = FALSE)
@@ -312,92 +300,63 @@ browseMetadata <- function(
       not_auto_row <- user_prompt_list(
         pre_prompt_df = Output_not_auto,
         pre_prompt_df_rows = TRUE,
-        prompt_text = 'These are the data elements you categorised.
-        Enter row numbers for the ones you want to edit: ',
+        prompt_text = paste('These are the data elements you categorised.',
+                            'Enter row numbers for those you want to edit: '),
         list_allowed = which(Output$Note != 'AUTO CATEGORISED')
       )
       if (length(not_auto_row) != 0) {
         for (data_v_not_auto in unique(not_auto_row)) {
-          # collect user responses
+          # collect user responses with with 'user_categorisation.R'
           decision_output <- user_categorisation(
             selectTable_df$Label[data_v_not_auto],
             selectTable_df$Description[data_v_not_auto],
             selectTable_df$Type[data_v_not_auto],
             max(df_plots$Code$Code)
           )
-          # input user responses into output
+          #### input user responses into output
           Output$Domain_code[data_v_not_auto] <- decision_output$decision
           Output$Note[data_v_not_auto] <- decision_output$decision_note
         }
       }
     }
 
-    # Fill in log output ----
+    ## Fill in log output ----
     log_Output <- log_Output %>% add_row(
       timestamp = timestamp_now,
       browseMetadata = packageVersion("browseMetadata"),
       Initials = User_Initials,
       MetaDataVersion = Dataset$documentationVersion,
       MetaDataLastUpdated = Dataset$lastUpdated,
-      DomainListDesc = DomainListDesc,
+      DomainListDesc = data$DomainListDesc,
       Dataset = Dataset_Name,
       Table = Table_name,
       Table_note = table_note
     )
 
-    # Create output file names ----
-    csv_fname <- paste0(
-      "OUTPUT_",
-      gsub(" ", "", Dataset_Name),
-      "_",
-      gsub(" ", "", Table_name),
-      "_",
-      timestamp_now,
-      ".csv"
-    )
-    csv_log_fname <- paste0(
-      "LOG_",
-      gsub(" ", "", Dataset_Name),
-      "_",
-      gsub(" ", "", Table_name),
-      "_",
-      timestamp_now,
-      ".csv"
-    )
-    png_fname <- paste0(
-      "PLOT_",
-      gsub(" ", "", Dataset_Name),
-      "_",
-      gsub(" ", "", Table_name),
-      "_",
-      timestamp_now,
-      ".png"
-    )
+    ## Create output file names ----
+    csv_fname <- paste0("OUTPUT_",gsub(" ", "", Dataset_Name),"_",
+                        gsub(" ", "", Table_name),"_",timestamp_now,".csv")
+    csv_log_fname <- paste0("LOG_",gsub(" ", "", Dataset_Name),"_",
+                            gsub(" ", "", Table_name),"_",timestamp_now,".csv")
+    png_fname <- paste0("PLOT_",gsub(" ", "", Dataset_Name),"_",
+                        gsub(" ", "", Table_name),"_",timestamp_now,".png")
 
-    # Save final categorisations for this Table  ----
-    utils::write.csv(Output,
-                     paste(output_dir, csv_fname, sep = '/'),
+    ## Save final categorisations for this Table  ----
+    utils::write.csv(Output,paste(output_dir, csv_fname, sep = '/'),
                      row.names = FALSE)
-    utils::write.csv(log_Output,
-                     paste(output_dir, csv_log_fname, sep = '/'),
+    utils::write.csv(log_Output,paste(output_dir, csv_log_fname, sep = '/'),
                      row.names = FALSE)
     cat("\n")
     cli_alert_success("Final categorisations saved in:\n{csv_fname}")
     cli_alert_success("Session log saved in:\n{csv_log_fname}")
 
-    # Create and save a summary plot
+    ## Create and save a summary plot
     counts <- Output %>% group_by(Domain_code) %>% count() %>% arrange(n)
 
     Domain_plot <- counts %>%
       ggplot(aes(x = reorder(Domain_code, -n), y = n)) +
       geom_col() +
-      ggtitle(
-        paste(
-          "Data Elements in",
-          Table_name,
-          "grouped by Domain code"
-        )
-      ) +
+      ggtitle(paste("Data Elements in",Table_name,"grouped by Domain code")) +
       theme_gray(base_size = 18) +
       theme(axis.text.x = element_text(
         angle = 90,
