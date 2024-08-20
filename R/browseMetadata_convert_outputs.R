@@ -1,4 +1,4 @@
-#' post_browseMetadata_convert
+#' browseMetadata_convert_outputs
 #'
 #' The 'OUTPUT_' file groups multiple categorisations onto one line e.g. '1,3' \cr \cr
 #' This function creates a new longer output 'L-OUTPUT_' which gives each categorisation its own row \cr \cr
