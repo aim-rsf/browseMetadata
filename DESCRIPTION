@@ -19,7 +19,8 @@ Imports:
     ggplot2,
     grid,
     gridExtra,
-    rjson
+    rjson,
+    tidyverse
 Suggests: 
     knitr,
     rmarkdown
