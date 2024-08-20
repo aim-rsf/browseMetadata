@@ -113,9 +113,8 @@ browseMetadata <- function(
       Table_Name = Dataset$childDataClasses[[dc]]$label)
     }
 
-  nTables_Process <- user_prompt_list(
-    pre_prompt_df = table_df,
-    pre_prompt_df_rows = FALSE,
+  print(table_df,row.names = FALSE)
+    nTables_Process <- user_prompt_list(
     prompt_text =
       paste('Found',nTables,'table(s) in this Dataset.','Enter table numbers',
             'you want to process (one table number on each line):'),
@@ -132,7 +131,7 @@ browseMetadata <- function(
     Table_name <- Dataset$childDataClasses[[dc]]$label
     cat(Table_name,"\n",fill = TRUE)
 
-    ### Use 'copy_previous.R' to copy from previous output(s) if they exist ----
+    ### Use 'copy_previous.R' to copy from previous output(s) if they exist
     if (table_copy == TRUE) {
       output <- copy_previous(Dataset_Name,output_dir)
       df_prev_exist <- output$df_prev_exist
@@ -141,7 +140,7 @@ browseMetadata <- function(
       df_prev_exist <- FALSE
     }
 
-    ### Use 'user_prompt.R' to ask if user wants to read desc of table ----
+    ### Use 'user_prompt.R' to ask if user wants to read desc of table
     prompt_text = "Would you like to read a description of the table? (y/n): "
     post_yes_text <- data.frame(Heading = logical(0), Text = character(0))
     post_yes_text <- post_yes_text %>% add_row(
@@ -160,8 +159,9 @@ browseMetadata <- function(
     table_note <- readline(paste('Optional free text note about this table',
                                  '(or press enter to continue): '))
 
-    ### Extract data for this table into a data frame ----
-    Table <- Dataset$childDataClasses[[dc]]$childDataElements #probably a better way of dealing with complex json files in R ...
+    ### Extract data for this table into a data frame
+    # probably a better way of dealing with json nesting but this works for now!
+    Table <- Dataset$childDataClasses[[dc]]$childDataElements
     Table_df <- data.frame(do.call(rbind, Table)) # nested list to df
     dataType_df <- data.frame(do.call(rbind, Table_df$dataType)) # nested list to df
 
@@ -173,95 +173,45 @@ browseMetadata <- function(
 
     selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
 
-    ## Loop through each data element, request categorisation from user ----
+    ### Ask user which data elements to process
 
-    #### if it's the demo run, only loop through a max of 20 data elements ----
+    cli_alert_info(paste('There are', as.character(nrow(selectTable_df)),
+                 'data elements (variables) in this table.'))
+
     if (data$demo_mode == TRUE) {
       start_v = 1
       end_v = min(20, nrow(selectTable_df))
     } else {
-      cli_h1(paste(
-        'There are',
-        as.character(nrow(selectTable_df)),
-        'data elements (variables) in this table.'
-      ))
-      cat("\n")
-      start_v <- readline(prompt = "Start variable (write 1 to process all): ")
-      cat("\n")
-      end_v <- readline(prompt = paste(
-        "End variable (write",
-        nrow(selectTable_df),
-        "to process all): "
-      ))
+      #### Use 'user_prompt_list.R' to ask user which data elements
+      start_v <- user_prompt_list(
+        prompt_text = 'Start variable (write 1 to process all): ',
+        list_allowed = seq(from = 1, to = nrow(selectTable_df), by = 1),
+        empty_allowed)
+      end_v <- user_prompt_list(
+        prompt_text = paste('End variable (write',
+                            as.character(nrow(selectTable_df)),
+                            'to process all):'),
+        list_allowed = seq(from = start_v, to = nrow(selectTable_df), by = 1),
+        empty_allowed)
     }
 
-    for (data_v in start_v:end_v) {
-      cat("\n \n")
-      cli_alert_info(paste(length(data_v:end_v), 'left to process'))
-      cli_alert_info("Data element {data_v} of {nrow(selectTable_df)}")
-      this_DataElement <- selectTable_df$Label[data_v]
-      this_DataElement_N <- paste(as.character(data_v), 'of',
-                                  as.character(nrow(selectTable_df)))
-      data_v_index <- which(data$lookup$DataElement ==
-                              selectTable_df$Label[data_v]) #we should code this to ignore the case
-      lookup_subset <- data$lookup[data_v_index, ]
-      ##### search if data element matches any data elements from previous table
-      if (df_prev_exist == TRUE) {
-        data_v_index <- which(df_prev$DataElement ==
-                                selectTable_df$Label[data_v])
-        df_prev_subset <- df_prev[data_v_index, ]
-      } else {
-        df_prev_subset <- data.frame()
-      }
-      ##### decide how to process the data element out of 3 options
-      if (nrow(lookup_subset) == 1) {
-        ###### 1 - auto categorisation
-        Output <- Output %>% add_row(
-          timestamp = timestamp_now,
-          Table = Table_name,
-          DataElement = this_DataElement,
-          DataElement_N = this_DataElement_N,
-          Domain_code = as.character(lookup_subset$DomainCode),
-          Note = 'AUTO CATEGORISED'
-        )
-      } else if (df_prev_exist == TRUE &
-                 nrow(df_prev_subset) == 1) {
-        ###### 2 - copy from previous table
-        Output <- Output %>% add_row(
-          timestamp = timestamp_now,
-          Table = Table_name,
-          DataElement = this_DataElement,
-          DataElement_N = this_DataElement_N,
-          Domain_code = as.character(df_prev_subset$Domain_code),
-          Note = paste0("COPIED FROM: ", df_prev_subset$Table)
-        )
-      } else {
-        ###### 3 - collect user responses with 'user_categorisation.R'
-        decision_output <- user_categorisation(
-          selectTable_df$Label[data_v],
-          selectTable_df$Description[data_v],
-          selectTable_df$Type[data_v],
-          max(df_plots$Code$Code)
-        )
-        Output <- Output %>% add_row(
-          timestamp = timestamp_now,
-          Table = Table_name,
-          DataElement = this_DataElement,
-          DataElement_N = this_DataElement_N,
-          Domain_code = decision_output$decision,
-          Note = decision_output$decision_note
-        )
-      }
-    } ###### end of loop for DataElement
+    ### Use 'user_categorisation_loop.R' to copy or request from user
 
-    ### Review auto categorized data elements ----
+    user_categorisation_loop(start_v,
+                             end_v,
+                             selectTable_df,
+                             df_prev_exist,
+                             df_prev,
+                             lookup_subset,
+                             Output)
+
+    ### Review auto categorized data elements
     #### Use 'user_prompt_list.R' to ask the user which rows to edit
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     Output_auto <- Output_auto[, c("DataElement", "Domain_code", "Note")]
+    print(Output_auto)
 
     auto_row <- user_prompt_list(
-      pre_prompt_df = Output_auto,
-      pre_prompt_df_rows = TRUE,
       prompt_text = paste('These are the auto categorised data elements.',
                           'Enter row numbers for those you want to edit: '),
       list_allowed = which(Output$Note == 'AUTO CATEGORISED'),
@@ -283,7 +233,7 @@ browseMetadata <- function(
       }
     }
 
-    ### Review user categorized data elements (optional) ----
+    ### Review user categorized data elements (optional)
     #### Use 'user_prompt.R' to ask the user if they want to review
     #### Use 'user_prompt_list.R' to ask the user which rows to edit
     review_cats <- user_prompt(
@@ -293,14 +243,11 @@ browseMetadata <- function(
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       Output_not_auto['Note (first 12 chars)'] <-
         substring(Output_not_auto$Note, 1, 11)
-      Output_not_auto <- Output_not_auto[,
-                                         c("DataElement",
-                                           "Domain_code",
-                                           "Note (first 12 chars)")]
-
+      print(Output_not_auto[,
+                            c("DataElement",
+                              "Domain_code",
+                              "Note (first 12 chars)")])
       not_auto_row <- user_prompt_list(
-        pre_prompt_df = Output_not_auto,
-        pre_prompt_df_rows = TRUE,
         prompt_text = paste('These are the data elements you categorised.',
                             'Enter row numbers for those you want to edit: '),
         list_allowed = which(Output$Note != 'AUTO CATEGORISED'),
@@ -322,7 +269,7 @@ browseMetadata <- function(
       }
     }
 
-    ### Fill in log output ----
+    ### Fill in log output
     log_Output$timestamp = timestamp_now
     log_Output$browseMetadata = packageVersion("browseMetadata")
     log_Output$Initials = User_Initials
@@ -333,7 +280,7 @@ browseMetadata <- function(
     log_Output$Table = Table_name
     log_Output$Table_note = table_note
 
-    ### Create output file names ----
+    ### Create output file names
     csv_fname <- paste0("OUTPUT_",gsub(" ", "", Dataset_Name),"_",
                         gsub(" ", "", Table_name),"_",timestamp_now,".csv")
     csv_log_fname <- paste0("LOG_",gsub(" ", "", Dataset_Name),"_",
@@ -341,7 +288,7 @@ browseMetadata <- function(
     png_fname <- paste0("PLOT_",gsub(" ", "", Dataset_Name),"_",
                         gsub(" ", "", Table_name),"_",timestamp_now,".png")
 
-    ### Save final categorisations for this Table  ----
+    ### Save final categorisations for this Table
     utils::write.csv(Output,paste(output_dir, csv_fname, sep = '/'),
                      row.names = FALSE)
     utils::write.csv(log_Output,paste(output_dir, csv_log_fname, sep = '/'),
