@@ -1,6 +1,6 @@
 #' DOCUMENT!
 
-browseMetadata_user_prompt <- function(pre_prompt_text = NULL, prompt_text, any_keys, post_yes_text = NULL) {
+user_prompt <- function(pre_prompt_text = NULL, prompt_text, any_keys, post_yes_text = NULL) {
 
   # pre prompt text is optional
   # prompt text is not

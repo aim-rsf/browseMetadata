@@ -1,6 +1,6 @@
 #' DOCUMENT!
 
-browseMetadata_user_prompt_list <- function(pre_prompt_df,pre_prompt_df_rows,prompt_text,list_allowed) {
+user_prompt_list <- function(pre_prompt_df,pre_prompt_df_rows,prompt_text,list_allowed) {
 
   print(pre_prompt_df,row.names = pre_prompt_df_rows)
 

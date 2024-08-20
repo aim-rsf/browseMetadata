@@ -1,6 +1,6 @@
 #' DOCUMENT!
 
-browseMetadata_ref_plot <- function(domains){
+ref_plot <- function(domains){
 
   colnames(domains)[1] = "Domain Name"
   graphics::plot.new()
