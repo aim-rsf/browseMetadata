@@ -9,7 +9,7 @@
 #'DataElement = character(0),
 #'Domain_code = character(0),
 #'Note = character(0)
-#')
+#')}
 #'
 #' \item \code{usethis::use_data(Output)}
 #'

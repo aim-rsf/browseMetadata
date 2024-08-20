@@ -13,28 +13,47 @@ browseMetadata(
 )
 }
 \arguments{
-\item{json_file}{The metadata file. This should be downloaded from the metadata catalogue as a json file. See 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an example download.}
+\item{json_file}{The metadata file. This should be downloaded from the
+metadata catalogue as a json file. See
+'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an
+example download.}
 
-\item{domain_file}{The domain list file. This should be a csv file created by the user, with each domain listed on a separate line. See 'data-raw/domain_list_demo.csv' for a template.}
+\item{domain_file}{The domain list file. This should be a csv file created by
+the user, with each domain listed on a separate line. See
+'data-raw/domain_list_demo.csv' for a template.}
 
-\item{look_up_file}{The look-up table file, with auto-categorisations. By default, the code uses 'data/look-up.rda'. The user can provide their own look-up table in the same format as 'data-raw/look-up.csv'.}
+\item{look_up_file}{The look-up table file, with auto-categorisations. By
+default, the code uses 'data/look-up.rda'. The user can provide their own
+look-up table in the same format as 'data-raw/look-up.csv'.}
 
-\item{output_dir}{The path to the directory where the two csv output files will be saved. By default, the current working directory is used.}
+\item{output_dir}{The path to the directory where the two csv output files
+will be saved. By default, the current working directory is used.}
 
-\item{table_copy}{Turn on copying between tables (TRUE or FALSE, default TRUE). If TRUE, categorisations you made for all other tables in this dataset will be copied over (if 'OUTPUT_' files are found in output_dir).}
+\item{table_copy}{Turn on copying between tables (TRUE or FALSE, default
+TRUE). If TRUE, categorisations you made for all other tables in this dataset
+will be copied over (if 'OUTPUT_' files are found in output_dir).}
 }
 \value{
-The function will return two csv files: 'OUTPUT_' which contains the mappings and 'LOG_' which contains details about the dataset and session.
+The function will return two csv files: 'OUTPUT_' which contains the
+mappings and 'LOG_' which contains details about the dataset and session.
 }
 \description{
-This function will read in the metadata file for a chosen dataset, loop through all the data elements, and ask the user to catergorise/label each data element as belonging to one or more domains.\cr \cr
-The domains will appear in the Plots tab and dataset information will be printed to the R console, for the user's reference in making these categorisations. \cr \cr
-These categorisations will be saved to a csv file, alongside a log file which summarises the session details.
-To speed up this process, some auto-categorisations will be made by the function for commonly occurring data elements and categorisations for the same data element can be copied from one table to another. \cr \cr
-Example inputs are provided within the package data, for the user to run this function in a demo mode.
+This function will read in the metadata file for a chosen dataset, loop
+through all the data elements, and ask the user to catergorise/label each
+data element as belonging to one or more domains.\cr \cr
+The domains will appear in the Plots tab and dataset information will be
+printed to the R console, for the user's reference in making these
+categorisations. \cr \cr
+These categorisations will be saved to a csv file, alongside a log file which
+summarises the session details.To speed up this process, some
+auto-categorisations will be made by the function for commonly occurring data
+elements and categorisations for the same data element can be copied from one
+table to another. \cr \cr
+Example inputs are provided within the package data, for the user to run this
+function in a demo mode.
 }
 \examples{
 # Run in demo mode by providing no inputs: browseMetadata()
 # Demo mode will use the /data files provided in this package
-# For more guidance, refer to the package README.md file and the R manual files.
+# For more guidance, refer to the package README.md file.
 }
