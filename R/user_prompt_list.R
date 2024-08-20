@@ -1,8 +1,6 @@
 #' DOCUMENT!
 
-user_prompt_list <- function(pre_prompt_df,pre_prompt_df_rows,prompt_text,list_allowed,empty_allowed) {
-
-  print(pre_prompt_df,row.names = pre_prompt_df_rows)
+user_prompt_list <- function(prompt_text,list_allowed,empty_allowed) {
 
   list_to_process_Error <- TRUE
   list_to_process_InRange <- TRUE
