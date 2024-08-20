@@ -4,7 +4,12 @@
 \alias{browseMetadata_user_prompt}
 \title{DOCUMENT!}
 \usage{
-browseMetadata_user_prompt(pre_prompt_text = NULL, prompt_text, any_keys)
+browseMetadata_user_prompt(
+  pre_prompt_text = NULL,
+  prompt_text,
+  any_keys,
+  post_yes_text = NULL
+)
 }
 \description{
 DOCUMENT!

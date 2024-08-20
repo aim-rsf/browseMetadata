@@ -19,9 +19,9 @@ post_browseMetadata_compare(
 
 \item{session2_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'}
 
-\item{json_file}{The full path to the metadata file used when running domain_mapping (should be the same for session 1 and session 2)}
+\item{json_file}{The full path to the metadata file used when running browseMetadata (should be the same for session 1 and session 2)}
 
-\item{domain_file}{The full path to the domain file used when running domain_mapping (should be the same for session 1 and session 2)}
+\item{domain_file}{The full path to the domain file used when running browseMetadata (should be the same for session 1 and session 2)}
 }
 \value{
 It returns a csv output, which represents the consensus decisions between session 1 and session 2

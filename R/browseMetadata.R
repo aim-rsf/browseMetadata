@@ -20,7 +20,7 @@
 #' @importFrom graphics plot.new
 #' @importFrom utils read.csv write.csv
 #' @importFrom dplyr %>% arrange count group_by distinct
-#' @importFrom tidyverse %>% add_row
+#' @importFrom tidyverse add_row
 
 browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = NULL, output_dir = NULL, table_copy = TRUE) {
 
@@ -54,29 +54,15 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
   # Ask user which tables to process  ----
   nTables <- length(data$meta_json$dataModel$childDataClasses)
-  cat("\n")
-  cli_alert_info("Found {nTables} Table{?s} in this Dataset")
+  table_df <- data.frame(Table_Name = character(0),Table_Number = integer(0))
   for (dc in 1:nTables) {
-    cat("\n")
-    cat(dc,data$meta_json$dataModel$childDataClasses[[dc]]$label, fill = TRUE)
+    table_df <- table_df %>% add_row(Table_Number = dc, Table_Name = data$meta_json$dataModel$childDataClasses[[dc]]$label)
   }
 
-  nTables_Process <- numeric(0)
-  nTables_Process_Error <- TRUE
-  nTables_Process_OutOfRange <- FALSE
-  while (length(nTables_Process) == 0 | nTables_Process_Error==TRUE | nTables_Process_OutOfRange == TRUE) {
-    if (nTables_Process_OutOfRange == TRUE) {
-      cli_alert_danger('That table number is not within the range displayed, please try again.')}
-    tryCatch({
-      cat("\n \n");
-      cli_alert_info("Enter each table number you want to process in this session (one number on each line):");
-      cat("\n");
-      nTables_Process <- scan(file="",what=0);
-      nTables_Process_Error <- FALSE;
-      nTables_Process_OutOfRange = any(nTables_Process > nTables)},
-      error=function(e) {nTables_Process_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, reference the table numbers and try again')})
-  }
-
+  nTables_Process <- browseMetadata_user_prompt_from_list(pre_prompt_df = table_df,
+                                                          pre_prompt_df_rows = FALSE,
+                                                          prompt_text = paste('Found',nTables,'table(s) in this Dataset. Enter table numbers you want to process (one table number on each line):'),
+                                                          list_allowed = seq(from = 1, to = nTables, by = 1))
   # Extract each Table  ----
   for (dc in unique(nTables_Process)) {
     cat("\n")
@@ -87,7 +73,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     cli_h1("Table Last Updated")
     cat(data$meta_json$dataModel$childDataClasses[[dc]]$lastUpdated, "\n", fill = TRUE)
 
-    # Check if previous table output(s) exists in this output_dir (for table copying)
+    # Check if previous table output(s) exists in this output_dir (for table copying) ----
     if (table_copy == TRUE){
       dataset_search = paste0("^OUTPUT_",gsub(" ", "", data$meta_json$dataModel$label),'*')
       csv_list <- data.frame(file = list.files(output_dir,pattern = dataset_search))
@@ -106,7 +92,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       } else {df_combined_exist <- FALSE}
     } else {df_combined_exist <- FALSE}
 
-    # Ask if user wants to read desc of table
+    # Ask if user wants to read desc of table ----
     prompt_text = "Would you like to read a description of the table? (y/n): "
     post_yes_text <- data.frame(Heading = logical(0),Text = character(0))
     post_yes_text <- post_yes_text %>% add_row(Heading = TRUE, Text = 'Table Description')
@@ -116,7 +102,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
 
     table_note <- readline("Optional free text note about this table (or press enter to continue): ")
 
-    # Extract data for this table into a data frame
+    # Extract data for this table into a data frame ----
     thisTable <- data$meta_json$dataModel$childDataClasses[[dc]]$childDataElements #  probably a better way of dealing with complex json files in R ...
     thisTable_df <- data.frame(do.call(rbind, thisTable)) # nested list to dataframe
     dataType_df <- data.frame(do.call(rbind, thisTable_df$dataType)) # nested list to dataframe
@@ -134,7 +120,7 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
     log_Output <- get("log_Output")
     Output <- get("Output")
 
-    # if it's the demo run, only loop through a max of 20 data elements
+    # if it's the demo run, only loop through a max of 20 data elements ----
     if (data$demo_mode == TRUE) {
       start_var = 1
       end_var = min(20,nrow(selectTable_df))
@@ -174,33 +160,18 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
           }
       } # end of loop for DataElement
 
-    ## Print the AUTO CATEGORISED responses for this Table and request review  ----
-    Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
-    cat("\n \n")
-    cli_alert_warning("Please check the auto categorised data elements are accurate for table {data$meta_json$dataModel$childDataClasses[[dc]]$label}:")
-    cat("\n \n")
-    print(Output_auto[, c("DataElement", "Domain_code","Note")])
 
-    # extract the rows to edit
-    auto_row_Error <- TRUE
-    auto_row_InRange <- TRUE
-    while (auto_row_Error==TRUE | auto_row_InRange == FALSE) {
-      if (auto_row_InRange == FALSE) {
-        cli_alert_danger('The row numbers you provided are not in range. Reference the auto categorised row numbers on the screen and try again')}
-      tryCatch({
-        cat("\n \n");
-        cli_alert_info("Press enter to accept the auto categorisations for table {data$meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
-        cat("\n");
-        auto_row <- scan(file="",what=0);
-        auto_row_Error <- FALSE;
-        auto_row_InRange <- all(auto_row %in% which(Output$Note == 'AUTO CATEGORISED'))},
-        error=function(e) {auto_row_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, try again')})
-    }
+    # Review auto categorized data elements ----
+    Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
+    Output_auto <- Output_auto[, c("DataElement", "Domain_code","Note")]
+
+    auto_row <- browseMetadata_user_prompt_from_list(pre_prompt_df = Output_auto,
+                                                     pre_prompt_df_rows = TRUE,
+                                                     prompt_text = 'These are the auto categorised data elements. Enter row numbers for the ones you want to edit: ',
+                                                     list_allowed = which(Output$Note == 'AUTO CATEGORISED'))
 
     if (length(auto_row) != 0) {
-
       for  (datavar_auto in unique(auto_row)) {
-
         # collect user responses
         decision_output <- browseMetadata_user_categorisation(selectTable_df$Label[datavar_auto],selectTable_df$Description[datavar_auto],selectTable_df$Type[datavar_auto],max(df_plots$Code$Code))
         # input user responses into output
@@ -209,32 +180,17 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       }
     }
 
-    ## Ask if user wants to review their responses for this Table ----
-    browseMetadata_user_prompt(prompt_text = "Would you like to review your categorisations? (y/n): ",any_keys = FALSE)
-
+    # Review user categorized data elements (optional) ----
+    review_cats <- browseMetadata_user_prompt(prompt_text = "Would you like to review your categorisations? (y/n): ",any_keys = FALSE)
     if (review_cats == 'Y' | review_cats == 'y') {
       Output_not_auto <- subset(Output, Note != 'AUTO CATEGORISED')
       Output_not_auto['Note (first 12 chars)'] <- substring(Output_not_auto$Note,1,11)
-      cat("\n \n")
-      print(Output_not_auto[, c("DataElement", "Domain_code","Note (first 12 chars)")])
-      cat("\n \n")
+      Output_not_auto <- Output_not_auto[, c("DataElement", "Domain_code","Note (first 12 chars)")]
 
-      # extract the rows to edit
-      not_auto_row_Error <- TRUE
-      not_auto_row_InRange <- TRUE
-      while (not_auto_row_Error==TRUE | not_auto_row_InRange == FALSE) {
-        if (not_auto_row_InRange == FALSE) {
-          cli_alert_danger('The row numbers you provided are not in range. Reference the row numbers on the screen and try again')}
-        tryCatch({
-          cat("\n \n");
-          cli_alert_info("Press enter to accept your categorisations for table {data$meta_json$dataModel$childDataClasses[[dc]]$label} or enter each row you'd like to edit:");
-          cat("\n");
-          not_auto_row <- scan(file="",what=0);
-          not_auto_row_Error <- FALSE;
-          not_auto_row_InRange <- all(not_auto_row %in% which(Output$Note != 'AUTO CATEGORISED'))},
-          error=function(e) {not_auto_row_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format, reference the row numbers and try again')})
-      }
-
+      not_auto_row <- browseMetadata_user_prompt_from_list(pre_prompt_df = Output_not_auto,
+                                                       pre_prompt_df_rows = TRUE,
+                                                       prompt_text = 'These are the data elements you categorised. Enter row numbers for the ones you want to edit: ',
+                                                       list_allowed = which(Output$Note != 'AUTO CATEGORISED'))
       if (length(not_auto_row) != 0) {
 
         for  (datavar_not_auto in unique(not_auto_row)) {
@@ -248,30 +204,31 @@ browseMetadata <- function(json_file = NULL, domain_file = NULL, look_up_file = 
       }
     }
 
-    ## Fill in log output ----
-    log_Output$timestamp <- timestamp_now
-    log_Output$browseMetadata <- packageVersion("browseMetadata")
-    log_Output$Initials <- User_Initials
-    log_Output$MetaDataVersion <- data$meta_json$dataModel$documentationVersion
-    log_Output$MetaDataLastUpdated <- data$meta_json$dataModel$lastUpdated
-    log_Output$DomainListDesc <- DomainListDesc
-    log_Output$Dataset <- data$meta_json$dataModel$label
-    log_Output$Table <- data$meta_json$dataModel$childDataClasses[[dc]]$label
-    log_Output$Table_note <- table_note
+    # Fill in log output ----
+    log_Output <- log_Output %>% add_row(
+      timestamp = timestamp_now,
+      browseMetadata = packageVersion("browseMetadata"),
+      Initials = User_Initials,
+      MetaDataVersion = data$meta_json$dataModel$documentationVersion,
+      MetaDataLastUpdated = data$meta_json$dataModel$lastUpdated,
+      DomainListDesc = DomainListDesc,
+      Dataset = data$meta_json$dataModel$label,
+      Table = data$meta_json$dataModel$childDataClasses[[dc]]$label,
+      Table_note = table_note)
 
     # Create output file names ----
     output_fname_csv <- paste0("OUTPUT_", gsub(" ", "", data$meta_json$dataModel$label), "_", gsub(" ", "", data$meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
     output_fname_log_csv <- paste0("LOG_", gsub(" ", "", data$meta_json$dataModel$label), "_", gsub(" ", "", data$meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".csv")
     output_fname_png <- paste0("PLOT_", gsub(" ", "", data$meta_json$dataModel$label), "_", gsub(" ", "", data$meta_json$dataModel$childDataClasses[[dc]]$label), "_", timestamp_now, ".png")
 
-    ## Save final categorisations for this Table  ----
+    # Save final categorisations for this Table  ----
     utils::write.csv(Output, paste(output_dir,output_fname_csv,sep='/'), row.names = FALSE)
     utils::write.csv(log_Output, paste(output_dir,output_fname_log_csv,sep='/'), row.names = FALSE)
     cat("\n")
     cli_alert_success("Your final categorisations have been saved:\n{output_fname_csv}")
     cli_alert_success("Your session log has been saved:\n{output_fname_log_csv}")
 
-    ## Create and save a summary plot
+    # Create and save a summary plot
     counts <- Output %>% group_by(Domain_code) %>% count() %>% arrange(n)
 
     Domain_plot <- counts %>%
