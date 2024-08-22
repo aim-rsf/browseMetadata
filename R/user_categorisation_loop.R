@@ -1,4 +1,4 @@
-user_categorisation_loop <- function(start_v,end_v,selectTable_df,df_prev_exist,df_prev,lookup_subset,Output) {
+user_categorisation_loop <- function(start_v,end_v,selectTable_df,df_prev_exist,df_prev,lookup,df_plots,Output,timestamp_now,Table_name) {
 
   for (data_v in start_v:end_v) {
     cat("\n \n")
@@ -7,9 +7,9 @@ user_categorisation_loop <- function(start_v,end_v,selectTable_df,df_prev_exist,
     this_DataElement <- selectTable_df$Label[data_v]
     this_DataElement_N <- paste(as.character(data_v), 'of',
                                 as.character(nrow(selectTable_df)))
-    data_v_index <- which(data$lookup$DataElement ==
+    data_v_index <- which(lookup$DataElement ==
                             selectTable_df$Label[data_v]) #we should code this to ignore the case
-    lookup_subset <- data$lookup[data_v_index, ]
+    lookup_subset <- lookup[data_v_index, ]
     ##### search if data element matches any data elements from previous table
     if (df_prev_exist == TRUE) {
       data_v_index <- which(df_prev$DataElement ==
@@ -58,5 +58,5 @@ user_categorisation_loop <- function(start_v,end_v,selectTable_df,df_prev_exist,
       )
     }
   } # end of loop for DataElement
-
+  Output
 }

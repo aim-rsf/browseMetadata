@@ -197,16 +197,20 @@ browseMetadata <- function(
 
     ### Use 'user_categorisation_loop.R' to copy or request from user
 
-    user_categorisation_loop(start_v,
+    Output <- user_categorisation_loop(start_v,
                              end_v,
                              selectTable_df,
                              df_prev_exist,
                              df_prev,
-                             lookup_subset,
-                             Output)
+                             lookup = data$lookup,
+                             df_plots,
+                             Output,
+                             timestamp_now,
+                             Table_name)
 
     ### Review auto categorized data elements
     #### Use 'user_prompt_list.R' to ask the user which rows to edit
+    cat('\n')
     Output_auto <- subset(Output, Note == 'AUTO CATEGORISED')
     Output_auto <- Output_auto[, c("DataElement", "Domain_code", "Note")]
     print(Output_auto)
@@ -298,28 +302,10 @@ browseMetadata <- function(
     cli_alert_success("Session log saved in:\n{csv_log_fname}")
 
     ### Create and save a summary plot
-    counts <- Output %>% group_by(Domain_code) %>% count() %>% arrange(n)
-
-    Domain_plot <- counts %>%
-      ggplot(aes(x = reorder(Domain_code, -n), y = n)) +
-      geom_col() +
-      ggtitle(paste("Data Elements in",Table_name,"grouped by Domain code")) +
-      theme_gray(base_size = 18) +
-      theme(axis.text.x = element_text(
-        angle = 90,
-        vjust = 0.5,
-        hjust = 1
-      )) +
-      xlab('Domain Code') +
-      ylab('Count') +
-      scale_y_continuous(breaks = seq(0, max(counts$n), 1))
-
-    full_plot <- grid.arrange(Domain_plot,
-                              df_plots$Domain_table,
-                              nrow = 1,
-                              ncol = 2)
+    end_plot_save <- end_plot(df = Output,Table_name,
+                              ref_table = df_plots$Domain_table)
     ggsave(
-      plot = full_plot,
+      plot = end_plot_save$full_plot,
       paste(output_dir, png_fname, sep = '/'),
       width = 14,
       height = 8,
