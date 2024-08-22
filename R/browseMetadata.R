@@ -159,39 +159,28 @@ browseMetadata <- function(
     table_note <- readline(paste('Optional free text note about this table',
                                  '(or press enter to continue): '))
 
-    ### Extract data for this table into a data frame
-    # probably a better way of dealing with json nesting but this works for now!
-    Table <- Dataset$childDataClasses[[dc]]$childDataElements
-    Table_df <- data.frame(do.call(rbind, Table)) # nested list to df
-    dataType_df <- data.frame(do.call(rbind, Table_df$dataType)) # nested list to df
-
-    selectTable_df <- data.frame(
-      Label = unlist(Table_df$label),
-      Description = unlist(Table_df$description),
-      Type = unlist(dataType_df$label)
-    )
-
-    selectTable_df <- selectTable_df[order(selectTable_df$Label), ]
+    ###  Use 'json_table_to_df.R' to extract table from meta_json into a df
+    Table_df <- json_table_to_df(Dataset = Dataset,n = dc)
 
     ### Ask user which data elements to process
 
-    cli_alert_info(paste('There are', as.character(nrow(selectTable_df)),
+    cli_alert_info(paste('There are', as.character(nrow(Table_df)),
                  'data elements (variables) in this table.'))
 
     if (data$demo_mode == TRUE) {
       start_v = 1
-      end_v = min(20, nrow(selectTable_df))
+      end_v = min(20, nrow(Table_df))
     } else {
       #### Use 'user_prompt_list.R' to ask user which data elements
       start_v <- user_prompt_list(
         prompt_text = 'Start variable (write 1 to process all): ',
-        list_allowed = seq(from = 1, to = nrow(selectTable_df), by = 1),
+        list_allowed = seq(from = 1, to = nrow(Table_df), by = 1),
         empty_allowed)
       end_v <- user_prompt_list(
         prompt_text = paste('End variable (write',
-                            as.character(nrow(selectTable_df)),
+                            as.character(nrow(Table_df)),
                             'to process all):'),
-        list_allowed = seq(from = start_v, to = nrow(selectTable_df), by = 1),
+        list_allowed = seq(from = start_v, to = nrow(Table_df), by = 1),
         empty_allowed)
     }
 
@@ -199,7 +188,7 @@ browseMetadata <- function(
 
     Output <- user_categorisation_loop(start_v,
                              end_v,
-                             selectTable_df,
+                             Table_df,
                              df_prev_exist,
                              df_prev,
                              lookup = data$lookup,
@@ -226,9 +215,9 @@ browseMetadata <- function(
       for (data_v_auto in unique(auto_row)) {
         ##### collect user responses with with 'user_categorisation.R'
         decision_output <- user_categorisation(
-          selectTable_df$Label[data_v_auto],
-          selectTable_df$Description[data_v_auto],
-          selectTable_df$Type[data_v_auto],
+          Table_df$Label[data_v_auto],
+          Table_df$Description[data_v_auto],
+          Table_df$Type[data_v_auto],
           max(df_plots$Code$Code)
         )
         ##### input user responses into output
@@ -261,9 +250,9 @@ browseMetadata <- function(
         for (data_v_not_auto in unique(not_auto_row)) {
           #####  collect user responses with with 'user_categorisation.R'
           decision_output <- user_categorisation(
-            selectTable_df$Label[data_v_not_auto],
-            selectTable_df$Description[data_v_not_auto],
-            selectTable_df$Type[data_v_not_auto],
+            Table_df$Label[data_v_not_auto],
+            Table_df$Description[data_v_not_auto],
+            Table_df$Type[data_v_not_auto],
             max(df_plots$Code$Code)
           )
           ##### input user responses into output
