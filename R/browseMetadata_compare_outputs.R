@@ -36,56 +36,51 @@ browseMetadata_compare_outputs <- function(session_dir,session1_base,session2_ba
   valid_comparison(input1 = csv_1a$Dataset[1],
                    input2 = csv_2a$Dataset[1],
                    severity = 'danger',
-                   text = 'Session 1 and 2 have different datasets')
+                   severity_text = 'Session 1 and 2 have different datasets')
 
   valid_comparison(input1 = csv_1a$Table[1],
                    input2 = csv_2a$Table[1],
                    severity = 'danger',
-                   text = 'Session 1 and 2 have different tables')
+                   severity_text = 'Session 1 and 2 have different tables')
 
   valid_comparison(input1 = csv_1a$Dataset[1],
                    input2 =  Dataset_Name,
                    severity = 'danger',
-                   text = 'Different dataset to json')
+                   severity_text = 'Different dataset to json')
 
   ##  Use 'valid_comparison.R' to check the sessions can be compared to each other and to the json (warnings for user to check):
 
   valid_comparison(input1 = csv_1a$browseMetadata[1],
                    input2 = csv_2a$browseMetadata[1],
                    severity = 'warning',
-                   text = 'Different version of browseMetadata package!')
+                   severity_text = 'Different version of browseMetadata package!')
 
   valid_comparison(input1 = csv_1a$MetaDataVersion[1],
                    input2 = csv_2a$MetaDataVersion[1],
                    severity = 'warning',
-                   text = 'Different metadata versions!')
+                   severity_text = 'Different metadata versions!')
 
   valid_comparison(input1 = csv_1a$MetaDataVersion[1],
                    input2 = Dataset$documentationVersion,
                    severity = 'warning',
-                   text = 'The version files do not match the json (different metadata versions)!')
+                   severity_text = 'The version files do not match the json (different metadata versions)!')
 
   valid_comparison(input1 = csv_1a$MetaDataLastUpdated[1],
                    input2 = csv_2a$MetaDataLastUpdated[1],
                    severity = 'warning',
-                   text = 'Different metadata date!')
+                   severity_text = 'Different metadata date!')
 
   valid_comparison(input1 = csv_1a$MetaDataLastUpdated[1],
                    input2 = Dataset$lastUpdated,
                    severity = 'warning',
-                   text = 'The session files do not match the json (different dates for metadata)!')
+                   severity_text = 'The session files do not match the json (different dates for metadata)!')
 
   valid_comparison(input1 = nrow(csv_1b),
                    input2 = nrow(csv_2b),
                    severity = 'warning',
-                   text = 'Different number of data elements!')
+                   severity_text = 'Different number of data elements!')
 
   # DISPLAY TO USER ----
-
-  ## Print details about each session
-  cat("\n\n")
-  cli_alert_info("Session 1: {session1_base} ({csv_1a$Initials[1]})")
-  cli_alert_info("Session 2: {session2_base} ({csv_2a$Initials[1]})")
 
   ## Use 'ref_plot.R' to plot domains for the user's ref (save df for later use)
   df_plots <- ref_plot(domains)
