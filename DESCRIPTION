@@ -23,6 +23,8 @@ Imports:
     rjson
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://aim-rsf.github.io/browseMetadata/
+Config/testthat/edition: 3
