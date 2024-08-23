@@ -1,5 +1,8 @@
 #use in browseMetadata_compare_outputs
-#severity: warning or danger
+#need to document this properly but the general idea is -
+#reads in 2 inputs to see if they are equal
+#if the test is 'warning' and inputs are not equal it just gives a warning to the user and continues
+#if the test is 'danger' and the inputs are not equal it stops and exists out of the main function
 
 valid_comparison <- function(input1, input2, severity, severity_text) {
 
