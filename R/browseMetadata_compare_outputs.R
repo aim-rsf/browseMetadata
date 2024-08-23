@@ -48,6 +48,11 @@ browseMetadata_compare_outputs <- function(session_dir,session1_base,session2_ba
                    severity = 'danger',
                    severity_text = 'Different dataset to json')
 
+  valid_comparison(input1 = nrow(csv_1b),
+                   input2 = nrow(csv_2b),
+                   severity = 'danger',
+                   severity_text = 'Different number of data elements!')
+
   ##  Use 'valid_comparison.R' to check the sessions can be compared to each other and to the json (warnings for user to check):
 
   valid_comparison(input1 = csv_1a$browseMetadata[1],
@@ -75,11 +80,6 @@ browseMetadata_compare_outputs <- function(session_dir,session1_base,session2_ba
                    severity = 'warning',
                    severity_text = 'The session files do not match the json (different dates for metadata)!')
 
-  valid_comparison(input1 = nrow(csv_1b),
-                   input2 = nrow(csv_2b),
-                   severity = 'warning',
-                   severity_text = 'Different number of data elements!')
-
   # DISPLAY TO USER ----
 
   ## Use 'ref_plot.R' to plot domains for the user's ref (save df for later use)
@@ -102,12 +102,14 @@ browseMetadata_compare_outputs <- function(session_dir,session1_base,session2_ba
 
   # FIND MISMATCHES AND ASK FOR CONSENSUS DECISION ----
   for (datavar in 1:nrow(ses_join)) {
-    ses_join_final <- concensus_on_mismatch(ses_join,Table_df,datavar)
+    concensus <- concensus_on_mismatch(ses_join,Table_df,datavar)
+    ses_join$Domain_code_join[datavar] <- concensus$Domain_code_join
+    ses_join$Note_join[datavar] <- concensus$Note_join
     } # end of loop for DataElement
 
   # SAVE TO NEW CSV ----
   output_fname <- paste0("CONCENSUS_OUTPUT_", gsub(" ", "", Dataset_Name), "_", table_find$table_label[table_n], "_", timestamp_now, ".csv")
-  utils::write.csv(ses_join_final, output_fname, row.names = FALSE)
+  utils::write.csv(ses_join, output_fname, row.names = FALSE)
   cat("\n")
   cli_alert_success("Your concensus categorisations have been saved to {output_fname}")
 }
