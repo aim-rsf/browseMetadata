@@ -25,7 +25,7 @@ user_prompt <- function(pre_prompt_text = NULL, prompt_text, any_keys, post_yes_
     while (response == "") {
       response <- readline(prompt = prompt_text)
     }
-  } else {
+  } else if (any_keys == FALSE) {
     response <- ""
     while (!response %in% c("Y", "y", "N", "n")) {
       response <- readline(prompt = prompt_text)
@@ -39,9 +39,11 @@ user_prompt <- function(pre_prompt_text = NULL, prompt_text, any_keys, post_yes_
           cat(post_yes_text$Text[line])
         }
       }
-      browseMetadata_user_prompt(prompt_text = "Press any key to continue ",any_keys = TRUE)
-      cat("\n ")
+      cat("\nPress any key to continue ")
+      readline()
     }
+  } else {
+    stop("Invalid input given for 'any_keys'. Only TRUE or FALSE are allowed.")
   }
 
   response

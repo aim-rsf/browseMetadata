@@ -20,6 +20,7 @@ Imports:
     ggplot2,
     grid,
     gridExtra,
+    mockery,
     rjson
 Suggests: 
     knitr,
