@@ -1,4 +1,4 @@
-concensus_on_mismatch <- function(ses_join,Table_df,datavar){
+concensus_on_mismatch <- function(ses_join,Table_df,datavar,domain_code_max){
 
   if (ses_join$Domain_code_ses1[datavar] != ses_join$Domain_code_ses2[datavar]){
     cat("\n\n")
@@ -9,7 +9,7 @@ concensus_on_mismatch <- function(ses_join,Table_df,datavar){
       ))
     cat("\n\n")
     cli_alert_info("Provide concensus decision for this DataElement:")
-    decision_output <- user_categorisation(Table_df$Label[datavar],Table_df$Description[datavar],Table_df$Type[datavar],max(Code$Code))
+    decision_output <- user_categorisation(Table_df$Label[datavar],Table_df$Description[datavar],Table_df$Type[datavar],domain_code_max)
     Domain_code_join <- decision_output$decision
     Note_join <- decision_output$decision_note
     } else {

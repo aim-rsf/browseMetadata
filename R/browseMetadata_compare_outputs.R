@@ -102,7 +102,7 @@ browseMetadata_compare_outputs <- function(session_dir,session1_base,session2_ba
 
   # FIND MISMATCHES AND ASK FOR CONSENSUS DECISION ----
   for (datavar in 1:nrow(ses_join)) {
-    concensus <- concensus_on_mismatch(ses_join,Table_df,datavar)
+    concensus <- concensus_on_mismatch(ses_join,Table_df,datavar,max(df_plots$Code$Code))
     ses_join$Domain_code_join[datavar] <- concensus$Domain_code_join
     ses_join$Note_join[datavar] <- concensus$Note_join
     } # end of loop for DataElement
