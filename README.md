@@ -16,7 +16,7 @@ This `R` package helps a researcher browse health datasets in [SAIL databank](ht
 - Which variables within these datasets map onto my research domains of interest?
 (e.g. socioeconomic, childhood adverse events, diagnoses, culture and community)
 
-**Beyond browsing:** Variables are categorised into research domains. The output file containing the categorisations can be used as input to later analyses, to filter and visualise variables based on category labels.
+**Beyond browsing:** Variables are categorised into research domains, with functionality to reach consensus between researchers. The output file containing the categorisations can be used as input to later analyses on the real dataset, to filter and visualise variables based on category labels.
 
 There are many existing tools that allow you to browse metadata for health datasets, read more [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
 
