@@ -16,6 +16,3 @@ json_table_to_df <- function(Dataset,n){
   Table_df
 
 }
-
-
-  # probably a better way of dealing with json nesting but this works for now!
