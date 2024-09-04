@@ -1,6 +1,6 @@
 #' DOCUMENT!
 
-load_data <- function(json_file, domain_file,look_up_file, output_dir){
+load_data <- function(json_file, domain_file,look_up_file){
 
   # Collect meta_json and domains
   if (is.null(json_file) && is.null(domain_file)) { # if both json_file and domain_file are NULL, use demo data
