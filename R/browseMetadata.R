@@ -193,9 +193,10 @@ browseMetadata <- function(
                              df_prev,
                              lookup = data$lookup,
                              df_plots,
-                             Output,
-                             timestamp_now,
-                             Table_name)
+                             Output)
+
+    Output$timestamp <- timestamp_now
+    Output$Table <- Table_name
 
     ### Review auto categorized data elements
     #### Use 'user_prompt_list.R' to ask the user which rows to edit

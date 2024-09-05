@@ -1,5 +1,3 @@
-timestamp_now <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
-Table_name <- "TestTable"
 Output <- get("Output")
 Code <- data.frame(Code = 0:2)
 df_plots <- list(Code = Code,'')
@@ -10,7 +8,7 @@ test_that("user_categorisation_loop handles auto categorisation", {
   lookup <- data.frame(DataElement = c("Element1", "Element2"), DomainCode = c(1, 2))
 
   # Call the function
-  result <- user_categorisation_loop(1, 2, selectTable_df, FALSE, data.frame(), lookup, df_plots, Output, timestamp_now, Table_name)
+  result <- user_categorisation_loop(1, 2, selectTable_df, FALSE, data.frame(), lookup, df_plots, Output)
 
   # Check the result
   expect_equal(nrow(result), 2)
@@ -25,7 +23,7 @@ test_that("user_categorisation_loop handles copying from previous table", {
   lookup <- data.frame(DataElement = c("Element3", "Element4"), DomainCode = c(3, 4))
 
   # Call the function
-  result <- user_categorisation_loop(1, 2, selectTable_df, TRUE, df_prev, lookup, df_plots, Output, timestamp_now, Table_name)
+  result <- user_categorisation_loop(1, 2, selectTable_df, TRUE, df_prev, lookup, df_plots, Output)
 
   # Check the result
   expect_equal(nrow(result), 2)
@@ -43,7 +41,7 @@ test_that("user_categorisation_loop handles user categorisation", {
   stub(user_categorisation_loop, "user_categorisation", mock_user_categorisation)
 
   # Call the function
-  result <- user_categorisation_loop(1, 2, selectTable_df, FALSE, data.frame(), lookup, df_plots, Output, timestamp_now, Table_name)
+  result <- user_categorisation_loop(1, 2, selectTable_df, FALSE, data.frame(), lookup, df_plots, Output)
 
   # Check the result
   expect_equal(nrow(result), 2)
