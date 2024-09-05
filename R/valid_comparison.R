@@ -1,9 +1,16 @@
-#use in browseMetadata_compare_outputs
-#need to document this properly but the general idea is -
-#reads in 2 inputs to see if they are equal
-#if the test is 'warning' and inputs are not equal it just gives a warning to the user and continues
-#if the test is 'danger' and the inputs are not equal it stops and exists out of the main function
+#' valid_comparison
 
+#' This function is called within the browseMetadata_compare_outputs function. \cr \cr
+#' It reads two inputs to see if they are equal. \cr \cr
+#' If the test is 'warning' status and inputs are not equal it gives warning but continues. \cr \cr
+#' If the test is 'danger' status and inputs are not equal it stops and exits, with error message. \cr \cr
+#' @param input1 Input 1
+#' @param input2 Input 2
+#' @param severity Level of severity. Only 'danger' or 'warning'
+#' @param severity_text The text to print if inputs are not equal.
+#' @return It returns variable text, depending on any_keys.
+#' @importFrom CHECK LATER
+#'
 valid_comparison <- function(input1, input2, severity, severity_text) {
 
   if (!severity %in% c('danger', 'warning')) {

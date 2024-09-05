@@ -1,4 +1,14 @@
-#' DOCUMENT!
+#' user_prompt_list
+#'
+#' This function is called within the browseMetadata function. \cr \cr
+#' It prompts a response from the user, in the form of a list. \cr \cr
+#' It checks if the user has given the an input within the allowed range - if not, it re-sends prompt. \cr \cr
+#'
+#' @param prompt_text Text to display to the user, to prompt their response.
+#' @param list_allowed A list of allowable integer responses.
+#' @param empty_allowed A boolean specifying if no response is allowed.
+#' @return It returns a list of integers to process, that match the prompt options.
+#' @importFrom CHECK LATER
 
 user_prompt_list <- function(prompt_text,list_allowed,empty_allowed) {
 

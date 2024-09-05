@@ -1,6 +1,6 @@
 #' user_categorisation
 #'
-#' This function is used within the browseMetadata function. \cr \cr
+#' This function is called within the browseMetadata function. \cr \cr
 #' It displays data properties to the user and requests a categorisation into a domain. \cr \cr
 #' An optional note can be included with the categorisation.
 #'

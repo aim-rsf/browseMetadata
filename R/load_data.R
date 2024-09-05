@@ -1,5 +1,16 @@
-#' DOCUMENT!
-
+#' load_data
+#'
+#' This function is called within the browseMetadata function. \cr \cr
+#' It collects the inputs needed for the browseMetadata function (defaults or user inputs)
+#' If some inputs are NULL, it loads the default inputs. If defaults not available, it prints error for the user.
+#' If inputs are not NULL, it loads the user-specified inputs.
+#' @param json_file As defined in browseMetadata
+#' @param domain_file As defined in browseMetadata
+#' @param look_up_file As defined in browseMetadata
+#' @return A list of 5: all inputs needed for the browseMetadata function to run.
+#' @importFrom CHECK LATER
+#'
+#'
 load_data <- function(json_file, domain_file,look_up_file){
 
   # Collect meta_json and domains

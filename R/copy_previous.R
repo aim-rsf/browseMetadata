@@ -1,4 +1,13 @@
-#' DOCUMENT!
+#' copy_previous
+#'
+#' This function is called within the browseMetadata function. \cr \cr
+#' It searches for previous OUTPUT files in the output_dir, that match the dataset name. \cr \cr
+#' If files exist, it removes duplicates and autos, and stores the rest of the data elements in a dataframe. \cr \cr
+#'
+#' @param Dataset_Name
+#' @param output_dir
+#' @return It returns a list of 2: df_prev_exist (a boolean) and df_prev (NULL or populated with data elements to copy)
+#' @importFrom CHECK LATER
 
 copy_previous <- function(Dataset_Name,output_dir) {
 

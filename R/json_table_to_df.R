@@ -1,3 +1,14 @@
+#' join_outputs
+#'
+#' This function is called within the browseMetadata function. \cr \cr
+#' It reads in the nested lists from the json and extracts information needed into a dataframe. \cr \cr
+#' It does this for one specific table in a dataset. \cr \cr
+#'
+#' @param Dataset This is the dataModel field of the json
+#' @param n The Dataset number (as a json can have multiple datasets)
+#' @return A dataframe for that specific table, including data label, description and type.
+#' @importFrom CHECK LATER
+#'
 
 json_table_to_df <- function(Dataset,n){
 

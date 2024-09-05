@@ -1,3 +1,21 @@
+#' user_categorisation_loop
+#'
+#' This function is called within the browseMetadata function. \cr \cr
+#' Given a specific table and a number of data elements to search, it checks for 3 different sources of domain categorisation: \cr \cr
+#' 1 - If data elements match those in the look-up table, auto categorise them \cr \cr
+#' 2 - If data elements match to previous table output, copy them \cr \cr
+#' 3 - If no match for 1 or 2, data elements are categorised by the user \cr \cr
+#' @param start_v Index of data element to start
+#' @param end_v Index of data element to end
+#' @param Table_df Dataframe with the table information, extracted from json metadata
+#' @param df_prev_exist Boolean to indicate with previous dataframes exist (to copy from)
+#' @param df_prev Previous dataframes to copy from (or NULL)
+#' @param lookup The lookup table to enable auto categorisations
+#' @param df_plots Output from the ref_plot function, to indicate maximum domain code allowed
+#' @param Output Empty Output dataframe, to fill
+#' @return An Output dataframe containing information about the table, data elements and categorisations
+#' @importFrom CHECK LATER
+
 user_categorisation_loop <- function(start_v,end_v,Table_df,df_prev_exist,df_prev,lookup,df_plots,Output) {
 
   for (data_v in start_v:end_v) {

@@ -1,4 +1,13 @@
-#' DOCUMENT!
+#' ref_plot
+#'
+#' This function is called within the browseMetadata function. \cr \cr
+#' It plots a reference table to guide the user in their categorisation of domains. \cr \cr
+#' This reference table is based on the user inputted domains and the default domains provided by this package.  \cr \cr
+#' @param domains The output of load_data
+#' @return A reference table that appears in the Plots tab. A list of 2 containing the derivatives for this plot, used later in browseMetadata.
+#' @importFrom CHECK LATER
+#'
+#'
 
 ref_plot <- function(domains){
 

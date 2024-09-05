@@ -1,4 +1,13 @@
-# used in browseMetadata_compare_outputs
+#' join_outputs
+#'
+#' This function is called within the browseMetadata_compare_outputs function. \cr \cr
+#' Joins output dataframes from two sessions, on the column DataElement.
+#'
+#' @param session_1 Dataframe from session 1
+#' @param session_2 Dataframe from session 2
+#' @return Dataframe with information from session 1 and 2, joined on column DataElement.
+#' @importFrom CHECK LATER
+#'
 
 join_outputs <- function(session_1, session_2){
 
