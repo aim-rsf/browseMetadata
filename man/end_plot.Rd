@@ -2,10 +2,21 @@
 % Please edit documentation in R/end_plot.R
 \name{end_plot}
 \alias{end_plot}
-\title{DOCUMENT!}
+\title{end_plot}
 \usage{
 end_plot(df, Table_name, ref_table)
 }
+\arguments{
+\item{df}{The Output dataframe with all the domain categorisations}
+
+\item{Table_name}{The table name}
+
+\item{ref_table}{The domain code reference table (which domain maps to which integer)}
+}
+\value{
+It returns a ggplot
+}
 \description{
-DOCUMENT!
+This function is called within the browseMetadata function. \cr \cr
+A summary plot is created that includes the domain code reference table and counts of domain code categorisations \cr \cr
 }

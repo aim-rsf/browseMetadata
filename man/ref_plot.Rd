@@ -2,10 +2,18 @@
 % Please edit documentation in R/ref_plot.R
 \name{ref_plot}
 \alias{ref_plot}
-\title{DOCUMENT!}
+\title{ref_plot}
 \usage{
 ref_plot(domains)
 }
+\arguments{
+\item{domains}{The output of load_data}
+}
+\value{
+A reference table that appears in the Plots tab. A list of 2 containing the derivatives for this plot, used later in browseMetadata.
+}
 \description{
-DOCUMENT!
+This function is called within the browseMetadata function. \cr \cr
+It plots a reference table to guide the user in their categorisation of domains. \cr \cr
+This reference table is based on the user inputted domains and the default domains provided by this package.  \cr \cr
 }

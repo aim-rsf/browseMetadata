@@ -2,7 +2,7 @@
 % Please edit documentation in R/user_categorisation.R
 \name{user_categorisation}
 \alias{user_categorisation}
-\title{browseMetadata_user_categorisation}
+\title{user_categorisation}
 \usage{
 user_categorisation(data_element, data_desc, data_type, domain_code_max)
 }
@@ -19,7 +19,7 @@ user_categorisation(data_element, data_desc, data_type, domain_code_max)
 It returns a list containing the decision and decision note
 }
 \description{
-This function is used within the browseMetadata function. \cr \cr
+This function is called within the browseMetadata function. \cr \cr
 It displays data properties to the user and requests a categorisation into a domain. \cr \cr
 An optional note can be included with the categorisation.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/user_prompt.R
 \name{user_prompt}
 \alias{user_prompt}
-\title{DOCUMENT!}
+\title{user_prompt}
 \usage{
 user_prompt(
   pre_prompt_text = NULL,
@@ -11,6 +11,24 @@ user_prompt(
   post_yes_text = NULL
 )
 }
+\arguments{
+\item{pre_prompt_text}{Optional text to display to the user, prior to prompt.
+This should be a data frame:
+data.frame(Heading = logical(0), Text = character(0))
+Each row of the dataframe specifies Heading TRUE/FALSE and text to display.}
+
+\item{prompt_text}{Text to display to the user, to prompt their response.}
+
+\item{any_keys}{Boolean to determine if any key responses are allowable.
+If FALSE, only these are allowed: Y, y, N and n.}
+
+\item{post_yes_text}{Optional text to post after receiving a 'Y' or 'y'
+response from user. Same dataframe format as pre_prompt_text.}
+}
+\value{
+It returns variable text, depending on any_keys.
+}
 \description{
-DOCUMENT!
+This function is called within the browseMetadata function. \cr \cr
+It prompts a response from the user. \cr \cr
 }

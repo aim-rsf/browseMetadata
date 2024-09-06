@@ -2,10 +2,23 @@
 % Please edit documentation in R/load_data.R
 \name{load_data}
 \alias{load_data}
-\title{DOCUMENT!}
+\title{load_data}
 \usage{
-load_data(json_file, domain_file, look_up_file, output_dir)
+load_data(json_file, domain_file, look_up_file)
+}
+\arguments{
+\item{json_file}{As defined in browseMetadata}
+
+\item{domain_file}{As defined in browseMetadata}
+
+\item{look_up_file}{As defined in browseMetadata}
+}
+\value{
+A list of 5: all inputs needed for the browseMetadata function to run.
 }
 \description{
-DOCUMENT!
+This function is called within the browseMetadata function. \cr \cr
+It collects the inputs needed for the browseMetadata function (defaults or user inputs)
+If some inputs are NULL, it loads the default inputs. If defaults not available, it prints error for the user.
+If inputs are not NULL, it loads the user-specified inputs.
 }
