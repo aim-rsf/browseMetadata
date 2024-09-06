@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-<!--Structure the Issue how you think is best, but here is a suggestion:-->
+<!--Structure this Issue how you think is best, but here is a suggestion:-->
 
 <!-- Please add the appropriate labels to this issue, if possible -->
 
