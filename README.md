@@ -10,18 +10,17 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg)](https://doi.org/10.5281/zenodo.10581500)
 
-This `R` package was created to help a researcher browse the health datasets in [SAIL databank](https://saildatabank.com). It has scope to be applied to other health datasets. It is intended to be useful in the earlier stages of a project. When a research team has not yet got access to the data they can still browse the metadata, and address such questions as:
+This `R` package helps a researcher browse health datasets in [SAIL databank](https://saildatabank.com). It has scope to be applied to other health datasets. It is useful in the earlier stages of a project; prior to data access, researchers can use the metadata to browse and categorise variables, addressing such questions as:
 
-:question: what datasets are available?
+- What datasets are available? ↔️ What datasets do I need for my research?
+- Which variables within these datasets map onto my research domains of interest?
+(e.g. socioeconomic, childhood adverse events, diagnoses, culture and community)
 
-:question: what datasets do I need for my research question?
-
-:question: which variables within these datasets map onto my research domains of interest? (e.g. socioeconomic factors, childhood adverse events, medical diagnoses, culture and community)
+**Beyond browsing:** Variables are categorised into research domains, with functionality to reach consensus between researchers. The output file containing the categorisations can be used as input to later analyses on the real dataset, to filter and visualise variables based on category labels.
 
 There are many existing tools that allow you to browse metadata for health datasets, read more [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
 
 ## What is the `browseMetadata` package?
-
 
 This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. For many health datasets, including SAIL, the metadata is publicly available. This `R` package uses the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This `R` package takes a metadata file as input and facilitates the process of browsing through each table within a chosen dataset. The user is asked to categorise each data element (variable) within a table into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
 

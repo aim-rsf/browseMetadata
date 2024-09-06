@@ -3,6 +3,8 @@
 <!-- If you just want to reference them without closing them, you can add something like "References #10" -->
 Closes #
 
+<!--Structure this Pull Request how you think is best, but here is a suggestion:-->
+
 <!-- Add a short description of the PR here - what you have changed and why -->
 
 ## Proposed Changes
