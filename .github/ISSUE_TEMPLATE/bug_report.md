@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+<!--Structure the Issue how you think is best, but here is a suggestion:-->
+
 **Description of the bug:**
 <!--A clear description of what the bug is.-->
 - 
