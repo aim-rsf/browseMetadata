@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+<!--Structure the Issue how you think is best, but here is a suggestion:-->
+
 <!-- Please add the appropriate labels to this issue, if possible -->
 
 **I would like to see this change implemented:**
