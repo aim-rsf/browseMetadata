@@ -14,7 +14,7 @@ https://modelcatalogue.cs.ox.ac.uk/hdruk_live/#/catalogue/dataModel/16920b16-e24
 data(json_metadata)
 }
 \description{
-Example metadata for a health dataset, to demo the function domain_mapping.R \cr \cr
+Example metadata for a health dataset, to demo the function mapMetadata.R \cr \cr
 This data was created with these five steps:
 \enumerate{
   \item Go to https://modelcatalogue.cs.ox.ac.uk/hdruk_live/#/catalogue/dataModel/16920b16-e24c-49f9-b4df-3dc85779822b/dataClasses
