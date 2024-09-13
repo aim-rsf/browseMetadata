@@ -218,8 +218,6 @@ Categorisation note (or press enter to continue): your note here
 
 We chose to respond with '7' because that corresponds to the 'Health info' domain in the table. More than one domain can be chosen. Do remember that this demo has over-simplified domain labels, and they will likely be more specific for a research study.
 
-A note can be included to explain why a categorisation has been made. Or press enter for no note.
-
 You have the option to re-do the categorisation you just made, by replying 'y' to the question:
 
 ```         
@@ -228,7 +226,7 @@ Response to be saved is '7'. Would you like to re-do? (y/n): y
 
 After completing 20, it will then ask you to review the auto-categorisations it made.
 
-These auto-categorisations are based on the mappings included in the [data-raw/look_up.csv](data-raw/look_up.csv). This look-up file can be changed (see the section 'Using your own input files' below). ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.
+These auto-categorisations are based on the mappings included in the [data-raw/look_up.csv](data-raw/look_up.csv). This look-up file can be changed by the user. ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.
 
 ```         
 ! Please check the auto categorised data elements are accurate for table CHILD:
@@ -293,33 +291,13 @@ The OUTPUT csv contains the categorisations you made. The LOG csv contains infor
 
 The PLOT png file saves a simple plot displaying the count of domain codes for that table.
 
-### Using your own input files
-
-``` r
-mapMetadata(json_file, domain_file, look_up_file, output_dir, table_copy)
-```
-
-This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues).
-
-First, change the json file and domain file inputs. Later, consider changing the other 3 inputs, depending on your use-case. For example:
-
-``` r
-mapMetadata(json_file = 'path/your-json.json', domain_file = 'path/your-domains.csv')
-```
-
-Unlike in demo mode, it will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).
-
-For detailed information on each input argument, reference the manual by typing:
-
-``` r
-?mapMetadata
-``` 
-
 ### Tips and potential next steps
 
+- First thing to do next is to try `browseMetadata` and `mapMetdata` with your own inputs, without the demo mode! For detailed information on each input argument, reference the manual by typing `?mapMetadata`.
+- If a table is long to process, you can chose to only do a subset of variables in one session, and do the rest in later sessions.
 - If you are processing multiple tables from one dataset, make sure the output files get saved to the same directory! If they do, the function will notice this, and it will copy over categorisations for repeated variables. This will save you time and ensure consistency of categorisations! 
-- The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
 - Categorisations across researchers can be compared by using the function [R/mapMetadata_compare_outputs.R](R/mapMetadata_compare_outputs.R). In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
+- The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
 
 ## License
 
