@@ -3,30 +3,31 @@
 <a href="https://aim-rsf.github.io/browseMetadata/"><img src="man/figures/logo.png" align="right" height="120" alt="browseMetadata website" /></a>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-) <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg)](https://doi.org/10.5281/zenodo.10581500)
 
-This `R` package helps a researcher browse health datasets in [SAIL databank](https://saildatabank.com). It has scope to be applied to other health datasets. It is useful in the earlier stages of a project; prior to data access, researchers can use the metadata to browse and categorise variables, addressing such questions as:
-
-- What datasets are available? ↔️ What datasets do I need for my research?
-- Which variables within these datasets map onto my research domains of interest?
-(e.g. socioeconomic, childhood adverse events, diagnoses, culture and community)
-
-**Beyond browsing:** Variables are categorised into research domains, with functionality to reach consensus between researchers. The output file containing the categorisations can be used as input to later analyses on the real dataset, to filter and visualise variables based on category labels.
-
-There are many existing tools that allow you to browse metadata for health datasets, read more [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
-
 ## What is the `browseMetadata` package?
 
-This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. For many health datasets, including SAIL, the metadata is publicly available. This `R` package uses the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This `R` package takes a metadata file as input and facilitates the process of browsing through each table within a chosen dataset. The user is asked to categorise each data element (variable) within a table into a domain related to their research question, and these categorisations get saved in a csv file for later reference.
+This `R` package helps a researcher browse health datasets in [SAIL databank](https://saildatabank.com). It has scope to be applied to other health datasets[^1].  This `R` package uses the publicly available metadata hosed on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://modelcatalogue.cs.ox.ac.uk/hdruk_live/). This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. Read more [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
 
-To speed up this process, the function automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The function also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to active a table copying function which copies categorisations they've done for previous tables, into the current table they are processing.
 
-🚧 :warning: This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.
+In the earlier stages of a project, prior to data access, researchers can use the metadata to **browse** datasets and **categorise** variables:
+
+### Browse metadata
+
+*What datasets are available? ↔️ What datasets do I need for my research?*
+
+The first part of the tool summarises the dataset, and all the tables within it. A plot displays how many variables within a dataset table have a description field that is not empty.  
+
+### Map metadata
+
+*Which variables within these datasets map onto my research domains of interest? (e.g. socioeconomic, childhood adverse events, diagnoses, culture and community)*
+
+Beyond browsing, a user can then categorise each variable within a dataset table into a set of pre-defined research domains, with functionality to reach consensus between researchers. To speed up this manual process, the package automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The package also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to active a table copying function which copies categorisations they've done for previous tables, into the current table they are processing. The output file containing the categorisations can be used as input to later analyses on the real dataset, to filter and visualise variables based on category labels.
 
 
 ## Getting started with `browseMetadata`
@@ -37,7 +38,7 @@ To speed up this process, the function automatically categorises some variables 
 -   We use *Table* - this is called *Data Class* in the Metadata Catalogue
 -   We use *Data Element* - the same as the Metadata Catalogue - which refers to each variable name within the table
 
-### Install
+### Installation and set-up
 
 Run in the R console:
 
@@ -46,18 +47,10 @@ install.packages("devtools")
 devtools::install_github("aim-rsf/browseMetadata")
 ```
 
-### Demo (use R Studio)
-
 Load the library:
 
 ``` r
 library(browseMetadata)
-```
-
-Read the documentation:
-
-```         
-?domain_mapping
 ```
 
 Set your working directory to be an empty folder you just created:
@@ -66,33 +59,65 @@ Set your working directory to be an empty folder you just created:
 setwd("/Users/your-username/test-browseMetadata")
 ```
 
-Run the function in demo mode:
+### Demo (using the `R Studio` IDE)
 
-``` r
-domain_mapping()
+There are 4 main functions you can interact with. In order to read their documentation:
+
+``` r         
+?browseMetadata
+?mapMetadata
+?mapMetadata_compare_outputs
+?mapMetadata_convert_outputs
 ```
 
-Take note of the **Plots** tab in R Studio which should show a table of domains with this info:
+#### `browseMetadata.R`
 
--   [0] *NO MATCH / UNSURE*
--   [1] *METADATA*
--   [2] *ID*
--   [3] *DEMOGRAPHICS*
--   [4] Socioeconomic info
--   [5] Location info
--   [6] Education info
--   [7] Health info
+This function is easy to run and does not require any user interaction. 
 
-Reference this Plots tab throughout the demo run. You will be asked to label data elements with one (or more) of these numbers [0-7].
+Simply provide a json file containing metadata, that was downloaded from the metadata catalogue. 
 
-Here we have very simple domains [4-7] for the demo run.
+For now, use the example package file provided in [data-raw/in](data-raw/in). 
+In future we intend to use the HDRUK Gateway API to access the metadata, rather than relying on a manual file download. 
 
-For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'.
+``` r
+browseMetadata(json_file = 'your-path/data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json')
+``` 
 
-The 4 default domains are always included [0-3], appended on to any domain list given.
+The second input to browseMetadata is `output_dir` - change this if you want to save your files somewhere other than your current working directory (which is the default).
+
+After running this code successfully you should see:
+
+```
+ℹ Two outputs have been saved in your output directory. Open them in your browser to view.
+ℹ Alternatively, on the Plots tab select the 'Show in new window' button.
+```
+
+PNG versions of these outputs are saved in [data-raw/out](data-raw/out) for you to reference, but for high resolution interactive versions, open up the html files that you just generated in your web browser. The table summarises the dataset and each table in the dataset - this will be a useful reference to have open when you run the `mapMetadata.R` function below. 
+
+Let's look at the bar plot, pasted below for convenience. This plot is another simple way of summarising the dataset. We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) has a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. 
+
+It is important to note that this is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
+
+![bar plot](data-raw/out/BROWSE_bar_NationalCommunityChildHealthDatabase(NCCHD)_Version16.0.0.png)
+
+The numbers next to table names, (1), correspond to the order in which they appear in the table and the order they are shown to you in the `mapMetadata.R` function. 
+
+#### `mapMetadata.R`
+
+We can run the function in demo mode: 
+
+``` r
+mapMetadata()
+``` 
+
+Demo mode means it will use the demo package files and only process the first 20 variables (data elements) within the table(s) we select to process. 
+
+Take note of the Plots tab in R Studio which should show a table of domains with this info below. Reference this Plots tab throughout the demo run. You will be asked to label data elements with one (or more) of these numbers [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'. The 4 default domains are always included [0-3], appended on to any domain list given.
+
+<img src="data-raw/out/plots_tab_demo_domains.png" alt="plots" width="200"/>
 
 ```         
-ℹ Running domain_mapping in demo mode using package data files
+ℹ Running mapMetadata in demo mode using package data files
 ℹ Using the default look-up table in data/look-up.rda
  
 Enter your initials: RS
@@ -101,21 +126,15 @@ Enter your initials: RS
 Respond with your initials after the prompt and press enter. It will then print the name of the dataset and where it was retrieved from:
 
 ```         
-── Dataset Name ──────────────────────────────────────────────────────────────────────────────────────────────────────
+── Dataset Name ─────────────────────────────────────────────────────────────────────────────────────────────────
 National Community Child Health Database (NCCHD)
-
-── Dataset Last Updated ──────────────────────────────────────────────────────────────────────────────────────────────
-2024-03-14T17:40:57.463Z
-
-── Dataset File Exported By ──────────────────────────────────────────────────────────────────────────────────────────
+── Dataset File Exported By ─────────────────────────────────────────────────────────────────────────────────────
 Rachael Stickland at 2024-04-05T13:01:23.109Z
 
-Would you like to read a description of the dataset? (y/n): y
+ℹ Reference outputs from browseMetadata for information about the dataset
+
+Press any key to continue 
 ```
-
-Enter Y after the prompt to read the description, for the purpose of the demo.
-
-After reading the description of this dataset it will show:
 
 ```         
 ℹ Found 13 Tables in this Dataset
@@ -154,7 +173,7 @@ After reading the description of this dataset it will show:
 
 For the purpose of this demo, type 2 to just process the CHILD table only. Leave the prompt on the second row blank and press enter.
 
-To process multiple tables at once (e.g. CHILD, SIG_COND) include their numbers on multiple lines:
+To process multiple tables at once in the same session (e.g. CHILD, SIG_COND) include their numbers on multiple lines:
 
 ```         
 ℹ Enter each table number you want to process in this interactive session.
@@ -164,30 +183,21 @@ To process multiple tables at once (e.g. CHILD, SIG_COND) include their numbers 
 3:
 ```
 
-It will then ask if you want to read a description of this table:
-
 ```         
 ℹ Processing Table 2 of 13
 
-── Table Name ────────────────────────────────────────────────────────────────────────────────────────────────────────
-CHILD
+── Table Name ───────────────────────────────────────────────────────────────────────────────────────────────────
+CHILD 
 
-── Table Last Updated ────────────────────────────────────────────────────────────────────────────────────────────────
-2024-03-14T17:40:46.509Z 
 
-Would you like to read a description of the table? (y/n): y
+ℹ Reference outputs from browseMetadata for information about the table
+
+Optional free text note about this table (or press enter to continue): This table is important because ... 
 ```
 
-Enter Y after the prompt to read the description, for the purpose of the demo.
-
-You can provide an optional free text note about this table, this will be saved in the log file.
-
-It will now start looping through the data elements. If it skips over one it means it was auto-categorised or copied from a previous table already processed (more on that later).
-
-For this demo, it will only process 20 data elements (out of the 35 total).
+It will now start looping through the data elements. If it skips over one it means it was auto-categorised or copied from a previous table already processed (more on that later). For this demo, it will only process 20 data elements (out of the 35 total).
 
 ```         
-
 ℹ 20 left to process in this session
 ✔ Processing data element 1 of 35
 
@@ -211,7 +221,7 @@ Categorise data element into domain(s). E.g. 3 or 3,4: 7
 Categorisation note (or press enter to continue): your note here 
 ```
 
-We chose to respond with '7' because that corresponds to the 'Health info' domain in the table. More than one domain can be chosen.
+We chose to respond with '7' because that corresponds to the 'Health info' domain in the table. More than one domain can be chosen. Do remember that this demo has over-simplified domain labels, and they will likely be more specific for a research study.
 
 A note can be included to explain why a categorisation has been made. Or press enter for no note.
 
@@ -284,14 +294,14 @@ LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png
 ```
 
-The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [R/convert_output.R](R/convert_output.R) for an alternative. 
+The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [R/mapMetadata_convert_outputs.R](R/mapMetadata_convert_outputs.R) for an alternative. 
 
 The PLOT png file saves a simple plot displaying the count of domain codes for that table.
 
 ### Using your own input files
 
 ``` r
-domain_mapping(json_file, domain_file, look_up_file, output_dir, table_copy)
+mapMetadata(json_file, domain_file, look_up_file, output_dir, table_copy)
 ```
 
 This code is in early development. To see known bugs or sub-optimal features refer to the [Issues](https://github.com/aim-rsf/browseMetadata/issues).
@@ -299,103 +309,22 @@ This code is in early development. To see known bugs or sub-optimal features ref
 First, change the json file and domain file inputs. Later, consider changing the other 3 inputs, depending on your use-case. For example:
 
 ``` r
-domain_mapping(json_file = 'path/your-json.json', domain_file = 'path/your-domains.csv')
+mapMetadata(json_file = 'path/your-json.json', domain_file = 'path/your-domains.csv')
 ```
 
 Unlike in demo mode, it will ask you to specify the range of variables you want to process (start variable:end variable), because you can choose to process a table across multiple sessions (particularly useful if the table has a large number of data elements).
 
-#### json file:
+For detailed information on each input argument, reference the manual by typing:
 
--   contains metadata about datasets of interest
--   downloaded from the metadata catalogue
--   see [data-raw/national_community_child_health_database\_(ncchd)\_20240405T130125.json](data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json) for an example download
+``` r
+?mapMetadata
+``` 
 
-#### domain_file:
+### Tips and potential next steps
 
--   a csv file created by the user, with each domain listed on a separate line, no header
--   see [data-raw/domain_list_demo.csv](data-raw/domain_list_demo.csv) for a template
--   the first 4 domains will be auto populated (see demo above)
-
-#### lookup file:
-
--   a [default lookup file](dataraw/look_up.csv) is used by the domain_mapping function
--   optional: a csv can be created by the user (using the same format as the default) and provided as the input
--   the lookup file makes auto-categorisations intended for variables that come up regularly in health datasets (e.g. IDs and demographics)
--   the lookup file only works for 1:1 mappings right now, i.e. the DataElement should only be listed once in the lookup file
-
-#### output dir: 
-
-- the path to the directory where the two csv output files will be saved. By default, the current working directory is used
-
-#### table_copy:
-
--   default is TRUE, so set this to FALSE if you want to deactivate table copying
-- table copying means that the categorisations you made for previous tables will be carried over to this table, as long as the csv files share an output_dir
--   this can be useful because the same data elements (variables) appear across multiple tables within one dataset
--   copying from one table to the next will save the user time, and ensure consistency of categorisations across tables
--   the 'Note' column in the output csv file will indicate that the categorisation has been copied and where from
--   a typical session could look like this:
-
-*Run 1, select table 'CHILD'*
-
-```         
-ℹ Processing Table 6 of 13
-
-── Table Name ──
-
-CHILD
-
-── Table Last Updated ──
-
-[datetime]
-```
-
-*Run 2, select table 'CHILD_BIRTHS' (the function notices we have already run the table 'CHILD')*
-
-```
-ℹ Processing Table 7 of 13
-
-── Table Name ──
-
-CHILD_BIRTHS
-
-── Table Last Updated ──
-
-[datetime]
-...
-ℹ Copying from previous session(s): 
-
-[1] "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv"
-
-```
-
-*Run 3, select table 'PATH_BLOOD_TESTS' (the function notices we have already run the table 'CHILD' and 'CHILD_BIRTHS')*
-
-```
-ℹ Processing Table 8 of 13
-
-── Table Name ──
-
-PATH_BLOOD_TESTS
-
-── Table Last Updated ──
-
-[datetime]
-...
-ℹ Copying from previous session(s): 
-
-[1] "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_[datetime].csv"
-[2] "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_BIRTHS_[datetime].csv"
-
-```
-
-*And so on ...* Each run where you process a table has the potential to be shorter for the user to complete because if there are the same data elements that appear across tables, the user will not be asked to categorise them twice.
-
-### Potential use-cases for the output files
-
-The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
-
-Categorisations across researchers can be compared by using the function [R/compare_sessions.R](R/compare_sessions.R). Type `?compare_sessions` to read the manual on how to run this function. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
+- If you are processing multiple tables from one dataset, make sure the output files get saved to the same directory! If they do, the function will notice this, and it will copy over categorisations for repeated variables. This will save you time and ensure consistency of categorisations! 
+- The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
+- Categorisations across researchers can be compared by using the function [R/mapMetadata_compare_outputs.R](R/mapMetadata_compare_outputs.R). In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
 
 ## License
 
@@ -423,13 +352,11 @@ A BibTeX entry for LaTeX users is
 
 ## Contributing
 
-We warmly welcome contributions to the browseMetadata project. Whether it's fixing bugs, adding new features, or improving documentation, we welcome your involvement.
+We warmly welcome contributions to the browseMetadata project. Whether it's fixing bugs, adding new features, or improving documentation, we welcome your involvement. Please refer to our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md).
 
 -   **Report Issues**: If you find a bug or have a feature request, please report it via [GitHub Issues](https://github.com/aim-rsf/browseMetadata/issues).
 -   **Submit Pull Requests**: We welcome pull requests. Please read our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md) on how to make contributions.
 -   **Feedback and Suggestions**: We're always looking to improve, and we value feedback and suggestions. Feel free to open an issue to share your thoughts.
-
-For more information on how to contribute, please refer to our [Contribution Guidelines](https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md).
 
 ### Contributors ✨
 
@@ -449,7 +376,6 @@ any kind welcome!
       <td align="center" valign="top" width="14.28%"><a href="https://batool-almarzouq.netlify.app/"><img src="https://avatars.githubusercontent.com/u/53487593?v=4?s=100" width="100px;" alt="Batool Almarzouq"/><br /><sub><b>Batool Almarzouq</b></sub></a><br /><a href="#userTesting-BatoolMM" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ABatoolMM" title="Reviewed Pull Requests">👀</a> <a href="#ideas-BatoolMM" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Rainiefantasy"><img src="https://avatars.githubusercontent.com/u/43926907?v=4?s=100" width="100px;" alt="Mahwish Mohammad"/><br /><sub><b>Mahwish Mohammad</b></sub></a><br /><a href="#userTesting-Rainiefantasy" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ARainiefantasy" title="Reviewed Pull Requests">👀</a> <a href="#ideas-Rainiefantasy" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/DDelbarre"><img src="https://avatars.githubusercontent.com/u/108824056?v=4?s=100" width="100px;" alt="Daniel Delbarre"/><br /><sub><b>Daniel Delbarre</b></sub></a><br /><a href="#ideas-DDelbarre" title="Ideas, Planning, & Feedback">🤔</a> <a href="#userTesting-DDelbarre" title="User Testing">📓</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/NidaZiaS"><img src="https://avatars.githubusercontent.com/u/142920412?v=4?s=100" width="100px;" alt="NidaZiaS"/><br /><sub><b>NidaZiaS</b></sub></a><br /><a href="#ideas-NidaZiaS" title="Ideas, Planning, & Feedback">🤔</a></td>
     </tr>
   </tbody>
 </table>
@@ -462,3 +388,5 @@ any kind welcome!
 ### Acknowledgements ✨
 
 Thank you to multiple members of the [MELD-B research project](https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page) and the [SAIL Databank](https://saildatabank.com/) team for providing use-cases of meta data browsing, ideas and feedback. Thank you to the [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) for hosting openly available metadata for health datasets, and for data providers that have included their datasets on this gateway.
+
+[^1]: This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.

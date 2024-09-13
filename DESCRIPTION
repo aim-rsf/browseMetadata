@@ -11,7 +11,8 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),
+    tidyverse
 Imports: 
     cli,
     devtools,
@@ -19,9 +20,12 @@ Imports:
     ggplot2,
     grid,
     gridExtra,
+    mockery,
     rjson
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://aim-rsf.github.io/browseMetadata/
+Config/testthat/edition: 3

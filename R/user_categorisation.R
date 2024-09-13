@@ -1,6 +1,6 @@
 #' user_categorisation
 #'
-#' This function is used within the domain_mapping function. \cr \cr
+#' This function is called within the mapMetadata function. \cr \cr
 #' It displays data properties to the user and requests a categorisation into a domain. \cr \cr
 #' An optional note can be included with the categorisation.
 #'
@@ -9,7 +9,6 @@
 #' @param data_type Data type of the variable
 #' @param domain_code_max Max code in the domain list (0-3 auto included, then N included via domain_file)
 #' @return It returns a list containing the decision and decision note
-#' @export
 
 user_categorisation <- function(data_element,data_desc,data_type,domain_code_max) {
 

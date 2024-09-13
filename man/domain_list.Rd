@@ -14,7 +14,7 @@ The csv was manually created
 data(domain_list)
 }
 \description{
-A simplified list of domains, to demo the function domain_mapping.R \cr \cr
+A simplified list of domains, to demo the function mapMetadata.R \cr \cr
 This data was created with these two steps:
 \enumerate{
  \item \code{domain_list <- read.csv('browseMetadata/data-raw/domain_list_demo.csv',header=FALSE)}
