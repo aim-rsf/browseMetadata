@@ -107,7 +107,7 @@ mapMetadata()
 
 Demo mode means it will use the demo package files and only process the first 20 variables (data elements) within the table(s) we select to process. 
 
-Take note of the Plots tab in R Studio which should show a table of domains with this info below. Reference this Plots tab throughout the demo run. You will be asked to label data elements with one (or more) of these numbers [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'. The 4 default domains are always included [0-3], appended on to any domain list given.
+ Reference the Plots tab throughout the demo run (see below). You will be asked to label data elements with one (or more) of these numbers [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'. The 4 default domains are always included [0-3], appended on to any domain list given.
 
 <img src="data-raw/out/plots_tab_demo_domains.png" alt="plots" width="200"/>
 
