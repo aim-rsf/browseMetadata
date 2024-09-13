@@ -74,16 +74,13 @@ There are 4 main functions you can interact with. In order to read their documen
 
 This function is easy to run and does not require any user interaction. 
 
-Simply provide a json file containing metadata, that was downloaded from the metadata catalogue. 
-
-For now, use the example package file provided in [data-raw/in](data-raw/in). 
-In future we intend to use the HDRUK Gateway API to access the metadata, rather than relying on a manual file download. 
+For now, use the demo json file provided in [data-raw/in](data-raw/in).[^2] 
 
 ``` r
 browseMetadata(json_file = 'your-path/data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json')
 ``` 
 
-The second input to browseMetadata is `output_dir` - change this if you want to save your files somewhere other than your current working directory (which is the default).
+Change the input `output_dir` if you want to save your files somewhere other than your current working directory (the default).
 
 After running this code successfully you should see:
 
@@ -92,15 +89,13 @@ After running this code successfully you should see:
 ℹ Alternatively, on the Plots tab select the 'Show in new window' button.
 ```
 
-PNG versions of these outputs are saved in [data-raw/out](data-raw/out) for you to reference, but for high resolution interactive versions, open up the html files that you just generated in your web browser. The table summarises the dataset and each table in the dataset - this will be a useful reference to have open when you run the `mapMetadata.R` function below. 
+The table summarises the dataset and each table in the dataset - this will be a useful reference to have open when you run the `mapMetadata.R` function below. 
 
-Let's look at the bar plot, pasted below for convenience. This plot is another simple way of summarising the dataset. We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) has a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. 
-
-It is important to note that this is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
+The bar plot, pasted below for convenience, is another simple way of summarising the dataset. We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) has a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^3].
 
 ![bar plot](data-raw/out/BROWSE_bar_NationalCommunityChildHealthDatabase(NCCHD)_Version16.0.0.png)
 
-The numbers next to table names, (1), correspond to the order in which they appear in the table and the order they are shown to you in the `mapMetadata.R` function. 
+The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata.R` function. 
 
 #### `mapMetadata.R`
 
@@ -390,3 +385,8 @@ any kind welcome!
 Thank you to multiple members of the [MELD-B research project](https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page) and the [SAIL Databank](https://saildatabank.com/) team for providing use-cases of meta data browsing, ideas and feedback. Thank you to the [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) for hosting openly available metadata for health datasets, and for data providers that have included their datasets on this gateway.
 
 [^1]: This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.
+
+[^2]: In future we intend to use the HDRUK Gateway API to access the most up to date metadata, rather than relying on a manual file download. 
+
+[^3]: It is important to note that this is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
+
