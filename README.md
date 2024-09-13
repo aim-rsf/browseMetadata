@@ -80,7 +80,7 @@ For now, use the demo json file provided in [data-raw/in](data-raw/in).[^2]
 browseMetadata(json_file = 'your-path/data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json')
 ``` 
 
-Change the input `output_dir` if you want to save your files somewhere other than your current working directory (the default).
+Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default).
 
 After running this code successfully you should see:
 
