@@ -9,7 +9,6 @@
 #' @param json_file The full path to the metadata file used when running mapMetadata (should be the same for session 1 and session 2)
 #' @param domain_file The full path to the domain file used when running mapMetadata (should be the same for session 1 and session 2)
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
-#' @importFrom dplyr left_join select join_by
 #' @export
 
 mapMetadata_compare_outputs <- function(session_dir,session1_base,session2_base,json_file,domain_file) {
@@ -18,13 +17,13 @@ mapMetadata_compare_outputs <- function(session_dir,session1_base,session2_base,
 
   # DEFINE INPUTS ----
 
-  csv_1a <- read.csv(paste0(session_dir,'/','LOG_',session1_base,'.csv'))
-  csv_2a <- read.csv(paste0(session_dir,'/','LOG_',session2_base,'.csv'))
-  csv_1b <- read.csv(paste0(session_dir,'/','OUTPUT_',session1_base,'.csv'))
-  csv_2b <- read.csv(paste0(session_dir,'/','OUTPUT_',session2_base,'.csv'))
+  csv_1a <- utils::read.csv(paste0(session_dir,'/','LOG_',session1_base,'.csv'))
+  csv_2a <- utils::read.csv(paste0(session_dir,'/','LOG_',session2_base,'.csv'))
+  csv_1b <- utils::read.csv(paste0(session_dir,'/','OUTPUT_',session1_base,'.csv'))
+  csv_2b <- utils::read.csv(paste0(session_dir,'/','OUTPUT_',session2_base,'.csv'))
 
   meta_json <- rjson::fromJSON(file = json_file)
-  domains <- read.csv(domain_file, header = FALSE)
+  domains <- utils::read.csv(domain_file, header = FALSE)
 
   Dataset <- meta_json$dataModel
   Dataset_Name <- Dataset$label
@@ -111,5 +110,5 @@ mapMetadata_compare_outputs <- function(session_dir,session1_base,session2_base,
   output_fname <- paste0("CONCENSUS_OUTPUT_", gsub(" ", "", Dataset_Name), "_", table_find$table_label[table_n], "_", timestamp_now, ".csv")
   utils::write.csv(ses_join, output_fname, row.names = FALSE)
   cat("\n")
-  cli_alert_success("Your concensus categorisations have been saved to {output_fname}")
+  cli::cli_alert_success("Your concensus categorisations have been saved to {output_fname}")
 }
