@@ -6,13 +6,12 @@
 #' @param session_1 Dataframe from session 1
 #' @param session_2 Dataframe from session 2
 #' @return Dataframe with information from session 1 and 2, joined on column DataElement.
-#' @importFrom CHECK LATER
 #'
 
 join_outputs <- function(session_1, session_2){
 
-  ses_join <- left_join(session_1,session_2,suffix = c("_ses1","_ses2"),join_by(DataElement))
-  ses_join <- select(ses_join,contains("_ses"),'DataElement')
+  ses_join <- dplyr::left_join(session_1,session_2,suffix = c("_ses1","_ses2"),dplyr::join_by(DataElement))
+  ses_join <- dplyr::select(ses_join,dplyr::contains("_ses"),'DataElement')
   ses_join$Domain_code_join <- NA
   ses_join$Note_join <- NA
   ses_join
