@@ -51,10 +51,10 @@ expected_output_ses1_ses1 <- data.frame(
 )
 
 # Write the test
-test_that("join_outputs works correctly", {
+testthat::test_that("join_outputs works correctly", {
   result <- join_outputs(session_1, session_1)
-  expect_equal(result, expected_output_ses1_ses1)
+  testthat::expect_equal(result, expected_output_ses1_ses1)
   result <- join_outputs(session_1,session_2)
-  expect_equal(result, expected_output_ses1_ses2)
+  testthat::expect_equal(result, expected_output_ses1_ses2)
   })
 

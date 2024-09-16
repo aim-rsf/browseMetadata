@@ -16,7 +16,7 @@ mock_Dataset <- list(
   )
 )
 
-test_that("json_table_to_df gives expected output for first index", {
+testthat::test_that("json_table_to_df gives expected output for first index", {
   result <- json_table_to_df(mock_Dataset, 1)
 
   expected <- data.frame(
@@ -25,10 +25,10 @@ test_that("json_table_to_df gives expected output for first index", {
     Type = c("Type1", "Type2")
   )
 
-  expect_equal(result, expected)
+  testthat::expect_equal(result, expected)
 })
 
-test_that("json_table_to_df gives expected output for second index", {
+testthat::test_that("json_table_to_df gives expected output for second index", {
   result <- json_table_to_df(mock_Dataset, 2)
 
   expected <- data.frame(
@@ -37,5 +37,5 @@ test_that("json_table_to_df gives expected output for second index", {
     Type = c("Type1", "Type3")
   )
 
-  expect_equal(result, expected)
+  testthat::expect_equal(result, expected)
 })
