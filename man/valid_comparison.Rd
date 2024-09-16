@@ -20,7 +20,7 @@ valid_comparison(input1, input2, severity, severity_text)
 \item{severity_text}{The text to print if inputs are not equal.}
 }
 \value{
-It returns variable text, depending on any_keys.
+Returns nothing if inputs are equal. If inputs are not equal, returns variable text depending on level of severity.
 }
 \description{
 valid_comparison

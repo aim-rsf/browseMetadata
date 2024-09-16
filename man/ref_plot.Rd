@@ -10,7 +10,7 @@ ref_plot(domains)
 \item{domains}{The output of load_data}
 }
 \value{
-A reference table that appears in the Plots tab. A list of 2 containing the derivatives for this plot, used later in mapMetadata.
+A reference table that appears in the Plots tab. A list of 2 containing the derivatives for this plot, used later in mapMetadata.#'
 }
 \description{
 This function is called within the mapMetadata function. \cr \cr
