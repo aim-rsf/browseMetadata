@@ -40,7 +40,7 @@ user_categorisation <- function(data_element,data_desc,data_type,domain_code_max
       suppressWarnings(decision_int_max <- max(decision_int,na.rm=TRUE))
       suppressWarnings(decision_int_min <- min(decision_int,na.rm=TRUE))
       if (decision_int_NA == TRUE | decision_int_max > domain_code_max | decision_int_min < 0){
-        cli_alert_warning("Formatting is invalid or integer out of range. Provide one integer or a comma seperated list of integers.")
+        cli::cli_alert_warning("Formatting is invalid or integer out of range. Provide one integer or a comma seperated list of integers.")
         validated = FALSE}
       else {
         validated = TRUE
