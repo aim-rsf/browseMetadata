@@ -7,11 +7,10 @@
 #' @param output_dir The location of output_csv
 #' @return The function will return 'L-OUTPUT_' in the same output_dir
 #' @export
-#' @importFrom utils read.csv write.csv
-
+#'
 mapMetadata_convert_outputs <- function(output_csv,output_dir) {
 
-output <- read.csv(paste0(output_dir,'/',output_csv))
+output <- utils::read.csv(paste0(output_dir,'/',output_csv))
 output_long <- output[0,] #make duplicate
 
 for (row in 1:(nrow(output))) {
