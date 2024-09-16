@@ -9,8 +9,8 @@
 #' @param severity Level of severity. Only 'danger' or 'warning'
 #' @param severity_text The text to print if inputs are not equal.
 #' @return Returns nothing if inputs are equal. If inputs are not equal, returns variable text depending on level of severity.
-#' @importFrom CHECK LATER
 #'
+
 valid_comparison <- function(input1, input2, severity, severity_text) {
 
   if (!severity %in% c('danger', 'warning')) {
@@ -25,7 +25,7 @@ valid_comparison <- function(input1, input2, severity, severity_text) {
   } else if (severity == 'warning') {
     if (input1 != input2) {
       cat('\n')
-      cli_alert_warning(paste(severity_text,"-> Continuing but please check comparison is valid!"))
+      cli::cli_alert_warning(paste(severity_text,"-> Continuing but please check comparison is valid!"))
     }
   }
   }
