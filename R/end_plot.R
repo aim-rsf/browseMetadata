@@ -8,13 +8,14 @@
 #' @param ref_table The domain code reference table (which domain maps to which integer)
 #' @return It returns a ggplot
 #' @importFrom dplyr %>%
+#' @import ggplot2
 
 end_plot <- function(df,Table_name, ref_table){
 
   counts <- df %>% dplyr::group_by(Domain_code) %>% dplyr::count() %>% dplyr::arrange(n)
 
   Domain_plot <- counts %>%
-    ggplot2::ggplot(aes(x = stats::reorder(Domain_code, -n), y = n)) +
+    ggplot(aes(x = stats::reorder(Domain_code, -n), y = n)) +
     geom_col() +
     ggtitle(paste("Data Elements in",Table_name,"grouped by Domain code")) +
     theme_gray(base_size = 18) +
