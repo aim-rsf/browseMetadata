@@ -8,9 +8,7 @@
 #' @param domain_file As defined in mapMetadata
 #' @param look_up_file As defined in mapMetadata
 #' @return A list of 5: all inputs needed for the mapMetadata function to run.
-#' @importFrom CHECK LATER
-#'
-#'
+
 load_data <- function(json_file, domain_file,look_up_file){
 
   # Collect meta_json and domains

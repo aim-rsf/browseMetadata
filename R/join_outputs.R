@@ -6,7 +6,6 @@
 #' @param session_1 Dataframe from session 1
 #' @param session_2 Dataframe from session 2
 #' @return Dataframe with information from session 1 and 2, joined on column DataElement.
-#'
 
 join_outputs <- function(session_1, session_2){
 

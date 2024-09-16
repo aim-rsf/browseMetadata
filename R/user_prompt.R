@@ -7,7 +7,6 @@
 #' @param any_keys Boolean to determine if any key responses are allowable.
 #' If FALSE, only these are allowed: Y, y, N and n.
 #' @return It returns variable text, depending on any_keys.
-#'
 
 user_prompt <- function(prompt_text, any_keys) {
 

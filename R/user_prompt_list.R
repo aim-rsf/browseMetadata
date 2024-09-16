@@ -8,7 +8,6 @@
 #' @param list_allowed A list of allowable integer responses.
 #' @param empty_allowed A boolean specifying if no response is allowed.
 #' @return It returns a list of integers to process, that match the prompt options.
-#'
 
 user_prompt_list <- function(prompt_text,list_allowed,empty_allowed) {
 

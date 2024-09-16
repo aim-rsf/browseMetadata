@@ -7,7 +7,6 @@
 #' @param Dataset This is the dataModel field of the json
 #' @param n The Dataset number (as a json can have multiple datasets)
 #' @return A dataframe for that specific table, including data label, description and type.
-#'
 
 json_table_to_df <- function(Dataset,n){
 
