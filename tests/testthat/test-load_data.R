@@ -1,7 +1,7 @@
 # Define file paths to demo data relative to the package directory
-json_file <- system.file("data-raw/in/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
-look_up_file <- system.file("data-raw/in/look_up.csv", package = "browseMetadata")
-domains_file <- system.file("data-raw/in/domain_list_demo.csv", package = "browseMetadata")
+json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+look_up_file <- system.file("inputs/look_up.csv", package = "browseMetadata")
+domains_file <- system.file("inputs/domain_list_demo.csv", package = "browseMetadata")
 
 # Define package demo data
 json <- get("json_metadata")

@@ -6,10 +6,9 @@
 #' description of the dataset, and each table within it. The second is a bar
 #' chart, summarising how many variables there are for each table, and whether
 #' these variables have a missing description. \cr \cr
-#' @param json_file The metadata file. This should be downloaded from the
-#' metadata catalogue as a json file. Use
-#' 'data-raw/maternity_indicators_dataset_(mids)_20240105T132210.json' for an
-#' example download.
+#' @param json_file The metadata file. This should be a json download from the
+#' metadata catalogue. By default, 'data/json_metadata.rda' is used - run
+#' '?json_metadata' to see how it was created.
 #' @param output_dir The path to the directory where the two output files
 #' will be saved. By default, the current working directory is used.
 #' @return The function will return two files, 'BROWSE_table_' and 'BROWSE_bar'
