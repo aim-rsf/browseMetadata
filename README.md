@@ -74,10 +74,10 @@ There are 4 main functions you can interact with. In order to read their documen
 
 This function is easy to run and does not require any user interaction. 
 
-For now, use the demo json file provided in [data-raw/in](data-raw/in).[^2] 
+For now, use the demo json file provided in [inst/inputs](inst/inputs).[^2] 
 
 ``` r
-browseMetadata(json_file = 'your-path/data-raw/national_community_child_health_database_(ncchd)_20240405T130125.json')
+browseMetadata(json_file = 'inst/inputs/national_community_child_health_database_(ncchd)_20240405T130125.json')
 ``` 
 
 Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default).
@@ -93,7 +93,7 @@ The table summarises the dataset and each table in the dataset - this will be a 
 
 The bar plot, pasted below for convenience, is another simple way of summarising the dataset. We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) has a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^3].
 
-![bar plot](data-raw/out/BROWSE_bar_NationalCommunityChildHealthDatabase(NCCHD)_Version16.0.0.png)
+![bar plot](inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase(NCCHD)_V16.0.0.png)
 
 The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata.R` function. 
 
@@ -109,7 +109,7 @@ Demo mode means it will use the demo package files and only process the first 20
 
  Reference the Plots tab throughout the demo run (see below). You will be asked to label data elements with one (or more) of these numbers [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'. The 4 default domains are always included [0-3], appended on to any domain list given.
 
-<img src="data-raw/out/plots_tab_demo_domains.png" alt="plots" width="200"/>
+<img src="inst/outputs/plots_tab_demo_domains.png" alt="plots" width="200"/>
 
 ```         
 ℹ Running mapMetadata in demo mode using package data files
@@ -226,7 +226,7 @@ Response to be saved is '7'. Would you like to re-do? (y/n): y
 
 After completing 20, it will then ask you to review the auto-categorisations it made.
 
-These auto-categorisations are based on the mappings included in the [data-raw/look_up.csv](data-raw/look_up.csv). This look-up file can be changed by the user. ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.
+These auto-categorisations are based on the mappings included in the [inst/inputs/look_up.csv](inst/inputs/look_up.csv). This look-up file can be changed by the user. ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.
 
 ```         
 ! Please check the auto categorised data elements are accurate for table CHILD:

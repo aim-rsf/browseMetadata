@@ -138,7 +138,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   )
 
   # Save the plot to a temporary HTML file
-  table_fname <- paste0("BROWSE_table_",gsub(" ", "", Dataset_Name),"_Version",
+  table_fname <- paste0("BROWSE_table_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
   htmlwidgets::saveWidget(widget = table_fig, file = table_fname, selfcontained = TRUE)
   # Move the temporary file to the output dir
@@ -166,7 +166,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
            legend = list(title = list(text = 'Empty Description')))
 
   # Save the plot to a temporary HTML file
-  bar_fname <- paste0("BROWSE_bar_",gsub(" ", "", Dataset_Name),"_Version",
+  bar_fname <- paste0("BROWSE_bar_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
   htmlwidgets::saveWidget(widget = empty_fig, file = bar_fname, selfcontained = TRUE)
   # Move the temporary file to the desired directory (known issue with saveWidget means 2 steps are needed)
