@@ -15,15 +15,19 @@
 #' which gives summary informatin for this dataset and can be used as reference
 #' when running the MapMetadata function. Open these outputs in a browser.
 #' @export
-#' @importFrom dplyr %>%
+#' @importFrom dplyr %>% add_row group_by count ungroup bind_rows
+#' @importFrom rjson fromJSON
+#' @importFrom cli cli_alert_info
+#' @importFrom plotly plot_ly layout
+#' @importFrom htmlwidgets saveWidget
+#' @importFrom tidyr pivot_longer
 
 browseMetadata <- function(json_file,output_dir = NULL) {
 
   # DEFINE INPUTS AND OUTPUTS ----
 
   ## Read in the json file containing the meta data
-  meta_json <<- rjson::fromJSON(file = json_file)
-  meta_json <- rjson::fromJSON(file = json_file)
+  meta_json <- fromJSON(file = json_file)
 
   ## Set output_dir to current wd if user has not provided it
   if (is.null(output_dir)) {
@@ -40,9 +44,9 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   tables <- data.frame(N = character(0), Name = character(0),
                        Description = character(0))
   # add information about the dataset at the top
-  tables <- tables %>% dplyr::add_row(N = '',Name = Dataset$label,
+  tables <- tables %>% add_row(N = '',Name = Dataset$label,
                           Description = gsub('\n\n', '', Dataset$description))
-  tables <- tables %>% dplyr::add_row(N = 'N',Name = 'Table',Description = '')
+  tables <- tables %>% add_row(N = 'N',Name = 'Table',Description = '')
 
   # create data frame that counts empty description fields
   count_empty <- data.frame(Empty = c('No','Yes'))
@@ -55,10 +59,10 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   for (dc in 1:ntables) {
     cat("\n")
     Table_name <- Dataset$childDataClasses[[dc]]$label
-    cli::cli_alert_info(paste0("Processing Table {dc} of {ntables} (",Table_name,")"))
+    cli_alert_info(paste0("Processing Table {dc} of {ntables} (",Table_name,")"))
 
     ## add to the tables data frame
-    tables <- tables %>% dplyr::add_row(
+    tables <- tables %>% add_row(
       N = as.character(dc),
       Name = Table_name,
       Description = gsub('\n\n', '',Dataset$childDataClasses[[dc]]$description))
@@ -78,14 +82,14 @@ browseMetadata <- function(json_file,output_dir = NULL) {
     } else {
         find_Empty = 'No'}
 
-    table_summary <- table_summary %>% dplyr::add_row(
+    table_summary <- table_summary %>% add_row(
     DataElement = Table_df$Label[data_v],
     Empty = find_Empty,
     Type = Table_df$Type[data_v])
     }
 
     # count how many are empty
-    count_empty_table <- table_summary %>% dplyr::group_by(Empty) %>% dplyr::count()
+    count_empty_table <- table_summary %>% group_by(Empty) %>% count()
 
     #add in a Yes or No row if it doesn't exist
     if (nrow(count_empty_table) == 1){
@@ -95,9 +99,9 @@ browseMetadata <- function(json_file,output_dir = NULL) {
         new_row <- data.frame(Empty = 'No',n = 0)
       }
       count_empty_table <- count_empty_table %>%
-        dplyr::ungroup() %>%
-        dplyr::bind_rows(new_row) %>%
-        dplyr::group_by(Empty)
+        ungroup() %>%
+        bind_rows(new_row) %>%
+        group_by(Empty)
     }
 
     #add to group dataframe for later plotting
@@ -140,14 +144,14 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   # Save the plot to a temporary HTML file
   table_fname <- paste0("BROWSE_table_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
-  htmlwidgets::saveWidget(widget = table_fig, file = table_fname, selfcontained = TRUE)
+  saveWidget(widget = table_fig, file = table_fname, selfcontained = TRUE)
   # Move the temporary file to the output dir
   # (known issue with saveWidget means 2 steps are needed)
   file.rename(table_fname, paste0(output_dir, "/",table_fname))
 
   # Plot bar chart comparing missing versus not missing for each table
   count_empty_long <- count_empty %>%
-    tidyr::pivot_longer(cols = -Empty, names_to = "Table", values_to = "N_Variables")
+    pivot_longer(cols = -Empty, names_to = "Table", values_to = "N_Variables")
 
   empty_fig <- plot_ly(count_empty_long,
                        x = ~Table,
@@ -159,7 +163,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
                        textposition = 'inside', # Position the text inside the bars
                        texttemplate = '%{text}', # Ensure the text is displayed as is
                        textfont = list(color = 'black',size = 10)) %>% # Set text color to black
-    graphics::layout(barmode = 'stack',
+    layout(barmode = 'stack',
            title = paste0('\n',Dataset_Name,' contains ',ntables,' tables'),
            xaxis = list(title = 'Table'),
            yaxis = list(title = 'N_Variables'),
@@ -168,13 +172,13 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   # Save the plot to a temporary HTML file
   bar_fname <- paste0("BROWSE_bar_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
-  htmlwidgets::saveWidget(widget = empty_fig, file = bar_fname, selfcontained = TRUE)
+  saveWidget(widget = empty_fig, file = bar_fname, selfcontained = TRUE)
   # Move the temporary file to the desired directory (known issue with saveWidget means 2 steps are needed)
   file.rename(bar_fname, paste0(output_dir, "/",bar_fname))
 
   cat ("\n")
-  cli::cli_alert_info("Two outputs have been saved in your output directory. Open them in your browser to view.")
-  cli::cli_alert_info("Alternatively, on the Plots tab select the 'Show in new window' button.")
+  cli_alert_info("Two outputs have been saved in your output directory. Open them in your browser to view.")
+  cli_alert_info("Alternatively, on the Plots tab select the 'Show in new window' button.")
   cat ("\n")
 
   list(table_fig = table_fig, empty_fig = empty_fig)

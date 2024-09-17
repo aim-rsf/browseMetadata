@@ -35,7 +35,10 @@
 #' @return The function will return two csv files: 'OUTPUT_' which contains the
 #' mappings and 'LOG_' which contains details about the dataset and session.
 #' @export
-#' @importFrom dplyr %>%
+#' @importFrom dplyr %>% add_row
+#' @importFrom cli cli_h1 cli_alert_info cli_alert_success
+#' @importFrom utils packageVersion write.csv
+#' @importFrom ggplot2 ggsave
 
 mapMetadata <- function(
     json_file = NULL,
@@ -73,13 +76,13 @@ mapMetadata <- function(
 
   # DISPLAY DATASET ----
 
-  cli::cli_h1('Dataset Name')
+  cli_h1('Dataset Name')
   cat(Dataset_Name)
-  cli::cli_h1('Dataset File Exported By')
+  cli_h1('Dataset File Exported By')
   cat(paste(data$meta_json$exportMetadata$exportedBy,
             "at",data$meta_json$exportMetadata$exportedOn))
   cat("\n\n")
-  cli::cli_alert_info("Reference outputs from browseMetadata for information about the dataset")
+  cli_alert_info("Reference outputs from browseMetadata for information about the dataset")
   cat("\nPress any key to continue ")
   readline()
 
@@ -88,7 +91,7 @@ mapMetadata <- function(
   nTables <- length(Dataset$childDataClasses)
   table_df <- data.frame(Table_Name = character(0), Table_Number = integer(0))
   for (dc in 1:nTables) {
-    table_df <- table_df %>% dplyr::add_row(
+    table_df <- table_df %>% add_row(
       Table_Number = dc,
       Table_Name = Dataset$childDataClasses[[dc]]$label)
     }
@@ -106,12 +109,12 @@ mapMetadata <- function(
   ## Extract each Table
   for (dc in unique(nTables_Process)) {
     cat("\n")
-    cli::cli_alert_info("Processing Table {dc} of {nTables}")
-    cli::cli_h1("Table Name")
+    cli_alert_info("Processing Table {dc} of {nTables}")
+    cli_h1("Table Name")
     Table_name <- Dataset$childDataClasses[[dc]]$label
     cat(Table_name,"\n",fill = TRUE)
     cat("\n")
-    cli::cli_alert_info("Reference outputs from browseMetadata for information about the table")
+    cli_alert_info("Reference outputs from browseMetadata for information about the table")
     cat("\n")
 
     ### Use 'copy_previous.R' to copy from previous output(s) if they exist
@@ -131,7 +134,7 @@ mapMetadata <- function(
 
     ### Ask user which data elements to process
 
-    cli::cli_alert_info(paste('There are', as.character(nrow(Table_df)),
+    cli_alert_info(paste('There are', as.character(nrow(Table_df)),
                  'data elements (variables) in this table.'))
 
     if (data$demo_mode == TRUE) {
@@ -232,7 +235,7 @@ mapMetadata <- function(
 
     ### Fill in log output
     log_Output$timestamp = timestamp_now
-    log_Output$browseMetadata = utils::packageVersion("browseMetadata")
+    log_Output$browseMetadata = packageVersion("browseMetadata")
     log_Output$Initials = User_Initials
     log_Output$MetaDataVersion = Dataset$documentationVersion
     log_Output$MetaDataLastUpdated = Dataset$lastUpdated
@@ -250,25 +253,25 @@ mapMetadata <- function(
                         gsub(" ", "", Table_name),"_",timestamp_now,".png")
 
     ### Save final categorisations for this Table
-    utils::write.csv(Output,paste(output_dir, csv_fname, sep = '/'),
+    write.csv(Output,paste(output_dir, csv_fname, sep = '/'),
                      row.names = FALSE)
-    utils::write.csv(log_Output,paste(output_dir, csv_log_fname, sep = '/'),
+    write.csv(log_Output,paste(output_dir, csv_log_fname, sep = '/'),
                      row.names = FALSE)
     cat("\n")
-    cli::cli_alert_success("Final categorisations saved in:\n{csv_fname}")
-    cli::cli_alert_success("Session log saved in:\n{csv_log_fname}")
+    cli_alert_success("Final categorisations saved in:\n{csv_fname}")
+    cli_alert_success("Session log saved in:\n{csv_log_fname}")
 
     ### Create and save a summary plot
     end_plot_save <- end_plot(df = Output,Table_name,
                               ref_table = df_plots$Domain_table)
-    ggplot2::ggsave(
+    ggsave(
       plot = end_plot_save$full_plot,
       paste(output_dir, png_fname, sep = '/'),
       width = 14,
       height = 8,
       units = "in"
     )
-    cli::cli_alert_success("A summary plot has been saved:\n{png_fname}")
+    cli_alert_success("A summary plot has been saved:\n{png_fname}")
 
   } # end of loop for each table
 

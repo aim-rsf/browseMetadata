@@ -14,14 +14,15 @@
 #' @param df_plots Output from the ref_plot function, to indicate maximum domain code allowed
 #' @param Output Empty Output dataframe, to fill
 #' @return An Output dataframe containing information about the table, data elements and categorisations
-#' @importFrom dplyr %>%
+#' @importFrom dplyr %>% add_row
+#' @importFrom cli cli_alert_info
 
 user_categorisation_loop <- function(start_v,end_v,Table_df,df_prev_exist,df_prev,lookup,df_plots,Output) {
 
   for (data_v in start_v:end_v) {
     cat("\n \n")
-    cli::cli_alert_info(paste(length(data_v:end_v), 'left to process'))
-    cli::cli_alert_info("Data element {data_v} of {nrow(Table_df)}")
+    cli_alert_info(paste(length(data_v:end_v), 'left to process'))
+    cli_alert_info("Data element {data_v} of {nrow(Table_df)}")
     this_DataElement <- Table_df$Label[data_v]
     this_DataElement_N <- paste(as.character(data_v), 'of',
                                 as.character(nrow(Table_df)))
@@ -39,7 +40,7 @@ user_categorisation_loop <- function(start_v,end_v,Table_df,df_prev_exist,df_pre
     ##### decide how to process the data element out of 3 options
     if (nrow(lookup_subset) == 1) {
       ###### 1 - auto categorisation
-      Output <- Output %>% dplyr::add_row(
+      Output <- Output %>% add_row(
         DataElement = this_DataElement,
         DataElement_N = this_DataElement_N,
         Domain_code = as.character(lookup_subset$DomainCode),
@@ -48,7 +49,7 @@ user_categorisation_loop <- function(start_v,end_v,Table_df,df_prev_exist,df_pre
     } else if (df_prev_exist == TRUE &
                nrow(df_prev_subset) == 1) {
       ###### 2 - copy from previous table
-      Output <- Output %>% dplyr::add_row(
+      Output <- Output %>% add_row(
         DataElement = this_DataElement,
         DataElement_N = this_DataElement_N,
         Domain_code = as.character(df_prev_subset$Domain_code),
@@ -62,7 +63,7 @@ user_categorisation_loop <- function(start_v,end_v,Table_df,df_prev_exist,df_pre
         Table_df$Type[data_v],
         max(df_plots$Code$Code)
       )
-      Output <- Output %>% dplyr::add_row(
+      Output <- Output %>% add_row(
         DataElement = this_DataElement,
         DataElement_N = this_DataElement_N,
         Domain_code = decision_output$decision,
