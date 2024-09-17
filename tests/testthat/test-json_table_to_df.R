@@ -1,3 +1,6 @@
+# load libraries
+library(testthat) # test_that, expect_equal
+
 # Define the mock json
 mock_Dataset <- list(
   childDataClasses = list(
@@ -16,7 +19,7 @@ mock_Dataset <- list(
   )
 )
 
-testthat::test_that("json_table_to_df gives expected output for first index", {
+test_that("json_table_to_df gives expected output for first index", {
   result <- json_table_to_df(mock_Dataset, 1)
 
   expected <- data.frame(
@@ -25,10 +28,10 @@ testthat::test_that("json_table_to_df gives expected output for first index", {
     Type = c("Type1", "Type2")
   )
 
-  testthat::expect_equal(result, expected)
+  expect_equal(result, expected)
 })
 
-testthat::test_that("json_table_to_df gives expected output for second index", {
+test_that("json_table_to_df gives expected output for second index", {
   result <- json_table_to_df(mock_Dataset, 2)
 
   expected <- data.frame(
@@ -37,5 +40,5 @@ testthat::test_that("json_table_to_df gives expected output for second index", {
     Type = c("Type1", "Type3")
   )
 
-  testthat::expect_equal(result, expected)
+  expect_equal(result, expected)
 })

@@ -1,3 +1,6 @@
+# load libraries
+library(testthat) # test_that, expect_equal
+
 # Create sample data (only allow it to different on timestamp, Domain_code and Note)
 session_1 <- data.frame(
   timestamp = c("2024-08-22-13-26-33", "2024-08-22-13-26-33", "2024-08-22-13-26-33"),
@@ -51,10 +54,10 @@ expected_output_ses1_ses1 <- data.frame(
 )
 
 # Write the test
-testthat::test_that("join_outputs works correctly", {
+test_that("join_outputs works correctly", {
   result <- join_outputs(session_1, session_1)
-  testthat::expect_equal(result, expected_output_ses1_ses1)
+  expect_equal(result, expected_output_ses1_ses1)
   result <- join_outputs(session_1,session_2)
-  testthat::expect_equal(result, expected_output_ses1_ses2)
+  expect_equal(result, expected_output_ses1_ses2)
   })
 
