@@ -7,6 +7,8 @@
 ^CONTRIBUTING\.md$
 ^_pkgdown\.yml$
 ^pkgdown$
+^docs$
+^doc$
 ^.Rhistory$
 ^.*\.Rproj$
 ^\.Rproj\.user$
