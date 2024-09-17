@@ -16,10 +16,8 @@ Depends:
     R (>= 2.10)
 Imports: 
     cli,
-    devtools,
     dplyr,
     ggplot2,
-    grid,
     gridExtra,
     htmlwidgets,
     plotly,
@@ -28,6 +26,7 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
+    devtools,
     testthat (>= 3.0.0),
     mockery
 VignetteBuilder: 
