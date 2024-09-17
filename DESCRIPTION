@@ -1,15 +1,17 @@
 Type: Package
 Package: browseMetadata
-Title: Browses available metadata, to catergorise or label each variable
-    in a dataset
+Title: Browses available health metadata, and aids in categorising variables
 Version: 1.2.1
 Authors@R: 
     person("Rachael", "Stickland", , "rstickland@turing.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3398-4272"))
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
-Description: See https://github.com/aim-rsf/browseMetadata/main/README.md
+Description: This R package helps a researcher browse datasets in SAIL databank. 
+ It has scope to be applied to other health datasets. 
+ It is useful in the earlier stages of a project; prior to data access, 
+ researchers can use the metadata to browse and categorise variables.
 License: GPL (>= 3)
-URL: https://aim-rsf.github.io/browseMetadata/
+URL: https://github.com/aim-rsf/browseMetadata
 Depends: 
     R (>= 2.10)
 Imports: 
@@ -19,12 +21,15 @@ Imports:
     ggplot2,
     grid,
     gridExtra,
-    mockery,
-    rjson
+    htmlwidgets,
+    plotly,
+    rjson,
+    tidyr
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    mockery
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
