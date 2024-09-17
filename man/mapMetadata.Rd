@@ -13,23 +13,21 @@ mapMetadata(
 )
 }
 \arguments{
-\item{json_file}{The metadata file. This should be downloaded from the
-metadata catalogue as a json file. By default, 'data/json_metadata.rda' is
-used by the function, which was created from the file in 'data-raw/in/
-maternity_indicators_dataset_(mids)_20240105T132210.json'.}
+\item{json_file}{The metadata file. This should be a json download from the
+metadata catalogue. By default, 'data/json_metadata.rda' is used - run
+'?json_metadata' to see how it was created.}
 
 \item{domain_file}{The domain list file. This should be a csv file created by
 the user, with each domain listed on a separate line, no header. By default,
-'data/domain_list.rda' is used by the function, which was created from the
-file in 'data-raw/in/domain_list_demo.csv'. Note that 4 domains will be
-added automatically (NO MATCH/UNSURE, METADATA, ID, DEMOGRAPHICS) and
-therefore should not be included in the domain_file.}
+'data/domain_list.rda' is used - run '?domain_list' to see how it was created.
+Note that 4 domains will be added automatically (NO MATCH/UNSURE, METADATA,
+ID, DEMOGRAPHICS) and therefore should not be included in the domain_file.}
 
 \item{look_up_file}{The look-up table file. By default, 'data/look-up.rda'
-is used by the function, which was created from the file 'data-raw/in/
-look-up.csv'. The lookup file makes auto-categorisations intended for
-variables that appear regularly in health datasets. It only works for for 1:1
-mappings right now, i.e. DataElement should only be listed once in the file.}
+is used - run '?look_up' to see how it was created. The lookup file makes
+auto-categorisations intended for variables that appear regularly in health
+datasets. It only works for for 1:1. mappings right now, i.e. DataElement
+should only be listed once in the file.}
 
 \item{output_dir}{The path to the directory where the two csv output files
 will be saved. By default, the current working directory is used.}
@@ -51,7 +49,7 @@ through all the data elements, and ask the user to catergorise/label each
 data element as belonging to one or more domains. The domains will appear
 in the Plots tab for the user's reference. \cr \cr
 These categorisations will be saved to a csv file, alongside a log file which
-summarises the session details.To speed up this process, some
+summarises the session details. To speed up this process, some
 auto-categorisations will be made by the function for commonly occurring data
 elements and categorisations for the same data element can be copied from one
 table to another. \cr \cr
