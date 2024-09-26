@@ -71,7 +71,9 @@ This function is easy to run and does not require any user interaction. For now,
 The json file should contain information about the data asset (dataset), data class (table) and data element (variable)[^3].
 
 ``` r
-browseMetadata(json_file = 'inst/inputs/national_community_child_health_database_(ncchd)_20240405T130125.json')
+demo_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+
+browseMetadata(json_file = demo_json_file)
 ``` 
 
 Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default).
