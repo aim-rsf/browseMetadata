@@ -15,12 +15,12 @@
 #' which gives summary informatin for this dataset and can be used as reference
 #' when running the MapMetadata function. Open these outputs in a browser.
 #' @export
-#' @importFrom dplyr %>% add_row group_by count ungroup bind_rows
+#' @importFrom dplyr %>% add_row
 #' @importFrom rjson fromJSON
 #' @importFrom cli cli_alert_info
 #' @importFrom plotly plot_ly layout
 #' @importFrom htmlwidgets saveWidget
-#' @importFrom tidyr pivot_longer complete
+#' @importFrom tidyr pivot_longer
 
 browseMetadata <- function(json_file,output_dir = NULL) {
 
@@ -40,16 +40,16 @@ browseMetadata <- function(json_file,output_dir = NULL) {
 
   # PREPARE 2 OUTPUT DATAFRAMES FOR LATER PLOTTING ----
 
-  # 1 - information about dataset and each table
+  ## 1. Information about dataset and each table
   dataset_desc <- data.frame(N = character(0), Name = character(0),
                        Description = character(0))
-  # add information about the dataset at the top
+  ### add information about the dataset at the top
   dataset_desc <- dataset_desc %>% add_row(N = '',Name = Dataset$label,
                           Description = gsub('\n\n', '', Dataset$description))
   dataset_desc <- dataset_desc %>%
     add_row(N = 'N',Name = 'Table',Description = '')
 
-  # 2 - counts of empty description fields for each table
+  ## 2. Counts of empty description fields for each table
   count_empty <- data.frame(Empty = c('No','Yes'))
 
   # LOOP THROUGH EACH TABLE IN DATASET ----
@@ -63,45 +63,27 @@ browseMetadata <- function(json_file,output_dir = NULL) {
     cli_alert_info(paste0("Processing Table {dc} of {ntables} (",
                           Table_name,")"))
 
-    ## add to the dataset_desc data frame
+    ## Add to the dataset_desc data frame
     dataset_desc <- dataset_desc %>% add_row(
       N = as.character(dc),
       Name = Table_name,
       Description = gsub('\n\n', '',Dataset$childDataClasses[[dc]]$description))
 
-    ##  Use 'json_table_to_df.R' to extract table from meta_json into a df
+    ## Use 'json_table_to_df.R' to extract table from meta_json into a df
     Table_df <- json_table_to_df(Dataset = Dataset,n = dc)
-    Table_df['Empty'] <- NA
 
-    for (data_v in 1:nrow(Table_df)) { #borrowed from user_categorisation_loop.R
+    ## Use 'count_empty_desc.R' to count number of empty descriptions
+    Table_colname <- paste0(Table_name,'(',dc,')')
+    count_empty_table <- count_empty_desc(Table_df,Table_colname)
 
-    if ((nchar(Table_df$Description[data_v]) == 1)
-        | (Table_df$Description[data_v] == 'Description to follow')
-        | (Table_df$Description[data_v] == 'NA')){
-      Table_df$Empty[data_v] = 'Yes'
-    } else {
-      Table_df$Empty[data_v] = 'No'}
-
-    }
-
-    # count how many are empty (add in N/Y count if 0)
-    count_empty_table <- Table_df %>%
-      group_by(Empty) %>%
-      summarize(n = n()) %>%
-      complete(Empty = c("No", "Yes"), fill = list(n = 0))
-
-    #add to group dataframe for later plotting
-    count_empty$n <- count_empty_table$n
-
-    #rename the column
-    names(count_empty)[names(count_empty) == "n"] <- paste0(Table_name,
-                                                            '(',dc,')')
+    ## Add to group dataframe for later plotting
+    count_empty[[Table_colname]] <- count_empty_table[[Table_colname]]
 
   } # end of loop through each table
 
-  ## Plot a table summarizing this dataset
+  # 1. TABLE SUMMARISING THE DATASET ----
 
-  # Create a matrix for cell colors
+  ## Create a matrix for cell colors
   cell_colors <- matrix("white", nrow = nrow(dataset_desc) + 1,
                         ncol = ncol(dataset_desc))
   cell_colors[2, ] <- "lightgrey"  # Change the color of the second row
@@ -126,14 +108,14 @@ browseMetadata <- function(json_file,output_dir = NULL) {
     )
   )
 
-  # Save the plot to a temporary HTML file
+  ## Save the plot to a temporary HTML file
   table_fname <- paste0("BROWSE_table_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
   saveWidget(widget = table_fig, file = table_fname, selfcontained = TRUE)
-  # Move temp file to desired dir (issue with saveWidget means 2 steps needed)
+  ## Move temp file to desired dir (issue with saveWidget means 2 steps needed)
   file.rename(table_fname, paste0(output_dir, "/",table_fname))
 
-  # Plot bar chart comparing missing versus not missing for each table
+  # 2 - BAR CHART DISPLAYING COUNTS OF MISSING DESCRIPTIONS FOR ALL TABLES ----
   count_empty_long <- count_empty %>%
     pivot_longer(cols = -Empty, names_to = "Table", values_to = "N_Variables")
 
@@ -153,11 +135,11 @@ browseMetadata <- function(json_file,output_dir = NULL) {
            yaxis = list(title = 'N_Variables'),
            legend = list(title = list(text = 'Empty Description')))
 
-  # Save the plot to a temp HTML file
+  ## Save the plot to a temp HTML file
   bar_fname <- paste0("BROWSE_bar_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
   saveWidget(widget = empty_fig, file = bar_fname, selfcontained = TRUE)
-  # Move temp file to desired dir (issue with saveWidget means 2 steps needed)
+  ## Move temp file to desired dir (issue with saveWidget means 2 steps needed)
   file.rename(bar_fname, paste0(output_dir, "/",bar_fname))
 
   cat ("\n")
