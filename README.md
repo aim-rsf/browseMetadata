@@ -95,8 +95,6 @@ The bar plot, pasted below for convenience, is another simple way of summarising
 
 ![bar plot](/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
-BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png
-
 The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata.R` function. 
 
 #### `mapMetadata.R`
