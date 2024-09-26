@@ -115,7 +115,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   ## Move temp file to desired dir (issue with saveWidget means 2 steps needed)
   file.rename(table_fname, paste0(output_dir, "/",table_fname))
 
-  # 2 - BAR CHART DISPLAYING COUNTS OF MISSING DESCRIPTIONS FOR ALL TABLES ----
+  # 2. BAR CHART DISPLAYING COUNTS OF MISSING DESCRIPTIONS FOR ALL TABLES ----
   count_empty_long <- count_empty %>%
     pivot_longer(cols = -Empty, names_to = "Table", values_to = "N_Variables")
 
@@ -140,11 +140,16 @@ browseMetadata <- function(json_file,output_dir = NULL) {
                         dataset_version,".html")
   saveWidget(widget = empty_fig, file = bar_fname, selfcontained = TRUE)
   ## Move temp file to desired dir (issue with saveWidget means 2 steps needed)
-  file.rename(bar_fname, paste0(output_dir, "/",bar_fname))
+  file.rename(bar_fname, paste0(output_dir,"/",bar_fname))
+
+  ## Save the data that made the bar plot to a csv file
+  bar_fname <- paste0("BROWSE_bar_",gsub(" ", "", Dataset_Name),"_V",
+                      dataset_version,".csv")
+  write.csv(count_empty_long,paste0(output_dir,"/",bar_fname),row.names = FALSE)
 
   cat ("\n")
-  cli_alert_info("Two outputs have been saved in your output directory. Open them in your browser to view.")
-  cli_alert_info("Alternatively, on the Plots tab select the 'Show in new window' button.")
+  cli_alert_info("Three outputs have been saved to your output directory.")
+  cli_alert_info("Open the two html files in your browser for full screen viewing.")
   cat ("\n")
 
   list(table_fig = table_fig, empty_fig = empty_fig)
