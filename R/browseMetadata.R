@@ -123,7 +123,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
                        texttemplate = '%{text}', # Ensure text displayed as is
                        textfont = list(color = 'black',size = 10)) %>%
     layout(barmode = 'stack',
-           title = paste0('\n',Dataset_Name,' contains ',ntables,' tables'),
+           title = paste0('\n',Dataset_Name,' contains ',ntables,' table(s)'),
            xaxis = list(title = 'Table'),
            yaxis = list(title = 'N_Variables'),
            legend = list(title = list(text = 'Empty Description')))
