@@ -49,7 +49,7 @@ library(browseMetadata)
 
 Set your working directory to be an empty folder you just created:
 
-```         
+```r         
 setwd("/Users/your-username/test-browseMetadata")
 ```
 
@@ -57,7 +57,7 @@ setwd("/Users/your-username/test-browseMetadata")
 
 There are 4 main functions you can interact with. In order to read their documentation:
 
-``` r         
+```r         
 ?browseMetadata
 ?mapMetadata
 ?mapMetadata_compare_outputs
@@ -76,20 +76,24 @@ demo_json_file <- system.file("inputs/national_community_child_health_database_(
 browseMetadata(json_file = demo_json_file)
 ``` 
 
-Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default).
+Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default):
+
+``` r
+browseMetadata(json_file = demo_json_file,output_dir = 'path/your-directory')
+``` 
 
 After running this code successfully you should see:
 
 ```
-ℹ Two outputs have been saved in your output directory. Open them in your browser to view.
-ℹ Alternatively, on the Plots tab select the 'Show in new window' button.
+ℹ Three outputs have been saved to your output directory.
+ℹ Open the two html files in your browser for full screen viewing.
 ```
 
-The [table output](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/BROWSE_table_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png) summarises the dataset and each table in the dataset - this will be a useful reference to have open when you run the `mapMetadata.R` function below. The bar plot, pasted below for convenience, is another simple way of summarising the dataset. We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. 9) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. 7) have a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^4].
+See [here](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/) for example outputs. The BROWSE_table html summarises the dataset and each table in the dataset; this will be a useful reference to have open when you run the `mapMetadata.R` function below. The BROWSE_bar html, pasted below for convenience, is a simple bar plot summarising the dataset. The BROWSE_bar csv file contains the data used to make this bar plot. 
 
 ![bar plot](/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
-The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata.R` function. 
+We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. 9) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. 7) have a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^4]. The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata.R` function. 
 
 #### `mapMetadata.R`
 
