@@ -41,12 +41,12 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   # PREPARE OUTPUT DATAFRAMES FOR LATER PLOTTING ----
 
   # create data frame to store information about each table
-  tables <- data.frame(N = character(0), Name = character(0),
+  dataset_desc <- data.frame(N = character(0), Name = character(0),
                        Description = character(0))
   # add information about the dataset at the top
-  tables <- tables %>% add_row(N = '',Name = Dataset$label,
+  dataset_desc <- dataset_desc %>% add_row(N = '',Name = Dataset$label,
                           Description = gsub('\n\n', '', Dataset$description))
-  tables <- tables %>% add_row(N = 'N',Name = 'Table',Description = '')
+  dataset_desc <- dataset_desc %>% add_row(N = 'N',Name = 'Table',Description = '')
 
   # create data frame that counts empty description fields
   count_empty <- data.frame(Empty = c('No','Yes'))
@@ -61,35 +61,29 @@ browseMetadata <- function(json_file,output_dir = NULL) {
     Table_name <- Dataset$childDataClasses[[dc]]$label
     cli_alert_info(paste0("Processing Table {dc} of {ntables} (",Table_name,")"))
 
-    ## add to the tables data frame
-    tables <- tables %>% add_row(
+    ## add to the dataset_desc data frame
+    dataset_desc <- dataset_desc %>% add_row(
       N = as.character(dc),
       Name = Table_name,
       Description = gsub('\n\n', '',Dataset$childDataClasses[[dc]]$description))
 
     ##  Use 'json_table_to_df.R' to extract table from meta_json into a df
     Table_df <- json_table_to_df(Dataset = Dataset,n = dc)
-
-    ## Create a data frame to count how many descriptions are empty
-    table_summary <- data.frame(DataElement = character(0), Empty = character(0),Type = character(0))
+    Table_df['Empty'] <- NA
 
     for (data_v in 1:nrow(Table_df)) { #borrowed from user_categorisation_loop.R
 
     if ((nchar(Table_df$Description[data_v]) == 1)
         | (Table_df$Description[data_v] == 'Description to follow')
         | (Table_df$Description[data_v] == 'NA')){
-      find_Empty = 'Yes'
+      Table_df$Empty[data_v] = 'Yes'
     } else {
-        find_Empty = 'No'}
+      Table_df$Empty[data_v] = 'No'}
 
-    table_summary <- table_summary %>% add_row(
-    DataElement = Table_df$Label[data_v],
-    Empty = find_Empty,
-    Type = Table_df$Type[data_v])
     }
 
     # count how many are empty (add in N/Y count if 0)
-    count_empty_table <- table_summary %>%
+    count_empty_table <- Table_df %>%
       group_by(Empty) %>%
       summarize(n = n()) %>%
       complete(Empty = c("No", "Yes"), fill = list(n = 0))
@@ -104,9 +98,9 @@ browseMetadata <- function(json_file,output_dir = NULL) {
 
 
   ## Plot a table summarizing this dataset
-  max_Table <- max(nchar(tables$Name)) #maximum number of characters in table name
-  num_rows <- nrow(tables) + 1  # Including the header row
-  num_cols <- ncol(tables)
+  max_Table <- max(nchar(dataset_desc$Name)) #maximum number of characters in table name
+  num_rows <- nrow(dataset_desc) + 1  # Including the header row
+  num_cols <- ncol(dataset_desc)
   # Create a matrix for cell colors
   cell_colors <- matrix("white", nrow = num_rows, ncol = num_cols)
   cell_colors[2, ] <- "lightgrey"  # Change the color of the second row
@@ -123,7 +117,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
       font = list(family = "Arial", size = 14, color = "white")
     ),
     cells = list(
-      values = rbind(t(as.matrix(unname(tables)))),
+      values = rbind(t(as.matrix(unname(dataset_desc)))),
       align = c("center", "center", "left"),
       line = list(color = "black", width = 1),
       fill = list(color = apply(cell_colors, 2, as.list)),  # Apply cell colors
