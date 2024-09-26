@@ -89,14 +89,14 @@ mapMetadata <- function(
   # WHICH TABLES FROM THE DATASET? ----
   ## Use 'user_prompt_list.R' to ask user which tables to process
   nTables <- length(Dataset$childDataClasses)
-  table_df <- data.frame(Table_Name = character(0), Table_Number = integer(0))
+  table_list_df <- data.frame(Table_Name = character(0), Table_Number = integer(0))
   for (dc in 1:nTables) {
-    table_df <- table_df %>% add_row(
+    table_list_df <- table_list_df %>% add_row(
       Table_Number = dc,
       Table_Name = Dataset$childDataClasses[[dc]]$label)
     }
 
-  print(table_df,row.names = FALSE)
+  print(table_list_df,row.names = FALSE)
     nTables_Process <- user_prompt_list(
     prompt_text =
       paste('Found',nTables,'table(s) in this Dataset.','Enter table numbers',
