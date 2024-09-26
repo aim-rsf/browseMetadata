@@ -1,5 +1,6 @@
 # load libraries
 library(testthat) # test_that, expect_equal
+library(tidyr)
 
 test_that("count_empty_desc correctly counts empty descriptions", {
 

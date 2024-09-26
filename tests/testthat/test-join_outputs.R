@@ -1,7 +1,7 @@
 # load libraries
 library(testthat) # test_that, expect_equal
 
-# Create sample data (only allow it to different on timestamp, Domain_code and Note)
+# Create sample data (only allow it to be different on timestamp, Domain_code and Note)
 session_1 <- data.frame(
   timestamp = c("2024-08-22-13-26-33", "2024-08-22-13-26-33", "2024-08-22-13-26-33"),
   Table = c("HEALTH","HEALTH","HEALTH"),

@@ -1,7 +1,7 @@
 library(testthat) #test_that, expect_true
 library(rjson)
 
-test_that("browseMetadata function works correctly", {
+test_that("browseMetadata function outputs files correctly", {
 
   # Setup
   temp_dir <- tempdir()
@@ -10,7 +10,7 @@ test_that("browseMetadata function works correctly", {
   # Execution
   result <- browseMetadata(json_file = example_json_file, output_dir = temp_dir)
 
-  # Verification
+  # Verification of file outputs
   Dataset <- fromJSON(file = example_json_file)$dataModel
   Dataset_Name <- Dataset$label
   dataset_version <- fromJSON(file = example_json_file)[["dataModel"]][["documentationVersion"]]
