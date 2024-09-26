@@ -32,12 +32,6 @@ Beyond browsing, a user can then categorise each variable within a dataset table
 
 ## Getting started with `browseMetadata`
 
-### Terminology
-
--   We use *Dataset* (collection of data, can contain multiple tables) - this is called *Data Asset* in the Metadata Catalogue
--   We use *Table* - this is called *Data Class* in the Metadata Catalogue
--   We use *Data Element* - the same as the Metadata Catalogue - which refers to each variable name within the table
-
 ### Installation and set-up
 
 Run in the R console:
@@ -72,9 +66,9 @@ There are 4 main functions you can interact with. In order to read their documen
 
 #### `browseMetadata.R`
 
-This function is easy to run and does not require any user interaction. 
+This function is easy to run and does not require any user interaction. For now, use the demo json file provided in [inst/inputs](inst/inputs).[^2] 
 
-For now, use the demo json file provided in [inst/inputs](inst/inputs).[^2] 
+The json file should contain information about the data asset (dataset), data class (table) and data element (variable)[^3].
 
 ``` r
 browseMetadata(json_file = 'inst/inputs/national_community_child_health_database_(ncchd)_20240405T130125.json')
@@ -89,9 +83,7 @@ After running this code successfully you should see:
 ℹ Alternatively, on the Plots tab select the 'Show in new window' button.
 ```
 
-The table summarises the dataset and each table in the dataset - this will be a useful reference to have open when you run the `mapMetadata.R` function below. 
-
-The bar plot, pasted below for convenience, is another simple way of summarising the dataset. We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) has a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^3].
+The [table output](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/BROWSE_table_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png) summarises the dataset and each table in the dataset - this will be a useful reference to have open when you run the `mapMetadata.R` function below. The bar plot, pasted below for convenience, is another simple way of summarising the dataset. We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) has a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^4].
 
 ![bar plot](/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
@@ -366,5 +358,7 @@ Thank you to multiple members of the [MELD-B research project](https://www.south
 
 [^2]: In future we intend to use the HDRUK Gateway API to access the most up to date metadata, rather than relying on a manual file download. 
 
-[^3]: It is important to note that this is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
+[^3]: The metadata catalouge uses *Data asset* to mean *Dataset* (a collection of data, can contain multiple tables). *Data class* refers to *Table*, and *Data Element* refers to each *Variable* name within a table. 
+
+[^4]: It is important to note that this is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
 
