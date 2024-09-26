@@ -20,7 +20,7 @@
 #' @importFrom cli cli_alert_info
 #' @importFrom plotly plot_ly layout
 #' @importFrom htmlwidgets saveWidget
-#' @importFrom tidyr pivot_longer
+#' @importFrom tidyr pivot_longer complete
 
 browseMetadata <- function(json_file,output_dir = NULL) {
 
@@ -88,21 +88,11 @@ browseMetadata <- function(json_file,output_dir = NULL) {
     Type = Table_df$Type[data_v])
     }
 
-    # count how many are empty
-    count_empty_table <- table_summary %>% group_by(Empty) %>% count()
-
-    #add in a Yes or No row if it doesn't exist
-    if (nrow(count_empty_table) == 1){
-      if (count_empty_table$Empty[1] == 'No'){
-        new_row <- data.frame(Empty = 'Yes',n = 0)
-      } else {
-        new_row <- data.frame(Empty = 'No',n = 0)
-      }
-      count_empty_table <- count_empty_table %>%
-        ungroup() %>%
-        bind_rows(new_row) %>%
-        group_by(Empty)
-    }
+    # count how many are empty (add in N/Y count if 0)
+    count_empty_table <- table_summary %>%
+      group_by(Empty) %>%
+      summarize(n = n()) %>%
+      complete(Empty = c("No", "Yes"), fill = list(n = 0))
 
     #add to group dataframe for later plotting
     count_empty$n <- count_empty_table$n
