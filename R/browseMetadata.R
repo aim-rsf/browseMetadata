@@ -46,7 +46,8 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   # add information about the dataset at the top
   dataset_desc <- dataset_desc %>% add_row(N = '',Name = Dataset$label,
                           Description = gsub('\n\n', '', Dataset$description))
-  dataset_desc <- dataset_desc %>% add_row(N = 'N',Name = 'Table',Description = '')
+  dataset_desc <- dataset_desc %>%
+    add_row(N = 'N',Name = 'Table',Description = '')
 
   # create data frame that counts empty description fields
   count_empty <- data.frame(Empty = c('No','Yes'))
@@ -59,7 +60,8 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   for (dc in 1:ntables) {
     cat("\n")
     Table_name <- Dataset$childDataClasses[[dc]]$label
-    cli_alert_info(paste0("Processing Table {dc} of {ntables} (",Table_name,")"))
+    cli_alert_info(paste0("Processing Table {dc} of {ntables} (",
+                          Table_name,")"))
 
     ## add to the dataset_desc data frame
     dataset_desc <- dataset_desc %>% add_row(
@@ -92,23 +94,23 @@ browseMetadata <- function(json_file,output_dir = NULL) {
     count_empty$n <- count_empty_table$n
 
     #rename the column
-    names(count_empty)[names(count_empty) == "n"] <- paste0(Table_name,'(',dc,')')
+    names(count_empty)[names(count_empty) == "n"] <- paste0(Table_name,
+                                                            '(',dc,')')
 
   } # end of loop through each table
 
 
   ## Plot a table summarizing this dataset
-  max_Table <- max(nchar(dataset_desc$Name)) #maximum number of characters in table name
-  num_rows <- nrow(dataset_desc) + 1  # Including the header row
-  num_cols <- ncol(dataset_desc)
+
   # Create a matrix for cell colors
-  cell_colors <- matrix("white", nrow = num_rows, ncol = num_cols)
+  cell_colors <- matrix("white", nrow = nrow(dataset_desc) + 1,
+                        ncol = ncol(dataset_desc))
   cell_colors[2, ] <- "lightgrey"  # Change the color of the second row
 
   table_fig <- plot_ly(
     type = 'table',
     columnorder = c(0,1,2),
-    columnwidth = c(ntables_digits, max_Table, 100),
+    columnwidth = c(ntables_digits, max(nchar(dataset_desc$Name)), 100),
     header = list(
       values = c("", "Dataset", "Description"),
       align = c("center", "center", "center"),
@@ -129,8 +131,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   table_fname <- paste0("BROWSE_table_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
   saveWidget(widget = table_fig, file = table_fname, selfcontained = TRUE)
-  # Move the temporary file to the output dir
-  # (known issue with saveWidget means 2 steps are needed)
+  # Move temp file to desired dir (issue with saveWidget means 2 steps needed)
   file.rename(table_fname, paste0(output_dir, "/",table_fname))
 
   # Plot bar chart comparing missing versus not missing for each table
@@ -144,25 +145,27 @@ browseMetadata <- function(json_file,output_dir = NULL) {
                        colors = c("grey","darkturquoise"),
                        type = 'bar',
                        text = ~N_Variables,
-                       textposition = 'inside', # Position the text inside the bars
-                       texttemplate = '%{text}', # Ensure the text is displayed as is
-                       textfont = list(color = 'black',size = 10)) %>% # Set text color to black
+                       textposition = 'inside', # Position text inside the bars
+                       texttemplate = '%{text}', # Ensure text displayed as is
+                       textfont = list(color = 'black',size = 10)) %>%
     layout(barmode = 'stack',
            title = paste0('\n',Dataset_Name,' contains ',ntables,' tables'),
            xaxis = list(title = 'Table'),
            yaxis = list(title = 'N_Variables'),
            legend = list(title = list(text = 'Empty Description')))
 
-  # Save the plot to a temporary HTML file
+  # Save the plot to a temp HTML file
   bar_fname <- paste0("BROWSE_bar_",gsub(" ", "", Dataset_Name),"_V",
                         dataset_version,".html")
   saveWidget(widget = empty_fig, file = bar_fname, selfcontained = TRUE)
-  # Move the temporary file to the desired directory (known issue with saveWidget means 2 steps are needed)
+  # Move temp file to desired dir (issue with saveWidget means 2 steps needed)
   file.rename(bar_fname, paste0(output_dir, "/",bar_fname))
 
   cat ("\n")
-  cli_alert_info("Two outputs have been saved in your output directory. Open them in your browser to view.")
-  cli_alert_info("Alternatively, on the Plots tab select the 'Show in new window' button.")
+  cli_alert_info("Two outputs have been saved in your output directory.
+                 Open them in your browser to view.")
+  cli_alert_info("Alternatively, on the Plots tab select the
+                 'Show in new window' button.")
   cat ("\n")
 
   list(table_fig = table_fig, empty_fig = empty_fig)
