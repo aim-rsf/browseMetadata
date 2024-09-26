@@ -38,9 +38,9 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   Dataset_Name <- Dataset$label
   dataset_version <- meta_json[["dataModel"]][["documentationVersion"]]
 
-  # PREPARE OUTPUT DATAFRAMES FOR LATER PLOTTING ----
+  # PREPARE 2 OUTPUT DATAFRAMES FOR LATER PLOTTING ----
 
-  # create data frame to store information about each table
+  # 1 - information about dataset and each table
   dataset_desc <- data.frame(N = character(0), Name = character(0),
                        Description = character(0))
   # add information about the dataset at the top
@@ -49,7 +49,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   dataset_desc <- dataset_desc %>%
     add_row(N = 'N',Name = 'Table',Description = '')
 
-  # create data frame that counts empty description fields
+  # 2 - counts of empty description fields for each table
   count_empty <- data.frame(Empty = c('No','Yes'))
 
   # LOOP THROUGH EACH TABLE IN DATASET ----
@@ -98,7 +98,6 @@ browseMetadata <- function(json_file,output_dir = NULL) {
                                                             '(',dc,')')
 
   } # end of loop through each table
-
 
   ## Plot a table summarizing this dataset
 
@@ -162,10 +161,8 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   file.rename(bar_fname, paste0(output_dir, "/",bar_fname))
 
   cat ("\n")
-  cli_alert_info("Two outputs have been saved in your output directory.
-                 Open them in your browser to view.")
-  cli_alert_info("Alternatively, on the Plots tab select the
-                 'Show in new window' button.")
+  cli_alert_info("Two outputs have been saved in your output directory. Open them in your browser to view.")
+  cli_alert_info("Alternatively, on the Plots tab select the 'Show in new window' button.")
   cat ("\n")
 
   list(table_fig = table_fig, empty_fig = empty_fig)
