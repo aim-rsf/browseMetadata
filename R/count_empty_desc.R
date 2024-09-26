@@ -5,6 +5,7 @@
 #' It counts missing variable descriptions, based on specified criteria.
 #'
 #' @param Table_df Output from json_table_to_df.R
+#' @param Table_colname Name of the table in column of the output dataframe
 #' @return A simpler dataframe with Y/N empty counts for variables in the table.
 #' @importFrom dplyr %>% group_by n summarize
 #' @importFrom tidyr complete

@@ -8,6 +8,8 @@ count_empty_desc(Table_df, Table_colname)
 }
 \arguments{
 \item{Table_df}{Output from json_table_to_df.R}
+
+\item{Table_colname}{Name of the table in column of the output dataframe}
 }
 \value{
 A simpler dataframe with Y/N empty counts for variables in the table.
