@@ -130,8 +130,6 @@ Press any key to continue
 ```
 
 ```         
-ℹ Found 13 Tables in this Dataset
-
 1 EXAM
 
 2 CHILD
@@ -158,7 +156,7 @@ Press any key to continue
 
 13 SIG_COND
 
-ℹ Enter each table number you want to process in this interactive session.
+ℹ Found 13 table(s) in this Dataset. Enter table numbers you want to process (one table number on each line):
 
 1: 2
 2: 
