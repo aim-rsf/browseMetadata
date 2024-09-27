@@ -214,8 +214,6 @@ After completing 20, it will then ask you to review the auto-categorisations it 
 These auto-categorisations are based on the mappings included in the [inst/inputs/look_up.csv](inst/inputs/look_up.csv). This look-up file can be changed by the user. ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.
 
 ```         
-! Please check the auto categorised data elements are accurate for table CHILD:
-
      DataElement    Domain_code  Note
 1    ALF_E          2            AUTO CATEGORISED
 2    ALF_MTCH_PCT   2            AUTO CATEGORISED
@@ -223,7 +221,7 @@ These auto-categorisations are based on the mappings included in the [inst/input
 6    AVAIL_FROM_DT  1            AUTO CATEGORISED  
 19   GNDR_CD        3            AUTO CATEGORISED
 
-ℹ Press enter to accept the auto categorisations for table CHILD or enter each row you'd like to edit:
+ℹ These are the auto categorised data elements. Enter row numbers for those you want to edit: 
 
 1: 
 ```
