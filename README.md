@@ -203,7 +203,7 @@ Categorisation note (or press enter to continue): your note here
 
 We chose to respond with '7' because that corresponds to the 'Health info' domain in the table. More than one domain can be chosen. Do remember that this demo has over-simplified domain labels, and they will likely be more specific for a research study.
 
-You have the option to re-do the categorisation you just made, by replying 'y' to the question:
+You have the option to re-do the categorisation (and note) you just made, by replying 'y' to the question:
 
 ```         
 Response to be saved is '7'. Would you like to re-do? (y/n): y
