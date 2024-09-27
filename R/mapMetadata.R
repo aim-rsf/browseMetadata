@@ -142,16 +142,17 @@ mapMetadata <- function(
       end_v = min(20, nrow(Table_df))
     } else {
       #### Use 'user_prompt_list.R' to ask user which data elements
-      start_v <- user_prompt_list(
-        prompt_text = 'Start variable (write 1 to process all): ',
-        list_allowed = seq(from = 1, to = nrow(Table_df), by = 1),
-        empty_allowed = FALSE)
-      end_v <- user_prompt_list(
-        prompt_text = paste('End variable (write',
-                            as.character(nrow(Table_df)),
-                            'to process all):'),
-        list_allowed = seq(from = start_v, to = nrow(Table_df), by = 1),
-        empty_allowed = FALSE)
+      start_end_v = 0
+      start_v = 0
+      end_v = 0
+      while (length(start_end_v) != 2 | start_v > end_v) {
+        start_end_v <- user_prompt_list(
+          prompt_text = 'Which data elements do you want to process? 1:[start integer] and 2:[end integer]',
+          list_allowed = seq(from = 1, to = nrow(Table_df), by = 1),
+          empty_allowed = FALSE)
+        start_v <- start_end_v[1]
+        end_v <- start_end_v[2]
+      }
     }
 
     ### Use 'user_categorisation_loop.R' to copy or request from user
