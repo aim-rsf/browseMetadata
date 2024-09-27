@@ -15,7 +15,7 @@ mapMetadata_convert_outputs(output_csv, output_dir)
 The function will return 'L-OUTPUT_' in the same output_dir
 }
 \description{
-The 'OUTPUT_' file groups multiple categorisations onto one line e.g. '1,3' \cr \cr
-This function creates a new longer output 'L-OUTPUT_' which gives each categorisation its own row \cr \cr
-This 'L-OUTPUT_' may be more useful when using these csv files in later analyses
+The 'OUTPUT_' file groups multiple categorisations onto one line e.g. Domain_code could read '1,3' \cr \cr
+This function creates a new longer output 'L-OUTPUT_' which gives each categorisation its own row. \cr \cr
+This 'L-OUTPUT_' may be more useful when using these csv files in later analyses.
 }
