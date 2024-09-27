@@ -130,31 +130,20 @@ Press any key to continue
 ```
 
 ```         
-1 EXAM
-
-2 CHILD
-
-3 REFR_IMM_VAC
-
-4 IMM
-
-5 BREAST_FEEDING
-
-6 PATH_BLOOD_TESTS
-
-7 CHE_HEALTHYCHILDWALESPROGRAMME
-
-8 BLOOD_TEST
-
-9 CHILD_TRUST
-
-10 PATH_SPCM_DETAIL
-
-11 CHILD_MEASUREMENT_PROGRAM
-
-12 CHILD_BIRTHS
-
-13 SIG_COND
+                     Table_Name Table_Number
+                           EXAM            1
+                          CHILD            2
+                   REFR_IMM_VAC            3
+                            IMM            4
+                 BREAST_FEEDING            5
+               PATH_BLOOD_TESTS            6
+ CHE_HEALTHYCHILDWALESPROGRAMME            7
+                     BLOOD_TEST            8
+                    CHILD_TRUST            9
+               PATH_SPCM_DETAIL           10
+      CHILD_MEASUREMENT_PROGRAM           11
+                   CHILD_BIRTHS           12
+                       SIG_COND           13
 
 ℹ Found 13 table(s) in this Dataset. Enter table numbers you want to process (one table number on each line):
 
