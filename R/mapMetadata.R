@@ -145,13 +145,13 @@ mapMetadata <- function(
       start_v <- user_prompt_list(
         prompt_text = 'Start variable (write 1 to process all): ',
         list_allowed = seq(from = 1, to = nrow(Table_df), by = 1),
-        empty_allowed)
+        empty_allowed = FALSE)
       end_v <- user_prompt_list(
         prompt_text = paste('End variable (write',
                             as.character(nrow(Table_df)),
                             'to process all):'),
         list_allowed = seq(from = start_v, to = nrow(Table_df), by = 1),
-        empty_allowed)
+        empty_allowed = FALSE)
     }
 
     ### Use 'user_categorisation_loop.R' to copy or request from user
