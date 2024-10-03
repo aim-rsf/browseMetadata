@@ -59,7 +59,6 @@ There are 4 main functions you can interact with. Namely, `browseMetadata`, `map
 
 ```r         
 ?browseMetadata
-?mapMetadata
 ?mapMetadata_compare_outputs
 ?mapMetadata_convert_outputs
 ```
