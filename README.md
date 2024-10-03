@@ -93,7 +93,7 @@ See [here](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outp
 
 ![bar plot](/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
-We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. 9) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. 7) have a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^4]. The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata.R` function. 
+We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata.R`. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) have a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?[^4]. The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata.R` function. 
 
 #### `mapMetadata.R`
 
