@@ -73,10 +73,7 @@ demo_json_file <- system.file("inputs/national_community_child_health_database_(
 browseMetadata(json_file = demo_json_file, output_dir = NULL)
 ``` 
 
-Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default).
-
-``` r
-``` 
+Change `output_dir` to a specific path, if you want to save your files somewhere other than your current working directory (the default).
 
 After running this code successfully you should see:
 
