@@ -70,7 +70,7 @@ The json file should contain information about the data asset (dataset), data cl
 ``` r
 demo_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
 
-browseMetadata(json_file = demo_json_file)
+browseMetadata(json_file = demo_json_file, output_dir = NULL)
 ``` 
 
 Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default).
