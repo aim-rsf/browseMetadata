@@ -86,7 +86,7 @@ After running this code successfully you should see:
 ℹ Open the two html files in your browser for full screen viewing.
 ```
 
-See [here](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/) for example outputs. The BROWSE_table html summarises the dataset and each table in the dataset; this will be a useful reference to have open when you run the `mapMetadata.R` function below. The BROWSE_bar html, pasted below for convenience, is a simple bar plot summarising the dataset. The BROWSE_bar csv file contains the data used to make this bar plot. 
+See [here](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/) for example outputs (in your own output directory, you should see these same outputs). The BROWSE_table html summarises the dataset and each table in the dataset; this will be a useful reference to have open when you run the `mapMetadata.R` function below. The BROWSE_bar html, pasted below for convenience, is a simple bar plot summarising the dataset. The BROWSE_bar csv file contains the data used to make this bar plot. 
 
 ![bar plot](/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
