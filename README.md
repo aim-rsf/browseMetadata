@@ -55,7 +55,7 @@ setwd("/Users/your-username/test-browseMetadata")
 
 ### Demo (using the `R Studio` IDE)
 
-There are 4 main functions you can interact with. In order to read their documentation:
+There are 4 main functions you can interact with. Namely, `browseMetadata`, `mapMetadata`, `mapMetadata_compare_outputs`, `mapMetadata_convert_outputs`. In order to read their documentation, precede the function name with `?`, as such:
 
 ```r         
 ?browseMetadata
