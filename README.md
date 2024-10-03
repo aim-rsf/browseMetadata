@@ -76,7 +76,6 @@ browseMetadata(json_file = demo_json_file)
 Change the argument `output_dir` if you want to save your files somewhere other than your current working directory (the default).
 
 ``` r
-browseMetadata(json_file = demo_json_file,output_dir = 'path/your-directory')
 ``` 
 
 After running this code successfully you should see:
