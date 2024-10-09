@@ -263,10 +263,10 @@ mapMetadata <- function(
     cli_alert_success("Session log saved in:\n{csv_log_fname}")
 
     ### Create and save a summary plot
-    end_plot_save <- end_plot(df = Output,Table_name,
+    end_plot_save <<- end_plot(df = Output,Table_name,
                               ref_table = df_plots$Domain_table)
     ggsave(
-      plot = end_plot_save$full_plot,
+      plot = end_plot_save,
       paste(output_dir, png_fname, sep = '/'),
       width = 14,
       height = 8,
