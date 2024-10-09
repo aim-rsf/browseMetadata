@@ -265,9 +265,20 @@ The OUTPUT csv contains the categorisations you made. The LOG csv contains infor
 
 The PLOT png file saves a simple plot displaying the count of domain codes for that table.
 
-### Tips and potential next steps
+### Next steps
 
-- First thing to do next is to try `browseMetadata` and `mapMetdata` with your own inputs, without the demo mode! For detailed information on each input argument, reference the manual by typing `?mapMetadata`.
+First thing to do next is to try `mapMetdata` without the demo mode! You can still use the example demo files, but this will allow you to process more than 20 data elements:
+
+```r
+demo_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+
+demo_domains_file <- system.file("inputs/domain_list_demo.csv",package = "browseMetadata")
+
+browseMetadata(json_file = demo_domains_file, domain_file = demo_domains_file)
+```
+Then try to change these json_file and domain_file inputs to something different! If you change the json_file, remember to run `browseMetdata` before running `mapMetdata` with this new file. There are also other options for this function, type `?mapMetdata` to find out more. 
+
+### Tips and future steps
 - If a table is long to process, you can chose to only do a subset of variables in one session, and do the rest in later sessions.
 - If you are processing multiple tables from one dataset, make sure the output files get saved to the same directory! If they do, the function will notice this, and it will copy over categorisations for repeated variables. This will save you time and ensure consistency of categorisations! 
 - Categorisations across researchers can be compared by using the function [R/mapMetadata_compare_outputs.R](R/mapMetadata_compare_outputs.R). In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
