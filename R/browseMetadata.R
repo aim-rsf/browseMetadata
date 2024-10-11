@@ -12,7 +12,7 @@
 #' @param output_dir The path to the directory where the two output files
 #' will be saved. By default, the current working directory is used.
 #' @return The function will return two files, 'BROWSE_table_' and 'BROWSE_bar'
-#' which gives summary informatin for this dataset and can be used as reference
+#' which gives summary information for this dataset and can be used as reference
 #' when running the MapMetadata function. Open these outputs in a browser.
 #' @export
 #' @importFrom dplyr %>% add_row
