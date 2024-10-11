@@ -22,7 +22,7 @@
 #' @param look_up_file The look-up table file. By default, 'data/look-up.rda'
 #' is used - run '?look_up' to see how it was created. The lookup file makes
 #' auto-categorisations intended for variables that appear regularly in health
-#' datasets. It only works for for 1:1. mappings right now, i.e. DataElement
+#' datasets. It only works for 1:1. mappings right now, i.e. DataElement
 #' should only be listed once in the file.
 #' @param output_dir The path to the directory where the two csv output files
 #' will be saved. By default, the current working directory is used.
