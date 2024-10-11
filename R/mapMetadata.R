@@ -7,7 +7,7 @@
 #' These categorisations will be saved to a csv file, alongside a log file which
 #' summarises the session details. To speed up this process, some
 #' auto-categorisations will be made by the function for commonly occurring data
-#' elements and categorisations for the same data element can be copied from one
+#' elements, and categorisations for the same data element can be copied from one
 #' table to another. \cr \cr
 #' Example inputs are provided within the package data, for the user to run this
 #' function in a demo mode.
