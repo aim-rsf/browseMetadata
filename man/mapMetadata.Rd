@@ -26,7 +26,7 @@ ID, DEMOGRAPHICS) and therefore should not be included in the domain_file.}
 \item{look_up_file}{The look-up table file. By default, 'data/look-up.rda'
 is used - run '?look_up' to see how it was created. The lookup file makes
 auto-categorisations intended for variables that appear regularly in health
-datasets. It only works for for 1:1. mappings right now, i.e. DataElement
+datasets. It only works for 1:1. mappings right now, i.e. DataElement
 should only be listed once in the file.}
 
 \item{output_dir}{The path to the directory where the two csv output files
@@ -51,7 +51,7 @@ in the Plots tab for the user's reference. \cr \cr
 These categorisations will be saved to a csv file, alongside a log file which
 summarises the session details. To speed up this process, some
 auto-categorisations will be made by the function for commonly occurring data
-elements and categorisations for the same data element can be copied from one
+elements, and categorisations for the same data element can be copied from one
 table to another. \cr \cr
 Example inputs are provided within the package data, for the user to run this
 function in a demo mode.
