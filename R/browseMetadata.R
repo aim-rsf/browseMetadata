@@ -2,18 +2,20 @@
 #'
 #' Run this function before MapMetadata. \cr \cr
 #' This function will read in the metadata file for a chosen dataset and save
-#' two summary outputs. The first is a table output, storing the name and
+#' three summary outputs. The first is a table output, storing the name and
 #' description of the dataset, and each table within it. The second is a bar
 #' chart, summarising how many variables there are for each table, and whether
-#' these variables have a missing description. \cr \cr
+#' these variables have a missing description. The third is a csv file storing
+#' the data that created this bar chart. \cr \cr
 #' @param json_file The metadata file. This should be a json download from the
 #' metadata catalogue. By default, 'data/json_metadata.rda' is used - run
 #' '?json_metadata' to see how it was created.
-#' @param output_dir The path to the directory where the two output files
+#' @param output_dir The path to the directory where the three output files
 #' will be saved. By default, the current working directory is used.
-#' @return The function will return two files, 'BROWSE_table_' and 'BROWSE_bar'
-#' which gives summary information for this dataset and can be used as reference
-#' when running the MapMetadata function. Open these outputs in a browser.
+#' @return The function will return three files, 'BROWSE_table...html',
+#' 'BROWSE_bar...html' and 'BROWSE_bar...csv' which gives summary information
+#' for this dataset. Open the two html output files in your browser and use
+#' these as reference when running the MapMetadata function.
 #' @export
 #' @importFrom dplyr %>% add_row
 #' @importFrom rjson fromJSON
