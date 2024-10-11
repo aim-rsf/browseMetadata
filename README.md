@@ -12,8 +12,7 @@
 
 ## What is the `browseMetadata` package?
 
-This `R` package helps a researcher browse health datasets in [SAIL databank](https://saildatabank.com). It has scope to be applied to other health datasets[^1].  This `R` package uses the publicly available metadata hosted on the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home). This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. Read more [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
-
+This `R` package helps a researcher interact with the publicly available metadata available from the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home)[^1]. This `R` package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research.  Read more about health metadata [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
 
 In the earlier stages of a project, prior to data access, researchers can use the metadata to **browse** datasets and **categorise** variables:
 
