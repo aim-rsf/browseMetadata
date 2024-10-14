@@ -153,7 +153,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   # OUTPUTS ----
   cat ("\n")
   cli_alert_info("Three outputs have been saved to your output directory.")
-  cli_alert_info("Open the two html files in your browser for full screen viewing.")
+  cli_alert_info("The two html files are shown in your Viewer tab. Open in your browser for full screen viewing.")
   cat ("\n")
 
   list(table_fig = table_fig, empty_fig = empty_fig)
