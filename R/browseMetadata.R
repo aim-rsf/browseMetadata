@@ -156,6 +156,7 @@ browseMetadata <- function(json_file,output_dir = NULL) {
   cli_alert_info("The two html files are shown in your Viewer tab. Open in your browser for full screen viewing.")
   cat ("\n")
 
-  list(table_fig = table_fig, empty_fig = empty_fig)
+  html_figs <- list(table_fig = table_fig, empty_fig = empty_fig)
+  return(html_figs)
 
 } # end of function
