@@ -4,12 +4,11 @@
 \alias{browseMetadata}
 \title{browseMetadata}
 \usage{
-browseMetadata(json_file, output_dir = NULL)
+browseMetadata(json_file = NULL, output_dir = NULL)
 }
 \arguments{
 \item{json_file}{The metadata file. This should be a json download from the
-metadata catalogue. By default, 'data/json_metadata.rda' is used - run
-'?json_metadata' to see how it was created.}
+metadata catalogue. By default, the .json file within 'inst/inputs' is used.}
 
 \item{output_dir}{The path to the directory where the three output files
 will be saved. By default, the current working directory is used.}

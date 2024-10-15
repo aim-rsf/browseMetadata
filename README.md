@@ -60,17 +60,13 @@ In order to read their documentation, precede the function name with `?`. For ex
 
 #### `browseMetadata.R`
 
-This function is easy to run and does not require any user interaction. For now, use the demo json file provided in [inst/inputs](inst/inputs).[^2] 
+This function is easy to run and does not require any user interaction. For now, let's run it in demo mode, which uses the demo json file located in the [inst/inputs](inst/inputs/) package directory. 
 
-The json file should contain information about the data asset (dataset), data class (table) and data element (variable)[^3].
+The json file contains information about the data asset (dataset), data class (table) and data element (variable)[^3].
 
 ``` r
-demo_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
-
-browseMetadata(json_file = demo_json_file, output_dir = NULL)
+browseMetadata()
 ``` 
-
-Change `output_dir` to a specific path, if you want to save your files somewhere other than your current working directory (the default).
 
 After running this code successfully you should see:
 
@@ -78,6 +74,8 @@ After running this code successfully you should see:
 ℹ Three outputs have been saved to your output directory.
 ℹ Open the two html files in your browser for full screen viewing.
 ```
+
+The files are saved to your current working directory. If you want to save them in a different location either change your current working directory or change the `output_dir` argument of the `browseMetadata.R` function to your specified path.
 
 See [here](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/) for example outputs (in your own output directory, you should see these same outputs). The BROWSE_table html summarises the dataset and each table in the dataset; this will be a useful reference to have open when you run the `mapMetadata.R` function below. The BROWSE_bar html, pasted below for convenience, is a simple bar plot summarising the dataset. The BROWSE_bar csv file contains the data used to make this bar plot. 
 
@@ -87,13 +85,13 @@ We can see there are 13 tables in the dataset. The height of the bar indicates t
 
 #### `mapMetadata.R`
 
-We can run the function in demo mode: 
+We can run the function in demo mode which will use the same demo json file as `browseMetadata.R`: 
 
 ``` r
 mapMetadata()
 ``` 
 
-Demo mode means it will use the demo package files and only process the first 20 variables (data elements) within the table(s) we select to process. 
+Demo mode only processes the first 20 variables (data elements) within the table(s) we select to process. 
 
  Reference the Plots tab throughout the demo run (see below). You will be asked to label data elements with one (or more) of these numbers [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'. The 4 default domains are always included [0-3], appended on to any domain list given.
 
@@ -266,16 +264,18 @@ The PLOT png file saves a simple plot displaying the count of domain codes for t
 
 ### Next steps
 
-First thing to do next is to try `mapMetdata` without the demo mode! You can still use the example demo files, but this will allow you to process more than 20 data elements:
+First thing to do next is to try `mapMetdata.R` and `browseMetadata.R` without the demo mode, using a different json file input:
 
 ```r
-demo_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+new_json_file <- "path/your_new_json.json"
 
 demo_domains_file <- system.file("inputs/domain_list_demo.csv",package = "browseMetadata")
 
-browseMetadata(json_file = demo_domains_file, domain_file = demo_domains_file)
+browseMetadata(json_file = new_json_file)
+
+mapMetadata(json_file = new_json_file, domain_file = demo_domains_file)
 ```
-Then try to change these json_file and domain_file inputs to something different! If you change the json_file, remember to run `browseMetdata` before running `mapMetdata` with this new file. There are also other options for this function, type `?mapMetdata` to find out more. 
+Then try to change the domain_file input to something different! There are further mapping options, type `?mapMetdata` to find out more. 
 
 ### Tips and future steps
 - If a table is long to process, you can chose to only do a subset of variables in one session, and do the rest in later sessions.

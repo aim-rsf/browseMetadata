@@ -8,8 +8,7 @@
 #' these variables have a missing description. The third is a csv file storing
 #' the data that created this bar chart. \cr \cr
 #' @param json_file The metadata file. This should be a json download from the
-#' metadata catalogue. By default, 'data/json_metadata.rda' is used - run
-#' '?json_metadata' to see how it was created.
+#' metadata catalogue. By default, the .json file within 'inst/inputs' is used.
 #' @param output_dir The path to the directory where the three output files
 #' will be saved. By default, the current working directory is used.
 #' @return The function will return three files, 'BROWSE_table...html',
@@ -24,12 +23,19 @@
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tidyr pivot_longer
 
-browseMetadata <- function(json_file,output_dir = NULL) {
+browseMetadata <- function(json_file = NULL ,output_dir = NULL) {
 
   # DEFINE INPUTS AND OUTPUTS ----
 
-  ## Read in the json file containing the meta data
-  meta_json <- fromJSON(file = json_file)
+  ## Read in the json file containing the meta data, if null load the demo file
+  if  (is.null(json_file)){
+       demo_json <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+       meta_json <-fromJSON(file = demo_json)
+       cat("\n")
+       cli_alert_info("Running browseMetadata in demo mode using package data files")
+       cat("\n ")
+  } else {
+  meta_json <- fromJSON(file = json_file)}
 
   ## Set output_dir to current wd if user has not provided it
   if (is.null(output_dir)) {
