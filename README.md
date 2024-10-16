@@ -262,9 +262,9 @@ The OUTPUT csv contains the categorisations you made. The LOG csv contains infor
 
 The PLOT png file saves a simple plot displaying the count of domain codes for that table.
 
-### Next steps
+### Changing the json file input (recommended)
 
-First thing to do next is to try `mapMetdata.R` and `browseMetadata.R` without the demo mode, using a different json file input:
+You can run `mapMetdata.R` and `browseMetadata.R` without the demo mode, using a different json file input:
 
 ```r
 new_json_file <- "path/your_new_json.json"
@@ -275,11 +275,20 @@ browseMetadata(json_file = new_json_file)
 
 mapMetadata(json_file = new_json_file, domain_file = demo_domains_file)
 ```
-Then try to change the domain_file input to something different! There are further mapping options, type `?mapMetdata` to find out more. 
+### Changing the domain file (recommended)
+- The research domains that appear in the Plots tab are very simple, designed for demo purposes. 
+- Change them to match domains that are relevant to your research questions! 
+- Remember any [domain file input](inst/inputs/domain_list_demo.csv) will have Codes 0,1,2 and 3 automatically appended to the start of the domain list. 
+
+<img src="inst/outputs/plots_tab_demo_domains.png" alt="plots" width="200"/>
+
+### Changing the lookup table (advanced)
+- The lookup file contains the rules for auto categorisations.
+- If you change the [default look up file](inst/inputs/look_up.csv), make sure all domain codes included in this new lookup file are also included in the domain file, else the outputs will not be valid.  
 
 ### Tips and future steps
 - If a table is long to process, you can chose to only do a subset of variables in one session, and do the rest in later sessions.
-- If you are processing multiple tables from one dataset, make sure the output files get saved to the same directory! If they do, the function will notice this, and it will copy over categorisations for repeated variables. This will save you time and ensure consistency of categorisations! 
+- If you are processing multiple tables from one dataset, make sure the output files get saved to the same directory! If they do, the function will notice this, and it will copy over categorisations for repeated variables. This will save you time and ensure consistency of categorisations! If you do not want this functionality, set table_copy = FALSE in `mapMetdata.R`. 
 - Categorisations across researchers can be compared by using the function [R/mapMetadata_compare_outputs.R](R/mapMetadata_compare_outputs.R). In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.
 - The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.
 
