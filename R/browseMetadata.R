@@ -96,7 +96,7 @@ browseMetadata <- function(json_file = NULL ,output_dir = NULL) {
                         ncol = ncol(dataset_desc))
   cell_colors[2, ] <- "lightgrey"  # Change the color of the second row
 
-  table_fig <- plot_ly(
+  table_html <- plot_ly(
     type = 'table',
     columnorder = c(0,1,2),
     columnwidth = c(ntables_digits, max(nchar(dataset_desc$Name)), 100),
@@ -120,7 +120,7 @@ browseMetadata <- function(json_file = NULL ,output_dir = NULL) {
   count_empty_long <- count_empty %>%
     pivot_longer(cols = -Empty, names_to = "Table", values_to = "N_Variables")
 
-  empty_fig <- plot_ly(count_empty_long,
+  barplot_html <- plot_ly(count_empty_long,
                        x = ~Table,
                        y = ~N_Variables,
                        color = ~Empty,
@@ -144,11 +144,11 @@ browseMetadata <- function(json_file = NULL ,output_dir = NULL) {
 
   ## Save the table plot to a HTML file
   table_fname <- paste0("BROWSE_table_",base_fname,".html")
-  saveWidget(widget = table_fig, file = table_fname, selfcontained = TRUE)
+  saveWidget(widget = table_html, file = table_fname, selfcontained = TRUE)
 
   ## Save the bar plot to a HTML file
   bar_fname <- paste0("BROWSE_bar_",base_fname,".html")
-  saveWidget(widget = empty_fig, file = bar_fname, selfcontained = TRUE)
+  saveWidget(widget = barplot_html, file = bar_fname, selfcontained = TRUE)
 
   ## Save the data that made the bar plot to a csv file
   bar_fname <- paste0("BROWSE_bar_",base_fname,".csv")
@@ -162,7 +162,7 @@ browseMetadata <- function(json_file = NULL ,output_dir = NULL) {
   cli_alert_info("The two html files are shown in your Viewer tab. Open in your browser for full screen viewing.")
   cat ("\n")
 
-  html_figs <- list(table_fig = table_fig, empty_fig = empty_fig)
+  html_figs <- list(table_html = table_html, barplot_html = barplot_html)
   return(html_figs)
 
 } # end of function
