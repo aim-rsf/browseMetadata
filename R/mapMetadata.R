@@ -47,7 +47,8 @@ mapMetadata <- function(
     output_dir = NULL,
     table_copy = TRUE) {
 
-  timestamp_now <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
+  timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
+  timestamp_now <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
   # DEFINE INPUTS AND OUTPUTS ----
 
@@ -247,11 +248,11 @@ mapMetadata <- function(
 
     ### Create output file names
     csv_fname <- paste0("OUTPUT_",gsub(" ", "", Dataset_Name),"_",
-                        gsub(" ", "", Table_name),"_",timestamp_now,".csv")
+                        gsub(" ", "", Table_name),"_",timestamp_now_fname,".csv")
     csv_log_fname <- paste0("LOG_",gsub(" ", "", Dataset_Name),"_",
-                            gsub(" ", "", Table_name),"_",timestamp_now,".csv")
+                            gsub(" ", "", Table_name),"_",timestamp_now_fname,".csv")
     png_fname <- paste0("PLOT_",gsub(" ", "", Dataset_Name),"_",
-                        gsub(" ", "", Table_name),"_",timestamp_now,".png")
+                        gsub(" ", "", Table_name),"_",timestamp_now_fname,".png")
 
     ### Save final categorisations for this Table
     write.csv(Output,paste(output_dir, csv_fname, sep = '/'),

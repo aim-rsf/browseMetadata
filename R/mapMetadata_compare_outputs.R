@@ -16,7 +16,7 @@
 
 mapMetadata_compare_outputs <- function(session_dir,session1_base,session2_base,json_file,domain_file) {
 
-  timestamp_now <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
+  timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 
   # DEFINE INPUTS ----
 
@@ -110,7 +110,7 @@ mapMetadata_compare_outputs <- function(session_dir,session1_base,session2_base,
     } # end of loop for DataElement
 
   # SAVE TO NEW CSV ----
-  output_fname <- paste0("CONCENSUS_OUTPUT_", gsub(" ", "", Dataset_Name), "_", table_find$table_label[table_n], "_", timestamp_now, ".csv")
+  output_fname <- paste0("CONCENSUS_OUTPUT_", gsub(" ", "", Dataset_Name), "_", table_find$table_label[table_n], "_", timestamp_now_fname, ".csv")
   write.csv(ses_join, output_fname, row.names = FALSE)
   cat("\n")
   cli_alert_success("Your concensus categorisations have been saved to {output_fname}")
