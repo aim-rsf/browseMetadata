@@ -1,36 +1,54 @@
-# Distribution / packaging
-.Python
-build/
-downloads/
-.eggs/
-lib/
-lib64/
-var/
-*.pyc
-*~
 .DS_Store
-.*history
+
+# History files
 .Rhistory
+.Rapp.history
+.*history
 
-# pyenv
-.python-version
+# Session Data files
+.RData
+.RDataTmp
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+# User-specific files
+.Ruserdata
 
-.Rproj.user
+# Example code in package build process
+*-Ex.R
 
-# Test/Input files 
-input_files/*
-output_files/*
-test_code/*
-inst/doc
-/doc/
-/Meta/
-docs
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj/
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+# pkgdown site
+docs/
+doc/
+
+# Ignore generated HTML and R files in vignettes
+vignettes/*.html
+vignettes/*.R
+
+
+
+
+

@@ -15,11 +15,11 @@ data(look_up)
 }
 \description{
 A list of pre-defined pairings between data element and domain code. \cr \cr
-For each data element that domain_mapping.R processes: \cr \cr
+For each data element that mapMetadata.R processes: \cr \cr
 If it is contained within this look-up table, it uses the auto-categorised domain code rather than asking the user to categorise.\cr\cr
 This data was created with these two steps:
 \enumerate{
- \item \code{look_up <- read.csv('browseMetadata/data-raw/look_up.csv')}
+ \item \code{look_up <- read.csv('browseMetadata/inst/inputs/look_up.csv')}
  \item \code{usethis::use_data(look_up)}
 }
 }
