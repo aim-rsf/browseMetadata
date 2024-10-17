@@ -19,6 +19,7 @@
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/aim-rsf/browseMetadata/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -42,16 +43,34 @@
 
       <dl><dt>
 
-          <code><a href="compare_sessions.html">compare_sessions()</a></code>
+          <code><a href="Output.html">Output</a></code>
 
         </dt>
-        <dd>compare_sessions</dd>
+        <dd>Output dataframe</dd>
       </dl><dl><dt>
 
-          <code><a href="convert_output.html">convert_output()</a></code>
+          <code><a href="browseMetadata.html">browseMetadata()</a></code>
 
         </dt>
-        <dd>convert_output</dd>
+        <dd>browseMetadata</dd>
+      </dl><dl><dt>
+
+          <code><a href="concensus_on_mismatch.html">concensus_on_mismatch()</a></code>
+
+        </dt>
+        <dd>concensus_on_mismatch</dd>
+      </dl><dl><dt>
+
+          <code><a href="copy_previous.html">copy_previous()</a></code>
+
+        </dt>
+        <dd>copy_previous</dd>
+      </dl><dl><dt>
+
+          <code><a href="count_empty_desc.html">count_empty_desc()</a></code>
+
+        </dt>
+        <dd>count_empty_desc</dd>
       </dl><dl><dt>
 
           <code><a href="domain_list.html">domain_list</a></code>
@@ -60,10 +79,16 @@
         <dd>List of domains</dd>
       </dl><dl><dt>
 
-          <code><a href="domain_mapping.html">domain_mapping()</a></code>
+          <code><a href="end_plot.html">end_plot()</a></code>
 
         </dt>
-        <dd>domain_mapping</dd>
+        <dd>end_plot</dd>
+      </dl><dl><dt>
+
+          <code><a href="join_outputs.html">join_outputs()</a></code>
+
+        </dt>
+        <dd>join_outputs</dd>
       </dl><dl><dt>
 
           <code><a href="json_metadata.html">json_metadata</a></code>
@@ -72,16 +97,82 @@
         <dd>Json metadata file</dd>
       </dl><dl><dt>
 
+          <code><a href="json_table_to_df.html">json_table_to_df()</a></code>
+
+        </dt>
+        <dd>join_outputs</dd>
+      </dl><dl><dt>
+
+          <code><a href="load_data.html">load_data()</a></code>
+
+        </dt>
+        <dd>load_data</dd>
+      </dl><dl><dt>
+
+          <code><a href="log_Output.html">log_Output</a></code>
+
+        </dt>
+        <dd>Output log dataframe</dd>
+      </dl><dl><dt>
+
           <code><a href="look_up.html">look_up</a></code>
 
         </dt>
         <dd>Auto-categorisations</dd>
       </dl><dl><dt>
 
+          <code><a href="mapMetadata.html">mapMetadata()</a></code>
+
+        </dt>
+        <dd>mapMetadata</dd>
+      </dl><dl><dt>
+
+          <code><a href="mapMetadata_compare_outputs.html">mapMetadata_compare_outputs()</a></code>
+
+        </dt>
+        <dd>mapMetadata_compare_outputs</dd>
+      </dl><dl><dt>
+
+          <code><a href="mapMetadata_convert_outputs.html">mapMetadata_convert_outputs()</a></code>
+
+        </dt>
+        <dd>mapMetadata_convert_outputs</dd>
+      </dl><dl><dt>
+
+          <code><a href="ref_plot.html">ref_plot()</a></code>
+
+        </dt>
+        <dd>ref_plot</dd>
+      </dl><dl><dt>
+
           <code><a href="user_categorisation.html">user_categorisation()</a></code>
 
         </dt>
         <dd>user_categorisation</dd>
+      </dl><dl><dt>
+
+          <code><a href="user_categorisation_loop.html">user_categorisation_loop()</a></code>
+
+        </dt>
+        <dd>user_categorisation_loop</dd>
+      </dl><dl><dt>
+
+          <code><a href="user_prompt.html">user_prompt()</a></code>
+
+        </dt>
+        <dd>user_prompt</dd>
+      </dl><dl><dt>
+
+          <code><a href="user_prompt_list.html">user_prompt_list()</a></code>
+
+        </dt>
+        <dd>user_prompt_list</dd>
+      </dl><dl><dt>
+
+          <code><a href="valid_comparison.html">valid_comparison()</a></code>
+
+        </dt>
+        <dd>valid_comparison This function is called within the mapMetadata_compare_outputs function. <br><br> It reads two inputs to see if they are equal. <br><br> If the test is 'warning' status and inputs are not equal it gives warning but continues. <br><br> If the test is 'danger' status and inputs are not equal it stops and exits, with error message. <br><br></dd>
       </dl></div>
   </main></div>
 
@@ -91,7 +182,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>

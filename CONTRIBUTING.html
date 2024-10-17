@@ -19,6 +19,7 @@
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/aim-rsf/browseMetadata/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -27,7 +28,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="logo.png" class="logo" alt=""><h1>Contributing to browseMetadata</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md" class="external-link"><code>CONTRIBUTING.md</code></a></small>
     </div>
 
 <div id="contributing-to-browsemetadata" class="section level1">
@@ -75,7 +76,7 @@
 <li>In this <strong>Git</strong> tab, move to the branch you want to make changes in (or review and test the changes of someone else).</li>
 <li>Ensure that your current working directory is the R package directory you cloned (<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> to check and <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> to change).</li>
 <li>Run <code><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">devtools::load_all()</a></code> in the R console. You should see <code>ℹ Loading browseMetadata</code> returned.</li>
-<li>Test the function runs by running <code><a href="reference/domain_mapping.html">domain_mapping()</a></code> in the R console.</li>
+<li>Test the function runs by running <code>domain_mapping()</code> in the R console.</li>
 <li>Make your changes (or review changes made by others), and commit these changes in the way you choose to interact with git locally!</li>
 </ol><p>If you run into issues with branches not seeming to be up to date in the R Studio workspace, consider running <code>remove.packages("browseMetadata")</code> and trying the above steps again, in case a previously installed package library is getting in the way somehow.</p>
 <div class="section level3">
@@ -135,7 +136,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
