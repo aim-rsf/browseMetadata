@@ -45,7 +45,6 @@ load_data <- function(json_file, domain_file,look_up_file){
     lookup <- read.csv(look_up_file)
     cli_alert_info("Using look up file inputted by user")
     cat("\n ")
-    print(lookup)
   }
 
   list(meta_json = meta_json,domains = domains,DomainListDesc = DomainListDesc, demo_mode = demo_mode,lookup = lookup)

@@ -71,6 +71,15 @@ mapMetadata <- function(
   ## Use 'ref_plot.R' to plot domains for the user's ref (save df for later use)
   df_plots <- ref_plot(data$domains)
 
+  ## Check if look_up_file and domain_file are compatible
+  mistmatch <- setdiff(data$lookup$DomainCode, df_plots$Code$Code)
+  if (length(mistmatch) > 0) {
+    cli_alert_danger("The look_up_file and domain_file are not compatabile. These look up codes are not listed in the domain codes:")
+    cat("\n")
+    print(mistmatch)
+    stop()
+    }
+
   ## Use 'user_prompt.R' to get user initials for the log file
   User_Initials <- user_prompt(
     prompt_text = "Enter your initials: ", any_keys = TRUE)
