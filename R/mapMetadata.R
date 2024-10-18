@@ -282,7 +282,6 @@ mapMetadata <- function(
       height = 8,
       units = "in"
     )
-    save(end_plot_save, file='test.RData')
     cli_alert_success("A summary plot has been saved:\n{png_fname}")
 
   } # end of loop for each table
