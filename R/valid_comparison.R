@@ -1,9 +1,10 @@
 #' valid_comparison
-
+#'
 #' This function is called within the mapMetadata_compare_outputs function. \cr \cr
 #' It reads two inputs to see if they are equal. \cr \cr
 #' If the test is 'warning' status and inputs are not equal it gives warning but continues. \cr \cr
 #' If the test is 'danger' status and inputs are not equal it stops and exits, with error message. \cr \cr
+#'
 #' @param input1 Input 1
 #' @param input2 Input 2
 #' @param severity Level of severity. Only 'danger' or 'warning'
