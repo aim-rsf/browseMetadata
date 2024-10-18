@@ -47,16 +47,3 @@ There are more tools and resources out there. If you know of a resource that off
 You might find that the tools and resources listed above are sufficient for your needs. 
 
 If not, why not check out this R package!
-
-The README provides installation instructions as well as instructions for a demo run through (you do not need to provide your own data). 
-
-### What will this package generate?
-
-Each run of the domain_mapping function in this package will generate a log file containing:
-
-- metadata about the dataset of interest
-- initials and timestamp of the user that created this log file
-- the user's decisions on which category (domain) each data element (variable) belongs to 
-- auto-categorised data elements that commonly occur in health datasets 
-
-The log file can be compared across users. It can be used in later analysis steps to filter variables and to visualise how they map to research domains.
