@@ -28,9 +28,30 @@ The first part of the tool summarises the dataset, and all the tables within it.
 
 Beyond browsing, a user can then categorise each variable within a dataset table into a set of pre-defined research domains, with functionality to reach consensus between researchers. To speed up this manual process, the package automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The package also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to enable a table copying function which copies categorisations they've done for previous tables, into the current table they are processing. The output file containing the categorisations can be used as input to later analyses on the real dataset, to filter and visualise variables based on category labels.
 
-### Tutorial 
+## Getting started with `browseMetadata`
 
-Go here ...
+### Installation and set-up
+
+Run in the R console:
+
+``` r
+install.packages("devtools")
+devtools::install_github("aim-rsf/browseMetadata")
+```
+
+Load the library:
+
+``` r
+library(browseMetadata)
+```
+
+Set your working directory to be an empty folder you just created:
+
+```r         
+setwd("/Users/your-username/test-browseMetadata")
+```
+
+For a detailed tutorial, see the 'Getting Started' page: https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html. 
 
 ## License
 
