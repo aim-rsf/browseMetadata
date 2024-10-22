@@ -1,4 +1,18 @@
-# Getting started with `browseMetadata`
+---
+title: "Getting started with `browseMetadata`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with browseMetadata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 For installation, set-up and basic usage refer to the package [README.md](https://aim-rsf.github.io/browseMetadata/index.html) file. 
 
