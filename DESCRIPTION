@@ -1,6 +1,6 @@
 Type: Package
 Package: browseMetadata
-Title: Browses available health metadata, and aids in categorising variables
+Title: Browse and categorise health metadata
 Version: 1.2.1
 Authors@R: 
     person("Rachael", "Stickland", , "rstickland@turing.ac.uk", role = c("aut", "cre"),
