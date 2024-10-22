@@ -26,7 +26,7 @@
 
 ## What is the `browseMetadata` package?
 
-The `browseMetadata` package allows researchers to explore publicly available metadata from the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home). This tool helps researchers plan projects by interacting with metadata prior to gaining full access to health datasets. Learn more about health metadata [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
+The `browseMetadata` package allows researchers to explore publicly available metadata from the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home). This tool helps researchers plan projects by interacting with metadata prior to gaining full access to health datasets. Learn more about health metadata [here](https://aim-rsf.github.io/browseMetadata/articles/HealthMetadata.html).
 
 At the early stages of a project, researchers can use this tool to **browse** datasets and **categorise** variables.
 
