@@ -1,6 +1,6 @@
 # Getting started with `browseMetadata`
 
-For installation, set-up and basic usage refer to the package [README.md](https://github.com/aim-rsf/browseMetadata/blob/main/README.md) file. 
+For installation, set-up and basic usage refer to the package [README.md](https://aim-rsf.github.io/browseMetadata/index.html) file. 
 
 This page provides more context on how to interpret package outputs and what to input into the R console when it prompts you for inputs.
 
