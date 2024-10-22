@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Metadata tools and resources • browseMetadata</title>
+<title> • browseMetadata</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Metadata tools and resources">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="">
 <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
@@ -38,12 +38,17 @@
       <ul class="navbar-nav me-auto">
 <li class="active nav-item"><a class="nav-link" href="../articles/browseMetadata.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/HealthMetadata.html">Health metadata</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/aim-rsf/browseMetadata/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -56,88 +61,232 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Metadata tools and resources</h1>
+      <img src="../logo.png" class="logo" alt=""><h1></h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/aim-rsf/browseMetadata/blob/main/vignettes/browseMetadata.Rmd" class="external-link"><code>vignettes/browseMetadata.Rmd</code></a></small>
+
       <div class="d-none name"><code>browseMetadata.Rmd</code></div>
     </div>
 
     
     
 <div class="section level2">
-<h2 id="what-is-metadata">What is metadata?<a class="anchor" aria-label="anchor" href="#what-is-metadata"></a>
+<h2 id="getting-started-with-browsemetadata">Getting started with <code>browseMetadata</code><a class="anchor" aria-label="anchor" href="#getting-started-with-browsemetadata"></a>
 </h2>
-<p>Metadata is data that provides information about other data. Metadata
-is a useful way to record relevant information about datasets, to help
-users find the right data for their use case, and understand the data’s
-history. Metadata does not contain the full content, like the data
-itself, but it describes features and properties about the data, making
-it easier to use.</p>
-</div>
-<div class="section level2">
-<h2 id="getting-started-with-health-metadata">Getting started with (health) metadata<a class="anchor" aria-label="anchor" href="#getting-started-with-health-metadata"></a>
-</h2>
-<p>There are many existing tools and resources that allow you to browse
-metadata for health datasets, and we list some of them here:</p>
-<div class="section level4">
-<h4 id="health-data-research-innovation-gateway-and-the-connected-metadata-catalogue">Health Data Research Innovation Gateway and the connected Metadata
-Catalogue<a class="anchor" aria-label="anchor" href="#health-data-research-innovation-gateway-and-the-connected-metadata-catalogue"></a>
-</h4>
+<p>For installation, set-up and basic usage refer to the package <a href="https://aim-rsf.github.io/browseMetadata/index.html">README.md</a>
+file.</p>
+<p>This page provides more context on how to interact with package
+functions and interpret package outputs.</p>
+<div class="section level3">
+<h3 id="browsemetadata">
+<code>browseMetadata()</code><a class="anchor" aria-label="anchor" href="#browsemetadata"></a>
+</h3>
+<p>The json file contains information about the data asset, data class
+and each data element. In the metadata catalogue:</p>
 <ul>
-<li>The metadata used as input for this <code>R</code> package
-<code>browseMetadata</code>.</li>
-<li>Managed by Health Data Research UK in collaboration with the UK
-Health Data Research Alliance. More information can be found on the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health
-Data Research Innovation Gateway</a> and the <a href="https://modelcatalogue.cs.ox.ac.uk/hdruk_live/" class="external-link">Metadata
-Catalogue</a>.</li>
-<li>Described as a search-engine or ‘portal’ to help find health
-datasets that exist in the UK.</li>
-<li>The datasets discoverable through the Gateway are from organisations
-in the NHS, research institutes, and charities, which are part of the UK
-Health Data Research Alliance.</li>
+<li>
+<em>Data asset</em> refers to a <em>Dataset</em> (a collection of
+data, can contain multiple tables)</li>
+<li>
+<em>Data class</em> refers to a <em>Table</em> within a dataset</li>
+<li>
+<em>Data Element</em> refers to each <em>Variable</em> within a
+table</li>
 </ul>
-<p>A related resource from HDRUK is the <a href="https://phenotypes.healthdatagateway.org" class="external-link">Phenotype Library</a>,
-described as a comprehensive, open access resource providing the
-research community with information, tools, and phenotyping algorithms
-for UK electronic health records. Also see the <a href="https://conceptlibrary.saildatabank.com" class="external-link">Concept Library</a>
-developed by the SAIL databank team and collaborating organisations.</p>
-</div>
-<div class="section level4">
-<h4 id="british-heart-foundation-data-science-centre-bhf-dsc-dashboard">British Heart Foundation Data Science Centre (BHF DSC)
-Dashboard<a class="anchor" aria-label="anchor" href="#british-heart-foundation-data-science-centre-bhf-dsc-dashboard"></a>
-</h4>
+<p>See <a href="https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs/" class="external-link">here</a>
+for outputs generated from a demo run.</p>
 <ul>
-<li>Offers an overview and interactive summaries of the datasets
-currently available through CVD-COVID-UK/COVID-IMPACT within the secure
-Trusted Research Environments (TREs) provided by NHS England for
-England, the National Data Safe Haven for Scotland and the SAIL databank
-for Wales.</li>
-<li>This dashboard allows exploration of data dictionaries, data
-coverage, and data completeness. More information can be found on the <a href="https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard" class="external-link">BHF DSC
-Dashboard</a>.</li>
+<li>BROWSE_table html summarises the dataset and each table in the
+dataset</li>
+<li>BROWSE_bar html, pasted below, is a simple bar plot summarising the
+dataset</li>
+<li>BROWSE_bar csv file contains the data used to make this bar
+plot</li>
 </ul>
-</div>
-<div class="section level4">
-<h4 id="office-for-national-statistics-ons-secure-research-service-srs-metadata-catalogue">Office for National Statistics (ONS) Secure Research Service (SRS)
-Metadata Catalogue<a class="anchor" aria-label="anchor" href="#office-for-national-statistics-ons-secure-research-service-srs-metadata-catalogue"></a>
-</h4>
+<p><img src="https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png" alt="example bar plot showing number of variables for each table alongside counts of whether variables have missing descriptions"></p>
+<p>We can see there are 13 tables in the dataset. The (numbers) next to
+table names correspond to the order in which they are shown to you in
+the <code><a href="../reference/mapMetadata.html">mapMetadata()</a></code> function. The height of the bar indicates
+the number of variables in that table:</p>
 <ul>
-<li>Metadata for datasets within the ONS SRS. It is possible to filter
-for datasets related to ‘Health’ by clicking this tag on the first page.
-More information can be found on the <a href="https://ons.metadata.works/" class="external-link">ONS SRS Metadata Catalogue</a>.</li>
+<li>The ones with lots of variables (e.g. CHILD_TRUST) will take you
+longer to process when running <code><a href="../reference/mapMetadata.html">mapMetadata()</a></code>
+</li>
+<li>Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) have a lot of
+empty descriptions. An empty description means that this variable will
+only have a label and a data type.</li>
 </ul>
-<p>There are more tools and resources out there. If you know of a
-resource that offers accessible health metadata with good breadth and/or
-depth of coverage, please request we add it here!</p>
+<p>It is important to note that this plot is only summarising
+<em>variable</em> level metadata i.e. a description of what the variable
+is. Some variables also require <em>value</em> level metadata i.e. what
+does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This
+<em>value</em> level metadata can sometimes be found in lookup tables,
+if it is not provided within the <em>variable</em> level
+description.</p>
 </div>
+<div class="section level3">
+<h3 id="mapmetadata">
+<code>mapMetadata()</code><a class="anchor" aria-label="anchor" href="#mapmetadata"></a>
+</h3>
+<p>Running the function in demo mode will use the same demo json file as
+<code><a href="../reference/browseMetadata.html">browseMetadata()</a></code>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mapMetadata.html">mapMetadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Demo mode only processes the first 20 variables (data elements)
+within the table(s) we select to process.</p>
+<p>You will be asked to label data elements with one (or more) of the
+numbers shown in the Plots tab [0-7]. Here we have very simple domains
+[4-7] for the demo run. For a research study, your domains are likely to
+be much more specific e.g. ‘Prenatal, antenatal, neonatal and birth’ or
+‘Health behaviours and diet’. The 4 default domains are always included
+[0-3], appended on to any domain list given.</p>
+<p><img src="https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/plots_tab_demo_domains.png" alt="description of research domains used for categorisations" width="50%"></p>
+<pre><code>ℹ Running mapMetadata in demo mode using package data files
+ℹ Using the default look-up table in data/look-up.rda
+ 
+Enter your initials: RS</code></pre>
+<p>Respond with your initials after the prompt and press enter. It will
+then print the name of the dataset and where it was retrieved from:</p>
+<pre><code>── Dataset Name ─────────────────────────────────────────────────────────────────────────────────────────────────
+National Community Child Health Database (NCCHD)
+── Dataset File Exported By ─────────────────────────────────────────────────────────────────────────────────────
+Rachael Stickland at 2024-04-05T13:01:23.109Z
+
+ℹ Reference outputs from browseMetadata for information about the dataset
+
+Press any key to continue </code></pre>
+<pre><code>                     Table_Name Table_Number
+                           EXAM            1
+                          CHILD            2
+                   REFR_IMM_VAC            3
+                            IMM            4
+                 BREAST_FEEDING            5
+               PATH_BLOOD_TESTS            6
+ CHE_HEALTHYCHILDWALESPROGRAMME            7
+                     BLOOD_TEST            8
+                    CHILD_TRUST            9
+               PATH_SPCM_DETAIL           10
+      CHILD_MEASUREMENT_PROGRAM           11
+                   CHILD_BIRTHS           12
+                       SIG_COND           13
+
+ℹ Found 13 table(s) in this Dataset. Enter table numbers you want to process (one table number on each line):
+
+1: 2
+2: </code></pre>
+<p>For the purpose of this demo, type 2 to just process the CHILD table
+only. Leave the prompt on the second row blank and press enter.</p>
+<p>To process multiple tables at once in the same session (e.g. CHILD,
+SIG_COND) include their numbers on multiple lines:</p>
+<pre><code>ℹ Enter each table number you want to process in this interactive session.
+
+1: 1
+2: 13
+3:</code></pre>
+<pre><code>ℹ Processing Table 2 of 13
+
+── Table Name ───────────────────────────────────────────────────────────────────────────────────────────────────
+CHILD 
+
+
+ℹ Reference outputs from browseMetadata for information about the table
+
+Optional free text note about this table (or press enter to continue): This table is important because ... </code></pre>
+<p>It will now start looping through the data elements. If it skips over
+one it means it was auto-categorised or copied from a previous table
+already processed (more on that later). For this demo, it will only
+process 20 data elements (out of the 35 total).</p>
+<pre><code>ℹ 20 left to process in this session
+✔ Processing data element 1 of 35
+
+ℹ 19 left to process in this session
+✔ Processing data element 2 of 35
+
+ℹ 18 left to process in this session
+✔ Processing data element 3 of 35
+
+ℹ 17 left to process in this session
+✔ Processing data element 4 of 35
+
+DATA ELEMENT -----&gt;  APGAR_1 
+
+DESCRIPTION -----&gt;  APGAR 1 score. This is a measure of a baby's physical state at birth with particular reference to asphyxia - taken at 1 minute. Scores 3 and below are generally regarded as critically low; 4-6 fairly low, and 7-10 generally normal. Field can contain high amount of unknowns/non-entries. 
+
+DATA TYPE -----&gt;  CHARACTER 
+
+Categorise data element into domain(s). E.g. 3 or 3,4: 7
+
+Categorisation note (or press enter to continue): your note here </code></pre>
+<p>We chose to respond with ‘7’ because that corresponds to the ‘Health
+info’ domain in the table. More than one domain can be chosen. Do
+remember that this demo has over-simplified domain labels, and they will
+likely be more specific for a research study.</p>
+<p>You have the option to re-do the categorisation (and note) you just
+made, by replying ‘y’ to the question:</p>
+<pre><code>Response to be saved is '7'. Would you like to re-do? (y/n): y</code></pre>
+<p>After completing 20, it will then ask you to review the
+auto-categorisations it made.</p>
+<p>These auto-categorisations are based on the mappings included in the
+default <a href="https://github.com/aim-rsf/browseMetadata/blob/main/inst/inputs/look_up.csv" class="external-link">look_up.csv</a>.
+Type <code>get("look_up")</code> in <code>R</code>.</p>
+<p>This look-up file can be changed by the user. ALF refers to
+‘Anonymous Linking Field’ - this field is used within datasets that have
+been anonymised and encrypted for inclusion within SAIL Databank.</p>
+<pre><code>     DataElement    Domain_code  Note
+1    ALF_E          2            AUTO CATEGORISED
+2    ALF_MTCH_PCT   2            AUTO CATEGORISED
+3    ALF_STS_CD     2            AUTO CATEGORISED
+6    AVAIL_FROM_DT  1            AUTO CATEGORISED  
+19   GNDR_CD        3            AUTO CATEGORISED
+
+ℹ These are the auto categorised data elements. Enter row numbers for those you want to edit: 
+
+1: </code></pre>
+<p>Press enter for now. It will then ask you if you want to review the
+categorisations you made. Respond Y to review:</p>
+<pre><code>Would you like to review your categorisations? (y/n): y
+
+      DataElement             Domain_code   Note (first 12 chars)
+4     APGAR_1                 7
+5     APGAR_2                 7
+7     BIRTH_ORDER             7             10% missingness
+8     BIRTH_TM                1,7           20% missingness 
+9     BIRTH_WEIGHT            7
+10    BIRTH_WEIGHT_DEC        7
+11    BREASTFEED_8_WKS_FLG    7
+12    BREASTFEED_BIRTH_FLG    7
+13    CHILD_ID_E              2
+14    CURR_LHB_CD_BIRTH       5,7           Place of birth
+15    DEL_CD                  7
+16    DOD                     3,7
+17    ETHNIC_GRP_CD           3
+18    GEST_AGE                3,7
+20    HEALTH_VISITOR_CD_E     2
+
+ℹ Press enter to accept your categorisations for table CHILD, or enter each row number you'd like to edit:
+
+1: 8
+2: 14
+3: </code></pre>
+<p>If you want to change your categorisation, enter in the row number
+(e.g. 8 for BIRTH_TM and 14 for CURR_LHB_CD_BIRTH).</p>
+<p>It will then take you through the same process as before, and you can
+over-write your previous categorisation.</p>
+<p>All finished! Take a look at the outputs:</p>
+<pre><code>✔ Your final categorisations have been saved:
+OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
+✔ Your session log has been saved:
+LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
+✔ A summary plot has been saved:
+PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png</code></pre>
+<p>The OUTPUT csv contains the categorisations you made. The LOG csv
+contains information about the session as a whole, including various
+metadata. These two csv files contain the same timestamp column. If you
+do not like the formatting of the OUTPUT csv, see the function
+<code><a href="../reference/mapMetadata_convert_outputs.html">?mapMetadata_convert_outputs</a></code> for an alternative.</p>
+<p>The PLOT png file saves a simple plot displaying the count of domain
+codes for that table.</p>
 </div>
-<div class="section level2">
-<h2 id="getting-started-with-the-browsemetadata-r-package">Getting started with the <code>browseMetadata</code> R Package<a class="anchor" aria-label="anchor" href="#getting-started-with-the-browsemetadata-r-package"></a>
-</h2>
-<p>You might find that the tools and resources listed above are
-sufficient for your needs.</p>
-<p>If not, why not check out this R package!</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

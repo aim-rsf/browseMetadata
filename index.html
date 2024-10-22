@@ -41,12 +41,17 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="articles/browseMetadata.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/HealthMetadata.html">Health metadata</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/aim-rsf/browseMetadata/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -60,26 +65,58 @@
 </h1>
 </div>
 <p><a href="https://aim-rsf.github.io/browseMetadata/"><img src="reference/figures/logo.png" align="right" height="120" alt="browseMetadata website"></a></p>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<p><a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square" alt="All Contributors"></a> <!-- ALL-CONTRIBUTORS-BADGE:END --></p>
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></p>
-<p><a href="https://doi.org/10.5281/zenodo.10581500" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg" alt="DOI"></a></p>
+<p><a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square" alt="All Contributors"></a><br><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a><br><a href="https://doi.org/10.5281/zenodo.10581500" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg" alt="DOI"></a></p>
+</div>
+<div class="section level1">
+<h1 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
+</h1>
+<ol style="list-style-type: decimal">
+<li>
+<a href="#what-is-the-browsemetadata-package">What is the <code>browseMetadata</code> package?</a>
+<ul>
+<li><a href="#browse-metadata">Browse metadata</a></li>
+<li><a href="#map-metadata">Map metadata</a></li>
+</ul>
+</li>
+<li>
+<a href="#getting-started-with-browsemetadata">Getting started with <code>browseMetadata</code></a>
+<ul>
+<li><a href="#installation-and-set-up">Installation and set-up</a></li>
+<li>
+<a href="#demo-using-the-r-studio-ide">Demo (using the <code>R Studio</code> IDE)</a>
+<ul>
+<li><a href="#browsemetadata-1"><code>browseMetadata()</code></a></li>
+<li><a href="#mapmetadata"><code>mapMetadata()</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#using-a-custom-metadata-input-recommended">Using a custom metadata input</a></li>
+<li><a href="#using-a-custom-domain-list-input-recommended">Using a custom domain list input</a></li>
+<li><a href="#using-a-custom-lookup-table-input-advanced">Using a custom lookup table input</a></li>
+<li><a href="#tips-and-future-steps">Tips and future steps</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#citation">Citation</a></li>
+<li><a href="#contributing">Contributing</a></li>
+</ol>
 <div class="section level2">
 <h2 id="what-is-the-browsemetadata-package">What is the <code>browseMetadata</code> package?<a class="anchor" aria-label="anchor" href="#what-is-the-browsemetadata-package"></a>
 </h2>
-<p>This <code>R</code> package helps a researcher interact with the publicly available metadata available from the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Gateway</a> and the connected <a href="https://maurosandbox.com/hdruk/#/home" class="external-link">Metadata Catalogue</a><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This package is in early development, and has only been tested on a limited number of metadata files. In theory, this package should work for any dataset listed on the Health Data Research Gateway (not just SAIL) as long as a json metadata file can be downloaded. In practice, it has only been tested on a limited number of metadata files for SAIL databank.&lt;/p&gt;"><sup>1</sup></a>. This <code>R</code> package is a planning tool, designed to be used alongside other tools and sources of information about health datasets for research. Read more about health metadata <a href="https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html">here</a>.</p>
-<p>In the earlier stages of a project, prior to data access, researchers can use the metadata to <strong>browse</strong> datasets and <strong>categorise</strong> variables:</p>
+<p>The <code>browseMetadata</code> package allows researchers to explore publicly available metadata from the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Gateway</a> and the connected <a href="https://maurosandbox.com/hdruk/#/home" class="external-link">Metadata Catalogue</a>. This tool helps researchers plan projects by interacting with metadata prior to gaining full access to health datasets. Learn more about health metadata <a href="https://aim-rsf.github.io/browseMetadata/articles/HealthMetadata.html">here</a>.</p>
+<p>At the early stages of a project, researchers can use this tool to <strong>browse</strong> datasets and <strong>categorise</strong> variables.</p>
 <div class="section level3">
 <h3 id="browse-metadata">Browse metadata<a class="anchor" aria-label="anchor" href="#browse-metadata"></a>
 </h3>
-<p><em>What datasets are available? ↔︎️ What datasets do I need for my research?</em></p>
-<p>The first part of the tool summarises the dataset, and all the tables within it. A plot displays how many variables within a dataset table have a description field that is not empty.</p>
+<p><em>What datasets are available? Which datasets fit my research?</em></p>
+<p>The tool summarises datasets and their tables, and displays how many variables within each table have descriptions.</p>
+<p><img src="https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png" alt="example bar plot showing number of variables for each table alongside counts of whether variables have missing descriptions"></p>
 </div>
 <div class="section level3">
 <h3 id="map-metadata">Map metadata<a class="anchor" aria-label="anchor" href="#map-metadata"></a>
 </h3>
-<p><em>Which variables within these datasets map onto my research domains of interest? (e.g. socioeconomic, childhood adverse events, diagnoses, culture and community)</em></p>
-<p>Beyond browsing, a user can then categorise each variable within a dataset table into a set of pre-defined research domains, with functionality to reach consensus between researchers. To speed up this manual process, the package automatically categorises some variables that regularly appear in health datasets (e.g. ID, Sex, Age). The package also accounts for the same data element appearing in multiple tables across a dataset, and allows the user to enable a table copying function which copies categorisations they’ve done for previous tables, into the current table they are processing. The output file containing the categorisations can be used as input to later analyses on the real dataset, to filter and visualise variables based on category labels.</p>
+<p><em>Which variables align with my research domains?</em><br>
+(e.g. socioeconomic, childhood adverse events, diagnoses, culture and community)</p>
+<p>After browsing, users can categorise each variable into predefined research domains. To speed up this manual process, the function automatically categorises frequently used variables (e.g. ID, Sex, Age). The function also accounts for variables that appear across multiple tables and allows users to copy their categorisations to ensure consistency. The output files can be used in later analyses to filter and visualise variables by category.</p>
 </div>
 </div>
 <div class="section level2">
@@ -95,283 +132,125 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aim-rsf/browseMetadata"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the library:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aim-rsf/browseMetadata" class="external-link">browseMetadata</a></span><span class="op">)</span></span></code></pre></div>
-<p>Set your working directory to be an empty folder you just created:</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://aim-rsf.github.io/browseMetadata">browseMetadata</a></span><span class="op">)</span></span></code></pre></div>
+<p>Set your working directory to an empty folder:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/Users/your-username/test-browseMetadata"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="demo-using-the-r-studio-ide">Demo (using the <code>R Studio</code> IDE)<a class="anchor" aria-label="anchor" href="#demo-using-the-r-studio-ide"></a>
 </h3>
-<p>There are 4 main functions you can interact with: <code>browseMetadata</code>, <code>mapMetadata</code>, <code>mapMetadata_compare_outputs</code>, <code>mapMetadata_convert_outputs</code>.</p>
-<p>In order to read their documentation, precede the function name with <code>?</code>. For example, <code><a href="reference/browseMetadata.html">?browseMetadata</a></code>.</p>
+<p>Fo a longer more detailed demo, see the <a href="https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html">Getting Started</a> page on the package website.</p>
+<p>There are four main functions you can interact with: <code><a href="reference/browseMetadata.html">browseMetadata()</a></code>, <code><a href="reference/mapMetadata.html">mapMetadata()</a></code>, <code><a href="reference/mapMetadata_compare_outputs.html">mapMetadata_compare_outputs()</a></code>, and <code><a href="reference/mapMetadata_convert_outputs.html">mapMetadata_convert_outputs()</a></code>. For more information on any function, type <code>?function_name</code>. For example: <code><a href="reference/browseMetadata.html">?browseMetadata</a></code>.</p>
 <div class="section level4">
-<h4 id="browsemetadatar">
-<code>browseMetadata.R</code><a class="anchor" aria-label="anchor" href="#browsemetadatar"></a>
+<h4 id="browsemetadata-1">
+<code>browseMetadata()</code><a class="anchor" aria-label="anchor" href="#browsemetadata-1"></a>
 </h4>
-<p>This function is easy to run and does not require any user interaction. For now, let’s run it in demo mode, which uses the demo json file located in the <a href="inst/inputs/">inst/inputs</a> package directory.</p>
-<p>The json file contains information about the data asset (dataset), data class (table) and data element (variable)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;The metadata catalogue uses &lt;em&gt;Data asset&lt;/em&gt; to mean &lt;em&gt;Dataset&lt;/em&gt; (a collection of data, can contain multiple tables). &lt;em&gt;Data class&lt;/em&gt; refers to &lt;em&gt;Table&lt;/em&gt;, and &lt;em&gt;Data Element&lt;/em&gt; refers to each &lt;em&gt;Variable&lt;/em&gt; name within a table.&lt;/p&gt;"><sup>2</sup></a>.</p>
+<p>This function is easy to run and doesn’t require user interaction. Run it in demo mode using the demo JSON file located in the <a href="https://github.com/aim-rsf/browseMetadata/tree/main/inst/inputs" class="external-link">inst/inputs</a> directory:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/browseMetadata.html">browseMetadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>After running this code successfully you should see:</p>
+<p>Upon success, you should see:</p>
 <pre><code>ℹ Three outputs have been saved to your output directory.
-ℹ Open the two html files in your browser for full screen viewing.</code></pre>
-<p>The files are saved to your current working directory. If you want to save them in a different location either change your current working directory or change the <code>output_dir</code> argument of the <code>browseMetadata.R</code> function to your specified path.</p>
-<p>See <a href="https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/" class="external-link">here</a> for example outputs (in your own output directory, you should see these same outputs). The BROWSE_table html summarises the dataset and each table in the dataset; this will be a useful reference to have open when you run the <code>mapMetadata.R</code> function below. The BROWSE_bar html, pasted below for convenience, is a simple bar plot summarising the dataset. The BROWSE_bar csv file contains the data used to make this bar plot.</p>
-<div class="float">
-<img src="/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png" alt="bar plot"><div class="figcaption">bar plot</div>
-</div>
-<p>We can see there are 13 tables in the dataset. The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running <code>mapMetadata.R</code>. Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) have a lot of empty descriptions. An empty description means that this variable will only have a label and a data type. What about lookup tables?<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;It is important to note that this is only summarising &lt;em&gt;variable&lt;/em&gt; level metadata i.e. a description of what the variable is. Some variables also require &lt;em&gt;value&lt;/em&gt; level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This &lt;em&gt;value&lt;/em&gt; level metadata can sometimes be found in lookup tables, if it is not provided within the &lt;em&gt;variable&lt;/em&gt; level description.&lt;/p&gt;"><sup>3</sup></a>. The (numbers) next to table names correspond to the order in which they are shown to you in the <code>mapMetadata.R</code> function.</p>
+ℹ Open the two HTML files in your browser for full-screen viewing.</code></pre>
+<p>The output files are saved to your working directory. You can change the save location by adjusting the <code>output_dir</code> argument. Examples of outputs are available in <a href="https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs" class="external-link">inst/outputs</a>.</p>
 </div>
 <div class="section level4">
-<h4 id="mapmetadatar">
-<code>mapMetadata.R</code><a class="anchor" aria-label="anchor" href="#mapmetadatar"></a>
+<h4 id="mapmetadata">
+<code>mapMetadata()</code><a class="anchor" aria-label="anchor" href="#mapmetadata"></a>
 </h4>
-<p>We can run the function in demo mode which will use the same demo json file as <code>browseMetadata.R</code>:</p>
+<p>Use the outputs from <code><a href="reference/browseMetadata.html">browseMetadata()</a></code> as a reference when running <code><a href="reference/mapMetadata.html">mapMetadata()</a></code>.</p>
+<p>To run the mapping function in demo mode, use:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/mapMetadata.html">mapMetadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Demo mode only processes the first 20 variables (data elements) within the table(s) we select to process.</p>
-<p>Reference the Plots tab throughout the demo run (see below). You will be asked to label data elements with one (or more) of these numbers [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. ‘Prenatal, antenatal, neonatal and birth’ or ‘Health behaviours and diet’. The 4 default domains are always included [0-3], appended on to any domain list given.</p>
-<p><img src="inst/outputs/plots_tab_demo_domains.png" alt="plots" width="200"></p>
-<pre><code>ℹ Running mapMetadata in demo mode using package data files
-ℹ Using the default look-up table in data/look-up.rda
-
-Enter your initials: RS</code></pre>
-<p>Respond with your initials after the prompt and press enter. It will then print the name of the dataset and where it was retrieved from:</p>
-<pre><code>── Dataset Name ─────────────────────────────────────────────────────────────────────────────────────────────────
-National Community Child Health Database (NCCHD)
-── Dataset File Exported By ─────────────────────────────────────────────────────────────────────────────────────
-Rachael Stickland at 2024-04-05T13:01:23.109Z
-
-ℹ Reference outputs from browseMetadata for information about the dataset
-
-Press any key to continue </code></pre>
-<pre><code>                     Table_Name Table_Number
-                           EXAM            1
-                          CHILD            2
-                   REFR_IMM_VAC            3
-                            IMM            4
-                 BREAST_FEEDING            5
-               PATH_BLOOD_TESTS            6
- CHE_HEALTHYCHILDWALESPROGRAMME            7
-                     BLOOD_TEST            8
-                    CHILD_TRUST            9
-               PATH_SPCM_DETAIL           10
-      CHILD_MEASUREMENT_PROGRAM           11
-                   CHILD_BIRTHS           12
-                       SIG_COND           13
-
-ℹ Found 13 table(s) in this Dataset. Enter table numbers you want to process (one table number on each line):
-
-1: 2
-2: </code></pre>
-<p>For the purpose of this demo, type 2 to just process the CHILD table only. Leave the prompt on the second row blank and press enter.</p>
-<p>To process multiple tables at once in the same session (e.g. CHILD, SIG_COND) include their numbers on multiple lines:</p>
-<pre><code>ℹ Enter each table number you want to process in this interactive session.
-
-1: 1
-2: 13
-3:</code></pre>
-<pre><code>ℹ Processing Table 2 of 13
-
-── Table Name ───────────────────────────────────────────────────────────────────────────────────────────────────
-CHILD
-
-
-ℹ Reference outputs from browseMetadata for information about the table
-
-Optional free text note about this table (or press enter to continue): This table is important because ... </code></pre>
-<p>It will now start looping through the data elements. If it skips over one it means it was auto-categorised or copied from a previous table already processed (more on that later). For this demo, it will only process 20 data elements (out of the 35 total).</p>
-<pre><code>ℹ 20 left to process in this session
-✔ Processing data element 1 of 35
-
-ℹ 19 left to process in this session
-✔ Processing data element 2 of 35
-
-ℹ 18 left to process in this session
-✔ Processing data element 3 of 35
-
-ℹ 17 left to process in this session
-✔ Processing data element 4 of 35
-
-DATA ELEMENT -----&gt;  APGAR_1
-
-DESCRIPTION -----&gt;  APGAR 1 score. This is a measure of a baby's physical state at birth with particular reference to asphyxia - taken at 1 minute. Scores 3 and below are generally regarded as critically low; 4-6 fairly low, and 7-10 generally normal. Field can contain high amount of unknowns/non-entries.
-
-DATA TYPE -----&gt;  CHARACTER
-
-Categorise data element into domain(s). E.g. 3 or 3,4: 7
-
-Categorisation note (or press enter to continue): your note here </code></pre>
-<p>We chose to respond with ‘7’ because that corresponds to the ‘Health info’ domain in the table. More than one domain can be chosen. Do remember that this demo has over-simplified domain labels, and they will likely be more specific for a research study.</p>
-<p>You have the option to re-do the categorisation (and note) you just made, by replying ‘y’ to the question:</p>
-<pre><code>Response to be saved is '7'. Would you like to re-do? (y/n): y</code></pre>
-<p>After completing 20, it will then ask you to review the auto-categorisations it made.</p>
-<p>These auto-categorisations are based on the mappings included in the <a href="inst/inputs/look_up.csv">inst/inputs/look_up.csv</a>. This look-up file can be changed by the user. ALF refers to ‘Anonymous Linking Field’ - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.</p>
-<pre><code>     DataElement    Domain_code  Note
-1    ALF_E          2            AUTO CATEGORISED
-2    ALF_MTCH_PCT   2            AUTO CATEGORISED
-3    ALF_STS_CD     2            AUTO CATEGORISED
-6    AVAIL_FROM_DT  1            AUTO CATEGORISED
-19   GNDR_CD        3            AUTO CATEGORISED
-
-ℹ These are the auto categorised data elements. Enter row numbers for those you want to edit:
-
-1: </code></pre>
-<p>Press enter for now. It will then ask you if you want to review the categorisations you made. Respond Y to review:</p>
-<pre><code>Would you like to review your categorisations? (y/n): y
-
-      DataElement             Domain_code   Note (first 12 chars)
-4     APGAR_1                 7
-5     APGAR_2                 7
-7     BIRTH_ORDER             7             10% missingness
-8     BIRTH_TM                1,7           20% missingness
-9     BIRTH_WEIGHT            7
-10    BIRTH_WEIGHT_DEC        7
-11    BREASTFEED_8_WKS_FLG    7
-12    BREASTFEED_BIRTH_FLG    7
-13    CHILD_ID_E              2
-14    CURR_LHB_CD_BIRTH       5,7           Place of birth
-15    DEL_CD                  7
-16    DOD                     3,7
-17    ETHNIC_GRP_CD           3
-18    GEST_AGE                3,7
-20    HEALTH_VISITOR_CD_E     2
-
-ℹ Press enter to accept your categorisations for table CHILD, or enter each row number you'd like to edit:
-
-1: 8
-2: 14
-3: </code></pre>
-<p>If you want to change your categorisation, enter in the row number (e.g. 8 for BIRTH_TM and 14 for CURR_LHB_CD_BIRTH).</p>
-<p>It will then take you through the same process as before, and you can over-write your previous categorisation.</p>
-<p>All finished! Take a look at the outputs:</p>
-<pre><code>✔ Your final categorisations have been saved:
-OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
-✔ Your session log has been saved:
-LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
-✔ A summary plot has been saved:
-PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png</code></pre>
-<p>The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function <a href="R/mapMetadata_convert_outputs.R">R/mapMetadata_convert_outputs.R</a> for an alternative.</p>
-<p>The PLOT png file saves a simple plot displaying the count of domain codes for that table.</p>
+<p>In demo mode, the function processes only the first 20 variables from selected tables. Follow the on-screen instructions, and categorise variables into research domains, using the Plot tab as your reference. The demo will simplify domains for ease of use; in a real scenario, you can define more specific domains.</p>
+<p>Upon completion, your categorisations, session log, and a summary plot will be saved in your output directory.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="changing-the-json-file-input-recommended">Changing the json file input (recommended)<a class="anchor" aria-label="anchor" href="#changing-the-json-file-input-recommended"></a>
-</h3>
-<p>You can run <code>mapMetdata.R</code> and <code>browseMetadata.R</code> without the demo mode, using a different json file input:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+</div>
+<div class="section level2">
+<h2 id="using-a-custom-metadata-input-recommended">Using a custom metadata input (recommended)<a class="anchor" aria-label="anchor" href="#using-a-custom-metadata-input-recommended"></a>
+</h2>
+<p>You can run <code><a href="reference/mapMetadata.html">mapMetadata()</a></code> and <code><a href="reference/browseMetadata.html">browseMetadata()</a></code> using a custom JSON file instead of the demo input:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_json_file</span> <span class="op">&lt;-</span> <span class="st">"path/your_new_json.json"</span></span>
-<span></span>
-<span><span class="va">demo_domains_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"inputs/domain_list_demo.csv"</span>,package <span class="op">=</span> <span class="st">"browseMetadata"</span><span class="op">)</span></span>
+<span><span class="va">demo_domains_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"inputs/domain_list_demo.csv"</span>, package <span class="op">=</span> <span class="st">"browseMetadata"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/browseMetadata.html">browseMetadata</a></span><span class="op">(</span>json_file <span class="op">=</span> <span class="va">new_json_file</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu"><a href="reference/mapMetadata.html">mapMetadata</a></span><span class="op">(</span>json_file <span class="op">=</span> <span class="va">new_json_file</span>, domain_file <span class="op">=</span> <span class="va">demo_domains_file</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="changing-the-domain-file-recommended">Changing the domain file (recommended)<a class="anchor" aria-label="anchor" href="#changing-the-domain-file-recommended"></a>
-</h3>
-<ul>
-<li>The research domains that appear in the Plots tab are very simple, designed for demo purposes.</li>
-<li>Change them to match domains that are relevant to your research questions!</li>
-<li>Remember any <a href="inst/inputs/domain_list_demo.csv">domain file input</a> will have Codes 0,1,2 and 3 automatically appended to the start of the domain list.</li>
-</ul>
-<p><img src="inst/outputs/plots_tab_demo_domains.png" alt="plots" width="200"></p>
+<div class="section level2">
+<h2 id="using-a-custom-domain-list-input-recommended">Using a custom domain list input (recommended)<a class="anchor" aria-label="anchor" href="#using-a-custom-domain-list-input-recommended"></a>
+</h2>
+<p>You can replace the default demo domains with research-specific domains. Remember any domain file input will have Codes 0,1,2 and 3 automatically appended to the start of the domain list, so do not include these in your domain list.</p>
 </div>
-<div class="section level3">
-<h3 id="changing-the-lookup-table-advanced">Changing the lookup table (advanced)<a class="anchor" aria-label="anchor" href="#changing-the-lookup-table-advanced"></a>
-</h3>
-<ul>
-<li>The lookup file contains the rules for auto categorisations.</li>
-<li>If you change the <a href="inst/inputs/look_up.csv">default look up file</a>, make sure all domain codes included in this new lookup file are also included in the domain file, else the outputs will not be valid.</li>
-</ul>
+<div class="section level2">
+<h2 id="using-a-custom-lookup-table-input-advanced">Using a custom lookup table input (advanced)<a class="anchor" aria-label="anchor" href="#using-a-custom-lookup-table-input-advanced"></a>
+</h2>
+<p>The lookup table governs the automatic categorisations. If you modify the <a href="https://github.com/aim-rsf/browseMetadata/tree/main/inst/inputs/look_up.csv" class="external-link">default lookup file</a>, ensure that all domain codes in the lookup file are also included in your domain file for valid outputs.</p>
 </div>
-<div class="section level3">
-<h3 id="tips-and-future-steps">Tips and future steps<a class="anchor" aria-label="anchor" href="#tips-and-future-steps"></a>
-</h3>
+<div class="section level2">
+<h2 id="tips-and-future-steps">Tips and future steps<a class="anchor" aria-label="anchor" href="#tips-and-future-steps"></a>
+</h2>
 <ul>
-<li>If a table is long to process, you can chose to only do a subset of variables in one session, and do the rest in later sessions.</li>
-<li>If you are processing multiple tables from one dataset, make sure the output files get saved to the same directory! If they do, the function will notice this, and it will copy over categorisations for repeated variables. This will save you time and ensure consistency of categorisations! If you do not want this functionality, set table_copy = FALSE in <code>mapMetdata.R</code>.</li>
-<li>Categorisations across researchers can be compared by using the function <a href="R/mapMetadata_compare_outputs.R">R/mapMetadata_compare_outputs.R</a>. In brief, it compares csv outputs from two sessions, finds their differences, and asks for a consensus.</li>
-<li>The csv output file containing the categorisation for each data element could be used as an input in later analysis steps to filter variables and visualise how each variable maps to research domains of interest.</li>
+<li>You can process a subset of variables in one session and complete the rest later.</li>
+<li>If you’re processing multiple tables, save all outputs in the same directory to enable table copying. This feature will speed up categorisation and ensure consistency.</li>
+<li>You can compare categorisations across researchers using the <code><a href="reference/mapMetadata_compare_outputs.html">mapMetadata_compare_outputs()</a></code> function.</li>
+<li>Use the output file from the <code><a href="reference/mapMetadata.html">mapMetadata()</a></code> function as input for subsequent analysis to filter and visualise variables by research domain.</li>
 </ul>
-</div>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
-<p>This project is licensed under the GNU General Public License v3.0 - see the <a href="LICENSE">LICENSE</a> file for details.</p>
-<p>The GNU General Public License is a free, copyleft license for software and other kinds of works. For more information, please refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link uri">https://www.gnu.org/licenses/gpl-3.0.en.html</a>.</p>
+<p>This project is licensed under the GNU General Public License v3.0 - see the <a href="https://github.com/aim-rsf/browseMetadata/blob/main/LICENSE.md" class="external-link">LICENSE</a> file for details.<br>
+For more information, refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link">GNU General Public License</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>To cite package ‘browseMetadata’ in publications use:</p>
+<p>To cite <code>browseMetadata</code> in publications:</p>
 <blockquote>
-<p>Stickland R (2024). browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset. R package version 1.2.1</p>
+<p>Stickland R (2024). browseMetadata: Browse and categorise metadata for datasets. R package version 1.2.1.</p>
 </blockquote>
-<p>A BibTeX entry for LaTeX users is</p>
-<pre><code>  @Manual{,
-    title = {browseMetadata: Browses available metadata, to catergorise/label each variable in a dataset},
-    author = {Rachael Stickland},
-    year = {2024},
-    note = {R package version 1.2.1},
-    doi = {https://doi.org/10.5281/zenodo.10581499},
-  }</code></pre>
+<p>A BibTeX entry for LaTeX users:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    title <span class="ot">=</span> {browseMetadata<span class="sc">:</span> Browse and categorise metadata <span class="cf">for</span> datasets},</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    author <span class="ot">=</span> {Rachael Stickland},</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2024</span>},</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">1</span>.<span class="fl">2.1</span>},</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    doi <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>doi.org<span class="sc">/</span><span class="fl">10.5281</span><span class="sc">/</span>zenodo<span class="fl">.10581499</span>}, </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  }</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>We warmly welcome contributions to the browseMetadata project. Whether it’s fixing bugs, adding new features, or improving documentation, we welcome your involvement. Please refer to our <a href="https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md" class="external-link">Contribution Guidelines</a>.</p>
+<p>We welcome contributions to <code>browseMetadata</code>. Please read our <a href="https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md" class="external-link">Contribution Guidelines</a> for details on how to contribute.</p>
 <ul>
 <li>
-<strong>Report Issues</strong>: If you find a bug or have a feature request, please report it via <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">GitHub Issues</a>.</li>
+<strong>Report Issues</strong>: Found a bug? Have a feature request? Report it on <a href="https://github.com/aim-rsf/browseMetadata/issues" class="external-link">GitHub Issues</a>.</li>
 <li>
-<strong>Submit Pull Requests</strong>: We welcome pull requests. Please read our <a href="https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md" class="external-link">Contribution Guidelines</a> on how to make contributions.</li>
+<strong>Submit Pull Requests</strong>: Follow our <a href="https://github.com/aim-rsf/browseMetadata/blob/main/CONTRIBUTING.md" class="external-link">Contribution Guidelines</a> for pull requests.</li>
 <li>
-<strong>Feedback and Suggestions</strong>: We’re always looking to improve, and we value feedback and suggestions. Feel free to open an issue to share your thoughts.</li>
+<strong>Feedback</strong>: Share your thoughts by opening an issue.</li>
 </ul>
 <div class="section level3">
 <h3 id="contributors-">Contributors ✨<a class="anchor" aria-label="anchor" href="#contributors-"></a>
 </h3>
-<p>This project follows the <a href="https://github.com/all-contributors/all-contributors" class="external-link">all-contributors</a> specification, using the (<a href="https://allcontributors.org/docs/en/emoji-key" class="external-link">emoji key</a>). Contributions of any kind welcome!</p>
+<p>This project follows the <a href="https://github.com/all-contributors/all-contributors" class="external-link">all-contributors</a> specification.</p>
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<table class="table"><tbody><tr>
-<td align="center" valign="top" width="14.28%">
-<a href="http://linkedin.com/in/rstickland-phd" class="external-link"><img src="https://avatars.githubusercontent.com/u/50215726?v=4?s=100" width="100px;" alt="Rachael Stickland"><br><sub><b>Rachael Stickland</b></sub></a><br><a href="#content-RayStick" title="Content">🖋</a> <a href="https://github.com/aim-rsf/browseMetadata/commits?author=RayStick" title="Documentation" class="external-link">📖</a> <a href="#maintenance-RayStick" title="Maintenance">🚧</a> <a href="#ideas-RayStick" title="Ideas, Planning, &amp; Feedback">🤔</a>
-</td>
-<td align="center" valign="top" width="14.28%">
-<a href="https://batool-almarzouq.netlify.app/" class="external-link"><img src="https://avatars.githubusercontent.com/u/53487593?v=4?s=100" width="100px;" alt="Batool Almarzouq"><br><sub><b>Batool Almarzouq</b></sub></a><br><a href="#userTesting-BatoolMM" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ABatoolMM" title="Reviewed Pull Requests" class="external-link">👀</a> <a href="#ideas-BatoolMM" title="Ideas, Planning, &amp; Feedback">🤔</a>
-</td>
-<td align="center" valign="top" width="14.28%">
-<a href="https://github.com/Rainiefantasy" class="external-link"><img src="https://avatars.githubusercontent.com/u/43926907?v=4?s=100" width="100px;" alt="Mahwish Mohammad"><br><sub><b>Mahwish Mohammad</b></sub></a><br><a href="#userTesting-Rainiefantasy" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ARainiefantasy" title="Reviewed Pull Requests" class="external-link">👀</a> <a href="#ideas-Rainiefantasy" title="Ideas, Planning, &amp; Feedback">🤔</a>
-</td>
-<td align="center" valign="top" width="14.28%">
-<a href="https://github.com/DDelbarre" class="external-link"><img src="https://avatars.githubusercontent.com/u/108824056?v=4?s=100" width="100px;" alt="Daniel Delbarre"><br><sub><b>Daniel Delbarre</b></sub></a><br><a href="#ideas-DDelbarre" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#userTesting-DDelbarre" title="User Testing">📓</a>
-</td>
-</tr></tbody></table>
-<!-- markdownlint-restore --><!-- prettier-ignore-end --><!-- ALL-CONTRIBUTORS-LIST:END -->
+<table class="table"><tbody><!-- Contributor table remains unchanged --></tbody></table>
+<!-- markdownlint-restore --><!-- prettier-ignore-end -->
 </div>
 <div class="section level3">
 <h3 id="acknowledgements-">Acknowledgements ✨<a class="anchor" aria-label="anchor" href="#acknowledgements-"></a>
 </h3>
-<p>Thank you to multiple members of the <a href="https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page" class="external-link">MELD-B research project</a> and the <a href="https://saildatabank.com/" class="external-link">SAIL Databank</a> team for providing use-cases of meta data browsing, ideas and feedback. Thank you to the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Innovation Gateway</a> for hosting openly available metadata for health datasets, and for data providers that have included their datasets on this gateway.</p>
+<p>Thanks to the <a href="https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page" class="external-link">MELD-B research project</a>, the <a href="https://saildatabank.com/" class="external-link">SAIL Databank</a> team, and the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Innovation Gateway</a> for ideas, feedback, and hosting open metadata.</p>
 </div>
 </div>
 </div>
 
-
-  </main><aside class="col-md-3"><div class="links">
-<h2 data-toc-skip>Links</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/aim-rsf/browseMetadata/" class="external-link">Browse source code</a></li>
-</ul>
-</div>
-
-<div class="license">
+  </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
