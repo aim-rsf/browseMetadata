@@ -18,7 +18,7 @@ See [here](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs/) fo
 - BROWSE_bar html, pasted below, is a simple bar plot summarising the dataset
 - BROWSE_bar csv file contains the data used to make this bar plot
 
-![bar plot](https://raw.githubusercontent.com/browseMetadata/tree/main/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
+![bar plot](https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
 We can see there are 13 tables in the dataset. 
 The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata()` function. 
