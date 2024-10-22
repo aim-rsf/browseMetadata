@@ -26,7 +26,7 @@
 
 ## What is the `browseMetadata` package?
 
-The `browseMetadata` package allows researchers to explore publicly available metadata from the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home)[^1]. This tool helps researchers plan projects by interacting with health dataset metadata prior to gaining full data access. Learn more about health metadata [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
+The `browseMetadata` package allows researchers to explore publicly available metadata from the [Health Data Research Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) and the connected [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home). This tool helps researchers plan projects by interacting with metadata prior to gaining full access to health datasets. Learn more about health metadata [here](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html).
 
 At the early stages of a project, researchers can use this tool to **browse** datasets and **categorise** variables.
 
@@ -41,7 +41,7 @@ The tool summarises datasets and their tables, and displays how many variables w
 *Which variables align with my research domains?*  
 (e.g. socioeconomic, childhood adverse events, diagnoses, culture and community)
 
-After browsing, users can categorise each variable into predefined research domains. To speed up this manual process, the package automatically categorises frequently used variables (e.g. ID, Sex, Age). The tool also accounts for variables that appear across multiple tables and allows users to copy categorisations to ensure consistency. The categorisations are saved as output files, which can be used in later analysis to filter and visualise variables by category.
+After browsing, users can categorise each variable into predefined research domains. To speed up this manual process, the function automatically categorises frequently used variables (e.g. ID, Sex, Age). The function also accounts for variables that appear across multiple tables and allows users to copy their categorisations to ensure consistency. The output files can be used in later analyses to filter and visualise variables by category.
 
 ## Getting started with `browseMetadata`
 
@@ -68,8 +68,9 @@ setwd("/Users/your-username/test-browseMetadata")
 
 ### Demo (using the `R Studio` IDE)
 
-There are four main functions you can interact with: `browseMetadata()`, `mapMetadata()`, `mapMetadata_compare_outputs()`, and `mapMetadata_convert_outputs()`.  
-For more information on any function, type `?function_name`. For example: `?browseMetadata`.
+Fo a longer more detailed demo, see the [Getting Started](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html) page on the package website. 
+
+There are four main functions you can interact with: `browseMetadata()`, `mapMetadata()`, `mapMetadata_compare_outputs()`, and `mapMetadata_convert_outputs()`. For more information on any function, type `?function_name`. For example: `?browseMetadata`.
 
 #### `browseMetadata()`
 
@@ -86,9 +87,11 @@ Upon success, you should see:
 ℹ Open the two HTML files in your browser for full-screen viewing.
 ```
 
-The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available [here](https://github.com/aim-rsf/browseMetadata/blob/big-refactor/inst/outputs/).
+The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available [here](/inst/outputs/).
 
 #### `mapMetadata()`
+
+Use the outputs from `browseMetadata()` as a reference when running `mapMetadata()`. 
 
 To run the mapping function in demo mode, use:
 
@@ -96,9 +99,9 @@ To run the mapping function in demo mode, use:
 mapMetadata()
 ``` 
 
-In demo mode, the function processes only the first 20 variables from selected tables. Follow the on-screen instructions, and categorise variables into research domains. The demo will simplify domains for ease of use, but in a real scenario, you can define more specific domains.
+In demo mode, the function processes only the first 20 variables from selected tables. Follow the on-screen instructions, and categorise variables into research domains, using the Plot tab as your reference. The demo will simplify domains for ease of use; in a real scenario, you can define more specific domains.
 
-Upon completion, your categorisations, session log, and a summary plot will be saved in your directory.
+Upon completion, your categorisations, session log, and a summary plot will be saved in your output directory.
 
 ## Using a custom metadata input (recommended)
 
@@ -114,8 +117,7 @@ mapMetadata(json_file = new_json_file, domain_file = demo_domains_file)
 
 ## Using a custom domain list input (recommended)
 
-- You can replace the default demo domains with research-specific domains.  
-- Your custom domain file should still include codes 0, 1, 2, and 3, which are automatically appended to the domain list.
+You can replace the default demo domains with research-specific domains. Remember any domain file input will have Codes 0,1,2 and 3 automatically appended to the start of the domain list, so do not include these in your domain list. 
 
 ## Using a custom lookup table input (advanced)
 
@@ -177,9 +179,3 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 ### Acknowledgements ✨
 
 Thanks to the [MELD-B research project](https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page), the [SAIL Databank](https://saildatabank.com/) team, and the [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) for ideas, feedback, and hosting open metadata.
-
-[^1]: This package is in early development and has only been tested on a limited number of metadata files.  
-[^2]: In future we intend to use the HDRUK Gateway API to access the most up to date metadata, rather than relying on a manual file download. 
-[^3]: The metadata catalogue uses *Data asset* to mean *Dataset* (a collection of data, can contain multiple tables). *Data class* refers to *Table*, and *Data Element* refers to each *Variable* name within a table. 
-[^4]: It is important to note that this is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
-
