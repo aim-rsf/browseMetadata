@@ -18,7 +18,7 @@
      - [`mapMetadata()`](#mapmetadata)
 3. [Using a custom metadata input](#using-a-custom-metadata-input-recommended)
 4. [Using a custom domain list input](#using-a-custom-domain-list-input-recommended)
-5. [Using a custom lookup table input](#using-a-custom-lookup-table-input-recommended)
+5. [Using a custom lookup table input](#using-a-custom-lookup-table-input-advanced)
 6. [Tips and future steps](#tips-and-future-steps)
 7. [License](#license)
 8. [Citation](#citation)
