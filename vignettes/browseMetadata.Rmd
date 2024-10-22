@@ -7,11 +7,13 @@ This page provides more context on how to interpret package outputs and what to 
 ## `browseMetadata()`
 
 The json file contains information about the data asset (dataset), data class (table) and data element (variable). In the metadata catalogue:
+
 - *Data asset* refers to *Dataset* (a collection of data, can contain multiple tables)
 - *Data class* refers to *Table*
 - *Data Element* refers to each *Variable* name within a table
 
 See [here](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs/) for outputs generated from a demo run. 
+
 - BROWSE_table html summarises the dataset and each table in the dataset
 - BROWSE_bar html, pasted below, is a simple bar plot summarising the dataset
 - BROWSE_bar csv file contains the data used to make this bar plot
