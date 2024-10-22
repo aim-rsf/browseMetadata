@@ -2,15 +2,15 @@
 
 For installation, set-up and basic usage refer to the package [README.md](https://aim-rsf.github.io/browseMetadata/index.html) file. 
 
-This page provides more context on how to interpret package outputs and what to input into the R console when it prompts you for inputs.
+This page provides more context on how to interact with package functions and interpret package outputs.
 
 ## `browseMetadata()`
 
-The json file contains information about the data asset (dataset), data class (table) and data element (variable). In the metadata catalogue:
+The json file contains information about the data asset, data class and each data element. In the metadata catalogue:
 
-- *Data asset* refers to *Dataset* (a collection of data, can contain multiple tables)
-- *Data class* refers to *Table*
-- *Data Element* refers to each *Variable* name within a table
+- *Data asset* refers to a *Dataset* (a collection of data, can contain multiple tables)
+- *Data class* refers to a *Table* within a dataset
+- *Data Element* refers to each *Variable* within a table
 
 See [here](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs/) for outputs generated from a demo run. 
 
@@ -21,10 +21,13 @@ See [here](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs/) fo
 ![bar plot](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
 We can see there are 13 tables in the dataset. 
-The height of the bar indicates the number of variables in that table - the ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata()`. 
-Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) have a lot of empty descriptions. An empty description means that this variable will only have a label and a data type.
-It is important to note that this is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
 The (numbers) next to table names correspond to the order in which they are shown to you in the `mapMetadata()` function. 
+The height of the bar indicates the number of variables in that table:
+
+- The ones with lots of variables (e.g. CHILD_TRUST) will take you longer to process when running `mapMetadata()`
+- Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) have a lot of empty descriptions. An empty description means that this variable will only have a label and a data type.
+
+It is important to note that this plot is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
 
 ## `mapMetadata()`
 
@@ -36,7 +39,7 @@ mapMetadata()
 
 Demo mode only processes the first 20 variables (data elements) within the table(s) we select to process. 
 
- Reference the Plots tab throughout the demo run (see below). You will be asked to label data elements with one (or more) of these numbers [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'. The 4 default domains are always included [0-3], appended on to any domain list given.
+You will be asked to label data elements with one (or more) of the numbers shown in the Plots tab [0-7]. Here we have very simple domains [4-7] for the demo run. For a research study, your domains are likely to be much more specific e.g. 'Prenatal, antenatal, neonatal and birth' or 'Health behaviours and diet'. The 4 default domains are always included [0-3], appended on to any domain list given.
 
 <img src="https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs/plots_tab_demo_domains.png" alt="plots" width="200"/>
 
@@ -200,6 +203,6 @@ LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 ✔ A summary plot has been saved:
 PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png
 ```
-The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [R/mapMetadata_convert_outputs.R](R/mapMetadata_convert_outputs.R) for an alternative. 
+The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [mapMetadata_convert_outputs.R](https://github.com/aim-rsf/browseMetadata/blob/main/R/mapMetadata_convert_outputs.R) for an alternative. 
 
 The PLOT png file saves a simple plot displaying the count of domain codes for that table.
