@@ -1,0 +1,56 @@
+---
+title: "Health metadata"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Health metadata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## What is metadata? 
+
+**Metadata** is data that provides information about other data. Metadata is a useful way to record relevant information about datasets, to help users find the right data for their use case, and understand the data's history. Metadata does not contain the full content, like the data itself, but it describes features and properties about the data, making it easier to use.
+
+Phrases with similar meaning are data **specifications** and **schemas**. 
+
+A **data dictionary** can be a way of storing and sharing metadata, and often includes information such as:
+
+- Data variable names
+- Data types 
+- Default values 
+- Missing data indicators 
+- Linkage with other datasets  
+- Data quality flags
+
+## Sources of health metadata
+
+There are many existing tools and resources that allow you to browse metadata for health datasets, and we list some of them here:
+
+### Health Data Research Innovation Gateway and the connected Metadata Catalogue
+
+- The metadata used as input for this `R` package `browseMetadata`.
+- Managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance. More information can be found on the [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets).
+- Described as a search-engine or ‘portal’ to help find health datasets that exist in the UK.
+- The datasets discoverable through the Gateway are from organisations in the NHS, research institutes, and charities, which are part of the UK Health Data Research Alliance.
+
+A related resource from HDRUK is the [Phenotype Library](https://phenotypes.healthdatagateway.org), described as a comprehensive, open access resource providing the research community with information, tools, and phenotyping algorithms for UK electronic health records. Also see the [Concept Library](https://conceptlibrary.saildatabank.com) developed by the SAIL databank team and collaborating organisations.
+
+### British Heart Foundation Data Science Centre (BHF DSC) Dashboard
+
+- Offers an overview and interactive summaries of the datasets currently available through CVD-COVID-UK/COVID-IMPACT within the secure Trusted Research Environments (TREs) provided by NHS England for England, the National Data Safe Haven for Scotland and the SAIL databank for Wales.
+- This dashboard allows exploration of data dictionaries, data coverage, and data completeness. More information can be found on the [BHF DSC Dashboard](https://bhf-dsc-hds.shinyapps.io/cvd-covid-tre-dashboard).
+
+### Office for National Statistics (ONS) Secure Research Service (SRS) Metadata Catalogue
+
+- Metadata for datasets within the ONS SRS. It is possible to filter for datasets related to 'Health' by clicking this tag on the first page. More information can be found on the [ONS SRS Metadata Catalogue](https://ons.metadata.works/).
+
+### Do you know of others? 
+
+There are more tools and resources out there. If you know of a resource that offers accessible health metadata with good breadth and/or depth of coverage, please request we add it here!
