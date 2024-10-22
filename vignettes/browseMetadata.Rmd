@@ -145,7 +145,7 @@ Response to be saved is '7'. Would you like to re-do? (y/n): y
 
 After completing 20, it will then ask you to review the auto-categorisations it made.
 
-These auto-categorisations are based on the mappings included in the [inst/inputs/look_up.csv](inst/inputs/look_up.csv). This look-up file can be changed by the user. ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.
+These auto-categorisations are based on the mappings included in the default [look_up.csv](https://github.com/aim-rsf/browseMetadata/blob/main/inst/inputs/look_up.csv). This look-up file can be changed by the user. ALF refers to 'Anonymous Linking Field' - this field is used within datasets that have been anonymised and encrypted for inclusion within SAIL Databank.
 
 ```         
      DataElement    Domain_code  Note
@@ -203,6 +203,6 @@ LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.csv
 ✔ A summary plot has been saved:
 PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png
 ```
-The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function [mapMetadata_convert_outputs.R](https://github.com/aim-rsf/browseMetadata/blob/main/R/mapMetadata_convert_outputs.R) for an alternative. 
+The OUTPUT csv contains the categorisations you made. The LOG csv contains information about the session as a whole, including various metadata. These two csv files contain the same timestamp column. If you do not like the formatting of the OUTPUT csv, see the function `?mapMetadata_convert_outputs` for an alternative. 
 
 The PLOT png file saves a simple plot displaying the count of domain codes for that table.
