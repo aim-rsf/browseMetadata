@@ -1,5 +1,5 @@
 ---
-title: "Get started with `browseMetadata`"
+title: "Get started with browseMetadata"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting started with browseMetadata}
