@@ -14,7 +14,7 @@
 2. [Getting started with `browseMetadata`](#getting-started-with-browsemetadata)
    - [Installation and set-up](#installation-and-set-up)
    - [Demo (using the `R Studio` IDE)](#demo-using-the-r-studio-ide)
-     - [`browseMetadata()`](#browsemetadata)
+     - [`browseMetadata()`](#browsemetadata-1)
      - [`mapMetadata()`](#mapmetadata)
 3. [Using a custom metadata input](#using-a-custom-metadata-input-recommended)
 4. [Using a custom domain list input](#using-a-custom-domain-list-input-recommended)
@@ -76,7 +76,7 @@ There are four main functions you can interact with: `browseMetadata()`, `mapMet
 
 #### `browseMetadata()`
 
-This function is easy to run and doesn't require user interaction. Run it in demo mode using the demo JSON file located in the [inst/inputs](inst/inputs/) directory:
+This function is easy to run and doesn't require user interaction. Run it in demo mode using the demo JSON file located in the [inst/inputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/inputs) directory:
 
 ``` r
 browseMetadata()
@@ -89,7 +89,7 @@ Upon success, you should see:
 ℹ Open the two HTML files in your browser for full-screen viewing.
 ```
 
-The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available [here](/inst/outputs/).
+The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/ouputs).
 
 #### `mapMetadata()`
 
@@ -123,7 +123,7 @@ You can replace the default demo domains with research-specific domains. Remembe
 
 ## Using a custom lookup table input (advanced)
 
-The lookup table governs the automatic categorisations. If you modify the [default lookup file](inst/inputs/look_up.csv), ensure that all domain codes in the lookup file are also included in your domain file for valid outputs.
+The lookup table governs the automatic categorisations. If you modify the [default lookup file](https://github.com/aim-rsf/browseMetadata/tree/main/inst/inputs/look_up.csv), ensure that all domain codes in the lookup file are also included in your domain file for valid outputs.
 
 ## Tips and future steps
 
@@ -134,7 +134,7 @@ The lookup table governs the automatic categorisations. If you modify the [defau
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.  
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](https://github.com/aim-rsf/browseMetadata/blob/main/LICENSE.md) file for details.  
 For more information, refer to [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 ## Citation
