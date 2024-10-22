@@ -34,7 +34,9 @@ At the early stages of a project, researchers can use this tool to **browse** da
 
 *What datasets are available? Which datasets fit my research?*
 
-The tool summarises datasets and their tables, and displays how many variables within each table have descriptions.  
+The tool summarises datasets and their tables, and displays how many variables within each table have descriptions. 
+
+![](https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png)
 
 ### Map metadata
 
