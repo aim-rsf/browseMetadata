@@ -16,9 +16,9 @@
    - [Demo (using the `R Studio` IDE)](#demo-using-the-r-studio-ide)
      - [`browseMetadata()`](#browsemetadata)
      - [`mapMetadata()`](#mapmetadata)
-3. [Using a custom JSON input](#using-a-custom-json-input-recommended)
-4. [Customising the domain file](#customising-the-domain-file-recommended)
-5. [Changing the lookup table](#changing-the-lookup-table-advanced)
+3. [Using a custom metadata input](#using-a-custom-metadata-input-recommended)
+4. [Using a custom domain list input](#using-a-custom-domain-list-input-recommended)
+5. [Using a custom lookup table input](#using-a-custom-lookup-table-input-recommended)
 6. [Tips and future steps](#tips-and-future-steps)
 7. [License](#license)
 8. [Citation](#citation)
@@ -100,7 +100,7 @@ In demo mode, the function processes only the first 20 variables from selected t
 
 Upon completion, your categorisations, session log, and a summary plot will be saved in your directory.
 
-## Using a custom JSON input (recommended)
+## Using a custom metadata input (recommended)
 
 You can run `mapMetadata()` and `browseMetadata()` using a custom JSON file instead of the demo input:
 
@@ -112,12 +112,12 @@ browseMetadata(json_file = new_json_file)
 mapMetadata(json_file = new_json_file, domain_file = demo_domains_file)
 ```
 
-## Customising the domain file (recommended)
+## Using a custom domain list input (recommended)
 
 - You can replace the default demo domains with research-specific domains.  
 - Your custom domain file should still include codes 0, 1, 2, and 3, which are automatically appended to the domain list.
 
-## Changing the lookup table (advanced)
+## Using a custom lookup table input (advanced)
 
 The lookup table governs the automatic categorisations. If you modify the [default lookup file](inst/inputs/look_up.csv), ensure that all domain codes in the lookup file are also included in your domain file for valid outputs.
 
