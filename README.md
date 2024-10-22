@@ -89,7 +89,7 @@ Upon success, you should see:
 ℹ Open the two HTML files in your browser for full-screen viewing.
 ```
 
-The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/ouputs).
+The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs).
 
 #### `mapMetadata()`
 
