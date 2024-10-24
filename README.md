@@ -23,7 +23,7 @@
 7. [License](#license)
 8. [Citation](#citation)
 9. [Contributing](#contributing)
-10. [Acknowledgements](#acknowledgements)
+10. [Acknowledgements](#acknowledgements-)
 
 ## What is the `browseMetadata` package?
 
