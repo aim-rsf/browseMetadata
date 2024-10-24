@@ -3,6 +3,6 @@ bibentry(
   title    = "browseMetadata: Browse and categorise health metadata",
   author = "Rachael Stickland",
   year  = 2024,
-  note = "R package version 1.2.1",
+  note = "R package version 1.2.2",
   url = "https://github.com/aim-rsf/browseMetadata",
 )
