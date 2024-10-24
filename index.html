@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Browses available metadata, to catergorise or label each variable in a dataset • browseMetadata</title>
+<title>Browse and categorise health metadata • browseMetadata</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Browses available metadata, to catergorise or label each variable in a dataset">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Browse and categorise health metadata">
 <meta name="description" content="This R package helps a researcher browse datasets in SAIL databank. It has scope to be applied to other health datasets. It is useful in the earlier stages of a project; prior to data access, researchers can use the metadata to browse and categorise variables.">
 <meta property="og:description" content="This R package helps a researcher browse datasets in SAIL databank. It has scope to be applied to other health datasets. It is useful in the earlier stages of a project; prior to data access, researchers can use the metadata to browse and categorise variables.">
 <meta property="og:image" content="https://aim-rsf.github.io/browseMetadata/logo.png">
@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">browseMetadata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.2.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,6 +98,7 @@
 <li><a href="#license">License</a></li>
 <li><a href="#citation">Citation</a></li>
 <li><a href="#contributing">Contributing</a></li>
+<li><a href="#acknowledgements-">Acknowledgements</a></li>
 </ol>
 <div class="section level2">
 <h2 id="what-is-the-browsemetadata-package">What is the <code>browseMetadata</code> package?<a class="anchor" aria-label="anchor" href="#what-is-the-browsemetadata-package"></a>
@@ -213,10 +214,10 @@ For more information, refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.
 </blockquote>
 <p>A BibTeX entry for LaTeX users:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    title <span class="ot">=</span> {browseMetadata<span class="sc">:</span> Browse and categorise metadata <span class="cf">for</span> datasets},</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    title <span class="ot">=</span> {browseMetadata<span class="sc">:</span> Browse and categorise health metadata},</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    author <span class="ot">=</span> {Rachael Stickland},</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2024</span>},</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">1</span>.<span class="fl">2.1</span>},</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">1</span>.<span class="fl">2.2</span>},</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    doi <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>doi.org<span class="sc">/</span><span class="fl">10.5281</span><span class="sc">/</span>zenodo<span class="fl">.10581499</span>}, </span>
 <span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  }</span></code></pre></div>
 </div>
@@ -235,6 +236,7 @@ For more information, refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.
 <div class="section level3">
 <h3 id="contributors-">Contributors ✨<a class="anchor" aria-label="anchor" href="#contributors-"></a>
 </h3>
+<p>Thanks go to these wonderful people (<a href="https://allcontributors.org/docs/en/emoji-key" class="external-link">emoji key</a>):</p>
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -255,13 +257,14 @@ For more information, refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.
 <a href="https://github.com/NidaZiaS" class="external-link"><img src="https://avatars.githubusercontent.com/u/142920412?v=4?s=100" width="100px;" alt="NidaZiaS"><br><sub><b>NidaZiaS</b></sub></a><br><a href="#ideas-NidaZiaS" title="Ideas, Planning, &amp; Feedback">🤔</a>
 </td>
 </tr></tbody></table>
-<!-- markdownlint-restore --><!-- prettier-ignore-end --><!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- markdownlint-restore --><!-- prettier-ignore-end --><!-- ALL-CONTRIBUTORS-LIST:END --><p>This project follows the <a href="https://allcontributors.org/" class="external-link">all-contributors</a> specification. Contributions of any kind are welcome!</p>
 </div>
-<div class="section level3">
-<h3 id="acknowledgements-">Acknowledgements ✨<a class="anchor" aria-label="anchor" href="#acknowledgements-"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="acknowledgements-">Acknowledgements ✨<a class="anchor" aria-label="anchor" href="#acknowledgements-"></a>
+</h2>
 <p>Thanks to the <a href="https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page" class="external-link">MELD-B research project</a>, the <a href="https://saildatabank.com/" class="external-link">SAIL Databank</a> team, and the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Innovation Gateway</a> for ideas, feedback, and hosting open metadata.</p>
-</div>
+<p>This project is funded by the NIHR [Artificial Intelligence for Multiple Long-Term Conditions (AIM) programme (NIHR202647). The views expressed are those of the author(s) and not necessarily those of the NIHR or the Department of Health and Social Care.</p>
 </div>
 </div>
 
