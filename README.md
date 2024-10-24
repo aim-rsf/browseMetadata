@@ -142,7 +142,7 @@ For more information, refer to [GNU General Public License](https://www.gnu.org/
 
 To cite `browseMetadata` in publications:
 
-> Stickland R (2024). browseMetadata: Browse and categorise metadata for datasets. R package version 1.2.1.
+> Stickland R (2024). browseMetadata: Browse and categorise metadata for datasets. R package version 1.2.2.
 
 A BibTeX entry for LaTeX users:
 
