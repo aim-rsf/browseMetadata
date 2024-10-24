@@ -23,6 +23,7 @@
 7. [License](#license)
 8. [Citation](#citation)
 9. [Contributing](#contributing)
+10. [Acknowledgements](#acknowledgements-)
 
 ## What is the `browseMetadata` package?
 
@@ -147,10 +148,10 @@ A BibTeX entry for LaTeX users:
 
 ```r         
   @Manual{,
-    title = {browseMetadata: Browse and categorise metadata for datasets},
+    title = {browseMetadata: Browse and categorise health metadata},
     author = {Rachael Stickland},
     year = {2024},
-    note = {R package version 1.2.1},
+    note = {R package version 1.2.2},
     doi = {https://doi.org/10.5281/zenodo.10581499}, 
   }
 ```
@@ -164,6 +165,8 @@ We welcome contributions to `browseMetadata`. Please read our [Contribution Guid
 -   **Feedback**: Share your thoughts by opening an issue.
 
 ### Contributors ✨
+
+Thanks go to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -185,6 +188,11 @@ We welcome contributions to `browseMetadata`. Please read our [Contribution Guid
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-### Acknowledgements ✨
+This project follows the [all-contributors](https://allcontributors.org/) specification. Contributions of any kind are welcome!
+
+## Acknowledgements ✨
 
 Thanks to the [MELD-B research project](https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page), the [SAIL Databank](https://saildatabank.com/) team, and the [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) for ideas, feedback, and hosting open metadata.
+
+This project is funded by the NIHR [Artificial Intelligence for Multiple Long-Term Conditions (AIM) programme (NIHR202647). The views expressed are those of the author(s) and not necessarily those of the NIHR or the Department of Health and Social Care.
+
