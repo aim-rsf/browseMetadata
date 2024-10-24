@@ -148,10 +148,10 @@ A BibTeX entry for LaTeX users:
 
 ```r         
   @Manual{,
-    title = {browseMetadata: Browse and categorise metadata for datasets},
+    title = {browseMetadata: Browse and categorise health metadata},
     author = {Rachael Stickland},
     year = {2024},
-    note = {R package version 1.2.1},
+    note = {R package version 1.2.2},
     doi = {https://doi.org/10.5281/zenodo.10581499}, 
   }
 ```
@@ -190,5 +190,5 @@ We welcome contributions to `browseMetadata`. Please read our [Contribution Guid
 
 Thanks to the [MELD-B research project](https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page), the [SAIL Databank](https://saildatabank.com/) team, and the [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets) for ideas, feedback, and hosting open metadata.
 
-This project is funded by the NIHR [Artificial Intelligence for Multiple Long-Term Conditions (AIM) programme (NIHR202647). The views expressed are those of the author(s) and not necessarily those of the NIHR or the Department of Health and Social Care.
+This project is funded by the NIHR [Artificial Intelligence for Multiple Long-Term Conditions (AIM) programme (NIHR202647) with in-kind support from The Alan Turing Institute. The views expressed are those of the author(s) and not necessarily those of the NIHR or the Department of Health and Social Care.
 
