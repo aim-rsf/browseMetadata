@@ -6,10 +6,11 @@ Authors@R:
     person("Rachael", "Stickland", , "rstickland@turing.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3398-4272"))
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
-Description: This R package helps a researcher browse datasets in SAIL databank. 
- It has scope to be applied to other health datasets. 
- It is useful in the earlier stages of a project; prior to data access, 
- researchers can use the metadata to browse and categorise variables.
+Description: This R package allows researchers to explore publicly available 
+  metadata from health datasets. It is a tool to help researchers plan projects 
+  by interacting with metadata prior to gaining full access to health datasets. 
+  At the early stages of a project, researchers can use this tool to browse 
+  datasets and categorise variables.
 License: GPL (>= 3)
 URL: https://aim-rsf.github.io/browseMetadata
 Depends: 
