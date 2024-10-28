@@ -118,6 +118,8 @@ browseMetadata(json_file = new_json_file)
 mapMetadata(json_file = new_json_file, domain_file = demo_domains_file)
 ```
 
+Currently, the recommended way of retrieving these metadata JSON files is to download them from [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home). Navigate to the Data Model page of interest and use the drop down button to select the JSON format to download. 
+
 ## Using a custom domain list input (recommended)
 
 You can replace the default demo domains with research-specific domains. Remember any domain file input will have Codes 0,1,2 and 3 automatically appended to the start of the domain list, so do not include these in your domain list. 
