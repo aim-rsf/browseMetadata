@@ -1,15 +1,15 @@
-#' mapMetadata_convert_outputs
+#' map_metadata_convert
 #'
 #' The 'OUTPUT_' file groups multiple categorisations onto one line e.g. Domain_code could read '1,3' \cr \cr
 #' This function creates a new longer output 'L-OUTPUT_' which gives each categorisation its own row. \cr \cr
 #' This 'L-OUTPUT_' may be more useful when using these csv files in later analyses.
-#' @param output_csv The name of the 'OUTPUT_' csv file that was created from mapMetadata.R
+#' @param output_csv The name of the 'OUTPUT_' csv file that was created from map_metadata
 #' @param output_dir The location of output_csv
 #' @return The function will return 'L-OUTPUT_' in the same output_dir
 #' @export
 #' @importFrom utils read.csv write.csv
 
-mapMetadata_convert_outputs <- function(output_csv,output_dir) {
+map_metadata_convert <- function(output_csv,output_dir) {
 
 output <- read.csv(paste0(output_dir,'/',output_csv))
 output_long <- output[0,] #make duplicate

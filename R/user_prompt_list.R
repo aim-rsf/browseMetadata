@@ -1,6 +1,6 @@
 #' user_prompt_list
 #'
-#' This function is called within the mapMetadata function. \cr \cr
+#' This function is called within the map_metadata function. \cr \cr
 #' It prompts a response from the user, in the form of a list. \cr \cr
 #' It checks if the user has given the an input within the allowed range - if not, it re-sends prompt. \cr \cr
 #'

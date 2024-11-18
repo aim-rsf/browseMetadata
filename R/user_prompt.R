@@ -1,6 +1,6 @@
 #' user_prompt
 #'
-#' This function is called within the mapMetadata function. \cr \cr
+#' This function is called within the map_metadata function. \cr \cr
 #' It prompts a response from the user. \cr \cr
 #'
 #' @param prompt_text Text to display to the user, to prompt their response.

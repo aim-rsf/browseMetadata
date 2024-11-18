@@ -1,6 +1,6 @@
 #' load_data
 #'
-#' This function is called within the mapMetadata function. \cr \cr
+#' This function is called within the map_metadata function. \cr \cr
 #' It collects the inputs needed for the mapMetadata function (defaults or user inputs)
 #' If some inputs are NULL, it loads the default inputs. If defaults not available, it prints error for the user.
 #' If inputs are not NULL, it loads the user-specified inputs.

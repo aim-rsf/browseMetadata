@@ -1,6 +1,6 @@
 #' count_empty_desc
 #'
-#' This function is called within the browseMetadata function. \cr \cr
+#' This function is called within the browse_metadata function. \cr \cr
 #' It reads in a data frame that summarises one table of the dataset. \cr \cr
 #' It counts missing variable descriptions, based on specified criteria.
 #'

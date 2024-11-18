@@ -1,6 +1,6 @@
 #' valid_comparison
 #'
-#' This function is called within the mapMetadata_compare_outputs function. \cr \cr
+#' This function is called within the map_metadata_compare function. \cr \cr
 #' It reads two inputs to see if they are equal. \cr \cr
 #' If the test is 'warning' status and inputs are not equal it gives warning but continues. \cr \cr
 #' If the test is 'danger' status and inputs are not equal it stops and exits, with error message. \cr \cr

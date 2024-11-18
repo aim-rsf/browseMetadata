@@ -1,20 +1,20 @@
-#' mapMetadata_compare_outputs
+#' map_metadata_compare
 #'
-#' This function is to be used after running the mapMetadata function. \cr \cr
+#' This function is to be used after running the map_metadata function. \cr \cr
 #' It compares csv outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
 #'
 #' @param session_dir This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.
 #' @param session1_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38'
 #' @param session2_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'
-#' @param json_file The full path to the metadata file used when running mapMetadata (should be the same for session 1 and session 2)
-#' @param domain_file The full path to the domain file used when running mapMetadata (should be the same for session 1 and session 2)
+#' @param json_file The full path to the metadata file used when running map_metadata (should be the same for session 1 and session 2)
+#' @param domain_file The full path to the domain file used when running map_metadata (should be the same for session 1 and session 2)
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
 #' @export
 #' @importFrom utils read.csv write.csv
 #' @importFrom rjson fromJSON
 #' @importFrom cli cli_alert_success
 
-mapMetadata_compare_outputs <- function(session_dir,session1_base,session2_base,json_file,domain_file) {
+map_metadata_compare <- function(session_dir,session1_base,session2_base,json_file,domain_file) {
 
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 

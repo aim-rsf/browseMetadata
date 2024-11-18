@@ -1,6 +1,6 @@
 #' join_outputs
 #'
-#' This function is called within the mapMetadata_compare_outputs function. \cr \cr
+#' This function is called within the map_metadata_compare function. \cr \cr
 #' Joins output dataframes from two sessions, on the column DataElement.
 #'
 #' @param session_1 Dataframe from session 1

@@ -1,6 +1,6 @@
 #' ref_plot
 #'
-#' This function is called within the mapMetadata function. \cr \cr
+#' This function is called within the map_metadata function. \cr \cr
 #' It plots a reference table to guide the user in their categorisation of domains. \cr \cr
 #' This reference table is based on the user inputted domains and the default domains provided by this package.  \cr \cr
 #' @param domains The output of load_data

@@ -1,4 +1,4 @@
-#' mapMetadata
+#' map_metadata
 #'
 #' This function will read in the metadata file for a chosen dataset, loop
 #' through all the data elements, and ask the user to catergorise/label each
@@ -40,7 +40,7 @@
 #' @importFrom utils packageVersion write.csv
 #' @importFrom ggplot2 ggsave
 
-mapMetadata <- function(
+map_metadata <- function(
     json_file = NULL,
     domain_file = NULL,
     look_up_file = NULL,
@@ -65,8 +65,8 @@ mapMetadata <- function(
   Dataset_Name <- Dataset$label
 
   ## Read in prepared output data frames
-  log_Output <- get("log_Output")
-  Output <- get("Output")
+  log_Output <- get("log_output")
+  Output <- get("output")
 
   ## Use 'ref_plot.R' to plot domains for the user's ref (save df for later use)
   df_plots <- ref_plot(data$domains)
@@ -92,7 +92,7 @@ mapMetadata <- function(
   cat(paste(data$meta_json$exportMetadata$exportedBy,
             "at",data$meta_json$exportMetadata$exportedOn))
   cat("\n\n")
-  cli_alert_info("Reference outputs from browseMetadata for information about the dataset")
+  cli_alert_info("Reference outputs from browse_metadata for information about the dataset")
   cat("\nPress any key to continue ")
   readline()
 
@@ -124,7 +124,7 @@ mapMetadata <- function(
     Table_name <- Dataset$childDataClasses[[dc]]$label
     cat(Table_name,"\n",fill = TRUE)
     cat("\n")
-    cli_alert_info("Reference outputs from browseMetadata for information about the table")
+    cli_alert_info("Reference outputs from browse_metadata for information about the table")
     cat("\n")
 
     ### Use 'copy_previous.R' to copy from previous output(s) if they exist

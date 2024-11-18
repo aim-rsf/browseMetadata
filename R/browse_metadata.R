@@ -1,6 +1,6 @@
-#' browseMetadata
+#' browse_metadata
 #'
-#' Run this function before MapMetadata. \cr \cr
+#' Run this function before map_metadata \cr \cr
 #' This function will read in the metadata file for a chosen dataset and save
 #' three summary outputs. The first is a table output, storing the name and
 #' description of the dataset, and each table within it. The second is a bar
@@ -14,7 +14,7 @@
 #' @return The function will return three files, 'BROWSE_table...html',
 #' 'BROWSE_bar...html' and 'BROWSE_bar...csv' which gives summary information
 #' for this dataset. Open the two html output files in your browser and use
-#' these as reference when running the MapMetadata function.
+#' these as reference when running the map_metadata function.
 #' @export
 #' @importFrom dplyr %>% add_row
 #' @importFrom rjson fromJSON
@@ -23,7 +23,7 @@
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tidyr pivot_longer
 
-browseMetadata <- function(json_file = NULL ,output_dir = NULL) {
+browse_metadata <- function(json_file = NULL ,output_dir = NULL) {
 
   # DEFINE INPUTS AND OUTPUTS ----
 

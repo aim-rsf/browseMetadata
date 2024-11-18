@@ -1,6 +1,6 @@
 #' concensus_on_mismatch
 #'
-#' This function is called within the mapMetadata_compare_outputs function. \cr \cr
+#' This function is called within the map_metadata_compare function. \cr \cr
 #' For a specific data element, it compares the domain code categorisation between two sessions.
 #' If the categorisation differs, it prompts the user for a new consensus decision by presenting the json metadata. \cr \cr
 #'

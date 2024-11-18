@@ -1,6 +1,6 @@
 #' List of domains
 #'
-#' A simplified list of domains, to demo the function mapMetadata.R \cr \cr
+#' A simplified list of domains, to demo the function map_metadata.R \cr \cr
 #' This data was created with these two steps:
 #' \enumerate{
 #'  \item \code{domain_list <- read.csv('browseMetadata/inst/inputs/domain_list_demo.csv',header=FALSE)}

@@ -1,6 +1,6 @@
 #' user_categorisation
 #'
-#' This function is called within the mapMetadata function. \cr \cr
+#' This function is called within the map_metadata function. \cr \cr
 #' It displays data properties to the user and requests a categorisation into a domain. \cr \cr
 #' An optional note can be included with the categorisation.
 #'
