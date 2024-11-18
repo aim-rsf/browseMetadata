@@ -16,6 +16,6 @@ If FALSE, only these are allowed: Y, y, N and n.}
 It returns variable text, depending on any_keys.
 }
 \description{
-This function is called within the mapMetadata function. \cr \cr
+This function is called within the map_metadata function. \cr \cr
 It prompts a response from the user. \cr \cr
 }

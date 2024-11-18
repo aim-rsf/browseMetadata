@@ -17,6 +17,6 @@ end_plot(df, Table_name, ref_table)
 It returns a ggplot
 }
 \description{
-This function is called within the mapMetadata function. \cr \cr
+This function is called within the map_metadata function. \cr \cr
 A summary plot is created that includes the domain code reference table and counts of domain code categorisations \cr \cr
 }

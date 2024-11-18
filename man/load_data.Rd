@@ -17,7 +17,7 @@ load_data(json_file, domain_file, look_up_file)
 A list of 5: all inputs needed for the mapMetadata function to run.
 }
 \description{
-This function is called within the mapMetadata function. \cr \cr
+This function is called within the map_metadata function. \cr \cr
 It collects the inputs needed for the mapMetadata function (defaults or user inputs)
 If some inputs are NULL, it loads the default inputs. If defaults not available, it prints error for the user.
 If inputs are not NULL, it loads the user-specified inputs.

@@ -15,7 +15,7 @@ copy_previous(Dataset_Name, output_dir)
 It returns a list of 2: df_prev_exist (a boolean) and df_prev (NULL or populated with data elements to copy)
 }
 \description{
-This function is called within the mapMetadata function. \cr \cr
+This function is called within the map_metadata function. \cr \cr
 It searches for previous OUTPUT files in the output_dir, that match the dataset name. \cr \cr
 If files exist, it removes duplicates and autos, and stores the rest of the data elements in a dataframe. \cr \cr
 }

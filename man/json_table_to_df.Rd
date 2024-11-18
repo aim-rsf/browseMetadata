@@ -15,7 +15,7 @@ json_table_to_df(Dataset, n)
 A dataframe for that specific table, including data label, description and type.
 }
 \description{
-This function is called within the browseMetadata and mapMetadata functions. \cr \cr
+This function is called within the browse_metadata and map_metadata functions. \cr \cr
 It reads in the nested lists from the json and extracts information needed into a dataframe. \cr \cr
 It does this for one specific table in a dataset. \cr \cr
 }

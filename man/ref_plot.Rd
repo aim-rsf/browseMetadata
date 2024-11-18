@@ -13,7 +13,7 @@ ref_plot(domains)
 A reference table that appears in the Plots tab. A list of 2 containing the derivatives for this plot, used later in mapMetadata.#'
 }
 \description{
-This function is called within the mapMetadata function. \cr \cr
+This function is called within the map_metadata function. \cr \cr
 It plots a reference table to guide the user in their categorisation of domains. \cr \cr
 This reference table is based on the user inputted domains and the default domains provided by this package.  \cr \cr
 }
