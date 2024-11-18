@@ -21,7 +21,7 @@ load_data <- function(json_file, domain_file,look_up_file){
     domains <- get("domain_list")
     DomainListDesc <- "DemoList"
     cat("\n")
-    cli_alert_info("Running mapMetadata in demo mode using package data files")
+    cli_alert_info("Running map_metadata in demo mode using package data files")
     cat("\n ")
     demo_mode = TRUE
   } else if (is.null(json_file) || is.null(domain_file)) { # if only one of json_file and domain_file is NULL, throw error

@@ -18,7 +18,7 @@ For installation, set-up and basic usage refer to the package [README.md](https:
 
 This page provides more context on how to interact with package functions and interpret package outputs.
 
-## `browseMetadata()`
+## `browse_metadata()`
 
 The json file contains information about the data asset, data class and each data element. In the metadata catalogue:
 
@@ -43,12 +43,12 @@ The height of the bar indicates the number of variables in that table:
 
 It is important to note that this plot is only summarising *variable* level metadata i.e. a description of what the variable is. Some variables also require *value* level metadata i.e. what does each value correspond to, 1 = Yes, 2 = No, 3 = Unknown. This *value* level metadata can sometimes be found in lookup tables, if it is not provided within the *variable* level description. 
 
-## `mapMetadata()`
+## `map_metadata()`
 
-Running the function in demo mode  will use the same demo json file as `browseMetadata()`: 
+Running the function in demo mode  will use the same demo json file as `browse_metadata()`: 
 
 ``` r
-mapMetadata()
+map_metadata()
 ``` 
 
 Demo mode only processes the first 20 variables (data elements) within the table(s) we select to process. 
@@ -58,7 +58,7 @@ You will be asked to label data elements with one (or more) of the numbers shown
 <img src="https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/plots_tab_demo_domains.png" alt="description of research domains used for categorisations" width="50%">
 
 ```         
-ℹ Running mapMetadata in demo mode using package data files
+ℹ Running map_metadata in demo mode using package data files
 ℹ Using the default look-up table in data/look-up.rda
  
 Enter your initials: RS
@@ -72,7 +72,7 @@ National Community Child Health Database (NCCHD)
 ── Dataset File Exported By ─────────────────────────────────────────────────────────────────────────────────────
 Rachael Stickland at 2024-04-05T13:01:23.109Z
 
-ℹ Reference outputs from browseMetadata for information about the dataset
+ℹ Reference outputs from browse_metadata for information about the dataset
 
 Press any key to continue 
 ```

@@ -73,14 +73,14 @@ setwd("/Users/your-username/test-browseMetadata")
 
 Fo a longer more detailed demo, see the [Getting Started](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html) page on the package website. 
 
-There are four main functions you can interact with: `browseMetadata()`, `mapMetadata()`, `mapMetadata_compare_outputs()`, and `mapMetadata_convert_outputs()`. For more information on any function, type `?function_name`. For example: `?browseMetadata`.
+There are four main functions you can interact with: `browse_metadata()`, `map_metadata()`, `map_metadata_compare()`, and `map_metadata_convert()`. For more information on any function, type `?function_name`. For example: `?browse_metadata`.
 
-#### `browseMetadata()`
+#### `browse_metadata()`
 
 This function is easy to run and doesn't require user interaction. Run it in demo mode using the demo JSON file located in the [inst/inputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/inputs) directory:
 
 ``` r
-browseMetadata()
+browse_metadata()
 ``` 
 
 Upon success, you should see:
@@ -92,14 +92,14 @@ Upon success, you should see:
 
 The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs).
 
-#### `mapMetadata()`
+#### `map_metadata()`
 
-Use the outputs from `browseMetadata()` as a reference when running `mapMetadata()`. 
+Use the outputs from `browse_metadata()` as a reference when running `map_metadata()`. 
 
 To run the mapping function in demo mode, use:
 
 ``` r
-mapMetadata()
+map_metadata()
 ``` 
 
 In demo mode, the function processes only the first 20 variables from selected tables. Follow the on-screen instructions, and categorise variables into research domains, using the Plot tab as your reference. The demo will simplify domains for ease of use; in a real scenario, you can define more specific domains.
@@ -108,14 +108,14 @@ Upon completion, your categorisations, session log, and a summary plot will be s
 
 ## Using a custom metadata input (recommended)
 
-You can run `mapMetadata()` and `browseMetadata()` using a custom JSON file instead of the demo input:
+You can run `map_metadata()` and `browse_metadata()` using a custom JSON file instead of the demo input:
 
 ```r
 new_json_file <- "path/your_new_json.json"
 demo_domains_file <- system.file("inputs/domain_list_demo.csv", package = "browseMetadata")
 
-browseMetadata(json_file = new_json_file)
-mapMetadata(json_file = new_json_file, domain_file = demo_domains_file)
+browse_metadata(json_file = new_json_file)
+map_metadata(json_file = new_json_file, domain_file = demo_domains_file)
 ```
 
 Currently, the recommended way of retrieving these metadata JSON files is to download them from [Metadata Catalogue](https://maurosandbox.com/hdruk/#/home). Navigate to the Data Model page of interest and use the drop down button to select the JSON format to download. 
@@ -132,8 +132,8 @@ The lookup table governs the automatic categorisations. If you modify the [defau
 
 - You can process a subset of variables in one session and complete the rest later.
 - If you're processing multiple tables, save all outputs in the same directory to enable table copying. This feature will speed up categorisation and ensure consistency.
-- You can compare categorisations across researchers using the `mapMetadata_compare_outputs()` function.
-- Use the output file from the `mapMetadata()` function as input for subsequent analysis to filter and visualise variables by research domain.
+- You can compare categorisations across researchers using the `map_metadata_compare()` function.
+- Use the output file from the `map_metadata()` function as input for subsequent analysis to filter and visualise variables by research domain.
 
 ## License
 
