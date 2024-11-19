@@ -27,9 +27,9 @@ reference:
   - browseMetadata
 - subtitle: Internal functions
   contents:
-  - "collect_inputs.R"      
-  - "compare.R"              
-  - "data_manipulation.R"   
-  - "data-package_data.R"    
+  - "collect_inputs.R"
+  - "compare.R"
+  - "data_manipulation.R"
+  - "data-package_data.R"
   - "plotting.R"
-  - "user_interactions.R"   
+  - "user_interactions.R"
