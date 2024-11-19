@@ -3,8 +3,17 @@ Package: browseMetadata
 Title: Browse and categorise health metadata
 Version: 1.2.2
 Authors@R: 
-    person("Rachael", "Stickland", , "rstickland@turing.ac.uk", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-3398-4272"))
+    person("Rachael", "Stickland", , "rstickland@turing.ac.uk", 
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0003-3398-4272")),
+    person("Batool", "Almarzouq", , , role = "ctb",
+    comment = c(ORCID = "0000-0002-3905-2751")),
+    person("Mahwish", "Mohammad", , , role = "ctb",
+    comment = c(ORCID = "0009-0004-5295-0726")),
+    person("Daniel", "Delbarre", , , role = "ctb",
+    comment = c(ORCID = "0000-0003-4633-4252")),
+    person("Nida", "Ziauddeen", , , role = "ctb",
+    comment = c(ORCID = "0000-0002-8964-5029"))
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
 Description: This R package allows researchers to explore publicly available 
   metadata from health datasets. It is a tool to help researchers plan projects 
