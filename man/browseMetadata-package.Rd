@@ -13,7 +13,7 @@ This R package allows researchers to explore publicly available metadata from he
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://aim-rsf.github.io/browseMetadata}
+  \item \url{https://aim-rsf.github.io/browseMetadata/}
 }
 
 }

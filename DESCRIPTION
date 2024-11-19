@@ -12,7 +12,7 @@ Description: This R package allows researchers to explore publicly available
   At the early stages of a project, researchers can use this tool to browse 
   datasets and categorise variables.
 License: GPL (>= 3)
-URL: https://aim-rsf.github.io/browseMetadata
+URL: https://aim-rsf.github.io/browseMetadata/
 Depends: 
     R (>= 2.10)
 Imports: 
