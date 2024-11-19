@@ -8,8 +8,7 @@
 #' @param n The dataset number (as a json can have multiple datasets)
 #' @return A dataframe for that specific table, including data label, description and type.
 
-json_table_to_df <- function(dataset,n){
-
+json_table_to_df <- function(dataset, n) {
   json_table <- dataset$childDataClasses[[n]]$childDataElements
   json_table_df <- data.frame(do.call(rbind, json_table)) # nested list to df
   json_data_type_df <- data.frame(do.call(rbind, json_table_df$dataType)) # nested list to df
@@ -23,7 +22,6 @@ json_table_to_df <- function(dataset,n){
   table_df <- table_df[order(table_df$label), ]
 
   table_df
-
 }
 
 #' count_empty_desc
@@ -38,19 +36,17 @@ json_table_to_df <- function(dataset,n){
 #' @importFrom dplyr %>% group_by n summarize
 #' @importFrom tidyr complete
 
-count_empty_desc <- function(table_df,table_colname) {
-
-  table_df['empty'] <- NA
+count_empty_desc <- function(table_df, table_colname) {
+  table_df["empty"] <- NA
 
   for (data_v in 1:nrow(table_df)) {
-
-    if ((nchar(table_df$description[data_v]) == 1)
-        | (table_df$description[data_v] == 'Description to follow')
-        | (table_df$description[data_v] == 'NA')){
-      table_df$empty[data_v] = 'Yes'
+    if ((nchar(table_df$description[data_v]) == 1) |
+      (table_df$description[data_v] == "Description to follow") |
+      (table_df$description[data_v] == "NA")) {
+      table_df$empty[data_v] <- "Yes"
     } else {
-      table_df$empty[data_v] = 'No'}
-
+      table_df$empty[data_v] <- "No"
+    }
   }
 
   # count how many are empty (add in N/Y count if 0)
@@ -63,7 +59,6 @@ count_empty_desc <- function(table_df,table_colname) {
   names(count_empty_table)[names(count_empty_table) == "n"] <- table_colname
 
   count_empty_table
-
 }
 
 #' join_outputs
@@ -76,12 +71,10 @@ count_empty_desc <- function(table_df,table_colname) {
 #' @return Dataframe with information from session 1 and 2, joined on column DataElement.
 #' @importFrom dplyr left_join join_by select contains
 
-join_outputs <- function(session_1, session_2){
-
-  ses_join <- left_join(session_1,session_2,suffix = c("_ses1","_ses2"),join_by(data_element))
-  ses_join <- select(ses_join,contains("_ses"),'data_element')
+join_outputs <- function(session_1, session_2) {
+  ses_join <- left_join(session_1, session_2, suffix = c("_ses1", "_ses2"), join_by(data_element))
+  ses_join <- select(ses_join, contains("_ses"), "data_element")
   ses_join$domain_code_join <- NA
   ses_join$note_join <- NA
   ses_join
 }
-

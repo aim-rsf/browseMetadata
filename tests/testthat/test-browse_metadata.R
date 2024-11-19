@@ -1,11 +1,10 @@
-library(testthat) #test_that, expect_true
+library(testthat) # test_that, expect_true
 library(rjson)
 
 test_that("browse_metadata function outputs files correctly", {
-
   # Setup
   temp_dir <- tempdir()
-  example_json_file <- system.file('inputs/national_community_child_health_database_(ncchd)_20240405T130125.json',package = "browseMetadata")
+  example_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
 
   # Execution
   result <- browse_metadata(json_file = example_json_file, output_dir = temp_dir)
@@ -32,5 +31,3 @@ test_that("browse_metadata function outputs files correctly", {
   # Teardown
   unlink(c(table_file, bar_file_html, bar_file_csv))
 })
-
-

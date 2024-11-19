@@ -4,7 +4,7 @@ library(mockery) # mock, stub
 
 output <- get("output")
 code <- data.frame(code = 0:2)
-df_plots <- list(code = code,'')
+df_plots <- list(code = code, "")
 
 test_that("user_categorisation_loop handles auto categorisation", {
   # Mock data

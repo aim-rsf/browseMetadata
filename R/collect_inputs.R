@@ -13,8 +13,7 @@
 #' @importFrom utils read.csv
 #' @importFrom tools file_path_sans_ext
 
-load_data <- function(json_file, domain_file,look_up_file){
-
+load_data <- function(json_file, domain_file, look_up_file) {
   # Collect meta_json and domains
   if (is.null(json_file) && is.null(domain_file)) { # if both json_file and domain_file are NULL, use demo data
     meta_json <- get("json_metadata")
@@ -23,13 +22,13 @@ load_data <- function(json_file, domain_file,look_up_file){
     cat("\n")
     cli_alert_info("Running map_metadata in demo mode using package data files")
     cat("\n ")
-    demo_mode = TRUE
+    demo_mode <- TRUE
   } else if (is.null(json_file) || is.null(domain_file)) { # if only one of json_file and domain_file is NULL, throw error
     cat("\n")
     cli_alert_danger("Please provide both json_file and domain_file (or neither file, to run in demo mode)")
     stop()
   } else { # read in user specified files
-    demo_mode = FALSE
+    demo_mode <- FALSE
     meta_json <- fromJSON(file = json_file) # read in the json file containing the meta data
     domains <- read.csv(domain_file, header = FALSE) # read in the domain file containing the list of research domains
     domain_list_desc <- file_path_sans_ext(basename(domain_file))
@@ -40,14 +39,13 @@ load_data <- function(json_file, domain_file,look_up_file){
     cli_alert_info("Using the default look-up table in data/look-up.rda")
     cat("\n ")
     lookup <- get("look_up")
-  }
-  else {
+  } else {
     lookup <- read.csv(look_up_file)
     cli_alert_info("Using look up file inputted by user")
     cat("\n ")
   }
 
-  list(meta_json = meta_json,domains = domains,domain_list_desc = domain_list_desc, demo_mode = demo_mode,lookup = lookup)
+  list(meta_json = meta_json, domains = domains, domain_list_desc = domain_list_desc, demo_mode = demo_mode, lookup = lookup)
 }
 
 #' copy_previous
@@ -62,13 +60,12 @@ load_data <- function(json_file, domain_file,look_up_file){
 #' @importFrom dplyr %>% distinct
 #' @importFrom cli cli_alert_info
 
-copy_previous <- function(dataset_name,output_dir) {
-
-  o_search = paste0("^OUTPUT_",gsub(" ", "", dataset_name),'*')
+copy_previous <- function(dataset_name, output_dir) {
+  o_search <- paste0("^OUTPUT_", gsub(" ", "", dataset_name), "*")
   csv_list <- data.frame(file = list.files(output_dir, pattern = o_search))
   if (nrow(csv_list) != 0) {
-    df_list <- lapply(paste0(output_dir, '/', csv_list$file), read.csv)
-    df_prev <- do.call("rbind", df_list) #combine all df
+    df_list <- lapply(paste0(output_dir, "/", csv_list$file), read.csv)
+    df_prev <- do.call("rbind", df_list) # combine all df
     ## make a new date column, order by earliest, remove duplicates & auto
     df_prev$time2 <- as.POSIXct(df_prev$timestamp, format = "%Y-%m-%d-%H-%M-%S")
     df_prev <- df_prev[order(df_prev$time2), ]
@@ -79,13 +76,11 @@ copy_previous <- function(dataset_name,output_dir) {
     cli_alert_info(paste0("Copying from previous session(s): "))
     cat("\n")
     print(csv_list$file)
-
   } else {
     df_prev <- NULL
     df_prev_exist <- FALSE
   }
 
-  output <- list(df_prev = df_prev,df_prev_exist = df_prev_exist)
+  output <- list(df_prev = df_prev, df_prev_exist = df_prev_exist)
   output
-
 }

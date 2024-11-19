@@ -11,14 +11,12 @@
 #' @return It returns a list containing the decision and decision note
 #' @importFrom cli cli_alert_warning
 
-user_categorisation <- function(data_element,data_desc,data_type,domain_code_max) {
-
-  first_run = TRUE
-  go_back = ''
+user_categorisation <- function(data_element, data_desc, data_type, domain_code_max) {
+  first_run <- TRUE
+  go_back <- ""
 
   while (go_back == "Y" | go_back == "y" | first_run == TRUE) {
-
-    go_back = ''
+    go_back <- ""
     # print text to R console
     cat(paste(
       "\nDATA ELEMENT -----> ", data_element,
@@ -29,27 +27,26 @@ user_categorisation <- function(data_element,data_desc,data_type,domain_code_max
     # ask user for categorisation:
 
     decision <- ""
-    validated = FALSE
+    validated <- FALSE
     cat("\n \n")
 
     while (decision == "" | validated == FALSE) {
       decision <- readline("Categorise data element into domain(s). E.g. 3 or 3,4: ")
 
       # validate input given by user
-      decision_int <- as.integer(unlist(strsplit(decision,",")))
+      decision_int <- as.integer(unlist(strsplit(decision, ",")))
       decision_int_NA <- any(is.na((decision_int)))
-      suppressWarnings(decision_int_max <- max(decision_int,na.rm=TRUE))
-      suppressWarnings(decision_int_min <- min(decision_int,na.rm=TRUE))
-      if (decision_int_NA == TRUE | decision_int_max > domain_code_max | decision_int_min < 0){
+      suppressWarnings(decision_int_max <- max(decision_int, na.rm = TRUE))
+      suppressWarnings(decision_int_min <- min(decision_int, na.rm = TRUE))
+      if (decision_int_NA == TRUE | decision_int_max > domain_code_max | decision_int_min < 0) {
         cli_alert_warning("Formatting is invalid or integer out of range. Provide one integer or a comma seperated list of integers.")
-        validated = FALSE}
-      else {
-        validated = TRUE
+        validated <- FALSE
+      } else {
+        validated <- TRUE
         # standardize output
         decision_int <- sort(decision_int)
-        decision <- paste(decision_int, collapse = ',')
+        decision <- paste(decision_int, collapse = ",")
       }
-
     }
 
     # ask user for note on categorisation:
@@ -59,14 +56,13 @@ user_categorisation <- function(data_element,data_desc,data_type,domain_code_max
 
     while (go_back != "Y" & go_back != "y" & go_back != "N" & go_back != "n") {
       cat("\n \n")
-      go_back <- readline(prompt = paste0("Response to be saved is '",decision,"'. Would you like to re-do? (y/n): "))
+      go_back <- readline(prompt = paste0("Response to be saved is '", decision, "'. Would you like to re-do? (y/n): "))
     }
 
-    first_run = FALSE
+    first_run <- FALSE
   }
 
-  return(list(decision = decision,decision_note = decision_note))
-
+  return(list(decision = decision, decision_note = decision_note))
 }
 
 #' user_categorisation_loop
@@ -88,22 +84,23 @@ user_categorisation <- function(data_element,data_desc,data_type,domain_code_max
 #' @importFrom dplyr %>% add_row
 #' @importFrom cli cli_alert_info
 
-user_categorisation_loop <- function(start_v,end_v,table_df,df_prev_exist,df_prev,lookup,df_plots,output) {
-
+user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output) {
   for (data_v in start_v:end_v) {
     cat("\n \n")
-    cli_alert_info(paste(length(data_v:end_v), 'left to process'))
+    cli_alert_info(paste(length(data_v:end_v), "left to process"))
     cli_alert_info("Data element {data_v} of {nrow(table_df)}")
     this_data_element <- table_df$label[data_v]
-    this_data_element_n <- paste(as.character(data_v), 'of',
-                                as.character(nrow(table_df)))
+    this_data_element_n <- paste(
+      as.character(data_v), "of",
+      as.character(nrow(table_df))
+    )
     data_v_index <- which(lookup$data_element ==
-                            table_df$label[data_v]) #we should code this to ignore the case
+      table_df$label[data_v]) # we should code this to ignore the case
     lookup_subset <- lookup[data_v_index, ]
     ##### search if data element matches any data elements from previous table
     if (df_prev_exist == TRUE) {
       data_v_index <- which(df_prev$data_element ==
-                              table_df$label[data_v])
+        table_df$label[data_v])
       df_prev_subset <- df_prev[data_v_index, ]
     } else {
       df_prev_subset <- data.frame()
@@ -115,10 +112,10 @@ user_categorisation_loop <- function(start_v,end_v,table_df,df_prev_exist,df_pre
         data_element = this_data_element,
         data_element_n = this_data_element_n,
         domain_code = as.character(lookup_subset$domain_code),
-        note = 'AUTO CATEGORISED'
+        note = "AUTO CATEGORISED"
       )
     } else if (df_prev_exist == TRUE &
-               nrow(df_prev_subset) == 1) {
+      nrow(df_prev_subset) == 1) {
       ###### 2 - copy from previous table
       output <- output %>% add_row(
         data_element = this_data_element,
@@ -156,13 +153,12 @@ user_categorisation_loop <- function(start_v,end_v,table_df,df_prev_exist,df_pre
 #' @return It returns variable text, depending on any_keys.
 
 user_prompt <- function(prompt_text, any_keys) {
-
   # prompt text is not
   # any_keys, when TRUE it allows any input, when FALSE it only allows y/n/Y/N
   # post_yes_text, when any_keys is FALSE and response is y/Y then print the post text
 
   # prompt text
-  if (any_keys == TRUE){
+  if (any_keys == TRUE) {
     response <- ""
     while (response == "") {
       response <- readline(prompt = prompt_text)
@@ -177,7 +173,6 @@ user_prompt <- function(prompt_text, any_keys) {
   }
 
   response
-
 }
 
 #' user_prompt_list
@@ -192,24 +187,35 @@ user_prompt <- function(prompt_text, any_keys) {
 #' @return It returns a list of integers to process, that match the prompt options.
 #' @importFrom cli cli_alert_info cli_alert_danger
 
-user_prompt_list <- function(prompt_text,list_allowed,empty_allowed) {
-
+user_prompt_list <- function(prompt_text, list_allowed, empty_allowed) {
   list_to_process_error <- TRUE
   list_to_process_in_range <- TRUE
-  while (list_to_process_error==TRUE | list_to_process_in_range==FALSE) {
-    tryCatch({
-      cat("\n \n");
-      cli_alert_info(prompt_text);
-      cat("\n");
-      list_to_process <- scan(file="",what=0);
-      list_to_process_in_range_1 = (all(list_to_process %in% list_allowed))
-      if (empty_allowed == FALSE){
-        list_to_process_in_range_2 = (all(length(list_to_process) != 0))
-      } else {list_to_process_in_range_2 = TRUE}
-      list_to_process_in_range = all(list_to_process_in_range_1,list_to_process_in_range_2)
-      if (list_to_process_in_range == FALSE){cli_alert_danger('One of your inputs is out of range! Reference the allowable list of integers and try again.')};
-      list_to_process_error <- FALSE},
-      error=function(e) {list_to_process_error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format. Reference the allowable list of integers and try again.')})
+  while (list_to_process_error == TRUE | list_to_process_in_range == FALSE) {
+    tryCatch(
+      {
+        cat("\n \n")
+        cli_alert_info(prompt_text)
+        cat("\n")
+        list_to_process <- scan(file = "", what = 0)
+        list_to_process_in_range_1 <- (all(list_to_process %in% list_allowed))
+        if (empty_allowed == FALSE) {
+          list_to_process_in_range_2 <- (all(length(list_to_process) != 0))
+        } else {
+          list_to_process_in_range_2 <- TRUE
+        }
+        list_to_process_in_range <- all(list_to_process_in_range_1, list_to_process_in_range_2)
+        if (list_to_process_in_range == FALSE) {
+          cli_alert_danger("One of your inputs is out of range! Reference the allowable list of integers and try again.")
+        }
+        list_to_process_error <- FALSE
+      },
+      error = function(e) {
+        list_to_process_error <- TRUE
+        print(e)
+        cat("\n")
+        cli_alert_danger("Your input is in the wrong format. Reference the allowable list of integers and try again.")
+      }
+    )
   }
   list_to_process
 }
