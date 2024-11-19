@@ -1,14 +1,14 @@
 library(testthat) #test_that, expect_true
 library(rjson)
 
-test_that("browseMetadata function outputs files correctly", {
+test_that("browse_metadata function outputs files correctly", {
 
   # Setup
   temp_dir <- tempdir()
   example_json_file <- system.file('inputs/national_community_child_health_database_(ncchd)_20240405T130125.json',package = "browseMetadata")
 
   # Execution
-  result <- browseMetadata(json_file = example_json_file, output_dir = temp_dir)
+  result <- browse_metadata(json_file = example_json_file, output_dir = temp_dir)
 
   # Verification of file outputs
   Dataset <- fromJSON(file = example_json_file)$dataModel

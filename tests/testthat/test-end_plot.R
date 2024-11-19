@@ -5,7 +5,7 @@ library(dplyr) # add_row
 
 test_that("end_plot function works correctly", {
   # Sample data frame
-  df <- get("Output")
+  df <- get("output")
 
   df <- df %>% add_row(
     timestamp = format(Sys.time(), "%Y-%m-%d-%H-%M-%S"),

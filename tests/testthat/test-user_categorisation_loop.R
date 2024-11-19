@@ -2,7 +2,7 @@
 library(testthat) # test_that, expect_equal
 library(mockery) # mock, stub
 
-Output <- get("Output")
+Output <- get("output")
 Code <- data.frame(Code = 0:2)
 df_plots <- list(Code = Code,'')
 
