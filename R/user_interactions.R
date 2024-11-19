@@ -78,32 +78,32 @@ user_categorisation <- function(data_element,data_desc,data_type,domain_code_max
 #' 3 - If no match for 1 or 2, data elements are categorised by the user \cr \cr
 #' @param start_v Index of data element to start
 #' @param end_v Index of data element to end
-#' @param Table_df Dataframe with the table information, extracted from json metadata
+#' @param table_df Dataframe with the table information, extracted from json metadata
 #' @param df_prev_exist Boolean to indicate with previous dataframes exist (to copy from)
 #' @param df_prev Previous dataframes to copy from (or NULL)
 #' @param lookup The lookup table to enable auto categorisations
 #' @param df_plots Output from the ref_plot function, to indicate maximum domain code allowed
-#' @param Output Empty Output dataframe, to fill
-#' @return An Output dataframe containing information about the table, data elements and categorisations
+#' @param output Empty output dataframe, to fill
+#' @return An output dataframe containing information about the table, data elements and categorisations
 #' @importFrom dplyr %>% add_row
 #' @importFrom cli cli_alert_info
 
-user_categorisation_loop <- function(start_v,end_v,Table_df,df_prev_exist,df_prev,lookup,df_plots,Output) {
+user_categorisation_loop <- function(start_v,end_v,table_df,df_prev_exist,df_prev,lookup,df_plots,output) {
 
   for (data_v in start_v:end_v) {
     cat("\n \n")
     cli_alert_info(paste(length(data_v:end_v), 'left to process'))
-    cli_alert_info("Data element {data_v} of {nrow(Table_df)}")
-    this_DataElement <- Table_df$Label[data_v]
-    this_DataElement_N <- paste(as.character(data_v), 'of',
-                                as.character(nrow(Table_df)))
-    data_v_index <- which(lookup$DataElement ==
-                            Table_df$Label[data_v]) #we should code this to ignore the case
+    cli_alert_info("Data element {data_v} of {nrow(table_df)}")
+    this_data_element <- table_df$label[data_v]
+    this_data_element_n <- paste(as.character(data_v), 'of',
+                                as.character(nrow(table_df)))
+    data_v_index <- which(lookup$data_element ==
+                            table_df$label[data_v]) #we should code this to ignore the case
     lookup_subset <- lookup[data_v_index, ]
     ##### search if data element matches any data elements from previous table
     if (df_prev_exist == TRUE) {
-      data_v_index <- which(df_prev$DataElement ==
-                              Table_df$Label[data_v])
+      data_v_index <- which(df_prev$data_element ==
+                              table_df$label[data_v])
       df_prev_subset <- df_prev[data_v_index, ]
     } else {
       df_prev_subset <- data.frame()
@@ -111,38 +111,38 @@ user_categorisation_loop <- function(start_v,end_v,Table_df,df_prev_exist,df_pre
     ##### decide how to process the data element out of 3 options
     if (nrow(lookup_subset) == 1) {
       ###### 1 - auto categorisation
-      Output <- Output %>% add_row(
-        DataElement = this_DataElement,
-        DataElement_N = this_DataElement_N,
-        Domain_code = as.character(lookup_subset$DomainCode),
-        Note = 'AUTO CATEGORISED'
+      output <- output %>% add_row(
+        data_element = this_data_element,
+        data_element_n = this_data_element_n,
+        domain_code = as.character(lookup_subset$domain_code),
+        note = 'AUTO CATEGORISED'
       )
     } else if (df_prev_exist == TRUE &
                nrow(df_prev_subset) == 1) {
       ###### 2 - copy from previous table
-      Output <- Output %>% add_row(
-        DataElement = this_DataElement,
-        DataElement_N = this_DataElement_N,
-        Domain_code = as.character(df_prev_subset$Domain_code),
-        Note = paste0("COPIED FROM: ", df_prev_subset$Table)
+      output <- output %>% add_row(
+        data_element = this_data_element,
+        data_element_n = this_data_element_n,
+        domain_code = as.character(df_prev_subset$domain_code),
+        note = paste0("COPIED FROM: ", df_prev_subset$table)
       )
     } else {
       ###### 3 - collect user responses with 'user_categorisation.R'
       decision_output <- user_categorisation(
-        Table_df$Label[data_v],
-        Table_df$Description[data_v],
-        Table_df$Type[data_v],
-        max(df_plots$Code$Code)
+        table_df$label[data_v],
+        table_df$description[data_v],
+        table_df$type[data_v],
+        max(df_plots$code$code)
       )
-      Output <- Output %>% add_row(
-        DataElement = this_DataElement,
-        DataElement_N = this_DataElement_N,
-        Domain_code = decision_output$decision,
-        Note = decision_output$decision_note
+      output <- output %>% add_row(
+        data_element = this_data_element,
+        data_element_n = this_data_element_n,
+        domain_code = decision_output$decision,
+        note = decision_output$decision_note
       )
     }
-  } # end of loop for DataElement
-  Output
+  } # end of loop for data_element
+  output
 }
 
 #' user_prompt
@@ -194,22 +194,22 @@ user_prompt <- function(prompt_text, any_keys) {
 
 user_prompt_list <- function(prompt_text,list_allowed,empty_allowed) {
 
-  list_to_process_Error <- TRUE
-  list_to_process_InRange <- TRUE
-  while (list_to_process_Error==TRUE | list_to_process_InRange==FALSE) {
+  list_to_process_error <- TRUE
+  list_to_process_in_range <- TRUE
+  while (list_to_process_error==TRUE | list_to_process_in_range==FALSE) {
     tryCatch({
       cat("\n \n");
       cli_alert_info(prompt_text);
       cat("\n");
       list_to_process <- scan(file="",what=0);
-      list_to_process_InRange_1 = (all(list_to_process %in% list_allowed))
+      list_to_process_in_range_1 = (all(list_to_process %in% list_allowed))
       if (empty_allowed == FALSE){
-        list_to_process_InRange_2 = (all(length(list_to_process) != 0))
-      } else {list_to_process_InRange_2 = TRUE}
-      list_to_process_InRange = all(list_to_process_InRange_1,list_to_process_InRange_2)
-      if (list_to_process_InRange == FALSE){cli_alert_danger('One of your inputs is out of range! Reference the allowable list of integers and try again.')};
-      list_to_process_Error <- FALSE},
-      error=function(e) {list_to_process_Error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format. Reference the allowable list of integers and try again.')})
+        list_to_process_in_range_2 = (all(length(list_to_process) != 0))
+      } else {list_to_process_in_range_2 = TRUE}
+      list_to_process_in_range = all(list_to_process_in_range_1,list_to_process_in_range_2)
+      if (list_to_process_in_range == FALSE){cli_alert_danger('One of your inputs is out of range! Reference the allowable list of integers and try again.')};
+      list_to_process_error <- FALSE},
+      error=function(e) {list_to_process_error <- TRUE; print(e); cat("\n"); cli_alert_danger('Your input is in the wrong format. Reference the allowable list of integers and try again.')})
   }
   list_to_process
 }

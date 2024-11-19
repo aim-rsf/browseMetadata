@@ -4,12 +4,12 @@
 \alias{count_empty_desc}
 \title{count_empty_desc}
 \usage{
-count_empty_desc(Table_df, Table_colname)
+count_empty_desc(table_df, table_colname)
 }
 \arguments{
-\item{Table_df}{Output from json_table_to_df.R}
+\item{table_df}{Output from json_table_to_df.R}
 
-\item{Table_colname}{Name of the table in column of the output dataframe}
+\item{table_colname}{Name of the table in column of the output dataframe}
 }
 \value{
 A simpler dataframe with Y/N empty counts for variables in the table.

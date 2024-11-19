@@ -4,12 +4,12 @@
 \alias{valid_comparison}
 \title{valid_comparison}
 \usage{
-valid_comparison(input1, input2, severity, severity_text)
+valid_comparison(input_1, input_2, severity, severity_text)
 }
 \arguments{
-\item{input1}{Input 1}
+\item{input_1}{Input 1}
 
-\item{input2}{Input 2}
+\item{input_2}{Input 2}
 
 \item{severity}{Level of severity. Only 'danger' or 'warning'}
 

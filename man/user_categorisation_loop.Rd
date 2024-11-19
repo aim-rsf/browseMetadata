@@ -7,12 +7,12 @@
 user_categorisation_loop(
   start_v,
   end_v,
-  Table_df,
+  table_df,
   df_prev_exist,
   df_prev,
   lookup,
   df_plots,
-  Output
+  output
 )
 }
 \arguments{
@@ -20,7 +20,7 @@ user_categorisation_loop(
 
 \item{end_v}{Index of data element to end}
 
-\item{Table_df}{Dataframe with the table information, extracted from json metadata}
+\item{table_df}{Dataframe with the table information, extracted from json metadata}
 
 \item{df_prev_exist}{Boolean to indicate with previous dataframes exist (to copy from)}
 
@@ -30,10 +30,10 @@ user_categorisation_loop(
 
 \item{df_plots}{Output from the ref_plot function, to indicate maximum domain code allowed}
 
-\item{Output}{Empty Output dataframe, to fill}
+\item{output}{Empty output dataframe, to fill}
 }
 \value{
-An Output dataframe containing information about the table, data elements and categorisations
+An output dataframe containing information about the table, data elements and categorisations
 }
 \description{
 This function is called within the map_metadata function. \cr \cr

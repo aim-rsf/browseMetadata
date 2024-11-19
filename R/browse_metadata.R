@@ -41,9 +41,9 @@ browse_metadata <- function(json_file = NULL ,output_dir = NULL) {
   if (is.null(output_dir)) {
     output_dir = getwd()
   }
-  ## Extract Dataset from json_file
-  Dataset <- meta_json$dataModel
-  Dataset_Name <- Dataset$label
+  ## Extract dataset from json_file
+  dataset <- meta_json$dataModel
+  dataset_name <- dataset$label
   dataset_version <- meta_json[["dataModel"]][["documentationVersion"]]
 
   # PREPARE 2 OUTPUT DATAFRAMES FOR LATER PLOTTING ----
@@ -52,8 +52,8 @@ browse_metadata <- function(json_file = NULL ,output_dir = NULL) {
   dataset_desc <- data.frame(N = character(0), Name = character(0),
                        Description = character(0))
   ### add information about the dataset at the top
-  dataset_desc <- dataset_desc %>% add_row(N = '',Name = Dataset$label,
-                          Description = gsub('\n\n', '', Dataset$description))
+  dataset_desc <- dataset_desc %>% add_row(N = '',Name = dataset$label,
+                          Description = gsub('\n\n', '', dataset$description))
   dataset_desc <- dataset_desc %>%
     add_row(N = 'N',Name = 'Table',Description = '')
 
@@ -62,30 +62,30 @@ browse_metadata <- function(json_file = NULL ,output_dir = NULL) {
 
   # LOOP THROUGH EACH TABLE IN DATASET ----
 
-  ntables <- length(Dataset$childDataClasses)
+  ntables <- length(dataset$childDataClasses)
   ntables_digits <- nchar(ntables)
 
   for (dc in 1:ntables) {
     cat("\n")
-    Table_name <- Dataset$childDataClasses[[dc]]$label
+    table_name <- dataset$childDataClasses[[dc]]$label
     cli_alert_info(paste0("Processing Table {dc} of {ntables} (",
-                          Table_name,")"))
+                          table_name,")"))
 
     ## Add to the dataset_desc data frame
     dataset_desc <- dataset_desc %>% add_row(
       N = as.character(dc),
-      Name = Table_name,
-      Description = gsub('\n\n', '',Dataset$childDataClasses[[dc]]$description))
+      Name = table_name,
+      Description = gsub('\n\n', '',dataset$childDataClasses[[dc]]$description))
 
     ## Use 'json_table_to_df.R' to extract table from meta_json into a df
-    Table_df <- json_table_to_df(Dataset = Dataset,n = dc)
+    table_df <- json_table_to_df(dataset = dataset,n = dc)
 
     ## Use 'count_empty_desc.R' to count number of empty descriptions
-    Table_colname <- paste0(Table_name,'(',dc,')')
-    count_empty_table <- count_empty_desc(Table_df,Table_colname)
+    table_colname <- paste0(table_name,'(',dc,')')
+    count_empty_table <- count_empty_desc(table_df,table_colname)
 
     ## Add to group dataframe for later plotting
-    count_empty[[Table_colname]] <- count_empty_table[[Table_colname]]
+    count_empty[[table_colname]] <- count_empty_table[[table_colname]]
 
   } # end of loop through each table
 
@@ -131,7 +131,7 @@ browse_metadata <- function(json_file = NULL ,output_dir = NULL) {
                        texttemplate = '%{text}', # Ensure text displayed as is
                        textfont = list(color = 'black',size = 10)) %>%
     layout(barmode = 'stack',
-           title = paste0('\n',Dataset_Name,' contains ',ntables,' table(s)'),
+           title = paste0('\n',dataset_name,' contains ',ntables,' table(s)'),
            xaxis = list(title = 'Table'),
            yaxis = list(title = 'N_Variables'),
            legend = list(title = list(text = 'Empty Description')))
@@ -140,7 +140,7 @@ browse_metadata <- function(json_file = NULL ,output_dir = NULL) {
 
   original_wd <- getwd()
   setwd(output_dir) #saveWidget has a bug with paths & saving
-  base_fname <- paste0(gsub(" ", "", Dataset_Name),"_V",dataset_version)
+  base_fname <- paste0(gsub(" ", "", dataset_name),"_V",dataset_version)
 
   ## Save the table plot to a HTML file
   table_fname <- paste0("BROWSE_table_",base_fname,".html")

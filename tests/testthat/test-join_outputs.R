@@ -4,53 +4,53 @@ library(testthat) # test_that, expect_equal
 # Create sample data (only allow it to be different on timestamp, Domain_code and Note)
 session_1 <- data.frame(
   timestamp = c("2024-08-22-13-26-33", "2024-08-22-13-26-33", "2024-08-22-13-26-33"),
-  Table = c("HEALTH","HEALTH","HEALTH"),
-  DataElement = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
-  DataElement_N = c("1 of 3", "2 of 3", "3 of 3"),
-  Domain_code = c("1", "1", "5"),
-  Note = c("ID", "Metadata", "Diagnostic category")
+  table = c("HEALTH","HEALTH","HEALTH"),
+  data_element = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
+  data_element_n = c("1 of 3", "2 of 3", "3 of 3"),
+  domain_code = c("1", "1", "5"),
+  note = c("ID", "Metadata", "Diagnostic category")
   )
 
 session_2 <- data.frame(
   timestamp = c("2024-08-22-15-24-30", "2024-08-22-15-24-30", "2024-08-22-15-24-30"),
-  Table = c("HEALTH","HEALTH","HEALTH"),
-  DataElement = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
-  DataElement_N = c("1 of 3", "2 of 3", "3 of 3"),
-  Domain_code = c("1", "1", "4"),
-  Note = c("ID", "info about data", "diagnosis")
+  table = c("HEALTH","HEALTH","HEALTH"),
+  data_element = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
+  data_element_n = c("1 of 3", "2 of 3", "3 of 3"),
+  domain_code = c("1", "1", "4"),
+  note = c("ID", "info about data", "diagnosis")
 )
 
 # Define expected outputs
 expected_output_ses1_ses2 <- data.frame(
   timestamp_ses1 = c("2024-08-22-13-26-33", "2024-08-22-13-26-33", "2024-08-22-13-26-33"),
-  Table_ses1 = c("HEALTH","HEALTH","HEALTH"),
-  DataElement_N_ses1 = c("1 of 3", "2 of 3", "3 of 3"),
-  Domain_code_ses1 = c("1", "1", "5"),
-  Note_ses1 = c("ID", "Metadata", "Diagnostic category"),
+  table_ses1 = c("HEALTH","HEALTH","HEALTH"),
+  data_element_n_ses1 = c("1 of 3", "2 of 3", "3 of 3"),
+  domain_code_ses1 = c("1", "1", "5"),
+  note_ses1 = c("ID", "Metadata", "Diagnostic category"),
   timestamp_ses2 = c("2024-08-22-15-24-30", "2024-08-22-15-24-30", "2024-08-22-15-24-30"),
-  Table_ses2 = c("HEALTH","HEALTH","HEALTH"),
-  DataElement_N_ses2 = c("1 of 3", "2 of 3", "3 of 3"),
-  Domain_code_ses2 = c("1", "1", "4"),
-  Note_ses2 = c("ID", "info about data", "diagnosis"),
-  DataElement = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
-  Domain_code_join = c(NA, NA, NA),
-  Note_join = c(NA, NA, NA)
+  table_ses2 = c("HEALTH","HEALTH","HEALTH"),
+  data_element_n_ses2 = c("1 of 3", "2 of 3", "3 of 3"),
+  domain_code_ses2 = c("1", "1", "4"),
+  note_ses2 = c("ID", "info about data", "diagnosis"),
+  data_element = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
+  domain_code_join = c(NA, NA, NA),
+  note_join = c(NA, NA, NA)
 )
 
 expected_output_ses1_ses1 <- data.frame(
   timestamp_ses1 = c("2024-08-22-13-26-33", "2024-08-22-13-26-33", "2024-08-22-13-26-33"),
-  Table_ses1 = c("HEALTH","HEALTH","HEALTH"),
-  DataElement_N_ses1 = c("1 of 3", "2 of 3", "3 of 3"),
-  Domain_code_ses1 = c("1", "1", "5"),
-  Note_ses1 = c("ID", "Metadata", "Diagnostic category"),
+  table_ses1 = c("HEALTH","HEALTH","HEALTH"),
+  data_element_n_ses1 = c("1 of 3", "2 of 3", "3 of 3"),
+  domain_code_ses1 = c("1", "1", "5"),
+  note_ses1 = c("ID", "Metadata", "Diagnostic category"),
   timestamp_ses2 = c("2024-08-22-13-26-33", "2024-08-22-13-26-33", "2024-08-22-13-26-33"),
-  Table_ses2 = c("HEALTH","HEALTH","HEALTH"),
-  DataElement_N_ses2 = c("1 of 3", "2 of 3", "3 of 3"),
-  Domain_code_ses2 = c("1", "1", "5"),
-  Note_ses2 = c("ID", "Metadata", "Diagnostic category"),
-  DataElement = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
-  Domain_code_join = c(NA, NA, NA),
-  Note_join = c(NA, NA, NA)
+  table_ses2 = c("HEALTH","HEALTH","HEALTH"),
+  data_element_n_ses2 = c("1 of 3", "2 of 3", "3 of 3"),
+  domain_code_ses2 = c("1", "1", "5"),
+  note_ses2 = c("ID", "Metadata", "Diagnostic category"),
+  data_element = c("ALF_E", "AVAIL_FROM_DT", "OUTCOME"),
+  domain_code_join = c(NA, NA, NA),
+  note_join = c(NA, NA, NA)
 )
 
 # Write the test

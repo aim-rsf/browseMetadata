@@ -4,12 +4,12 @@
 \alias{json_table_to_df}
 \title{json_table_to_df}
 \usage{
-json_table_to_df(Dataset, n)
+json_table_to_df(dataset, n)
 }
 \arguments{
-\item{Dataset}{This is the dataModel field of the json}
+\item{dataset}{This is the dataModel field of the json}
 
-\item{n}{The Dataset number (as a json can have multiple datasets)}
+\item{n}{The dataset number (as a json can have multiple datasets)}
 }
 \value{
 A dataframe for that specific table, including data label, description and type.

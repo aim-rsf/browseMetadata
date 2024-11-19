@@ -4,12 +4,12 @@
 \alias{concensus_on_mismatch}
 \title{concensus_on_mismatch}
 \usage{
-concensus_on_mismatch(ses_join, Table_df, datavar, domain_code_max)
+concensus_on_mismatch(ses_join, table_df, datavar, domain_code_max)
 }
 \arguments{
 \item{ses_join}{The joined dataframes from the two sessions}
 
-\item{Table_df}{Metadata from the json file, for one table in the dataset}
+\item{table_df}{Metadata from the json file, for one table in the dataset}
 
 \item{datavar}{Data Element n}
 

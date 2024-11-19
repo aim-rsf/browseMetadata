@@ -28,25 +28,25 @@ map_metadata_compare <- function(session_dir,session1_base,session2_base,json_fi
   meta_json <- fromJSON(file = json_file)
   domains <- read.csv(domain_file, header = FALSE)
 
-  Dataset <- meta_json$dataModel
-  Dataset_Name <- Dataset$label
+  dataset <- meta_json$dataModel
+  dataset_name <- dataset$label
 
   # VALIDATION CHECKS ----
 
   ## Use 'valid_comparison.R' to check if sessions can be compared to each other and to the json (min requirements):
 
-  valid_comparison(input1 = csv_1a$Dataset[1],
-                   input2 = csv_2a$Dataset[1],
+  valid_comparison(input1 = csv_1a$dataset[1],
+                   input2 = csv_2a$dataset[1],
                    severity = 'danger',
                    severity_text = 'Session 1 and 2 have different datasets')
 
-  valid_comparison(input1 = csv_1a$Table[1],
-                   input2 = csv_2a$Table[1],
+  valid_comparison(input1 = csv_1a$table[1],
+                   input2 = csv_2a$table[1],
                    severity = 'danger',
                    severity_text = 'Session 1 and 2 have different tables')
 
-  valid_comparison(input1 = csv_1a$Dataset[1],
-                   input2 =  Dataset_Name,
+  valid_comparison(input1 = csv_1a$dataset[1],
+                   input2 =  dataset_name,
                    severity = 'danger',
                    severity_text = 'Different dataset to json')
 
@@ -62,23 +62,23 @@ map_metadata_compare <- function(session_dir,session1_base,session2_base,json_fi
                    severity = 'warning',
                    severity_text = 'Different version of browseMetadata package!')
 
-  valid_comparison(input1 = csv_1a$MetaDataVersion[1],
-                   input2 = csv_2a$MetaDataVersion[1],
+  valid_comparison(input1 = csv_1a$metadata_version[1],
+                   input2 = csv_2a$metadata_version[1],
                    severity = 'warning',
                    severity_text = 'Different metadata versions!')
 
-  valid_comparison(input1 = csv_1a$MetaDataVersion[1],
-                   input2 = Dataset$documentationVersion,
+  valid_comparison(input1 = csv_1a$metadata_version[1],
+                   input2 = dataset$documentationVersion,
                    severity = 'warning',
                    severity_text = 'The version files do not match the json (different metadata versions)!')
 
-  valid_comparison(input1 = csv_1a$MetaDataLastUpdated[1],
-                   input2 = csv_2a$MetaDataLastUpdated[1],
+  valid_comparison(input1 = csv_1a$metadata_last_updated[1],
+                   input2 = csv_2a$metadata_last_updated[1],
                    severity = 'warning',
                    severity_text = 'Different metadata date!')
 
-  valid_comparison(input1 = csv_1a$MetaDataLastUpdated[1],
-                   input2 = Dataset$lastUpdated,
+  valid_comparison(input1 = csv_1a$metadata_last_updated[1],
+                   input2 = dataset$lastUpdated,
                    severity = 'warning',
                    severity_text = 'The session files do not match the json (different dates for metadata)!')
 
@@ -90,27 +90,27 @@ map_metadata_compare <- function(session_dir,session1_base,session2_base,json_fi
   # EXTRACT TABLE INFO FROM METADATA JSON ----
 
   ## Use 'json_table_to_df.R' to extract table from meta_json into a df
-  table_find <- data.frame(table_n = numeric(length(Dataset$childDataClasses)),table_label = character(length(Dataset$childDataClasses)))
-  for (t in 1:length(Dataset$childDataClasses)) {
+  table_find <- data.frame(table_n = numeric(length(dataset$childDataClasses)),table_label = character(length(dataset$childDataClasses)))
+  for (t in 1:length(dataset$childDataClasses)) {
     table_find$table_n[t] = t
-    table_find$table_label[t] = Dataset$childDataClasses[[t]]$label
+    table_find$table_label[t] = dataset$childDataClasses[[t]]$label
   }
-  table_n = table_find$table_n[table_find$table_label == csv_1a$Table[1]]
+  table_n = table_find$table_n[table_find$table_label == csv_1a$table[1]]
 
-  Table_df <-json_table_to_df(Dataset = meta_json$data,n = table_n)
+  table_df <-json_table_to_df(dataset = meta_json$data,n = table_n)
 
   # JOIN DATAFRAMES FROM SESSIONS IN ORDER TO COMPARE ----
   ses_join <- join_outputs(session_1 = csv_1b,session_2 = csv_2b)
 
   # FIND MISMATCHES AND ASK FOR CONSENSUS DECISION ----
   for (datavar in 1:nrow(ses_join)) {
-    consensus <- consensus_on_mismatch(ses_join,Table_df,datavar,max(df_plots$Code$Code))
-    ses_join$Domain_code_join[datavar] <- consensus$Domain_code_join
-    ses_join$Note_join[datavar] <- consensus$Note_join
+    consensus <- consensus_on_mismatch(ses_join,table_df,datavar,max(df_plots$code$code))
+    ses_join$domain_code_join[datavar] <- consensus$domain_code_join
+    ses_join$note_join[datavar] <- consensus$note_join
     } # end of loop for DataElement
 
   # SAVE TO NEW CSV ----
-  output_fname <- paste0("CONSENSUS_OUTPUT_", gsub(" ", "", Dataset_Name), "_", table_find$table_label[table_n], "_", timestamp_now_fname, ".csv")
+  output_fname <- paste0("CONSENSUS_OUTPUT_", gsub(" ", "", dataset_name), "_", table_find$table_label[table_n], "_", timestamp_now_fname, ".csv")
   write.csv(ses_join, output_fname, row.names = FALSE)
   cat("\n")
   cli_alert_success("Your consensus categorisations have been saved to {output_fname}")

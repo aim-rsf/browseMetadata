@@ -23,9 +23,9 @@ test_that("json_table_to_df gives expected output for first index", {
   result <- json_table_to_df(mock_Dataset, 1)
 
   expected <- data.frame(
-    Label = c("Label1", "Label2"),
-    Description = c("Description1", "Description2"),
-    Type = c("Type1", "Type2")
+    label = c("Label1", "Label2"),
+    description = c("Description1", "Description2"),
+    type = c("Type1", "Type2")
   )
 
   expect_equal(result, expected)
@@ -35,9 +35,9 @@ test_that("json_table_to_df gives expected output for second index", {
   result <- json_table_to_df(mock_Dataset, 2)
 
   expected <- data.frame(
-    Label = c("Label3", "Label4"),
-    Description = c("Description3", "Description4"),
-    Type = c("Type1", "Type3")
+    label = c("Label3", "Label4"),
+    description = c("Description3", "Description4"),
+    type = c("Type1", "Type3")
   )
 
   expect_equal(result, expected)

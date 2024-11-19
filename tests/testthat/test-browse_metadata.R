@@ -11,13 +11,13 @@ test_that("browse_metadata function outputs files correctly", {
   result <- browse_metadata(json_file = example_json_file, output_dir = temp_dir)
 
   # Verification of file outputs
-  Dataset <- fromJSON(file = example_json_file)$dataModel
-  Dataset_Name <- Dataset$label
+  dataset <- fromJSON(file = example_json_file)$dataModel
+  dataset_name <- dataset$label
   dataset_version <- fromJSON(file = example_json_file)[["dataModel"]][["documentationVersion"]]
 
-  table_file <- file.path(temp_dir, paste0("BROWSE_table_", gsub(" ", "", Dataset_Name), "_V", dataset_version, ".html"))
-  bar_file_html <- file.path(temp_dir, paste0("BROWSE_bar_", gsub(" ", "", Dataset_Name), "_V", dataset_version, ".html"))
-  bar_file_csv <- file.path(temp_dir, paste0("BROWSE_bar_", gsub(" ", "", Dataset_Name), "_V", dataset_version, ".csv"))
+  table_file <- file.path(temp_dir, paste0("BROWSE_table_", gsub(" ", "", dataset_name), "_V", dataset_version, ".html"))
+  bar_file_html <- file.path(temp_dir, paste0("BROWSE_bar_", gsub(" ", "", dataset_name), "_V", dataset_version, ".html"))
+  bar_file_csv <- file.path(temp_dir, paste0("BROWSE_bar_", gsub(" ", "", dataset_name), "_V", dataset_version, ".csv"))
 
   expect_true(file.exists(table_file))
   expect_true(file.exists(bar_file_html))

@@ -4,12 +4,12 @@
 \alias{end_plot}
 \title{end_plot}
 \usage{
-end_plot(df, Table_name, ref_table)
+end_plot(df, table_name, ref_table)
 }
 \arguments{
 \item{df}{The Output dataframe with all the domain categorisations}
 
-\item{Table_name}{The table name}
+\item{table_name}{The table name}
 
 \item{ref_table}{The domain code reference table (which domain maps to which integer)}
 }

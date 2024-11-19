@@ -4,10 +4,10 @@
 \alias{copy_previous}
 \title{copy_previous}
 \usage{
-copy_previous(Dataset_Name, output_dir)
+copy_previous(dataset_name, output_dir)
 }
 \arguments{
-\item{Dataset_Name}{Name of the dataset}
+\item{dataset_name}{Name of the dataset}
 
 \item{output_dir}{Output directory to be searched}
 }

@@ -19,7 +19,7 @@ test_that("load_data runs in demo mode when both json_file and domain_file are N
   expect_true(result$demo_mode)
   expect_equal(result$meta_json, json)
   expect_equal(result$domains, domains)
-  expect_equal(result$DomainListDesc, "DemoList")
+  expect_equal(result$domain_list_desc, "DemoList")
 })
 
 test_that("load_data throws error if only one of json_file or domain_file is NULL", {
@@ -32,7 +32,7 @@ test_that("load_data reads user-specified files correctly", {
   expect_false(result$demo_mode)
   expect_true(is.list(result$meta_json))
   expect_true(is.data.frame(result$domains))
-  expect_equal(result$DomainListDesc, file_path_sans_ext(basename(domains_file)))
+  expect_equal(result$domain_list_desc, file_path_sans_ext(basename(domains_file)))
 })
 
 test_that("load_data uses default look-up table when look_up_file is NULL", {

@@ -18,13 +18,13 @@ Empty log output dataframe for map_metadata.R to fill. Created by: \cr \cr
 \enumerate{
  \item \code{log_output <- data.frame(timestamp = character(1),
  browseMetadata = character(1),
- Initials = character(1),
- MetaDataVersion = character(1),
- MetaDataLastUpdated = character(1),
- DomainListDesc = character(1),
- Dataset = character(1),
- Table = character(1),
- Table_note = character(1))}
+ initials = character(1),
+ metadata_version = character(1),
+ metadata_last_updated = character(1),
+ domain_list_desc = character(1),
+ dataset = character(1),
+ table = character(1),
+ table_note = character(1))}
  \item \code{usethis::use_data(log_output)}
 }
 }

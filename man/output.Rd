@@ -17,11 +17,11 @@ data(output)
 Empty output dataframe for map_metadata.R to fill. Created by: \cr \cr
 \enumerate{
  \item \code{output <- data.frame(timestamp = character(0),
- Table = character(0),
- DataElement_N = character(0),
- DataElement = character(0),
- Domain_code = character(0),
- Note = character(0))}
+ table = character(0),
+ data_element_n = character(0),
+ data_element = character(0),
+ domain_code = character(0),
+ note = character(0))}
  \item \code{usethis::use_data(output)}
 }
 }
