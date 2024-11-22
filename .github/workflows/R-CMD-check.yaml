@@ -55,7 +55,17 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - name: Check R package
+      - name: Check R package (macOS and Linux)
+        if: matrix.config.os != 'windows-latest'
         run: |
           R CMD check --no-manual --as-cran > check.log 2>&1 || true
+          cat check.log
           grep -q -E "WARNING" check.log && exit 1 || true
+
+      - name: Check R package (Windows)
+        if: matrix.config.os == 'windows-latest'
+        shell: cmd
+        run: |
+          R CMD check --no-manual --as-cran > check.log 2>&1 || true
+          type check.log
+          findstr /i "WARNING" check.log && exit 1 || true
