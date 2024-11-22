@@ -27,7 +27,7 @@ reference:
   - browseMetadata
 - subtitle: Internal functions
   contents:
-  - everything()
+  - all()
   - -starts_with("map_metadata")
   - -browseMetadata
 
