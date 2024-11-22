@@ -2,7 +2,7 @@
 library(testthat) # test_that, expect_equal
 library(mockery) # mock, stub
 
-output <- get("output")
+output_df <- get("output_df")
 code <- data.frame(code = 0:2)
 df_plots <- list(code = code, "")
 
@@ -12,7 +12,7 @@ test_that("user_categorisation_loop handles auto categorisation", {
   lookup <- data.frame(data_element = c("Element1", "Element2"), domain_code = c(1, 2))
 
   # Call the function
-  result <- user_categorisation_loop(1, 2, table_df, FALSE, data.frame(), lookup, df_plots, output)
+  result <- user_categorisation_loop(1, 2, table_df, FALSE, data.frame(), lookup, df_plots, output_df)
 
   # Check the result
   expect_equal(nrow(result), 2)
@@ -27,7 +27,7 @@ test_that("user_categorisation_loop handles copying from previous table", {
   lookup <- data.frame(data_element = c("Element3", "Element4"), domain_code = c(3, 4))
 
   # Call the function
-  result <- user_categorisation_loop(1, 2, table_df, TRUE, df_prev, lookup, df_plots, output)
+  result <- user_categorisation_loop(1, 2, table_df, TRUE, df_prev, lookup, df_plots, output_df)
 
   # Check the result
   expect_equal(nrow(result), 2)
@@ -45,7 +45,7 @@ test_that("user_categorisation_loop handles user categorisation", {
   stub(user_categorisation_loop, "user_categorisation", mock_user_categorisation)
 
   # Call the function
-  result <- user_categorisation_loop(1, 2, table_df, FALSE, data.frame(), lookup, df_plots, output)
+  result <- user_categorisation_loop(1, 2, table_df, FALSE, data.frame(), lookup, df_plots, output_df)
 
   # Check the result
   expect_equal(nrow(result), 2)

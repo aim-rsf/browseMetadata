@@ -119,9 +119,9 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
   # JOIN DATAFRAMES FROM SESSIONS IN ORDER TO COMPARE ----
   ses_join <- join_outputs(session_1 = csv_1b, session_2 = csv_2b)
 
-  # FIND MISMATCHES AND ASK FOR CONSENSUS DECISION ----
+  # FIND MISMATCHES AND ASK FOR CONCENSUS DECISION ----
   for (datavar in 1:nrow(ses_join)) {
-    consensus <- consensus_on_mismatch(ses_join, table_df, datavar, max(df_plots$code$code))
+    consensus <- concensus_on_mismatch(ses_join, table_df, datavar, max(df_plots$code$code))
     ses_join$domain_code_join[datavar] <- consensus$domain_code_join
     ses_join$note_join[datavar] <- consensus$note_join
   } # end of loop for DataElement
