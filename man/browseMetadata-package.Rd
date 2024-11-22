@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Helps researchers to explore publicly available metadata from health datasets. It is a tool to help researchers plan projects by interacting with metadata prior to gaining full access to health datasets. At the early stages of a project, researchers can use this tool to browse datasets and categorise variables.
+Visualise and categorise publicly available metadata from health datasets. By interacting with metadata prior to gaining full access to health datasets, researchers can use this tool to browse datasets and categorise variables.
 }
 \seealso{
 Useful links:
