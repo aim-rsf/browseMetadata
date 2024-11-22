@@ -24,7 +24,7 @@ reference:
 - subtitle: User functions
   contents:
   - starts_with("map_metadata")
-  - browseMetadata
+  - browse_metadata
 - subtitle: Internal functions
   contents:
   - "concensus_on_mismatch"
@@ -40,6 +40,13 @@ reference:
   - "valid_comparison"
   - "end_plot"
   - "ref_plot"
+- subtitle: Package data
+  contents:
+  - "domain_list"
+  - "json_metadata"
+  - "log_output"
+  - "look_up"
+  - "output"
 
 
 
