@@ -44,9 +44,9 @@ reference:
   contents:
   - "domain_list"
   - "json_metadata"
-  - "log_output"
+  - "log_output_df"
   - "look_up"
-  - "output"
+  - "output_df"
 
 
 

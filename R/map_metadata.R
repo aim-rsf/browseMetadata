@@ -69,8 +69,8 @@ map_metadata <- function(
   dataset_name <- dataset$label
 
   ## Read in prepared output data frames
-  data("log_output")
-  data("output")
+  data("log_output_df")
+  data("output_df")
 
   ## Use 'ref_plot.R' to plot domains for the user's ref (save df for later use)
   df_plots <- ref_plot(data$domains)
@@ -139,9 +139,9 @@ map_metadata <- function(
 
     ### Use 'copy_previous.R' to copy from previous output(s) if they exist
     if (table_copy == TRUE) {
-      output <- copy_previous(dataset_name, output_dir)
-      df_prev_exist <- output$df_prev_exist
-      df_prev <- output$df_prev
+      copy_prev <- copy_previous(dataset_name, output_dir)
+      df_prev_exist <- copy_prev$df_prev_exist
+      df_prev <- copy_prev$df_prev
     } else {
       df_prev_exist <- FALSE
     }
@@ -182,23 +182,23 @@ map_metadata <- function(
 
     ### Use 'user_categorisation_loop.R' to copy or request from user
 
-    output <- user_categorisation_loop(start_v,
+    output_df <- user_categorisation_loop(start_v,
       end_v,
       table_df,
       df_prev_exist,
       df_prev,
       lookup = data$lookup,
       df_plots,
-      output
+      output_df
     )
 
-    output$timestamp <- timestamp_now
-    output$Table <- table_name
+    output_df$timestamp <- timestamp_now
+    output_df$table <- table_name
 
     ### Review auto categorized data elements
     #### Use 'user_prompt_list.R' to ask the user which rows to edit
     cat("\n")
-    output_auto <- subset(output, note == "AUTO CATEGORISED")
+    output_auto <- subset(output_df, note == "AUTO CATEGORISED")
     output_auto <- output_auto[, c("data_element", "domain_code", "note")]
     print(output_auto)
 
@@ -207,7 +207,7 @@ map_metadata <- function(
         "These are the auto categorised data elements.",
         "Enter row numbers for those you want to edit: "
       ),
-      list_allowed = which(output$note == "AUTO CATEGORISED"),
+      list_allowed = which(output_df$note == "AUTO CATEGORISED"),
       empty_allowed = TRUE
     )
 
@@ -221,8 +221,8 @@ map_metadata <- function(
           max(df_plots$code$code)
         )
         ##### input user responses into output
-        output$domain_code[data_v_auto] <- decision_output$decision
-        output$note[data_v_auto] <- decision_output$decision_note
+        output_df$domain_code[data_v_auto] <- decision_output$decision
+        output_df$note[data_v_auto] <- decision_output$decision_note
       }
     }
 
@@ -234,7 +234,7 @@ map_metadata <- function(
       any_keys = FALSE
     )
     if (review_cats == "Y" | review_cats == "y") {
-      output_not_auto <- subset(output, note != "AUTO CATEGORISED")
+      output_not_auto <- subset(output_df, note != "AUTO CATEGORISED")
       output_not_auto["note (first 12 chars)"] <-
         substring(output_not_auto$note, 1, 11)
       print(output_not_auto[
@@ -250,7 +250,7 @@ map_metadata <- function(
           "These are the data elements you categorised.",
           "Enter row numbers for those you want to edit: "
         ),
-        list_allowed = which(output$note != "AUTO CATEGORISED"),
+        list_allowed = which(output_df$note != "AUTO CATEGORISED"),
         empty_allowed = TRUE
       )
       if (length(not_auto_row) != 0) {
@@ -263,22 +263,22 @@ map_metadata <- function(
             max(df_plots$code$code)
           )
           ##### input user responses into output
-          output$domain_code[data_v_not_auto] <- decision_output$decision
-          output$note[data_v_not_auto] <- decision_output$decision_note
+          output_df$domain_code[data_v_not_auto] <- decision_output$decision
+          output_df$note[data_v_not_auto] <- decision_output$decision_note
         }
       }
     }
 
     ### Fill in log output
-    log_output$timestamp <- timestamp_now
-    log_output$browseMetadata <- packageVersion("browseMetadata")
-    log_output$initials <- user_initials
-    log_output$metadata_version <- dataset$documentationVersion
-    log_output$metadata_last_updated <- dataset$lastUpdated
-    log_output$domain_list_desc <- data$domain_list_desc
-    log_output$dataset <- dataset_name
-    log_output$table <- table_name
-    log_output$table_note <- table_note
+    log_output_df$timestamp <- timestamp_now
+    log_output_df$browseMetadata <- packageVersion("browseMetadata")
+    log_output_df$initials <- user_initials
+    log_output_df$metadata_version <- dataset$documentationVersion
+    log_output_df$metadata_last_updated <- dataset$lastUpdated
+    log_output_df$domain_list_desc <- data$domain_list_desc
+    log_output_df$dataset <- dataset_name
+    log_output_df$table <- table_name
+    log_output_df$table_note <- table_note
 
     ### Create output file names
     csv_fname <- paste0(
@@ -295,10 +295,10 @@ map_metadata <- function(
     )
 
     ### Save final categorisations for this Table
-    write.csv(output, paste(output_dir, csv_fname, sep = "/"),
+    write.csv(output_df, paste(output_dir, csv_fname, sep = "/"),
       row.names = FALSE
     )
-    write.csv(log_output, paste(output_dir, csv_log_fname, sep = "/"),
+    write.csv(log_output_df, paste(output_dir, csv_log_fname, sep = "/"),
       row.names = FALSE
     )
     cat("\n")
@@ -307,7 +307,7 @@ map_metadata <- function(
 
     ### Create and save a summary plot
     end_plot_save <- end_plot(
-      df = output, table_name,
+      df = output_df, table_name,
       ref_table = df_plots$domain_table
     )
     ggsave(

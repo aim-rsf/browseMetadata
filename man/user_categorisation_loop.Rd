@@ -12,7 +12,7 @@ user_categorisation_loop(
   df_prev,
   lookup,
   df_plots,
-  output
+  output_df
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ user_categorisation_loop(
 
 \item{df_plots}{Output from the ref_plot function, to indicate maximum domain code allowed}
 
-\item{output}{Empty output dataframe, to fill}
+\item{output_df}{Empty output dataframe, to fill}
 }
 \value{
 An output dataframe containing information about the table, data elements and categorisations

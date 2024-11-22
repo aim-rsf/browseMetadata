@@ -79,12 +79,12 @@ user_categorisation <- function(data_element, data_desc, data_type, domain_code_
 #' @param df_prev Previous dataframes to copy from (or NULL)
 #' @param lookup The lookup table to enable auto categorisations
 #' @param df_plots Output from the ref_plot function, to indicate maximum domain code allowed
-#' @param output Empty output dataframe, to fill
+#' @param output_df Empty output dataframe, to fill
 #' @return An output dataframe containing information about the table, data elements and categorisations
 #' @importFrom dplyr %>% add_row
 #' @importFrom cli cli_alert_info
 
-user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output) {
+user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output_df) {
   for (data_v in start_v:end_v) {
     cat("\n \n")
     cli_alert_info(paste(length(data_v:end_v), "left to process"))
@@ -108,7 +108,7 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
     ##### decide how to process the data element out of 3 options
     if (nrow(lookup_subset) == 1) {
       ###### 1 - auto categorisation
-      output <- output %>% add_row(
+      output_df <- output_df %>% add_row(
         data_element = this_data_element,
         data_element_n = this_data_element_n,
         domain_code = as.character(lookup_subset$domain_code),
@@ -117,7 +117,7 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
     } else if (df_prev_exist == TRUE &
       nrow(df_prev_subset) == 1) {
       ###### 2 - copy from previous table
-      output <- output %>% add_row(
+      output_df <- output_df %>% add_row(
         data_element = this_data_element,
         data_element_n = this_data_element_n,
         domain_code = as.character(df_prev_subset$domain_code),
@@ -131,7 +131,7 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
         table_df$type[data_v],
         max(df_plots$code$code)
       )
-      output <- output %>% add_row(
+      output_df <- output_df %>% add_row(
         data_element = this_data_element,
         data_element_n = this_data_element_n,
         domain_code = decision_output$decision,
@@ -139,7 +139,7 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
       )
     }
   } # end of loop for data_element
-  output
+  output_df
 }
 
 #' user_prompt

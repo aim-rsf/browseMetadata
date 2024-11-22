@@ -81,6 +81,6 @@ copy_previous <- function(dataset_name, output_dir) {
     df_prev_exist <- FALSE
   }
 
-  output <- list(df_prev = df_prev, df_prev_exist = df_prev_exist)
-  output
+  copy_prev <- list(df_prev = df_prev, df_prev_exist = df_prev_exist)
+  copy_prev
 }
