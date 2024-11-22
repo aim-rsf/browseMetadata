@@ -28,3 +28,7 @@ chart, summarising how many variables there are for each table, and whether
 these variables have a missing description. The third is a csv file storing
 the data that created this bar chart. \cr \cr
 }
+\examples{
+# Demo run
+browse_metadata()
+}

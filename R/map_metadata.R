@@ -34,6 +34,11 @@
 #'  user time, and ensure consistency of categorisations across tables.
 #' @return The function will return two csv files: 'OUTPUT_' which contains the
 #' mappings and 'LOG_' which contains details about the dataset and session.
+#' @examples
+#' \dontrun{
+#' # Demo run - requires user interactions
+#' map_metadata()
+#' }
 #' @export
 #' @importFrom dplyr %>% add_row
 #' @importFrom cli cli_h1 cli_alert_info cli_alert_success

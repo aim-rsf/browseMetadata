@@ -15,6 +15,9 @@
 #' 'BROWSE_bar...html' and 'BROWSE_bar...csv' which gives summary information
 #' for this dataset. Open the two html output files in your browser and use
 #' these as reference when running the map_metadata function.
+#' @examples
+#' # Demo run
+#' browse_metadata()
 #' @export
 #' @importFrom dplyr %>% add_row
 #' @importFrom rjson fromJSON

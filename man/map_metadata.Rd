@@ -56,3 +56,9 @@ table to another. \cr \cr
 Example inputs are provided within the package data, for the user to run this
 function in a demo mode.
 }
+\examples{
+\dontrun{
+# Demo run - requires user interactions
+map_metadata()
+}
+}
