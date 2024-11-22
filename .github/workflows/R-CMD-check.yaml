@@ -40,6 +40,16 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Update Homebrew
+        if: matrix.config.os == 'macos-latest'
+        run: brew update
+
+      - name: Install Dependencies
+        if: matrix.config.os == 'macos-latest'
+        run: |
+          brew install gcc
+          brew install qpdf
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
