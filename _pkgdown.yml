@@ -27,9 +27,19 @@ reference:
   - browseMetadata
 - subtitle: Internal functions
   contents:
-  - all()
-  - -starts_with("map_metadata")
-  - -browseMetadata
+  - "concensus_on_mismatch"
+  - "copy_previous"
+  - "count_empty_desc"
+  - "join_outputs"
+  - "json_table_to_df"
+  - "load_data"
+  - "user_categorisation_loop"
+  - "user_categorisation"
+  - "user_prompt_list"
+  - "user_prompt"
+  - "valid_comparison"
+  - "end_plot"
+  - "ref_plot"
 
 
 
