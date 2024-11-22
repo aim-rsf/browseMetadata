@@ -27,9 +27,9 @@ reference:
   - browseMetadata
 - subtitle: Internal functions
   contents:
-  - "collect_inputs"
-  - "compare"
-  - "data_manipulation"
-  - "data-package_data"
-  - "plotting"
-  - "user_interactions"
+  - everything()
+  - -starts_with("map_metadata")
+  - -browseMetadata
+
+
+
