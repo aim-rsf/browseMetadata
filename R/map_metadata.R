@@ -69,8 +69,8 @@ map_metadata <- function(
   dataset_name <- dataset$label
 
   ## Read in prepared output data frames
-  log_output <- get("log_output")
-  output <- get("output")
+  data("log_output")
+  data("output")
 
   ## Use 'ref_plot.R' to plot domains for the user's ref (save df for later use)
   df_plots <- ref_plot(data$domains)
