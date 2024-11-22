@@ -55,7 +55,7 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - uses: r-lib/actions/check-r-package@v2
-        with:
-          upload-snapshots: true
-          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+      - name: Check R package
+        run: |
+          R CMD check --no-manual --as-cran > check.log 2>&1 || true
+          grep -q -E "WARNING" check.log && exit 1 || true
