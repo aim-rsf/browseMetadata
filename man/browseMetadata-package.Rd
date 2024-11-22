@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-This R package allows researchers to explore publicly available metadata from health datasets. It is a tool to help researchers plan projects by interacting with metadata prior to gaining full access to health datasets. At the early stages of a project, researchers can use this tool to browse datasets and categorise variables.
+Helps researchers to explore publicly available metadata from health datasets. It is a tool to help researchers plan projects by interacting with metadata prior to gaining full access to health datasets. At the early stages of a project, researchers can use this tool to browse datasets and categorise variables.
 }
 \seealso{
 Useful links:
@@ -19,6 +19,14 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Rachael Stickland \email{rstickland@turing.ac.uk} (\href{https://orcid.org/0000-0003-3398-4272}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Batool Almarzouq (\href{https://orcid.org/0000-0002-3905-2751}{ORCID}) [contributor]
+  \item Mahwish Mohammad (\href{https://orcid.org/0009-0004-5295-0726}{ORCID}) [contributor]
+  \item Daniel Delbarre (\href{https://orcid.org/0000-0003-4633-4252}{ORCID}) [contributor]
+  \item Nida Ziauddeen (\href{https://orcid.org/0000-0002-8964-5029}{ORCID}) [contributor]
+}
 
 }
 \keyword{internal}
