@@ -2,16 +2,26 @@ Type: Package
 Package: browseMetadata
 Title: Browse and categorise health metadata
 Version: 1.2.2
-Authors@R: 
-    person("Rachael", "Stickland", , "rstickland@turing.ac.uk", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-3398-4272"))
+Authors@R: c(
+    person("Rachael", "Stickland", , "rstickland@turing.ac.uk", 
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0003-3398-4272")),
+    person("Batool", "Almarzouq", , , role = "ctb",
+    comment = c(ORCID = "0000-0002-3905-2751")),
+    person("Mahwish", "Mohammad", , , role = "ctb",
+    comment = c(ORCID = "0009-0004-5295-0726")),
+    person("Daniel", "Delbarre", , , role = "ctb",
+    comment = c(ORCID = "0000-0003-4633-4252")),
+    person("Nida", "Ziauddeen", , , role = "ctb",
+    comment = c(ORCID = "0000-0002-8964-5029"))
+    )
 Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
-Description: This R package helps a researcher browse datasets in SAIL databank. 
- It has scope to be applied to other health datasets. 
- It is useful in the earlier stages of a project; prior to data access, 
- researchers can use the metadata to browse and categorise variables.
+Description: Visualise and categorise publicly available metadata from health 
+  datasets. By interacting with metadata prior to gaining full access to health 
+  datasets, researchers can use this tool to browse datasets and categorise 
+  variables.
 License: GPL (>= 3)
-URL: https://aim-rsf.github.io/browseMetadata
+URL: https://aim-rsf.github.io/browseMetadata/
 Depends: 
     R (>= 2.10)
 Imports: 
@@ -21,7 +31,7 @@ Imports:
     gridExtra,
     htmlwidgets,
     plotly,
-    rjson,
+    jsonlite,
     tidyr
 Suggests: 
     knitr,

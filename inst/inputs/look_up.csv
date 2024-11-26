@@ -1,4 +1,4 @@
-DataElement,DomainLabel,DomainCode
+data_element,domain_label,domain_code
 NA,No Match / Unsure,0
 AVAIL_FROM_DT,Metadata,1
 ALF_E,ID,2

@@ -36,7 +36,7 @@ There are many existing tools and resources that allow you to browse metadata fo
 ### Health Data Research Innovation Gateway and the connected Metadata Catalogue
 
 - The metadata used as input for this `R` package `browseMetadata`.
-- Managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance. More information can be found on the [Health Data Research Innovation Gateway](https://web.www.healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets).
+- Managed by Health Data Research UK in collaboration with the UK Health Data Research Alliance. More information can be found on the [Health Data Research Innovation Gateway](https://healthdatagateway.org/search?search=&datasetSort=latest&tab=Datasets).
 - Described as a search-engine or ‘portal’ to help find health datasets that exist in the UK.
 - The datasets discoverable through the Gateway are from organisations in the NHS, research institutes, and charities, which are part of the UK Health Data Research Alliance.
 

@@ -12,15 +12,15 @@ test_that("ref_plot function works correctly", {
 
   # Check the structure of the result
   expect_true(is.list(result))
-  expect_true("Code" %in% names(result))
-  expect_true("Domain_table" %in% names(result))
+  expect_true("code" %in% names(result))
+  expect_true("domain_table" %in% names(result))
 
-  # Check the content of the Code dataframe
-  expect_equal(nrow(result$Code), 8)
-  expect_equal(result$Code$Code, 0:7)
+  # Check the content of the code dataframe
+  expect_equal(nrow(result$code), 8)
+  expect_equal(result$code$code, 0:7)
 
   # Check the content of the Domain_table
-  expect_true(inherits(result$Domain_table, "gtable"))
-  expect_equal(nrow(result$Domain_table), 9)
-  expect_equal(result$Domain_table$layout$name[1], "colhead-fg")
+  expect_true(inherits(result$domain_table, "gtable"))
+  expect_equal(nrow(result$domain_table), 9)
+  expect_equal(result$domain_table$layout$name[1], "colhead-fg")
 })
