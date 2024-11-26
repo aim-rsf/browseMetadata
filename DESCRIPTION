@@ -22,6 +22,7 @@ Description: Visualise and categorise publicly available metadata from health
   variables.
 License: GPL (>= 3)
 URL: https://aim-rsf.github.io/browseMetadata/
+BugReports: https://github.com/aim-rsf/browseMetadata/issues
 Depends: 
     R (>= 2.10)
 Imports: 

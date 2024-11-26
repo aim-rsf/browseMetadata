@@ -7,6 +7,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg)](https://doi.org/10.5281/zenodo.10581500)
 [![R-CMD-check](https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml)
+[![pkgcheck](https://github.com/aim-rsf/browseMetadata/workflows/pkgcheck/badge.svg)](https://github.com/aim-rsf/browseMetadata/actions?query=workflow%3Apkgcheck)
 <!-- badges: end -->
 
 # Table of Contents
