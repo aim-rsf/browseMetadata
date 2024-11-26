@@ -12,9 +12,11 @@ json_table_to_df <- function(dataset, n) {
   json_table <- dataset$childDataClasses$childDataElements[n]
   json_table_df <- json_table[[1]]
 
-  table_df <- data.frame(label = json_table_df$label,
-                         description = json_table_df$description,
-                         type = json_table_df$dataType$label)
+  table_df <- data.frame(
+    label = json_table_df$label,
+    description = json_table_df$description,
+    type = json_table_df$dataType$label
+  )
 
   table_df <- table_df[order(table_df$label), ]
 

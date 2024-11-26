@@ -201,15 +201,15 @@
     },
     "8": {
       "@type": "SoftwareApplication",
-      "identifier": "rjson",
-      "name": "rjson",
+      "identifier": "jsonlite",
+      "name": "jsonlite",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=rjson"
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
     "9": {
       "@type": "SoftwareApplication",
@@ -225,7 +225,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "751.16KB",
+  "fileSize": "751.794KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
