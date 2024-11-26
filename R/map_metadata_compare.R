@@ -11,7 +11,7 @@
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
 #' @export
 #' @importFrom utils read.csv write.csv
-#' @importFrom rjson fromJSON
+#' @importFrom jsonlite fromJSON
 #' @importFrom cli cli_alert_success
 
 map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file) {
@@ -24,7 +24,7 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
   csv_1b <- read.csv(paste0(session_dir, "/", "OUTPUT_", session1_base, ".csv"))
   csv_2b <- read.csv(paste0(session_dir, "/", "OUTPUT_", session2_base, ".csv"))
 
-  meta_json <- fromJSON(file = json_file)
+  meta_json <- fromJSON(json_file)
   domains <- read.csv(domain_file, header = FALSE)
 
   dataset <- meta_json$dataModel

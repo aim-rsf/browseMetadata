@@ -9,7 +9,7 @@
 #' @param look_up_file As defined in map_metadata
 #' @return A list of 5: all inputs needed for the map_metadata function to run.
 #' @importFrom cli cli_alert_info cli_alert_danger
-#' @importFrom rjson fromJSON
+#' @importFrom jsonlite fromJSON
 #' @importFrom utils read.csv
 #' @importFrom tools file_path_sans_ext
 
@@ -29,7 +29,7 @@ load_data <- function(json_file, domain_file, look_up_file) {
     stop()
   } else { # read in user specified files
     demo_mode <- FALSE
-    meta_json <- fromJSON(file = json_file) # read in the json file containing the meta data
+    meta_json <- fromJSON(json_file) # read in the json file containing the meta data
     domains <- read.csv(domain_file, header = FALSE) # read in the domain file containing the list of research domains
     domain_list_desc <- file_path_sans_ext(basename(domain_file))
   }

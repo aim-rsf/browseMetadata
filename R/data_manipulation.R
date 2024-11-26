@@ -5,19 +5,16 @@
 #' It does this for one specific table in a dataset. \cr \cr
 #'
 #' @param dataset This is the dataModel field of the json
-#' @param n The dataset number (as a json can have multiple datasets)
+#' @param n The table number (as a json can have multiple tables within a dataset)
 #' @return A dataframe for that specific table, including data label, description and type.
 
 json_table_to_df <- function(dataset, n) {
-  json_table <- dataset$childDataClasses[[n]]$childDataElements
-  json_table_df <- data.frame(do.call(rbind, json_table)) # nested list to df
-  json_data_type_df <- data.frame(do.call(rbind, json_table_df$dataType)) # nested list to df
+  json_table <- dataset$childDataClasses$childDataElements[n]
+  json_table_df <- json_table[[1]]
 
-  table_df <- data.frame(
-    label = unlist(json_table_df$label),
-    description = unlist(json_table_df$description),
-    type = unlist(json_data_type_df$label)
-  )
+  table_df <- data.frame(label = json_table_df$label,
+                         description = json_table_df$description,
+                         type = json_table_df$dataType$label)
 
   table_df <- table_df[order(table_df$label), ]
 

@@ -20,7 +20,7 @@
 #' browse_metadata()
 #' @export
 #' @importFrom dplyr %>% add_row
-#' @importFrom rjson fromJSON
+#' @importFrom jsonlite fromJSON
 #' @importFrom cli cli_alert_info
 #' @importFrom plotly plot_ly layout
 #' @importFrom htmlwidgets saveWidget
@@ -32,12 +32,12 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   ## Read in the json file containing the meta data, if null load the demo file
   if (is.null(json_file)) {
     demo_json <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
-    meta_json <- fromJSON(file = demo_json)
+    meta_json <- fromJSON(demo_json)
     cat("\n")
     cli_alert_info("Running browseMetadata in demo mode using package data files")
     cat("\n ")
   } else {
-    meta_json <- fromJSON(file = json_file)
+    meta_json <- fromJSON(json_file)
   }
 
   ## Set output_dir to current wd if user has not provided it
@@ -47,7 +47,7 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   ## Extract dataset from json_file
   dataset <- meta_json$dataModel
   dataset_name <- dataset$label
-  dataset_version <- meta_json[["dataModel"]][["documentationVersion"]]
+  dataset_version <- meta_json$dataModel$documentationVersion
 
   # PREPARE 2 OUTPUT DATAFRAMES FOR LATER PLOTTING ----
 
@@ -58,7 +58,7 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   )
   ### add information about the dataset at the top
   dataset_desc <- dataset_desc %>% add_row(
-    N = "", Name = dataset$label,
+    N = "", Name = dataset_name,
     Description = gsub("\n\n", "", dataset$description)
   )
   dataset_desc <- dataset_desc %>%
@@ -69,12 +69,12 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
 
   # LOOP THROUGH EACH TABLE IN DATASET ----
 
-  ntables <- length(dataset$childDataClasses)
+  ntables <- nrow(dataset$childDataClasses)
   ntables_digits <- nchar(ntables)
 
   for (dc in 1:ntables) {
     cat("\n")
-    table_name <- dataset$childDataClasses[[dc]]$label
+    table_name <- dataset$childDataClasses$label[dc]
     cli_alert_info(paste0(
       "Processing Table {dc} of {ntables} (",
       table_name, ")"
@@ -84,7 +84,7 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
     dataset_desc <- dataset_desc %>% add_row(
       N = as.character(dc),
       Name = table_name,
-      Description = gsub("\n\n", "", dataset$childDataClasses[[dc]]$description)
+      Description = gsub("\n\n", "", dataset$childDataClasses$description[dc])
     )
 
     ## Use 'json_table_to_df.R' to extract table from meta_json into a df

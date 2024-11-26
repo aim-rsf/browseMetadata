@@ -1,5 +1,5 @@
 library(testthat) # test_that, expect_true
-library(rjson)
+library(jsonlite)
 
 test_that("browse_metadata function outputs files correctly", {
   # Setup
@@ -10,9 +10,9 @@ test_that("browse_metadata function outputs files correctly", {
   result <- browse_metadata(json_file = example_json_file, output_dir = temp_dir)
 
   # Verification of file outputs
-  dataset <- fromJSON(file = example_json_file)$dataModel
+  dataset <- fromJSON(example_json_file)$dataModel
   dataset_name <- dataset$label
-  dataset_version <- fromJSON(file = example_json_file)[["dataModel"]][["documentationVersion"]]
+  dataset_version <- fromJSON(example_json_file)$dataModel$documentationVersion
 
   table_file <- file.path(temp_dir, paste0("BROWSE_table_", gsub(" ", "", dataset_name), "_V", dataset_version, ".html"))
   bar_file_html <- file.path(temp_dir, paste0("BROWSE_bar_", gsub(" ", "", dataset_name), "_V", dataset_version, ".html"))

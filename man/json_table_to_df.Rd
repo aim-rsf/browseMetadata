@@ -9,7 +9,7 @@ json_table_to_df(dataset, n)
 \arguments{
 \item{dataset}{This is the dataModel field of the json}
 
-\item{n}{The dataset number (as a json can have multiple datasets)}
+\item{n}{The table number (as a json can have multiple tables within a dataset)}
 }
 \value{
 A dataframe for that specific table, including data label, description and type.

@@ -105,12 +105,12 @@ map_metadata <- function(
 
   # WHICH TABLES FROM THE DATASET? ----
   ## Use 'user_prompt_list.R' to ask user which tables to process
-  n_tables <- length(dataset$childDataClasses)
+  n_tables <- nrow(dataset$childDataClasses)
   table_list_df <- data.frame(table_name = character(0), table_number = integer(0))
   for (dc in 1:n_tables) {
     table_list_df <- table_list_df %>% add_row(
       table_number = dc,
-      table_name = dataset$childDataClasses[[dc]]$label
+      table_name = dataset$childDataClasses$label[dc]
     )
   }
 
@@ -131,7 +131,7 @@ map_metadata <- function(
     cat("\n")
     cli_alert_info("Processing Table {dc} of {n_tables}")
     cli_h1("Table Name")
-    table_name <- dataset$childDataClasses[[dc]]$label
+    table_name <- dataset$childDataClasses$label[dc]
     cat(table_name, "\n", fill = TRUE)
     cat("\n")
     cli_alert_info("Reference outputs from browse_metadata for information about the table")
