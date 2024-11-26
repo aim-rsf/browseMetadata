@@ -1,7 +1,7 @@
 Type: Package
 Package: browseMetadata
 Title: Browse and categorise health metadata
-Version: 1.2.2
+Version: 2.0.1
 Authors@R: c(
     person("Rachael", "Stickland", , "rstickland@turing.ac.uk", 
     role = c("aut", "cre"),
