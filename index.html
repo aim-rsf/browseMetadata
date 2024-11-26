@@ -14,11 +14,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Browse and categorise health metadata">
-<meta name="description" content="This R package helps a researcher browse datasets in SAIL databank. It has scope to be applied to other health datasets. It is useful in the earlier stages of a project; prior to data access, researchers can use the metadata to browse and categorise variables.">
-<meta property="og:description" content="This R package helps a researcher browse datasets in SAIL databank. It has scope to be applied to other health datasets. It is useful in the earlier stages of a project; prior to data access, researchers can use the metadata to browse and categorise variables.">
+<meta name="description" content="Visualise and categorise publicly available metadata from health datasets. By interacting with metadata prior to gaining full access to health datasets, researchers can use this tool to browse datasets and categorise variables.">
+<meta property="og:description" content="Visualise and categorise publicly available metadata from health datasets. By interacting with metadata prior to gaining full access to health datasets, researchers can use this tool to browse datasets and categorise variables.">
 <meta property="og:image" content="https://aim-rsf.github.io/browseMetadata/logo.png">
 <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -65,7 +65,8 @@
 </h1>
 </div>
 <p><a href="https://aim-rsf.github.io/browseMetadata/"><img src="reference/figures/logo.png" align="right" height="120" alt="browseMetadata website"></a></p>
-<p><a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square" alt="All Contributors"></a><br><a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a><br><a href="https://doi.org/10.5281/zenodo.10581500" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg" alt="DOI"></a></p>
+<!-- badges: start -->
+
 </div>
 <div class="section level1">
 <h1 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
@@ -103,7 +104,7 @@
 <div class="section level2">
 <h2 id="what-is-the-browsemetadata-package">What is the <code>browseMetadata</code> package?<a class="anchor" aria-label="anchor" href="#what-is-the-browsemetadata-package"></a>
 </h2>
-<p>The <code>browseMetadata</code> package allows researchers to explore publicly available metadata from the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Gateway</a> and the connected <a href="https://maurosandbox.com/hdruk/#/home" class="external-link">Metadata Catalogue</a>. This tool helps researchers plan projects by interacting with metadata prior to gaining full access to health datasets. Learn more about health metadata <a href="https://aim-rsf.github.io/browseMetadata/articles/HealthMetadata.html">here</a>.</p>
+<p>The <code>browseMetadata</code> package allows researchers to explore publicly available metadata from the <a href="https://healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Gateway</a> and the connected <a href="https://maurosandbox.com/hdruk/#/home" class="external-link">Metadata Catalogue</a>. This tool helps researchers plan projects by interacting with metadata prior to gaining full access to health datasets. Learn more about health metadata <a href="https://aim-rsf.github.io/browseMetadata/articles/HealthMetadata.html">here</a>.</p>
 <p>At the early stages of a project, researchers can use this tool to <strong>browse</strong> datasets and <strong>categorise</strong> variables.</p>
 <div class="section level3">
 <h3 id="browse-metadata">Browse metadata<a class="anchor" aria-label="anchor" href="#browse-metadata"></a>
@@ -133,7 +134,7 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aim-rsf/browseMetadata"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the library:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://aim-rsf.github.io/browseMetadata">browseMetadata</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://aim-rsf.github.io/browseMetadata/">browseMetadata</a></span><span class="op">)</span></span></code></pre></div>
 <p>Set your working directory to an empty folder:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"/Users/your-username/test-browseMetadata"</span><span class="op">)</span></span></code></pre></div>
@@ -142,27 +143,27 @@
 <h3 id="demo-using-the-r-studio-ide">Demo (using the <code>R Studio</code> IDE)<a class="anchor" aria-label="anchor" href="#demo-using-the-r-studio-ide"></a>
 </h3>
 <p>Fo a longer more detailed demo, see the <a href="https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html">Getting Started</a> page on the package website.</p>
-<p>There are four main functions you can interact with: <code><a href="reference/browseMetadata.html">browseMetadata()</a></code>, <code><a href="reference/mapMetadata.html">mapMetadata()</a></code>, <code><a href="reference/mapMetadata_compare_outputs.html">mapMetadata_compare_outputs()</a></code>, and <code><a href="reference/mapMetadata_convert_outputs.html">mapMetadata_convert_outputs()</a></code>. For more information on any function, type <code>?function_name</code>. For example: <code><a href="reference/browseMetadata.html">?browseMetadata</a></code>.</p>
+<p>There are four main functions you can interact with: <code><a href="reference/browse_metadata.html">browse_metadata()</a></code>, <code><a href="reference/map_metadata.html">map_metadata()</a></code>, <code><a href="reference/map_metadata_compare.html">map_metadata_compare()</a></code>, and <code><a href="reference/map_metadata_convert.html">map_metadata_convert()</a></code>. For more information on any function, type <code>?function_name</code>. For example: <code><a href="reference/browse_metadata.html">?browse_metadata</a></code>.</p>
 <div class="section level4">
-<h4 id="browsemetadata-1">
-<code>browseMetadata()</code><a class="anchor" aria-label="anchor" href="#browsemetadata-1"></a>
+<h4 id="browse_metadata">
+<code>browse_metadata()</code><a class="anchor" aria-label="anchor" href="#browse_metadata"></a>
 </h4>
 <p>This function is easy to run and doesn’t require user interaction. Run it in demo mode using the demo JSON file located in the <a href="https://github.com/aim-rsf/browseMetadata/tree/main/inst/inputs" class="external-link">inst/inputs</a> directory:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/browseMetadata.html">browseMetadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/browse_metadata.html">browse_metadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Upon success, you should see:</p>
 <pre><code>ℹ Three outputs have been saved to your output directory.
 ℹ Open the two HTML files in your browser for full-screen viewing.</code></pre>
 <p>The output files are saved to your working directory. You can change the save location by adjusting the <code>output_dir</code> argument. Examples of outputs are available in <a href="https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs" class="external-link">inst/outputs</a>.</p>
 </div>
 <div class="section level4">
-<h4 id="mapmetadata">
-<code>mapMetadata()</code><a class="anchor" aria-label="anchor" href="#mapmetadata"></a>
+<h4 id="map_metadata">
+<code>map_metadata()</code><a class="anchor" aria-label="anchor" href="#map_metadata"></a>
 </h4>
-<p>Use the outputs from <code><a href="reference/browseMetadata.html">browseMetadata()</a></code> as a reference when running <code><a href="reference/mapMetadata.html">mapMetadata()</a></code>.</p>
+<p>Use the outputs from <code><a href="reference/browse_metadata.html">browse_metadata()</a></code> as a reference when running <code><a href="reference/map_metadata.html">map_metadata()</a></code>.</p>
 <p>To run the mapping function in demo mode, use:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/mapMetadata.html">mapMetadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/map_metadata.html">map_metadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>In demo mode, the function processes only the first 20 variables from selected tables. Follow the on-screen instructions, and categorise variables into research domains, using the Plot tab as your reference. The demo will simplify domains for ease of use; in a real scenario, you can define more specific domains.</p>
 <p>Upon completion, your categorisations, session log, and a summary plot will be saved in your output directory.</p>
 </div>
@@ -171,13 +172,13 @@
 <div class="section level2">
 <h2 id="using-a-custom-metadata-input-recommended">Using a custom metadata input (recommended)<a class="anchor" aria-label="anchor" href="#using-a-custom-metadata-input-recommended"></a>
 </h2>
-<p>You can run <code><a href="reference/mapMetadata.html">mapMetadata()</a></code> and <code><a href="reference/browseMetadata.html">browseMetadata()</a></code> using a custom JSON file instead of the demo input:</p>
+<p>You can run <code><a href="reference/map_metadata.html">map_metadata()</a></code> and <code><a href="reference/browse_metadata.html">browse_metadata()</a></code> using a custom JSON file instead of the demo input:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_json_file</span> <span class="op">&lt;-</span> <span class="st">"path/your_new_json.json"</span></span>
 <span><span class="va">demo_domains_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"inputs/domain_list_demo.csv"</span>, package <span class="op">=</span> <span class="st">"browseMetadata"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/browseMetadata.html">browseMetadata</a></span><span class="op">(</span>json_file <span class="op">=</span> <span class="va">new_json_file</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/mapMetadata.html">mapMetadata</a></span><span class="op">(</span>json_file <span class="op">=</span> <span class="va">new_json_file</span>, domain_file <span class="op">=</span> <span class="va">demo_domains_file</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/browse_metadata.html">browse_metadata</a></span><span class="op">(</span>json_file <span class="op">=</span> <span class="va">new_json_file</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/map_metadata.html">map_metadata</a></span><span class="op">(</span>json_file <span class="op">=</span> <span class="va">new_json_file</span>, domain_file <span class="op">=</span> <span class="va">demo_domains_file</span><span class="op">)</span></span></code></pre></div>
 <p>Currently, the recommended way of retrieving these metadata JSON files is to download them from <a href="https://maurosandbox.com/hdruk/#/home" class="external-link">Metadata Catalogue</a>. Navigate to the Data Model page of interest and use the drop down button to select the JSON format to download.</p>
 </div>
 <div class="section level2">
@@ -188,7 +189,7 @@
 <div class="section level2">
 <h2 id="using-a-custom-lookup-table-input-advanced">Using a custom lookup table input (advanced)<a class="anchor" aria-label="anchor" href="#using-a-custom-lookup-table-input-advanced"></a>
 </h2>
-<p>The lookup table governs the automatic categorisations. If you modify the <a href="https://github.com/aim-rsf/browseMetadata/tree/main/inst/inputs/look_up.csv" class="external-link">default lookup file</a>, ensure that all domain codes in the lookup file are also included in your domain file for valid outputs.</p>
+<p>The lookup table governs the automatic categorisations. If you modify the <a href="https://github.com/aim-rsf/browseMetadata/blob/main/inst/inputs/look_up.csv" class="external-link">default lookup file</a>, ensure that all domain codes in the lookup file are also included in your domain file for valid outputs.</p>
 </div>
 <div class="section level2">
 <h2 id="tips-and-future-steps">Tips and future steps<a class="anchor" aria-label="anchor" href="#tips-and-future-steps"></a>
@@ -196,8 +197,8 @@
 <ul>
 <li>You can process a subset of variables in one session and complete the rest later.</li>
 <li>If you’re processing multiple tables, save all outputs in the same directory to enable table copying. This feature will speed up categorisation and ensure consistency.</li>
-<li>You can compare categorisations across researchers using the <code><a href="reference/mapMetadata_compare_outputs.html">mapMetadata_compare_outputs()</a></code> function.</li>
-<li>Use the output file from the <code><a href="reference/mapMetadata.html">mapMetadata()</a></code> function as input for subsequent analysis to filter and visualise variables by research domain.</li>
+<li>You can compare categorisations across researchers using the <code><a href="reference/map_metadata_compare.html">map_metadata_compare()</a></code> function.</li>
+<li>Use the output file from the <code><a href="reference/map_metadata.html">map_metadata()</a></code> function as input for subsequent analysis to filter and visualise variables by research domain.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -243,7 +244,7 @@ For more information, refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.
 <!-- markdownlint-disable -->
 <table class="table"><tbody><tr>
 <td align="center" valign="top" width="14.28%">
-<a href="http://linkedin.com/in/rstickland-phd" class="external-link"><img src="https://avatars.githubusercontent.com/u/50215726?v=4?s=100" width="100px;" alt="Rachael Stickland"><br><sub><b>Rachael Stickland</b></sub></a><br><a href="#content-RayStick" title="Content">🖋</a> <a href="https://github.com/aim-rsf/browseMetadata/commits?author=RayStick" title="Documentation" class="external-link">📖</a> <a href="#maintenance-RayStick" title="Maintenance">🚧</a> <a href="#ideas-RayStick" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#projectManagement-RayStick" title="Project Management">📆</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ARayStick" title="Reviewed Pull Requests" class="external-link">👀</a>
+<a href="https://www.linkedin.com/in/rstickland-phd" class="external-link"><img src="https://avatars.githubusercontent.com/u/50215726?v=4?s=100" width="100px;" alt="Rachael Stickland"><br><sub><b>Rachael Stickland</b></sub></a><br><a href="#content-RayStick" title="Content">🖋</a> <a href="https://github.com/aim-rsf/browseMetadata/commits?author=RayStick" title="Documentation" class="external-link">📖</a> <a href="#maintenance-RayStick" title="Maintenance">🚧</a> <a href="#ideas-RayStick" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#projectManagement-RayStick" title="Project Management">📆</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ARayStick" title="Reviewed Pull Requests" class="external-link">👀</a>
 </td>
 <td align="center" valign="top" width="14.28%">
 <a href="https://batool-almarzouq.netlify.app/" class="external-link"><img src="https://avatars.githubusercontent.com/u/53487593?v=4?s=100" width="100px;" alt="Batool Almarzouq"><br><sub><b>Batool Almarzouq</b></sub></a><br><a href="#userTesting-BatoolMM" title="User Testing">📓</a> <a href="https://github.com/aim-rsf/browseMetadata/pulls?q=is%3Apr+reviewed-by%3ABatoolMM" title="Reviewed Pull Requests" class="external-link">👀</a> <a href="#ideas-BatoolMM" title="Ideas, Planning, &amp; Feedback">🤔</a> <a href="#projectManagement-BatoolMM" title="Project Management">📆</a>
@@ -264,7 +265,7 @@ For more information, refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.
 <div class="section level2">
 <h2 id="acknowledgements-">Acknowledgements ✨<a class="anchor" aria-label="anchor" href="#acknowledgements-"></a>
 </h2>
-<p>Thanks to the <a href="https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page" class="external-link">MELD-B research project</a>, the <a href="https://saildatabank.com/" class="external-link">SAIL Databank</a> team, and the <a href="https://web.www.healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Innovation Gateway</a> for ideas, feedback, and hosting open metadata.</p>
+<p>Thanks to the <a href="https://www.southampton.ac.uk/publicpolicy/support-for-policymakers/policy-projects/Current%20projects/meld-b.page" class="external-link">MELD-B research project</a>, the <a href="https://saildatabank.com/" class="external-link">SAIL Databank</a> team, and the <a href="https://healthdatagateway.org/search?search=&amp;datasetSort=latest&amp;tab=Datasets" class="external-link">Health Data Research Innovation Gateway</a> for ideas, feedback, and hosting open metadata.</p>
 <p>This project is funded by the NIHR [Artificial Intelligence for Multiple Long-Term Conditions (AIM) programme (NIHR202647). The views expressed are those of the author(s) and not necessarily those of the NIHR or the Department of Health and Social Care.</p>
 </div>
 </div>
@@ -296,6 +297,7 @@ For more information, refer to <a href="https://www.gnu.org/licenses/gpl-3.0.en.
 <ul class="list-unstyled">
 <li>
 <a href="https://www.turing.ac.uk/people/researchers/rachael-stickland" class="external-link">Rachael Stickland</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3398-4272" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 

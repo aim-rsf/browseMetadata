@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Get started with browseMetadata">
 <script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -75,8 +75,8 @@ file.</p>
 <p>This page provides more context on how to interact with package
 functions and interpret package outputs.</p>
 <div class="section level2">
-<h2 id="browsemetadata">
-<code>browseMetadata()</code><a class="anchor" aria-label="anchor" href="#browsemetadata"></a>
+<h2 id="browse_metadata">
+<code>browse_metadata()</code><a class="anchor" aria-label="anchor" href="#browse_metadata"></a>
 </h2>
 <p>The json file contains information about the data asset, data class
 and each data element. In the metadata catalogue:</p>
@@ -103,11 +103,11 @@ plot</li>
 <p><img src="https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/BROWSE_bar_NationalCommunityChildHealthDatabase_(NCCHD)_V16.0.0.png" alt="example bar plot showing number of variables for each table alongside counts of whether variables have missing descriptions"></p>
 <p>We can see there are 13 tables in the dataset. The (numbers) next to
 table names correspond to the order in which they are shown to you in
-the <code><a href="../reference/mapMetadata.html">mapMetadata()</a></code> function. The height of the bar indicates
+the <code>mapMetadata()</code> function. The height of the bar indicates
 the number of variables in that table:</p>
 <ul>
 <li>The ones with lots of variables (e.g. CHILD_TRUST) will take you
-longer to process when running <code><a href="../reference/mapMetadata.html">mapMetadata()</a></code>
+longer to process when running <code>mapMetadata()</code>
 </li>
 <li>Some tables (e.g. CHE_HEALTHYCHILDWALESPROGRAMME) have a lot of
 empty descriptions. An empty description means that this variable will
@@ -122,13 +122,13 @@ if it is not provided within the <em>variable</em> level
 description.</p>
 </div>
 <div class="section level2">
-<h2 id="mapmetadata">
-<code>mapMetadata()</code><a class="anchor" aria-label="anchor" href="#mapmetadata"></a>
+<h2 id="map_metadata">
+<code>map_metadata()</code><a class="anchor" aria-label="anchor" href="#map_metadata"></a>
 </h2>
 <p>Running the function in demo mode will use the same demo json file as
-<code><a href="../reference/browseMetadata.html">browseMetadata()</a></code>:</p>
+<code><a href="../reference/browse_metadata.html">browse_metadata()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/mapMetadata.html">mapMetadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/map_metadata.html">map_metadata</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Demo mode only processes the first 20 variables (data elements)
 within the table(s) we select to process.</p>
 <p>You will be asked to label data elements with one (or more) of the
@@ -138,7 +138,7 @@ be much more specific e.g. ‘Prenatal, antenatal, neonatal and birth’ or
 ‘Health behaviours and diet’. The 4 default domains are always included
 [0-3], appended on to any domain list given.</p>
 <p><img src="https://raw.githubusercontent.com/aim-rsf/browseMetadata/main/inst/outputs/plots_tab_demo_domains.png" alt="description of research domains used for categorisations" width="50%"></p>
-<pre><code>ℹ Running mapMetadata in demo mode using package data files
+<pre><code>ℹ Running map_metadata in demo mode using package data files
 ℹ Using the default look-up table in data/look-up.rda
  
 Enter your initials: RS</code></pre>
@@ -149,7 +149,7 @@ National Community Child Health Database (NCCHD)
 ── Dataset File Exported By ─────────────────────────────────────────────────────────────────────────────────────
 Rachael Stickland at 2024-04-05T13:01:23.109Z
 
-ℹ Reference outputs from browseMetadata for information about the dataset
+ℹ Reference outputs from browse_metadata for information about the dataset
 
 Press any key to continue </code></pre>
 <pre><code>                     Table_Name Table_Number
@@ -280,7 +280,7 @@ PLOT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-04-05-14-37-36.png</
 contains information about the session as a whole, including various
 metadata. These two csv files contain the same timestamp column. If you
 do not like the formatting of the OUTPUT csv, see the function
-<code><a href="../reference/mapMetadata_convert_outputs.html">?mapMetadata_convert_outputs</a></code> for an alternative.</p>
+<code>?mapMetadata_convert_outputs</code> for an alternative.</p>
 <p>The PLOT png file saves a simple plot displaying the count of domain
 codes for that table.</p>
 </div>
