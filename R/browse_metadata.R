@@ -153,7 +153,7 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   # SAVE PLOTS ----
 
   original_wd <- getwd()
-  setwd(output_dir) # saveWidget has a bug with paths & saving
+  on.exit(output_dir) # saveWidget has a bug with paths & saving
   base_fname <- paste0(gsub(" ", "", dataset_name), "_V", dataset_version)
 
   ## Save the table plot to a HTML file
@@ -168,7 +168,7 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   bar_fname <- paste0("BROWSE_bar_", base_fname, ".csv")
   write.csv(count_empty_long, bar_fname, row.names = FALSE)
 
-  setwd(original_wd) # saveWidget has a bug with paths & saving
+  on.exit(original_wd) # saveWidget has a bug with paths & saving
 
   # OUTPUTS ----
   cat("\n")

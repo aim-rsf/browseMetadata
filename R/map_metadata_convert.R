@@ -8,7 +8,23 @@
 #' @return The function will return 'L-OUTPUT_' in the same output_dir
 #' @export
 #' @importFrom utils read.csv write.csv
-
+#' @examples
+#' # Create a temporary directory for the example
+#' temp_dir <- tempdir()
+#'
+#' # Create an example OUTPUT_ CSV file with primary care data
+#' example_data <- data.frame(
+#'   patient_id = c(101, 102, 103, 104),
+#'   condition_code = c("A01", "B02", "A01,C03", "D04"),
+#'   medication = c("Medication1", "Medication2", "Medication3", "Medication4")
+#' )
+#' write.csv(example_data, file = file.path(temp_dir, "OUTPUT_example.csv"), row.names = FALSE)
+#'
+#' # Use the function to process the example file
+#' map_metadata_convert("OUTPUT_example.csv", temp_dir)
+#'
+#' # Check the output
+#' read.csv(file.path(temp_dir, "L-OUTPUT_example.csv"))
 map_metadata_convert <- function(output_csv, output_dir) {
   output <- read.csv(paste0(output_dir, "/", output_csv))
   output_long <- output[0, ] # make duplicate

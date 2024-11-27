@@ -13,6 +13,65 @@
 #' @importFrom utils read.csv write.csv
 #' @importFrom jsonlite fromJSON
 #' @importFrom cli cli_alert_success
+#' @examples
+#' # Create a temporary directory for the example
+#' temp_dir <- tempdir()
+#'
+#' # Create example LOG_ and OUTPUT_ CSV files for two sessions with primary care data
+#' # Session 1 data
+#' session1_data <- data.frame(
+#'   patient_id = c(101, 102),
+#'   condition_code = c("A01", "B02"),
+#'   medication = c("Medication1", "Medication2"),
+#'   visit_date = c("2023-01-15", "2023-02-20")
+#' )
+#' write.csv(session1_data, file = file.path(temp_dir, "LOG_NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38.csv"), row.names = FALSE)
+#' write.csv(session1_data, file = file.path(temp_dir, "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38.csv"), row.names = FALSE)
+#'
+#' # Session 2 data (slightly different to simulate mismatch)
+#' session2_data <- data.frame(
+#'   patient_id = c(101, 103),
+#'   condition_code = c("A01", "A01,C03"),
+#'   medication = c("Medication1", "Medication3"),
+#'   visit_date = c("2023-01-15", "2023-03-25")
+#' )
+#' write.csv(session2_data, file = file.path(temp_dir, "LOG_NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30.csv"), row.names = FALSE)
+#' write.csv(session2_data, file = file.path(temp_dir, "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30.csv"), row.names = FALSE)
+#'
+#' # Create mock metadata JSON and domain file
+#' json_file <- file.path(temp_dir, "metadata.json")
+#' domain_file <- file.path(temp_dir, "domain.csv")
+#'
+#' # Example metadata json (mock structure)
+#' meta_data <- list(
+#'   dataModel = list(
+#'     label = "NationalCommunityChildHealthDatabase",
+#'     childDataClasses = list(list(label = "Blood Test Data"))
+#'   ),
+#'   data = list()
+#' )
+#' jsonlite::write_json(meta_data, json_file)
+#'
+#' # Example domain file (mock domain codes)
+#' domain_data <- data.frame(
+#'   code = c("A01", "B02", "C03", "D04"),
+#'   description = c("Blood Test A01", "Blood Test B02", "Blood Test C03", "Blood Test D04")
+#' )
+#' write.csv(domain_data, domain_file, row.names = FALSE)
+#'
+#' # Use the map_metadata_compare function to compare the sessions and get consensus
+#' map_metadata_compare(
+#'   session_dir = temp_dir,
+#'   session1_base = "NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38",
+#'   session2_base = "NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30",
+#'   json_file = json_file,
+#'   domain_file = domain_file
+#' )
+#'
+#' # Check the consensus output
+#' consensus_output <- read.csv(file.path(temp_dir, "CONSENSUS_OUTPUT_NationalCommunityChildHealthDatabase_BloodTestData_2024-07-05-16-07-38.csv"))
+#' print(consensus_output)
+
 
 map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
