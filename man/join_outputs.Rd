@@ -15,6 +15,7 @@ join_outputs(session_1, session_2)
 Dataframe with information from session 1 and 2, joined on column DataElement.
 }
 \description{
-This function is called within the map_metadata_compare function. \cr \cr
+Internal Function: This function is called within the map_metadata_compare function. \cr \cr
 Joins output dataframes from two sessions, on the column DataElement.
 }
+\keyword{internal}
