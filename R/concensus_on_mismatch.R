@@ -8,9 +8,16 @@
 #' @param Table_df Metadata from the json file, for one table in the dataset
 #' @param datavar Data Element n
 #' @param domain_code_max The maximum allowable domain code integer
-#' @return It returns a list of 2: the domain code and the note from the consensus decision
+#' @return A list with two elements:
+#'   \describe{
+#'     \item{Domain_code_join}{Consensus domain code.}
+#'     \item{Note_join}{Consensus note or indication of no mismatch.}
+#'   }
 #' @importFrom cli cli_alert_info
-
+#' @examples
+#' # Example usage:
+#' # result <- concensus_on_mismatch(ses_join, Table_df, datavar = 1, domain_code_max = 10)
+#' @export
 concensus_on_mismatch <- function(ses_join,Table_df,datavar,domain_code_max){
 
   if (ses_join$Domain_code_ses1[datavar] != ses_join$Domain_code_ses2[datavar]){
