@@ -19,21 +19,3 @@ The 'OUTPUT_' file groups multiple categorisations onto one line e.g. Domain_cod
 This function creates a new longer output 'L-OUTPUT_' which gives each categorisation its own row. \cr \cr
 This 'L-OUTPUT_' may be more useful when using these csv files in later analyses.
 }
-\examples{
-# Create a temporary directory for the example
-temp_dir <- tempdir()
-
-# Create an example OUTPUT_ CSV file with primary care data
-example_data <- data.frame(
-  patient_id = c(101, 102, 103, 104),
-  condition_code = c("A01", "B02", "A01,C03", "D04"),
-  medication = c("Medication1", "Medication2", "Medication3", "Medication4")
-)
-write.csv(example_data, file = file.path(temp_dir, "OUTPUT_example.csv"), row.names = FALSE)
-
-# Use the function to process the example file
-map_metadata_convert("OUTPUT_example.csv", temp_dir)
-
-# Check the output
-read.csv(file.path(temp_dir, "L-OUTPUT_example.csv"))
-}
