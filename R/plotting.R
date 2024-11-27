@@ -1,10 +1,11 @@
-#' ref_plot
+#' Internal: ref_plot
 #'
 #' This function is called within the map_metadata function. \cr \cr
 #' It plots a reference table to guide the user in their categorisation of domains. \cr \cr
 #' This reference table is based on the user inputted domains and the default domains provided by this package.  \cr \cr
 #' @param domains The output of load_data
 #' @return A reference table that appears in the Plots tab. A list of 2 containing the derivatives for this plot, used later in map_metadata'
+#' @keywords internal
 #' @importFrom gridExtra tableGrob grid.arrange
 #' @importFrom graphics plot.new
 
@@ -19,7 +20,7 @@ ref_plot <- function(domains) {
   return(list(code = code, domain_table = domain_table))
 }
 
-#' end_plot
+#' Internal: end_plot
 #'
 #' This function is called within the map_metadata function. \cr \cr
 #' A summary plot is created that includes the domain code reference table and counts of domain code categorisations \cr \cr
@@ -28,6 +29,7 @@ ref_plot <- function(domains) {
 #' @param table_name The table name
 #' @param ref_table The domain code reference table (which domain maps to which integer)
 #' @return It returns a ggplot
+#' @keywords internal
 #' @importFrom dplyr %>% group_by count arrange
 #' @importFrom stats reorder
 #' @importFrom gridExtra grid.arrange

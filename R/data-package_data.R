@@ -1,6 +1,6 @@
-#' Output dataframe
+#' Internal: Output dataframe
 #'
-#' Empty output dataframe for map_metadata.R to fill. Created by: \cr \cr
+#' Internal Dataset: Empty output dataframe for map_metadata.R to fill. Created by: \cr \cr
 #' \enumerate{
 #'  \item \code{output_df <- data.frame(timestamp = character(0),
 #'  table = character(0),
@@ -15,14 +15,16 @@
 #
 #' @usage data(output_df)
 #'
+#' @keywords internal
+#'
 #' @format A data frame with 0 rows and 6 columns
 #'
 #' @source The dataframe was manually created as package data, using the above code.
 "output_df"
 
-#' Output log dataframe
+#' Internal: Output log dataframe
 #'
-#' Empty log output dataframe for map_metadata.R to fill. Created by: \cr \cr
+#' Internal Dataset: Empty log output dataframe for map_metadata.R to fill. Created by: \cr \cr
 #' \enumerate{
 #'  \item \code{log_output_df <- data.frame(timestamp = character(1),
 #'  browseMetadata = character(1),
@@ -40,14 +42,16 @@
 #
 #' @usage data(log_output_df)
 #'
+#' @keywords internal
+#'
 #' @format A data frame with 1 empty row and 9 columns
 #'
 #' @source The dataframe was manually created as package data, using the above code.
 "log_output_df"
 
-#' List of domains
+#' Internal: List of Domains
 #'
-#' A simplified list of domains, to demo the function map_metadata.R \cr \cr
+#' Internal Dataset: A simplified list of domains, to demo the function map_metadata.R \cr \cr
 #' This data was created with these two steps:
 #' \enumerate{
 #'  \item \code{domain_list <- read.csv('browseMetadata/inst/inputs/domain_list_demo.csv',header=FALSE)}
@@ -57,12 +61,14 @@
 #
 #' @usage data(domain_list)
 #'
+#' @keywords internal
+#'
 #' @format A data frame with 5 rows and 1 column
 #'
 #' @source The csv was manually created
 "domain_list"
 
-#' Json metadata file
+#' Internal: JSON Metadata File
 #'
 #' Example metadata for a health dataset, to demo the function map_metadata.R \cr \cr
 #' This data was created with these five steps:
@@ -78,12 +84,14 @@
 #
 #' @usage data(json_metadata)
 #'
+#' @keywords internal
+#'
 #' @format Nested lists
 #'
 #' @source https://modelcatalogue.cs.ox.ac.uk/hdruk_live/#/catalogue/dataModel/16920b16-e24c-49f9-b4df-3dc85779822b/dataClasses
 "json_metadata"
 
-#' Auto-categorisations
+#' Internal: Auto-categorisations
 #'
 #' A list of pre-defined pairings between data element and domain code. \cr \cr
 #' For each data element that map_metadata processes: \cr \cr
@@ -96,6 +104,8 @@
 #' @docType data
 #
 #' @usage data(look_up)
+#'
+#' @keywords internal
 #'
 #' @format A data frame with a variable number of rows and 3 columns
 #'

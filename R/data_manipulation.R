@@ -1,12 +1,13 @@
 #' json_table_to_df
 #'
-#' This function is called within the browse_metadata and map_metadata functions. \cr \cr
+#' Internal Function: This function is called within the browse_metadata and map_metadata functions. \cr \cr
 #' It reads in the nested lists from the json and extracts information needed into a dataframe. \cr \cr
 #' It does this for one specific table in a dataset. \cr \cr
 #'
 #' @param dataset This is the dataModel field of the json
 #' @param n The table number (as a json can have multiple tables within a dataset)
 #' @return A dataframe for that specific table, including data label, description and type.
+#' @keywords internal
 
 json_table_to_df <- function(dataset, n) {
   json_table <- dataset$childDataClasses$childDataElements[n]
@@ -25,7 +26,7 @@ json_table_to_df <- function(dataset, n) {
 
 #' count_empty_desc
 #'
-#' This function is called within the browse_metadata function. \cr \cr
+#' Internal Function: This function is called within the browse_metadata function. \cr \cr
 #' It reads in a data frame that summarises one table of the dataset. \cr \cr
 #' It counts missing variable descriptions, based on specified criteria.
 #'
@@ -34,6 +35,7 @@ json_table_to_df <- function(dataset, n) {
 #' @return A simpler dataframe with Y/N empty counts for variables in the table.
 #' @importFrom dplyr %>% group_by n summarize
 #' @importFrom tidyr complete
+#' @keywords internal
 
 count_empty_desc <- function(table_df, table_colname) {
   table_df["empty"] <- NA

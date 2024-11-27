@@ -1,6 +1,6 @@
-#' user_categorisation
+#' Internal: user_categorisation
 #'
-#' This function is called within the map_metadata function. \cr \cr
+#' Internal Function: This function is called within the map_metadata function. \cr \cr
 #' It displays data properties to the user and requests a categorisation into a domain. \cr \cr
 #' An optional note can be included with the categorisation.
 #'
@@ -8,6 +8,7 @@
 #' @param data_desc Description of the variable
 #' @param data_type Data type of the variable
 #' @param domain_code_max Max code in the domain list (0-3 auto included, then N included via domain_file)
+#' @keywords internal
 #' @return It returns a list containing the decision and decision note
 #' @importFrom cli cli_alert_warning
 
@@ -65,9 +66,9 @@ user_categorisation <- function(data_element, data_desc, data_type, domain_code_
   return(list(decision = decision, decision_note = decision_note))
 }
 
-#' user_categorisation_loop
+#' Internal: user_categorisation_loop
 #'
-#' This function is called within the map_metadata function. \cr \cr
+#' Internal Function: This function is called within the map_metadata function. \cr \cr
 #' Given a specific table and a number of data elements to search, it checks for 3 different sources of domain categorisation: \cr \cr
 #' 1 - If data elements match those in the look-up table, auto categorise them \cr \cr
 #' 2 - If data elements match to previous table output, copy them \cr \cr
@@ -81,6 +82,7 @@ user_categorisation <- function(data_element, data_desc, data_type, domain_code_
 #' @param df_plots Output from the ref_plot function, to indicate maximum domain code allowed
 #' @param output_df Empty output dataframe, to fill
 #' @return An output dataframe containing information about the table, data elements and categorisations
+#' @keywords internal
 #' @importFrom dplyr %>% add_row
 #' @importFrom cli cli_alert_info
 
@@ -142,16 +144,16 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
   output_df
 }
 
-#' user_prompt
+#' Internal: user_prompt
 #'
-#' This function is called within the map_metadata function. \cr \cr
+#' Internal Function: This function is called within the map_metadata function. \cr \cr
 #' It prompts a response from the user. \cr \cr
 #'
 #' @param prompt_text Text to display to the user, to prompt their response.
 #' @param any_keys Boolean to determine if any key responses are allowable.
 #' If FALSE, only these are allowed: Y, y, N and n.
 #' @return It returns variable text, depending on any_keys.
-
+#' @keywords internal
 user_prompt <- function(prompt_text, any_keys) {
   # prompt text is not
   # any_keys, when TRUE it allows any input, when FALSE it only allows y/n/Y/N
@@ -175,9 +177,9 @@ user_prompt <- function(prompt_text, any_keys) {
   response
 }
 
-#' user_prompt_list
+#' Internal: user_prompt_list
 #'
-#' This function is called within the map_metadata function. \cr \cr
+#' Internal Function: This function is called within the map_metadata function. \cr \cr
 #' It prompts a response from the user, in the form of a list. \cr \cr
 #' It checks if the user has given the an input within the allowed range - if not, it re-sends prompt. \cr \cr
 #'
@@ -185,6 +187,7 @@ user_prompt <- function(prompt_text, any_keys) {
 #' @param list_allowed A list of allowable integer responses.
 #' @param empty_allowed A boolean specifying if no response is allowed.
 #' @return It returns a list of integers to process, that match the prompt options.
+#' @keywords internal
 #' @importFrom cli cli_alert_info cli_alert_danger
 
 user_prompt_list <- function(prompt_text, list_allowed, empty_allowed) {
