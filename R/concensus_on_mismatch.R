@@ -3,7 +3,7 @@
 #' This function is called within the mapMetadata_compare_outputs function. \cr \cr
 #' For a specific data element, it compares the domain code categorisation between two sessions.
 #' If the categorisation differs, it prompts the user for a new consensus decision by presenting the json metadata. \cr \cr
-#'
+#' @keywords internal
 #' @param ses_join The joined dataframes from the two sessions
 #' @param Table_df Metadata from the json file, for one table in the dataset
 #' @param datavar Data Element n
