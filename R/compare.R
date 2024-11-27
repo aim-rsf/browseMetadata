@@ -1,6 +1,6 @@
 #' valid_comparison
 #'
-#' This function is called within the map_metadata_compare function. \cr \cr
+#' Internal Function: This function is called within the map_metadata_compare function. \cr \cr
 #' It reads two inputs to see if they are equal. \cr \cr
 #' If the test is 'warning' status and inputs are not equal it gives warning but continues. \cr \cr
 #' If the test is 'danger' status and inputs are not equal it stops and exits, with error message. \cr \cr
@@ -10,6 +10,7 @@
 #' @param severity Level of severity. Only 'danger' or 'warning'
 #' @param severity_text The text to print if inputs are not equal.
 #' @return Returns nothing if inputs are equal. If inputs are not equal, returns variable text depending on level of severity.
+#' @keywords internal
 #' @importFrom cli cli_alert_warning
 
 valid_comparison <- function(input_1, input_2, severity, severity_text) {
@@ -32,7 +33,7 @@ valid_comparison <- function(input_1, input_2, severity, severity_text) {
 
 #' concensus_on_mismatch
 #'
-#' This function is called within the map_metadata_compare function. \cr \cr
+#' Internal Function: This function is called within the map_metadata_compare function. \cr \cr
 #' For a specific data element, it compares the domain code categorisation between two sessions.
 #' If the categorisation differs, it prompts the user for a new consensus decision by presenting the json metadata. \cr \cr
 #'
@@ -41,6 +42,7 @@ valid_comparison <- function(input_1, input_2, severity, severity_text) {
 #' @param datavar Data Element n
 #' @param domain_code_max The maximum allowable domain code integer
 #' @return It returns a list of 2: the domain code and the note from the consensus decision
+#' @keywords internal
 #' @importFrom cli cli_alert_info
 
 concensus_on_mismatch <- function(ses_join, table_df, datavar, domain_code_max) {

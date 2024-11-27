@@ -1,6 +1,6 @@
 #' load_data
 #'
-#' This function is called within the map_metadata function. \cr \cr
+#' Internal Function: This function is called within the map_metadata function. \cr \cr
 #' It collects the inputs needed for the map_metadata function (defaults or user inputs)
 #' If some inputs are NULL, it loads the default inputs. If defaults not available, it prints error for the user.
 #' If inputs are not NULL, it loads the user-specified inputs.
@@ -8,6 +8,7 @@
 #' @param domain_file As defined in map_metadata
 #' @param look_up_file As defined in map_metadata
 #' @return A list of 5: all inputs needed for the map_metadata function to run.
+#' @keywords internal
 #' @importFrom cli cli_alert_info cli_alert_danger
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils read.csv
@@ -50,13 +51,14 @@ load_data <- function(json_file, domain_file, look_up_file) {
 
 #' copy_previous
 #'
-#' This function is called within the map_metadata function. \cr \cr
+#' Internal Function: This function is called within the map_metadata function. \cr \cr
 #' It searches for previous OUTPUT files in the output_dir, that match the dataset name. \cr \cr
 #' If files exist, it removes duplicates and autos, and stores the rest of the data elements in a dataframe. \cr \cr
 #'
 #' @param dataset_name Name of the dataset
 #' @param output_dir Output directory to be searched
 #' @return It returns a list of 2: df_prev_exist (a boolean) and df_prev (NULL or populated with data elements to copy)
+#' @keywords internal
 #' @importFrom dplyr %>% distinct
 #' @importFrom cli cli_alert_info
 
