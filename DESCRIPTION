@@ -12,6 +12,7 @@ Description: This R package helps a researcher browse datasets in SAIL databank.
  researchers can use the metadata to browse and categorise variables.
 License: GPL (>= 3)
 URL: https://aim-rsf.github.io/browseMetadata
+BugReports: https://aim-rsf.github.io/browseMetadata/issues
 Depends: 
     R (>= 2.10)
 Imports: 
