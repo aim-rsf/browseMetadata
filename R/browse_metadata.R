@@ -153,7 +153,7 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   # SAVE PLOTS ----
 
   original_wd <- getwd()
-  on.exit(output_dir) # saveWidget has a bug with paths & saving
+ on.exit(setwd(original_wd)) # saveWidget has a bug with paths & saving
   base_fname <- paste0(gsub(" ", "", dataset_name), "_V", dataset_version)
 
   ## Save the table plot to a HTML file
