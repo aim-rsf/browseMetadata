@@ -15,11 +15,14 @@ References #
   -
   -
 
-## Checklist before review:
+## Checklist for the author of this PR:
 <!-- You're invited to open a draft PR so people can see what you are working on sooner -->
-- [ ] Please comment on my PR while it's a draft and give me feedback on the development!
-- [ ] I added everything I wanted to add to this PR, please review!
-- [ ] [if package files were edited] Running `devtools::check()` returns no errors or warnings.
-- [ ] The code base and the documentation match (they both reflect any recent changes). 
+- [ ] [if package files were edited] I have run these checks locally:
+  - `devtools::document()` to generates the `.Rd` files from any updated roxygen comments.
+  - `codemetar::write_codemeta()` to ensures the metadata file is up to date.
+  - `styler::style_pkg()` to ensure consistent code styling that match the guidelines.
+  - `devtools::check()` for a comprehensive package check. I have resolved any warnings or errors, or written them here in the PR, for discussion.
+- [ ] The code base and the documentation files match (they both reflect any recent changes). 
 - [ ] The title of this PR is clear and self-explantory.
-- [ ] I added any appropriate labels to this PR.
+- [ ] I have added any appropriate labels to this PR.
+- [ ] This PR is now ready for review (and I have removed the draft PR status). 
