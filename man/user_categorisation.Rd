@@ -2,7 +2,7 @@
 % Please edit documentation in R/user_interactions.R
 \name{user_categorisation}
 \alias{user_categorisation}
-\title{user_categorisation}
+\title{Internal: user_categorisation}
 \usage{
 user_categorisation(data_element, data_desc, data_type, domain_code_max)
 }
@@ -19,7 +19,8 @@ user_categorisation(data_element, data_desc, data_type, domain_code_max)
 It returns a list containing the decision and decision note
 }
 \description{
-This function is called within the map_metadata function. \cr \cr
+Internal Function: This function is called within the map_metadata function. \cr \cr
 It displays data properties to the user and requests a categorisation into a domain. \cr \cr
 An optional note can be included with the categorisation.
 }
+\keyword{internal}

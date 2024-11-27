@@ -2,7 +2,7 @@
 % Please edit documentation in R/user_interactions.R
 \name{user_categorisation_loop}
 \alias{user_categorisation_loop}
-\title{user_categorisation_loop}
+\title{Internal: user_categorisation_loop}
 \usage{
 user_categorisation_loop(
   start_v,
@@ -36,9 +36,10 @@ user_categorisation_loop(
 An output dataframe containing information about the table, data elements and categorisations
 }
 \description{
-This function is called within the map_metadata function. \cr \cr
+Internal Function: This function is called within the map_metadata function. \cr \cr
 Given a specific table and a number of data elements to search, it checks for 3 different sources of domain categorisation: \cr \cr
 1 - If data elements match those in the look-up table, auto categorise them \cr \cr
 2 - If data elements match to previous table output, copy them \cr \cr
 3 - If no match for 1 or 2, data elements are categorised by the user \cr \cr
 }
+\keyword{internal}

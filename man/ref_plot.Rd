@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotting.R
 \name{ref_plot}
 \alias{ref_plot}
-\title{ref_plot}
+\title{Internal: ref_plot}
 \usage{
 ref_plot(domains)
 }
@@ -17,3 +17,4 @@ This function is called within the map_metadata function. \cr \cr
 It plots a reference table to guide the user in their categorisation of domains. \cr \cr
 This reference table is based on the user inputted domains and the default domains provided by this package.  \cr \cr
 }
+\keyword{internal}

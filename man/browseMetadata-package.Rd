@@ -14,6 +14,7 @@ Visualise and categorise publicly available metadata from health datasets. By in
 Useful links:
 \itemize{
   \item \url{https://aim-rsf.github.io/browseMetadata/}
+  \item Report bugs at \url{https://github.com/aim-rsf/browseMetadata/issues}
 }
 
 }

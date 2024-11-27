@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotting.R
 \name{end_plot}
 \alias{end_plot}
-\title{end_plot}
+\title{Internal: end_plot}
 \usage{
 end_plot(df, table_name, ref_table)
 }
@@ -20,3 +20,4 @@ It returns a ggplot
 This function is called within the map_metadata function. \cr \cr
 A summary plot is created that includes the domain code reference table and counts of domain code categorisations \cr \cr
 }
+\keyword{internal}

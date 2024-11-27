@@ -3,7 +3,7 @@
 \docType{data}
 \name{output_df}
 \alias{output_df}
-\title{Output dataframe}
+\title{Internal: Output dataframe}
 \format{
 A data frame with 0 rows and 6 columns
 }
@@ -14,7 +14,7 @@ The dataframe was manually created as package data, using the above code.
 data(output_df)
 }
 \description{
-Empty output dataframe for map_metadata.R to fill. Created by: \cr \cr
+Internal Dataset: Empty output dataframe for map_metadata.R to fill. Created by: \cr \cr
 \enumerate{
  \item \code{output_df <- data.frame(timestamp = character(0),
  table = character(0),
@@ -25,4 +25,4 @@ Empty output dataframe for map_metadata.R to fill. Created by: \cr \cr
  \item \code{usethis::use_data(output_df)}
 }
 }
-\keyword{datasets}
+\keyword{internal}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{json_metadata}
 \alias{json_metadata}
-\title{Json metadata file}
+\title{Internal: JSON Metadata File}
 \format{
 Nested lists
 }
@@ -24,4 +24,4 @@ This data was created with these five steps:
   \item \code{usethis::use_data(json_metadata)}
 }
 }
-\keyword{datasets}
+\keyword{internal}

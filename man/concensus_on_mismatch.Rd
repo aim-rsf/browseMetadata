@@ -19,7 +19,8 @@ concensus_on_mismatch(ses_join, table_df, datavar, domain_code_max)
 It returns a list of 2: the domain code and the note from the consensus decision
 }
 \description{
-This function is called within the map_metadata_compare function. \cr \cr
+Internal Function: This function is called within the map_metadata_compare function. \cr \cr
 For a specific data element, it compares the domain code categorisation between two sessions.
 If the categorisation differs, it prompts the user for a new consensus decision by presenting the json metadata. \cr \cr
 }
+\keyword{internal}

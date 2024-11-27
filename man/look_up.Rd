@@ -3,7 +3,7 @@
 \docType{data}
 \name{look_up}
 \alias{look_up}
-\title{Auto-categorisations}
+\title{Internal: Auto-categorisations}
 \format{
 A data frame with a variable number of rows and 3 columns
 }
@@ -23,4 +23,4 @@ This data was created with these two steps:
  \item \code{usethis::use_data(look_up)}
 }
 }
-\keyword{datasets}
+\keyword{internal}

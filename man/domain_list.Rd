@@ -3,7 +3,7 @@
 \docType{data}
 \name{domain_list}
 \alias{domain_list}
-\title{List of domains}
+\title{Internal: List of Domains}
 \format{
 A data frame with 5 rows and 1 column
 }
@@ -14,11 +14,11 @@ The csv was manually created
 data(domain_list)
 }
 \description{
-A simplified list of domains, to demo the function map_metadata.R \cr \cr
+Internal Dataset: A simplified list of domains, to demo the function map_metadata.R \cr \cr
 This data was created with these two steps:
 \enumerate{
  \item \code{domain_list <- read.csv('browseMetadata/inst/inputs/domain_list_demo.csv',header=FALSE)}
  \item \code{usethis::use_data(domain_list)}
 }
 }
-\keyword{datasets}
+\keyword{internal}

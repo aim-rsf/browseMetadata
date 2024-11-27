@@ -3,7 +3,7 @@
 \docType{data}
 \name{log_output_df}
 \alias{log_output_df}
-\title{Output log dataframe}
+\title{Internal: Output log dataframe}
 \format{
 A data frame with 1 empty row and 9 columns
 }
@@ -14,7 +14,7 @@ The dataframe was manually created as package data, using the above code.
 data(log_output_df)
 }
 \description{
-Empty log output dataframe for map_metadata.R to fill. Created by: \cr \cr
+Internal Dataset: Empty log output dataframe for map_metadata.R to fill. Created by: \cr \cr
 \enumerate{
  \item \code{log_output_df <- data.frame(timestamp = character(1),
  browseMetadata = character(1),
@@ -28,4 +28,4 @@ Empty log output dataframe for map_metadata.R to fill. Created by: \cr \cr
  \item \code{usethis::use_data(log_output_df)}
 }
 }
-\keyword{datasets}
+\keyword{internal}

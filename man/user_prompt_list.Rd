@@ -2,7 +2,7 @@
 % Please edit documentation in R/user_interactions.R
 \name{user_prompt_list}
 \alias{user_prompt_list}
-\title{user_prompt_list}
+\title{Internal: user_prompt_list}
 \usage{
 user_prompt_list(prompt_text, list_allowed, empty_allowed)
 }
@@ -17,7 +17,8 @@ user_prompt_list(prompt_text, list_allowed, empty_allowed)
 It returns a list of integers to process, that match the prompt options.
 }
 \description{
-This function is called within the map_metadata function. \cr \cr
+Internal Function: This function is called within the map_metadata function. \cr \cr
 It prompts a response from the user, in the form of a list. \cr \cr
 It checks if the user has given the an input within the allowed range - if not, it re-sends prompt. \cr \cr
 }
+\keyword{internal}

@@ -5,6 +5,7 @@
   "description": "Visualise and categorise publicly available metadata from health datasets. By interacting with metadata prior to gaining full access to health datasets, researchers can use this tool to browse datasets and categorise variables.",
   "name": "browseMetadata: Browse and categorise health metadata",
   "codeRepository": "https://github.com/aim-rsf/browseMetadata",
+  "issueTracker": "https://github.com/aim-rsf/browseMetadata/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "2.0.1",
   "programmingLanguage": {
@@ -225,7 +226,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "751.794KB",
+  "fileSize": "753.302KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -237,7 +238,7 @@
           "familyName": "Stickland"
         }
       ],
-      "name": "browseMetadata: Browse and categorise health metadata",
+      "name": "browseMetadata: browse and categorise health metadata",
       "identifier": "https://doi.org/10.5281/zenodo.10581499",
       "url": "https://github.com/aim-rsf/browseMetadata",
       "description": "R package version 2.0.1",
@@ -247,7 +248,7 @@
   ],
   "relatedLink": "https://aim-rsf.github.io/browseMetadata/",
   "readme": "https://github.com/aim-rsf/browseMetadata/blob/main/README.md",
-  "contIntegration": "https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml",
+  "contIntegration": ["https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml", "https://github.com/aim-rsf/browseMetadata/actions?query=workflow%3Apkgcheck"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "keywords": ["mltc", "r", "rpackage", "sail-databank", "health-data", "metadata"]
 }
