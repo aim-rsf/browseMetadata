@@ -67,7 +67,7 @@ It compares csv outputs from two sessions, finds their differences, and asks for
 
 
 <dt id="arg-session-base">session2_base<a class="anchor" aria-label="anchor" href="#arg-session-base"></a></dt>
-<dd><p>Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'</p></dd>
+<dd><p>Base file name for session 2 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'</p></dd>
 
 
 <dt id="arg-json-file">json_file<a class="anchor" aria-label="anchor" href="#arg-json-file"></a></dt>
@@ -83,6 +83,27 @@ It compares csv outputs from two sessions, finds their differences, and asks for
     <p>It returns a csv output, which represents the consensus decisions between session 1 and session 2</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># Locate file paths for the example files in the package</span></span></span>
+<span class="r-in"><span><span class="va">demo_session_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"outputs"</span>, package <span class="op">=</span> <span class="st">"browseMetadata"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">demo_session1_base</span> <span class="op">&lt;-</span> <span class="st">"NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"</span></span></span>
+<span class="r-in"><span><span class="va">demo_session2_base</span> <span class="op">&lt;-</span> <span class="st">"NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-23-52"</span></span></span>
+<span class="r-in"><span><span class="va">demo_json_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"inputs"</span>, <span class="st">"national_community_child_health_database_(ncchd)_20240405T130125.json"</span>, package <span class="op">=</span> <span class="st">"browseMetadata"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">demo_domain_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"inputs"</span>, <span class="st">"domain_list_demo.csv"</span>, package <span class="op">=</span> <span class="st">"browseMetadata"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run the function - requires user interaction</span></span></span>
+<span class="r-in"><span><span class="fu">map_metadata_compare</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  session_dir <span class="op">=</span> <span class="va">demo_session_dir</span>,</span></span>
+<span class="r-in"><span>  session1_base <span class="op">=</span> <span class="va">demo_session1_base</span>,</span></span>
+<span class="r-in"><span>  session2_base <span class="op">=</span> <span class="va">demo_session2_base</span>,</span></span>
+<span class="r-in"><span>  json_file <span class="op">=</span> <span class="va">demo_json_file</span>,</span></span>
+<span class="r-in"><span>  domain_file <span class="op">=</span> <span class="va">demo_domain_file</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
