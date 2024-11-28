@@ -168,7 +168,7 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   bar_fname <- paste0("BROWSE_bar_", base_fname, ".csv")
   write.csv(count_empty_long, bar_fname, row.names = FALSE)
 
-  on.exit(original_wd) # saveWidget has a bug with paths & saving
+  setwd(original_wd) # saveWidget has a bug with paths & saving
 
   # OUTPUTS ----
   cat("\n")
