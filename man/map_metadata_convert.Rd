@@ -19,3 +19,11 @@ The 'OUTPUT_' file groups multiple categorisations onto one line e.g. Domain_cod
 This function creates a new longer output 'L-OUTPUT_' which gives each categorisation its own row. \cr \cr
 This 'L-OUTPUT_' may be more useful when using these csv files in later analyses.
 }
+\examples{
+# Locate file path and file name for the example files in the package
+demo_output_dir <- system.file("outputs", package = "browseMetadata")
+demo_output_csv <- "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv"
+
+# Run the function
+map_metadata_convert(output_csv = demo_output_csv, output_dir = demo_output_dir)
+}

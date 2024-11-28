@@ -58,7 +58,7 @@ function in a demo mode.
 }
 \examples{
 \dontrun{
-# Demo run - requires user interactions
+# Demo run requires no function inputs but requires user interaction
 map_metadata()
 }
 }

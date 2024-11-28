@@ -5,7 +5,7 @@
 #'
 #' @param session_dir This directory should contain 2 csv files for each session (LOG_ and OUTPUT_), 4 csv files in total.
 #' @param session1_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38'
-#' @param session2_base Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'
+#' @param session2_base Base file name for session 2 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'
 #' @param json_file The full path to the metadata file used when running map_metadata (should be the same for session 1 and session 2)
 #' @param domain_file The full path to the domain file used when running map_metadata (should be the same for session 1 and session 2)
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
@@ -13,7 +13,24 @@
 #' @importFrom utils read.csv write.csv
 #' @importFrom jsonlite fromJSON
 #' @importFrom cli cli_alert_success
-
+#' @examples
+#' \dontrun{
+#' # Locate file paths for the example files in the package
+#' demo_session_dir <- system.file("outputs", package = "browseMetadata")
+#' demo_session1_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"
+#' demo_session2_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-23-52"
+#' demo_json_file <- system.file("inputs", "national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+#' demo_domain_file <- system.file("inputs", "domain_list_demo.csv", package = "browseMetadata")
+#'
+#' # Run the function - requires user interaction
+#' map_metadata_compare(
+#'   session_dir = demo_session_dir,
+#'   session1_base = demo_session1_base,
+#'   session2_base = demo_session2_base,
+#'   json_file = demo_json_file,
+#'   domain_file = demo_domain_file
+#' )
+#' }
 map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 
@@ -110,7 +127,7 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
   table_find <- data.frame(table_n = numeric(length(dataset$childDataClasses)), table_label = character(length(dataset$childDataClasses)))
   for (t in 1:length(dataset$childDataClasses)) {
     table_find$table_n[t] <- t
-    table_find$table_label[t] <- dataset$childDataClasses[[t]]$label
+    table_find$table_label[t] <- dataset$childDataClasses$label[t]
   }
   table_n <- table_find$table_n[table_find$table_label == csv_1a$table[1]]
 

@@ -8,7 +8,13 @@
 #' @return The function will return 'L-OUTPUT_' in the same output_dir
 #' @export
 #' @importFrom utils read.csv write.csv
-
+#' @examples
+#' # Locate file path and file name for the example files in the package
+#' demo_output_dir <- system.file("outputs", package = "browseMetadata")
+#' demo_output_csv <- "OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv"
+#'
+#' # Run the function
+#' map_metadata_convert(output_csv = demo_output_csv, output_dir = demo_output_dir)
 map_metadata_convert <- function(output_csv, output_dir) {
   output <- read.csv(paste0(output_dir, "/", output_csv))
   output_long <- output[0, ] # make duplicate
