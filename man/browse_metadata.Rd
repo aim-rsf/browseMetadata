@@ -29,6 +29,6 @@ these variables have a missing description. The third is a csv file storing
 the data that created this bar chart. \cr \cr
 }
 \examples{
-# Demo run
+# Demo run requires no function inputs or user interaction
 browse_metadata()
 }

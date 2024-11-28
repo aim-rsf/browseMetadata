@@ -16,7 +16,7 @@
 #' for this dataset. Open the two html output files in your browser and use
 #' these as reference when running the map_metadata function.
 #' @examples
-#' # Demo run
+#' # Demo run requires no function inputs or user interaction
 #' browse_metadata()
 #' @export
 #' @importFrom dplyr %>% add_row

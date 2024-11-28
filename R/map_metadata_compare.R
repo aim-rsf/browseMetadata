@@ -14,6 +14,7 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom cli cli_alert_success
 #' @examples
+#' \dontrun{
 #' # Locate file paths for the example files in the package
 #' session_dir <- system.file("outputs", package = "browseMetadata")
 #' session1_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"
@@ -21,14 +22,14 @@
 #' json_file <- system.file("inputs", "national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
 #' domain_file <- system.file("inputs", "domain_list_demo.csv", package = "browseMetadata")
 #'
-#' # Run the function
+#' # Run the function - requires user interaction
 #' map_metadata_compare(
 #'   session_dir = session_dir,
 #'   session1_base = session1_base,
 #'   session2_base = session2_base,
 #'   json_file = json_file,
 #'   domain_file = domain_file
-#' )
+#' )}
 
 map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
@@ -126,7 +127,7 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
   table_find <- data.frame(table_n = numeric(length(dataset$childDataClasses)), table_label = character(length(dataset$childDataClasses)))
   for (t in 1:length(dataset$childDataClasses)) {
     table_find$table_n[t] <- t
-    table_find$table_label[t] <- dataset$childDataClasses[[t]]$label
+    table_find$table_label[t] <- dataset$childDataClasses$label[t]
   }
   table_n <- table_find$table_n[table_find$table_label == csv_1a$table[1]]
 

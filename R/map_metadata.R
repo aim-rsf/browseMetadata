@@ -36,7 +36,7 @@
 #' mappings and 'LOG_' which contains details about the dataset and session.
 #' @examples
 #' \dontrun{
-#' # Demo run - requires user interactions
+#' # Demo run requires no function inputs but requires user interaction
 #' map_metadata()
 #' }
 #' @export
