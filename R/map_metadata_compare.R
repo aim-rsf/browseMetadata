@@ -16,21 +16,21 @@
 #' @examples
 #' \dontrun{
 #' # Locate file paths for the example files in the package
-#' session_dir <- system.file("outputs", package = "browseMetadata")
-#' session1_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"
-#' session2_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-23-52"
-#' json_file <- system.file("inputs", "national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
-#' domain_file <- system.file("inputs", "domain_list_demo.csv", package = "browseMetadata")
+#' demo_session_dir <- system.file("outputs", package = "browseMetadata")
+#' demo_session1_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"
+#' demo_session2_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-23-52"
+#' demo_json_file <- system.file("inputs", "national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+#' demo_domain_file <- system.file("inputs", "domain_list_demo.csv", package = "browseMetadata")
 #'
 #' # Run the function - requires user interaction
 #' map_metadata_compare(
-#'   session_dir = session_dir,
-#'   session1_base = session1_base,
-#'   session2_base = session2_base,
-#'   json_file = json_file,
-#'   domain_file = domain_file
-#' )}
-
+#'   session_dir = demo_session_dir,
+#'   session1_base = demo_session1_base,
+#'   session2_base = demo_session2_base,
+#'   json_file = demo_json_file,
+#'   domain_file = demo_domain_file
+#' )
+#' }
 map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 

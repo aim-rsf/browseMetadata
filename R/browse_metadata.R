@@ -102,8 +102,8 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
 
   ## Create a matrix for cell colors
   cell_colors <- matrix("white",
-                        nrow = nrow(dataset_desc) + 1,
-                        ncol = ncol(dataset_desc)
+    nrow = nrow(dataset_desc) + 1,
+    ncol = ncol(dataset_desc)
   )
   cell_colors[2, ] <- "lightgrey" # Change the color of the second row
 
@@ -132,15 +132,15 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
     pivot_longer(cols = -Empty, names_to = "Table", values_to = "N_Variables")
 
   barplot_html <- plot_ly(count_empty_long,
-                          x = ~Table,
-                          y = ~N_Variables,
-                          color = ~Empty,
-                          colors = c("grey", "darkturquoise"),
-                          type = "bar",
-                          text = ~N_Variables,
-                          textposition = "inside", # Position text inside the bars
-                          texttemplate = "%{text}", # Ensure text displayed as is
-                          textfont = list(color = "black", size = 10)
+    x = ~Table,
+    y = ~N_Variables,
+    color = ~Empty,
+    colors = c("grey", "darkturquoise"),
+    type = "bar",
+    text = ~N_Variables,
+    textposition = "inside", # Position text inside the bars
+    texttemplate = "%{text}", # Ensure text displayed as is
+    textfont = list(color = "black", size = 10)
   ) %>%
     layout(
       barmode = "stack",
