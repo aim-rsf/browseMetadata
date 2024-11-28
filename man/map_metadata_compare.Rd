@@ -17,7 +17,7 @@ map_metadata_compare(
 
 \item{session1_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-05-16-07-38'}
 
-\item{session2_base}{Base file name for session 1 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'}
+\item{session2_base}{Base file name for session 2 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'}
 
 \item{json_file}{The full path to the metadata file used when running map_metadata (should be the same for session 1 and session 2)}
 
@@ -29,4 +29,21 @@ It returns a csv output, which represents the consensus decisions between sessio
 \description{
 This function is to be used after running the map_metadata function. \cr \cr
 It compares csv outputs from two sessions, finds their differences, and asks for a consensus. \cr \cr
+}
+\examples{
+# Locate file paths for the example files in the package
+session_dir <- system.file("outputs", package = "browseMetadata")
+session1_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"
+session2_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-23-52"
+json_file <- system.file("inputs", "national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
+domain_file <- system.file("inputs", "domain_list_demo.csv", package = "browseMetadata")
+
+# Run the function
+map_metadata_compare(
+  session_dir = session_dir,
+  session1_base = session1_base,
+  session2_base = session2_base,
+  json_file = json_file,
+  domain_file = domain_file
+)
 }
