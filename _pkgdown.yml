@@ -24,6 +24,6 @@ reference:
   contents:
   - starts_with("map_metadata")
   - browse_metadata
-  - title: "Internal Functions"
-    contents:
+- title: "Internal Functions"
+  contents:
   - "@internal"
