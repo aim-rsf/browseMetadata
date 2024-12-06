@@ -26,4 +26,4 @@ reference:
   - browse_metadata
 - title: "Internal Functions"
   contents:
-  - "@internal"
+  - keywords: internal
