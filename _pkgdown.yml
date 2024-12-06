@@ -20,11 +20,12 @@ navbar:
     left:  [intro, reference, articles, tutorials, news]
     right: [search, github, lightswitch]
 reference:
-- title: Functions
-  - subtitle: User functions
+  - title: Functions
     contents:
-      - starts_with("map_metadata")
-      - browse_metadata
-  - subtitle: Internal functions
-    contents:
-      - "@internal"
+      - subtitle: User functions
+        contents:
+          - starts_with("map_metadata")
+          - browse_metadata
+      - subtitle: Internal functions
+        contents:
+          - "@internal"
