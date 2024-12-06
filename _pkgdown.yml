@@ -27,26 +27,7 @@ reference:
   - browse_metadata
 - subtitle: Internal functions
   contents:
-  - "concensus_on_mismatch"
-  - "copy_previous"
-  - "count_empty_desc"
-  - "join_outputs"
-  - "json_table_to_df"
-  - "load_data"
-  - "user_categorisation_loop"
-  - "user_categorisation"
-  - "user_prompt_list"
-  - "user_prompt"
-  - "valid_comparison"
-  - "end_plot"
-  - "ref_plot"
-- subtitle: Package data
-  contents:
-  - "domain_list"
-  - "json_metadata"
-  - "log_output_df"
-  - "look_up"
-  - "output_df"
+ - @internal
 
 
 
