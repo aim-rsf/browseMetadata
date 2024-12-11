@@ -12,7 +12,7 @@ test_that("map_metadata function works correctly with user input", {
   demo_output <- system.file("outputs/OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
 
   # Mock readline_wrapper (had to make a wrapper because readline is a base R function)
-  mock_readline_wrapper <- function(prompt) {
+  mock_readline <- function(prompt) {
     response <- switch(prompt,
                        "Press any key to continue " = "", #line 109 in map_metadata
                        "Optional free text note about this table (or press enter to continue): " = "demo run" #line 109 in map_metadata
@@ -46,7 +46,7 @@ test_that("map_metadata function works correctly with user input", {
   }
 
   # Use mockery::stub to mock functions
-  stub(map_metadata, "readline_wrapper", mock_readline_wrapper)
+  stub(map_metadata, "readline", mock_readline)
   stub(map_metadata, "user_prompt", mock_user_prompt)
   stub(map_metadata, "user_prompt_list", mock_user_prompt_list)
   stub(map_metadata, "user_categorisation_loop", mock_user_categorisation_loop)

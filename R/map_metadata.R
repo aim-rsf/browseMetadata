@@ -45,17 +45,13 @@
 #' @importFrom utils packageVersion write.csv
 #' @importFrom ggplot2 ggsave
 
-# Wrap base function so that mock functions within unit tests are allowed
-readline_wrapper <- function(prompt) {
-  readline(prompt)
-  }
-
 map_metadata <- function(
     json_file = NULL,
     domain_file = NULL,
     look_up_file = NULL,
     output_dir = NULL,
     table_copy = TRUE) {
+
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
   timestamp_now <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
@@ -106,7 +102,7 @@ map_metadata <- function(
   cat("\n\n")
   cli_alert_info("Reference outputs from browse_metadata for information about the dataset")
   cat("\n")
-  readline_wrapper("Press any key to continue ")
+  readline("Press any key to continue ")
 
   # WHICH TABLES FROM THE DATASET? ----
   ## Use 'user_prompt_list.R' to ask user which tables to process
@@ -151,7 +147,7 @@ map_metadata <- function(
       df_prev_exist <- FALSE
     }
 
-    table_note <- readline_wrapper(paste(
+    table_note <- readline(paste(
       "Optional free text note about this table",
       "(or press enter to continue): "
     ))
