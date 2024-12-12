@@ -50,7 +50,8 @@ It compares csv outputs from two sessions, finds their differences, and asks for
 <span>  <span class="va">session1_base</span>,</span>
 <span>  <span class="va">session2_base</span>,</span>
 <span>  <span class="va">json_file</span>,</span>
-<span>  <span class="va">domain_file</span></span>
+<span>  <span class="va">domain_file</span>,</span>
+<span>  output_dir <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -76,6 +77,10 @@ It compares csv outputs from two sessions, finds their differences, and asks for
 
 <dt id="arg-domain-file">domain_file<a class="anchor" aria-label="anchor" href="#arg-domain-file"></a></dt>
 <dd><p>The full path to the domain file used when running map_metadata (should be the same for session 1 and session 2)</p></dd>
+
+
+<dt id="arg-output-dir">output_dir<a class="anchor" aria-label="anchor" href="#arg-output-dir"></a></dt>
+<dd><p>The path to the directory where the concensus output file will be saved. By default, the session_dir is used.</p></dd>
 
 </dl></div>
     <div class="section level2">
