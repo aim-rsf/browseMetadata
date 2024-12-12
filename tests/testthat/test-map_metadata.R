@@ -65,9 +65,11 @@ test_that("map_metadata function works correctly with user input", {
   expected_output <- read.csv(demo_output)
   actual_output <- read.csv(output_file)
 
-  # Remove the timestamp column for comparison
+  # Remove the timestamp and package version columns for comparison
   expected_log_output$timestamp <- NULL
   actual_log_output$timestamp <- NULL
+  expected_log_output$browseMetadata <- NULL
+  actual_log_output$browseMetadata <- NULL
   expected_output$timestamp <- NULL
   actual_output$timestamp <- NULL
 
