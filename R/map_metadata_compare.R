@@ -8,6 +8,7 @@
 #' @param session2_base Base file name for session 2 e.g. 'NationalCommunityChildHealthDatabase(NCCHD)_BLOOD_TEST_2024-07-08-12-03-30'
 #' @param json_file The full path to the metadata file used when running map_metadata (should be the same for session 1 and session 2)
 #' @param domain_file The full path to the domain file used when running map_metadata (should be the same for session 1 and session 2)
+#' @param output_dir The path to the directory where the concensus output file will be saved. By default, the session_dir is used.
 #' @return It returns a csv output, which represents the consensus decisions between session 1 and session 2
 #' @export
 #' @importFrom utils read.csv write.csv
@@ -31,7 +32,7 @@
 #'   domain_file = demo_domain_file
 #' )
 #' }
-map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file) {
+map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file,output_dir = NULL) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 
   # DEFINE INPUTS ----
@@ -46,6 +47,11 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
 
   dataset <- meta_json$dataModel
   dataset_name <- dataset$label
+
+  ## Set output_dir to current wd if user has not provided it
+  if (is.null(output_dir)) {
+    output_dir <- session_dir
+  }
 
   # VALIDATION CHECKS ----
 
@@ -144,7 +150,7 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
   } # end of loop for DataElement
 
   # SAVE TO NEW CSV ----
-  output_fname <- paste0("CONSENSUS_OUTPUT_", gsub(" ", "", dataset_name), "_", table_find$table_label[table_n], "_", timestamp_now_fname, ".csv")
+  output_fname <- paste0(output_dir,"/CONSENSUS_OUTPUT_", gsub(" ", "", dataset_name), "_", table_find$table_label[table_n], "_", timestamp_now_fname, ".csv")
   write.csv(ses_join, output_fname, row.names = FALSE)
   cat("\n")
   cli_alert_success("Your consensus categorisations have been saved to {output_fname}")
