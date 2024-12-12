@@ -51,7 +51,6 @@ map_metadata <- function(
     look_up_file = NULL,
     output_dir = NULL,
     table_copy = TRUE) {
-
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
   timestamp_now <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 

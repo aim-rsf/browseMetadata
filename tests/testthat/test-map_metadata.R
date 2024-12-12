@@ -14,23 +14,23 @@ test_that("map_metadata function works correctly with user input", {
   # Mock readline_wrapper (had to make a wrapper because readline is a base R function)
   mock_readline <- function(prompt) {
     response <- switch(prompt,
-                       "Press any key to continue " = "", #line 109 in map_metadata
-                       "Optional free text note about this table (or press enter to continue): " = "demo run" #line 109 in map_metadata
-                       )
+      "Press any key to continue " = "", # line 109 in map_metadata
+      "Optional free text note about this table (or press enter to continue): " = "demo run" # line 109 in map_metadata
+    )
   }
 
   # Mock user_prompt function
   mock_user_prompt <- function(prompt_text, any_keys) {
-    if (prompt_text == "Enter your initials: "){ #line 93 in map_metadata
-      response = "demo"
-    } else if (prompt_text == "Would you like to review your categorisations? (y/n): " ){ #line 238 in map_metadata
-      response = "n"
+    if (prompt_text == "Enter your initials: ") { # line 93 in map_metadata
+      response <- "demo"
+    } else if (prompt_text == "Would you like to review your categorisations? (y/n): ") { # line 238 in map_metadata
+      response <- "n"
     }
     return(response)
   }
 
   # Mock user_categorisation_loop, line 109
-  mock_user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output_df){
+  mock_user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output_df) {
     output_df <- read.csv(demo_output)
     output_df$timestamp <- NA
     output_df$table <- NA
@@ -40,9 +40,9 @@ test_that("map_metadata function works correctly with user input", {
   # Mock user_prompt_list function
   mock_user_prompt_list <- function(prompt_text, list_allowed, empty_allowed) {
     if (grepl("Enter row numbers for those you want to edit:", prompt_text)) {
-      return(list()) #return an empty list for the auto categorised data elements prompt
+      return(list()) # return an empty list for the auto categorised data elements prompt
     }
-    return(list(2)) #return a list with '2' which means choosing the table CHILD
+    return(list(2)) # return a list with '2' which means choosing the table CHILD
   }
 
   # Use mockery::stub to mock functions

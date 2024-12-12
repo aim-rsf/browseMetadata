@@ -32,7 +32,7 @@
 #'   domain_file = demo_domain_file
 #' )
 #' }
-map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file,output_dir = NULL) {
+map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file, output_dir = NULL) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 
   # DEFINE INPUTS ----
@@ -150,7 +150,7 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
   } # end of loop for DataElement
 
   # SAVE TO NEW CSV ----
-  output_fname <- paste0(output_dir,"/CONSENSUS_OUTPUT_", gsub(" ", "", dataset_name), "_", table_find$table_label[table_n], "_", timestamp_now_fname, ".csv")
+  output_fname <- paste0(output_dir, "/CONSENSUS_OUTPUT_", gsub(" ", "", dataset_name), "_", table_find$table_label[table_n], "_", timestamp_now_fname, ".csv")
   write.csv(ses_join, output_fname, row.names = FALSE)
   cat("\n")
   cli_alert_success("Your consensus categorisations have been saved to {output_fname}")

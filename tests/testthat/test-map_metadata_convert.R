@@ -19,5 +19,4 @@ test_that("map_metadata_convert function outputs files correctly", {
 
   # Test that the outputs are the same
   expect_equal(actual_output, expected_output)
-
 })
