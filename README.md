@@ -6,7 +6,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10581500.svg)](https://doi.org/10.5281/zenodo.10581500)
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![R-CMD-check](https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml)
-[![pkgcheck](https://github.com/aim-rsf/browseMetadata/workflows/pkgcheck/badge.svg)](https://github.com/aim-rsf/browseMetadata/actions?query=workflow%3Apkgcheck)
+[![pkgcheck](https://github.com/aim-rsf/browseMetadata/workflows/pkgcheck/badge.svg)](https://github.com/aim-rsf/browseMetadata/actions?query=workflow%3Apkgcheck) [![codecov](https://codecov.io/gh/aim-rsf/browseMetadata/graph/badge.svg?token=59S2QVG7CQ)](https://codecov.io/gh/aim-rsf/browseMetadata)
 <!-- badges: end -->
 
 # Table of Contents
