@@ -100,8 +100,8 @@ map_metadata <- function(
   ))
   cat("\n\n")
   cli_alert_info("Reference outputs from browse_metadata for information about the dataset")
-  cat("\nPress any key to continue ")
-  readline()
+  cat("\n")
+  readline("Press any key to continue ")
 
   # WHICH TABLES FROM THE DATASET? ----
   ## Use 'user_prompt_list.R' to ask user which tables to process
@@ -194,6 +194,7 @@ map_metadata <- function(
 
     output_df$timestamp <- timestamp_now
     output_df$table <- table_name
+
 
     ### Review auto categorized data elements
     #### Use 'user_prompt_list.R' to ask the user which rows to edit
