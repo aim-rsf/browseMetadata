@@ -66,12 +66,6 @@ Load the library:
 library(browseMetadata)
 ```
 
-Set your working directory to an empty folder:
-
-```r         
-setwd("/Users/your-username/test-browseMetadata")
-```
-
 ### Demo (using the `R Studio` IDE)
 
 Fo a longer more detailed demo, see the [Getting Started](https://aim-rsf.github.io/browseMetadata/articles/browseMetadata.html) page on the package website. 
@@ -89,11 +83,10 @@ browse_metadata()
 Upon success, you should see:
 
 ```
-ℹ Three outputs have been saved to your output directory.
-ℹ Open the two HTML files in your browser for full-screen viewing.
+ℹ Three outputs have been saved to your output directory, and two outputs should have opened in your browser.
 ```
 
-The output files are saved to your working directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs).
+You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs).
 
 #### `map_metadata()`
 
