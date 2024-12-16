@@ -161,17 +161,14 @@ browse_metadata <- function(json_file = NULL, output_dir = getwd()) {
   saveWidget(widget = barplot_html, file = bar_fname, selfcontained = TRUE)
 
   ## Save the data that made the bar plot to a csv file
-  bar_fname <- paste0("BROWSE_bar_", base_fname, ".csv")
-  write.csv(count_empty_long, bar_fname, row.names = FALSE)
+  bar_data_fname <- paste0("BROWSE_bar_", base_fname, ".csv")
+  write.csv(count_empty_long, bar_data_fname, row.names = FALSE)
 
   setwd(original_wd) # saveWidget has a bug with paths & saving
 
   # OUTPUTS ----
   cat("\n")
-  cli_alert_info("Three outputs have been saved to your output directory.")
-  cli_alert_info("The two html files are shown in your Viewer tab. Open in your browser for full screen viewing.")
-  cat("\n")
-
-  html_figs <- list(table_html = table_html, barplot_html = barplot_html)
-  return(html_figs)
+  cli_alert_info("Three outputs have been saved to your output directory, and two outputs should have opened in your browser.")
+  browseURL(table_fname)
+  browseURL(bar_fname)
 } # end of function
