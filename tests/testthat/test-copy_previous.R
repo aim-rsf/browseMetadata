@@ -1,8 +1,8 @@
-# libraries: testthat, mockery, utils)
+# libraries: testthat, mockery, utils
 
 test_that("copy_previous works correctly when there are files to copy from", {
   # Create a temporary directory
-  temp_dir <- tempdir()
+  temp_dir <- withr::local_tempdir()
 
   # Create test CSV files
   # Criteria for test files: one must have 'AUTO CATEGORISED' as Note, overlap in DataElements across files, different timestamps across files)
@@ -40,7 +40,4 @@ test_that("copy_previous works correctly when there are no files to copy from", 
   # Check the results
   expect_null(result$df_prev)
   expect_false(result$df_prev_exist)
-
-  # Clean up
-  unlink(temp_dir, recursive = TRUE)
 })

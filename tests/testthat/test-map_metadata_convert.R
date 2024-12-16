@@ -2,7 +2,7 @@
 
 test_that("map_metadata_convert function outputs files correctly", {
   # Setup
-  temp_dir <- tempdir()
+  temp_dir <- withr::local_tempdir()
   file_in <- system.file("outputs/OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
   file_out <- system.file("outputs/L-OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
 

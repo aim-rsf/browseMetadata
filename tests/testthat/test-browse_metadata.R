@@ -1,8 +1,8 @@
-# libraries: testthat, jsonlite
+# libraries: testthat, jsonlite, withr
 
 test_that("browse_metadata function outputs files correctly", {
   # Setup
-  temp_dir <- tempdir()
+  temp_dir <- withr::local_tempdir()
   example_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
 
   # Execution
@@ -26,7 +26,4 @@ test_that("browse_metadata function outputs files correctly", {
   expect_equal(nrow(bar_csv), 26)
   expect_equal(ncol(bar_csv),3)
   expect_equal(sum(bar_csv$N_Variables),318)
-
-  # Teardown
-  unlink(c(table_file, bar_file_html, bar_file_csv))
 })

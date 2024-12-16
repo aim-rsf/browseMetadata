@@ -2,10 +2,7 @@
 
 test_that("map_metadata function works correctly with user input", {
   # Setup
-  temp_dir <- tempdir()
-
-  # Ensure the temporary directory is empty
-  unlink(file.path(temp_dir, "*"), recursive = TRUE)
+  temp_dir <- withr::local_tempdir()
 
   demo_log_output <- system.file("outputs/LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
   demo_output <- system.file("outputs/OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
