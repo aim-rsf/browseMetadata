@@ -3,14 +3,14 @@
 We warmly welcome contributions to the browseMetadata project! 
 This document provides guidelines for contributing to this repository.
 
-## How to Contribute
+## How to contribute
 
-### Reporting Issues
+### Reporting issues
 
 - **Bug Reports**: If you find a bug, please open an issue with a clear description of the problem and steps to reproduce it.
 - **Feature Requests**: Suggestions for new features or improvements are always welcome. Please open an issue to discuss your ideas.
 
-### Making Changes
+### Making changes
 
 1. **Fork the Repository**: Start by forking the repository to your GitHub account.
 2. **Create a Feature Branch**: Create a new branch for your feature or fix.
@@ -18,7 +18,7 @@ This document provides guidelines for contributing to this repository.
 4. **Test Your Changes**: Ensure your changes do not break any existing functionality.
 5. **Submit a Pull Request**: Open a pull request from your feature branch to the main branch of the original repository.
 
-### Coding Standards
+### Coding standards
 
 - Follow the [tidyverse style guide](https://style.tidyverse.org) for R code.
 - Write clear, readable, and maintainable code.
@@ -39,12 +39,11 @@ If your contribution involves changes to the R package itself (as an author or r
 3. In this **Git** tab, move to the branch you want to make changes in (or review and test the changes of someone else).
 4. Ensure that your current working directory is the R package directory you cloned (`getwd()` to check and `setwd()` to change).
 5. Run `devtools::load_all()` in the R console. You should see `ℹ Loading browseMetadata` returned.
-6. Test the function runs by running `domain_mapping()` in the R console.
-7. Make your changes (or review changes made by others), and commit these changes in the way you choose to interact with git locally!
+6. Make your changes (or review changes made by others), and commit these changes in the way you choose to interact with git locally!
 
 If you run into issues with branches not seeming to be up to date in the R Studio workspace, consider running `remove.packages("browseMetadata")` and trying the above steps again, in case a previously installed package library is getting in the way somehow. 
    
-### Working with Package Data
+### Working with package data
 
 - **Creating .rda Files**: To create `.rda` files in the data directory of the package, use the following command in R:
   ```R
@@ -63,18 +62,24 @@ If you run into issues with branches not seeming to be up to date in the R Studi
   ```
   Again, replace `dataname` with the name of the data you wish to load.
 
-### Building Documentation
+### Building documentation
 
 - **Generating Documentation Files**: To build the documentation files for the package, use the `roxygen2` package:
   ```R
-  library(roxygen2)
-  roxygenise()
+  devtools::document() 
   ```
-  This will generate the necessary documentation based on your roxygen comments in the R code.
+  This will generates the .Rd files from any updated roxygen comments.
 
-### Testing Your Changes
+### Testing your changes and check your style :sunglasses:
 
-- Ensure that your changes do not break any existing functionality. Run any existing tests, and consider adding new tests to cover your changes.
+Ensure that your changes do not break any existing functionality. Run any existing tests, and consider adding new tests to cover your changes. Here are some helpful functions to consider:
+
+- `codemetar::write_codemeta()` ensures the metadata file is up to date.
+- `lintr::lint_package(path = ".")` checks for adherence to a given style, identifying syntax errors and possible semantic issues
+- `desc::desc_normalize()` to ensure DESCRIPTION file follows a standard structure and style
+- `styler::style_pkg()` ensures consistent code styling that match the guidelines.
+- `devtools::check()` runs a comprehensive package check. 
+- https://docs.ropensci.org/pkgcheck/ (but there is also GitHub Action that runs this)
 
 ### Submitting Changes
 
