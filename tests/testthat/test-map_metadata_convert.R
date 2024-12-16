@@ -1,5 +1,4 @@
-library(testthat) # test_that, expect_true
-
+# libraries: testthat
 
 test_that("map_metadata_convert function outputs files correctly", {
   # Setup

@@ -1,7 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_equal, expect_true, expect_null, expect_false
-library(mockery) # mock, stub
-library(utils) # write.csv
+# libraries: testthat, mockery, utils)
 
 test_that("copy_previous works correctly when there are files to copy from", {
   # Create a temporary directory

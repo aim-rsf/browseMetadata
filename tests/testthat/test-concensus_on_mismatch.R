@@ -1,6 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_equal
-library(mockery) # stub
+# libraries: testthat, mockery
 
 # Mock user_categorisation function
 mock_user_categorisation <- function(data_element, data_desc, data_type, domain_code_max) {

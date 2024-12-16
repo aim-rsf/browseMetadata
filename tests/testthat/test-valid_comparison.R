@@ -1,5 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_error
+# libraries: testthat
 
 test_that("valid_comparison function works correctly", {
   # Test invalid severity

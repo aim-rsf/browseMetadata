@@ -1,6 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_equal
-library(mockery) # mock, stub
+# libraries: testthat, mockery
 
 test_that("user_prompt_list works with valid input", {
   mock_scan <- mock(c(1, 2, 3), cycle = TRUE) # create a mock object that returns a list of integers when called, cycling the same value

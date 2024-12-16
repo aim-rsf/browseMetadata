@@ -1,5 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_equal
+# libraries: testthat
 
 # Create sample data (only allow it to be different on timestamp, Domain_code and Note)
 session_1 <- data.frame(

@@ -1,5 +1,4 @@
-library(testthat)
-library(mockery)
+# libraries: testthat, mockery
 
 test_that("map_metadata function works correctly with user input", {
   # Setup

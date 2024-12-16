@@ -1,8 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_true, expect_equal, expect_error, expect_false
-library(mockery) # mock, stub
-library(tools) # file_path_sans_ext
-library(utils) # read.csv
+# libraries: testthat, mockery, tools, utils
 
 # Define file paths to demo data relative to the package directory
 json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")

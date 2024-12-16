@@ -1,6 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_equal, expect_error
-library(mockery) # mock, stub
+# libraries: testthat, mockery
 
 test_that("user_prompt works with any_keys = TRUE", {
   mock_readline <- mock("test_response") # create a mock object that returns a string when called

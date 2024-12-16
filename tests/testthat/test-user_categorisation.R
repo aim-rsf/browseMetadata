@@ -1,6 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_equal
-library(mockery) # mock, stub
+# libraries: testthat, mockery
 
 test_that("user_categorisation works with valid input", {
   mock_readline <- mock("3", "This is a note", "n") # create a mock object that returns user inputs in sequence

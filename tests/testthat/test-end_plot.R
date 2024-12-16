@@ -1,7 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_s3_class
-library(gridExtra) # tableGrob
-library(dplyr) # add_row
+# libraries: testthat, gridExtra, dplyr
 
 test_that("end_plot function works correctly", {
   # Sample data frame

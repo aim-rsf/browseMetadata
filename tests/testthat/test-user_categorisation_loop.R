@@ -1,6 +1,4 @@
-# load libraries
-library(testthat) # test_that, expect_equal
-library(mockery) # mock, stub
+# libraries: testthat, mockery
 
 output_df <- get("output_df")
 code <- data.frame(code = 0:2)

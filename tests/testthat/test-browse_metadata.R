@@ -1,5 +1,4 @@
-library(testthat) # test_that, expect_true
-library(jsonlite)
+# libraries: testthat, jsonlite
 
 test_that("browse_metadata function outputs files correctly", {
   # Setup
