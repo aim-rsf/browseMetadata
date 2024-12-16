@@ -1,8 +1,6 @@
-# libraries: testthat, jsonlite
-
 # Read in example json
 example_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
-dataset <- fromJSON(example_json_file)$dataModel
+dataset <- jsonlite::fromJSON(example_json_file)$dataModel
 
 test_that("json_table_to_df gives expected output for 8th index", {
   result <- json_table_to_df(dataset, 8)

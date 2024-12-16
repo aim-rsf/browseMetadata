@@ -1,5 +1,3 @@
-# libraries: testthat, tidyr
-
 test_that("count_empty_desc correctly counts empty descriptions", {
   # Sample input data frame
   table_df <- data.frame(
@@ -10,7 +8,7 @@ test_that("count_empty_desc correctly counts empty descriptions", {
   )
 
   # Expected output data frame
-  expected_output <- tibble(
+  expected_output <- tidyr::tibble(
     empty = c("No", "Yes"),
     table_colname = c(2, 3)
   )

@@ -1,8 +1,6 @@
-# libraries: testthat, withr
-
 test_that("map_metadata function works correctly with user input", {
   # Setup
-  temp_dir <- local_tempdir()
+  temp_dir <- withr::local_tempdir()
 
   demo_log_output <- system.file("outputs/LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
   demo_output <- system.file("outputs/OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
@@ -10,37 +8,41 @@ test_that("map_metadata function works correctly with user input", {
   # Mock functions
   local_mocked_bindings(
     readline = function(prompt) {
-    response <- switch(prompt,
-      "Press any key to continue " = "", # line 109 in map_metadata
-      "Optional free text note about this table (or press enter to continue): " = "demo run" # line 109 in map_metadata
-    )
-  })
+      response <- switch(prompt,
+        "Press any key to continue " = "", # line 109 in map_metadata
+        "Optional free text note about this table (or press enter to continue): " = "demo run" # line 109 in map_metadata
+      )
+    }
+  )
 
   local_mocked_bindings(
     user_prompt = function(prompt_text, any_keys) {
-    if (prompt_text == "Enter your initials: ") { # line 93 in map_metadata
-      response <- "demo"
-    } else if (prompt_text == "Would you like to review your categorisations? (y/n): ") { # line 238 in map_metadata
-      response <- "n"
+      if (prompt_text == "Enter your initials: ") { # line 93 in map_metadata
+        response <- "demo"
+      } else if (prompt_text == "Would you like to review your categorisations? (y/n): ") { # line 238 in map_metadata
+        response <- "n"
+      }
+      return(response)
     }
-    return(response)
-  })
+  )
 
   local_mocked_bindings(
-  user_categorisation_loop = function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output_df) {
-    output_df <- read.csv(demo_output)
-    output_df$timestamp <- NA
-    output_df$table <- NA
-    return(output_df)
-  })
+    user_categorisation_loop = function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output_df) {
+      output_df <- read.csv(demo_output)
+      output_df$timestamp <- NA
+      output_df$table <- NA
+      return(output_df)
+    }
+  )
 
   local_mocked_bindings(
-  user_prompt_list = function(prompt_text, list_allowed, empty_allowed) {
-    if (grepl("Enter row numbers for those you want to edit:", prompt_text)) {
-      return(list()) # return an empty list for the auto categorised data elements prompt
+    user_prompt_list = function(prompt_text, list_allowed, empty_allowed) {
+      if (grepl("Enter row numbers for those you want to edit:", prompt_text)) {
+        return(list()) # return an empty list for the auto categorised data elements prompt
+      }
+      return(list(2)) # return a list with '2' which means choosing the table CHILD
     }
-    return(list(2)) # return a list with '2' which means choosing the table CHILD
-  })
+  )
 
   # Run the map_metadata function
   map_metadata(output_dir = temp_dir, table_copy = FALSE)

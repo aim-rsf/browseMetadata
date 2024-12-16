@@ -1,5 +1,3 @@
-# libraries: testthat
-
 output_df <- get("output_df")
 code <- data.frame(code = 0:2)
 df_plots <- list(code = code, "")
@@ -39,7 +37,7 @@ test_that("user_categorisation_loop handles user categorisation", {
   lookup <- data.frame(data_element = c("Element3", "Element4"), domain_code = c(3, 4))
 
   # Mock the user_categorisation function
-  local_mocked_bindings(user_categorisation = function(data_element = NULL, data_desc = NULL, data_type = NULL, domain_code_max = NULL){
+  local_mocked_bindings(user_categorisation = function(data_element = NULL, data_desc = NULL, data_type = NULL, domain_code_max = NULL) {
     return(list(decision = "1", decision_note = "User note"))
   })
 

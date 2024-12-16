@@ -7,7 +7,8 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(withr)
 library(browseMetadata)
+library(mockery)
+library(withr)
 
 test_check("browseMetadata")

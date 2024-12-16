@@ -1,5 +1,3 @@
-# libraries: testthat
-
 test_that("valid_comparison function works correctly", {
   # Test invalid severity
   expect_error(

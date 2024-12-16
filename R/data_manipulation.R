@@ -42,9 +42,9 @@ count_empty_desc <- function(table_df, table_colname) {
 
   for (data_v in seq_len(nrow(table_df))) {
     if ((nchar(table_df$description[data_v]) == 1) ||
-        (table_df$description[data_v] == "Description to follow") ||
-        (table_df$description[data_v] == "NA")) {
-        table_df$empty[data_v] <- "Yes"
+      (table_df$description[data_v] == "Description to follow") ||
+      (table_df$description[data_v] == "NA")) {
+      table_df$empty[data_v] <- "Yes"
     } else {
       table_df$empty[data_v] <- "No"
     }

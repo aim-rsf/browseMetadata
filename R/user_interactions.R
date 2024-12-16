@@ -1,3 +1,6 @@
+readline <- NULL
+scan <- NULL
+
 #' Internal: user_categorisation
 #'
 #' Internal Function: This function is called within the map_metadata function. \cr \cr
@@ -154,8 +157,6 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
 #' If FALSE, only these are allowed: Y, y, N and n.
 #' @return It returns variable text, depending on any_keys.
 #' @keywords internal
-
-scan <- NULL
 
 user_prompt <- function(prompt_text, any_keys) {
   # prompt text

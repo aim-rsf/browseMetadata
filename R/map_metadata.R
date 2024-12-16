@@ -1,3 +1,5 @@
+readline <- NULL
+
 #' map_metadata
 #'
 #' This function will read in the metadata file for a chosen dataset, loop
@@ -44,8 +46,6 @@
 #' @importFrom cli cli_h1 cli_alert_info cli_alert_success
 #' @importFrom utils packageVersion write.csv
 #' @importFrom ggplot2 ggsave
-
-readline <- NULL
 
 map_metadata <- function(
     json_file = NULL,

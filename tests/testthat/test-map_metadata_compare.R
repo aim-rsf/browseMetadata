@@ -1,8 +1,6 @@
-# libraries: testthat, withr
-
 test_that("map_metadata function works correctly with user input", {
   # Setup
-  temp_dir <- local_tempdir()
+  temp_dir <- withr::local_tempdir()
 
   demo_session_dir <- system.file("outputs", package = "browseMetadata")
   demo_session1_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"
@@ -16,7 +14,8 @@ test_that("map_metadata function works correctly with user input", {
       domain_code_join <- "0"
       note_join <- "concensus note"
       return(list(domain_code_join = domain_code_join, note_join = note_join))
-      })
+    }
+  )
 
   # Run the function - requires user interaction
   map_metadata_compare(

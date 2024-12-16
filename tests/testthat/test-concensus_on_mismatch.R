@@ -1,11 +1,9 @@
-# libraries: testthat
-
-# Mock the user_categorisation function
-local_mocked_bindings(user_categorisation = function(data_element = NULL, data_desc = NULL, data_type = NULL, domain_code_max = NULL){
-  return(list(decision = "mock_decision", decision_note = "mock_note"))
-})
-
 test_that("concensus_on_mismatch handles mismatch correctly", {
+  # Mock the user_categorisation function
+  local_mocked_bindings(user_categorisation = function(data_element = NULL, data_desc = NULL, data_type = NULL, domain_code_max = NULL) {
+    return(list(decision = "mock_decision", decision_note = "mock_note"))
+  })
+
   # Mock data
   ses_join <- data.frame(
     domain_code_ses1 = c("1", "1,2"),
