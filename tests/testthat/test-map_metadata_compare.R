@@ -1,4 +1,4 @@
-# libraries: testthat, mockery, withr
+# libraries: testthat, withr
 
 test_that("map_metadata function works correctly with user input", {
   # Setup
@@ -11,14 +11,12 @@ test_that("map_metadata function works correctly with user input", {
   demo_domain_file <- system.file("inputs", "domain_list_demo.csv", package = "browseMetadata")
 
   # mock concensus_on_mismatch
-  mock_concensus_on_mismatch <- function(ses_join, table_df, datavar, domain_code_max) {
-    domain_code_join <- "0"
-    note_join <- "concensus note"
-    return(list(domain_code_join = domain_code_join, note_join = note_join))
-  }
-
-  # Use mockery::stub to mock functions
-  stub(map_metadata_compare, "concensus_on_mismatch", mock_concensus_on_mismatch)
+  local_mocked_bindings(
+    concensus_on_mismatch = function(ses_join, table_df, datavar, domain_code_max) {
+      domain_code_join <- "0"
+      note_join <- "concensus note"
+      return(list(domain_code_join = domain_code_join, note_join = note_join))
+      })
 
   # Run the function - requires user interaction
   map_metadata_compare(

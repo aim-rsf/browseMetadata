@@ -1,4 +1,4 @@
-# libraries: testthat, mockery, withr
+# libraries: testthat, withr
 
 test_that("map_metadata function works correctly with user input", {
   # Setup
@@ -7,45 +7,40 @@ test_that("map_metadata function works correctly with user input", {
   demo_log_output <- system.file("outputs/LOG_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
   demo_output <- system.file("outputs/OUTPUT_NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55.csv", package = "browseMetadata")
 
-  # Mock readline_wrapper (had to make a wrapper because readline is a base R function)
-  mock_readline <- function(prompt) {
+  # Mock functions
+  local_mocked_bindings(
+    readline = function(prompt) {
     response <- switch(prompt,
       "Press any key to continue " = "", # line 109 in map_metadata
       "Optional free text note about this table (or press enter to continue): " = "demo run" # line 109 in map_metadata
     )
-  }
+  })
 
-  # Mock user_prompt function
-  mock_user_prompt <- function(prompt_text, any_keys) {
+  local_mocked_bindings(
+    user_prompt = function(prompt_text, any_keys) {
     if (prompt_text == "Enter your initials: ") { # line 93 in map_metadata
       response <- "demo"
     } else if (prompt_text == "Would you like to review your categorisations? (y/n): ") { # line 238 in map_metadata
       response <- "n"
     }
     return(response)
-  }
+  })
 
-  # Mock user_categorisation_loop, line 109
-  mock_user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output_df) {
+  local_mocked_bindings(
+  user_categorisation_loop = function(start_v, end_v, table_df, df_prev_exist, df_prev, lookup, df_plots, output_df) {
     output_df <- read.csv(demo_output)
     output_df$timestamp <- NA
     output_df$table <- NA
     return(output_df)
-  }
+  })
 
-  # Mock user_prompt_list function
-  mock_user_prompt_list <- function(prompt_text, list_allowed, empty_allowed) {
+  local_mocked_bindings(
+  user_prompt_list = function(prompt_text, list_allowed, empty_allowed) {
     if (grepl("Enter row numbers for those you want to edit:", prompt_text)) {
       return(list()) # return an empty list for the auto categorised data elements prompt
     }
     return(list(2)) # return a list with '2' which means choosing the table CHILD
-  }
-
-  # Use mockery::stub to mock functions
-  stub(map_metadata, "readline", mock_readline)
-  stub(map_metadata, "user_prompt", mock_user_prompt)
-  stub(map_metadata, "user_prompt_list", mock_user_prompt_list)
-  stub(map_metadata, "user_categorisation_loop", mock_user_categorisation_loop)
+  })
 
   # Run the map_metadata function
   map_metadata(output_dir = temp_dir, table_copy = FALSE)

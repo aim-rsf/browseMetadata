@@ -1,4 +1,4 @@
-# libraries: testthat, mockery, tools, utils
+# libraries: testthat, tools, utils
 
 # Define file paths to demo data relative to the package directory
 json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")

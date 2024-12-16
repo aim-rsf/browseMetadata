@@ -1,4 +1,4 @@
-# libraries: testthat, mockery, utils, withr
+# libraries: testthat, utils, withr
 
 test_that("copy_previous works correctly when there are files to copy from", {
   # Create a temporary directory
@@ -25,14 +25,11 @@ test_that("copy_previous works correctly when there are files to copy from", {
   expect_equal(result$df_prev$timestamp, c("2024-08-22-13-35-40", "2024-08-22-13-35-40", "2024-09-22-13-00-05"))
   expect_equal(result$df_prev$data_element, c("DataElement1", "DataElement2", "DataElement3"))
   expect_equal(result$df_prev$note, c("note1", "note2", "note4"))
-
-  # Clean up
-  unlink(temp_dir, recursive = TRUE)
 })
 
 test_that("copy_previous works correctly when there are no files to copy from", {
   # Create a temporary directory
-  temp_dir <- tempdir()
+  temp_dir <- local_tempdir()
 
   # Call the function
   result <- copy_previous("TestDataset", temp_dir)

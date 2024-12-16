@@ -1,9 +1,9 @@
-# libraries: testthat, mockery
+# libraries: testthat
 
-# Mock user_categorisation function
-mock_user_categorisation <- function(data_element, data_desc, data_type, domain_code_max) {
+# Mock the user_categorisation function
+local_mocked_bindings(user_categorisation = function(data_element = NULL, data_desc = NULL, data_type = NULL, domain_code_max = NULL){
   return(list(decision = "mock_decision", decision_note = "mock_note"))
-}
+})
 
 test_that("concensus_on_mismatch handles mismatch correctly", {
   # Mock data
@@ -25,9 +25,6 @@ test_that("concensus_on_mismatch handles mismatch correctly", {
 
   datavar <- 2
   domain_code_max <- 5
-
-  # Stub the user_categorisation function
-  stub(concensus_on_mismatch, "user_categorisation", mock_user_categorisation)
 
   # Call the function
   result <- concensus_on_mismatch(ses_join, table_df, datavar, domain_code_max)

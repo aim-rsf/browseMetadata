@@ -154,6 +154,9 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
 #' If FALSE, only these are allowed: Y, y, N and n.
 #' @return It returns variable text, depending on any_keys.
 #' @keywords internal
+
+scan <- NULL
+
 user_prompt <- function(prompt_text, any_keys) {
   # prompt text
   if (any_keys == TRUE) {

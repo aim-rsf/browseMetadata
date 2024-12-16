@@ -45,6 +45,8 @@
 #' @importFrom utils packageVersion write.csv
 #' @importFrom ggplot2 ggsave
 
+readline <- NULL
+
 map_metadata <- function(
     json_file = NULL,
     domain_file = NULL,

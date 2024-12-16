@@ -1,4 +1,4 @@
-# libraries: testthat, mockery
+# libraries: testthat
 
 output_df <- get("output_df")
 code <- data.frame(code = 0:2)
@@ -39,8 +39,9 @@ test_that("user_categorisation_loop handles user categorisation", {
   lookup <- data.frame(data_element = c("Element3", "Element4"), domain_code = c(3, 4))
 
   # Mock the user_categorisation function
-  mock_user_categorisation <- mock(list(decision = "1", decision_note = "User note"), cycle = TRUE)
-  stub(user_categorisation_loop, "user_categorisation", mock_user_categorisation)
+  local_mocked_bindings(user_categorisation = function(data_element = NULL, data_desc = NULL, data_type = NULL, domain_code_max = NULL){
+    return(list(decision = "1", decision_note = "User note"))
+  })
 
   # Call the function
   result <- user_categorisation_loop(1, 2, table_df, FALSE, data.frame(), lookup, df_plots, output_df)

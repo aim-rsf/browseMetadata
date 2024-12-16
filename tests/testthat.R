@@ -6,15 +6,8 @@
 # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
 # * https://testthat.r-lib.org/articles/special-files.html
 
-library(browseMetadata)
 library(testthat)
-library(mockery)
-library(jsonlite)
-library(tools)
-library(utils)
-library(tidyr)
-library(gridExtra)
-library(dplyr)
 library(withr)
+library(browseMetadata)
 
 test_check("browseMetadata")
