@@ -32,7 +32,7 @@
 #'   domain_file = demo_domain_file
 #' )
 #' }
-map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file, output_dir = NULL) {
+map_metadata_compare <- function(session_dir, session1_base, session2_base, json_file, domain_file, output_dir = session_dir) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
 
   # DEFINE INPUTS ----
@@ -47,11 +47,6 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
 
   dataset <- meta_json$dataModel
   dataset_name <- dataset$label
-
-  ## Set output_dir to current wd if user has not provided it
-  if (is.null(output_dir)) {
-    output_dir <- session_dir
-  }
 
   # VALIDATION CHECKS ----
 

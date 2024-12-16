@@ -26,7 +26,7 @@
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tidyr pivot_longer
 
-browse_metadata <- function(json_file = NULL, output_dir = NULL) {
+browse_metadata <- function(json_file = NULL, output_dir = getwd()) {
   # DEFINE INPUTS AND OUTPUTS ----
 
   ## Read in the json file containing the meta data, if null load the demo file
@@ -40,10 +40,6 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
     meta_json <- fromJSON(json_file)
   }
 
-  ## Set output_dir to current wd if user has not provided it
-  if (is.null(output_dir)) {
-    output_dir <- getwd()
-  }
   ## Extract dataset from json_file
   dataset <- meta_json$dataModel
   dataset_name <- dataset$label

@@ -4,7 +4,7 @@
 \alias{browse_metadata}
 \title{browse_metadata}
 \usage{
-browse_metadata(json_file = NULL, output_dir = NULL)
+browse_metadata(json_file = NULL, output_dir = getwd())
 }
 \arguments{
 \item{json_file}{The metadata file. This should be a json download from the

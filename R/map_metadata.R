@@ -49,17 +49,12 @@ map_metadata <- function(
     json_file = NULL,
     domain_file = NULL,
     look_up_file = NULL,
-    output_dir = NULL,
+    output_dir = getwd(),
     table_copy = TRUE) {
   timestamp_now_fname <- format(Sys.time(), "%Y-%m-%d-%H-%M-%S")
   timestamp_now <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
   # DEFINE INPUTS AND OUTPUTS ----
-
-  ## Set output_dir to current wd if user has not provided it
-  if (is.null(output_dir)) {
-    output_dir <- getwd()
-  }
 
   ## Use 'load_data.R' to collect inputs (defaults or user inputs)
   data <- load_data(json_file, domain_file, look_up_file)
