@@ -25,6 +25,7 @@
 #' @importFrom plotly plot_ly layout
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tidyr pivot_longer
+#' @importFrom utils browseURL
 
 browse_metadata <- function(json_file = NULL, output_dir = getwd()) {
   # DEFINE INPUTS AND OUTPUTS ----
