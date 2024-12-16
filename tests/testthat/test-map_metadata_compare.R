@@ -1,8 +1,8 @@
-# libraries: testthat, mockery
+# libraries: testthat, mockery, withr
 
 test_that("map_metadata function works correctly with user input", {
   # Setup
-  temp_dir <- withr::local_tempdir()
+  temp_dir <- local_tempdir()
 
   demo_session_dir <- system.file("outputs", package = "browseMetadata")
   demo_session1_base <- "NationalCommunityChildHealthDatabase(NCCHD)_CHILD_2024-11-27-14-19-55"

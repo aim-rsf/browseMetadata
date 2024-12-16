@@ -15,5 +15,6 @@ library(utils)
 library(tidyr)
 library(gridExtra)
 library(dplyr)
+library(withr)
 
 test_check("browseMetadata")

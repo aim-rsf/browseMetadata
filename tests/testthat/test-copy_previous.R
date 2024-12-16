@@ -1,8 +1,8 @@
-# libraries: testthat, mockery, utils
+# libraries: testthat, mockery, utils, withr
 
 test_that("copy_previous works correctly when there are files to copy from", {
   # Create a temporary directory
-  temp_dir <- withr::local_tempdir()
+  temp_dir <- local_tempdir()
 
   # Create test CSV files
   # Criteria for test files: one must have 'AUTO CATEGORISED' as Note, overlap in DataElements across files, different timestamps across files)

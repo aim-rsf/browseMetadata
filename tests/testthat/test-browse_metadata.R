@@ -2,7 +2,7 @@
 
 test_that("browse_metadata function outputs files correctly", {
   # Setup
-  temp_dir <- withr::local_tempdir()
+  temp_dir <- local_tempdir()
   example_json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
 
   # Execution
