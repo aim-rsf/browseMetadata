@@ -126,7 +126,7 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
 
   ## Use 'json_table_to_df.R' to extract table from meta_json into a df
   table_find <- data.frame(table_n = numeric(length(dataset$childDataClasses)), table_label = character(length(dataset$childDataClasses)))
-  for (t in 1:length(dataset$childDataClasses)) {
+  for (t in seq_along(dataset$childDataClasses)) {
     table_find$table_n[t] <- t
     table_find$table_label[t] <- dataset$childDataClasses$label[t]
   }
@@ -138,7 +138,7 @@ map_metadata_compare <- function(session_dir, session1_base, session2_base, json
   ses_join <- join_outputs(session_1 = csv_1b, session_2 = csv_2b)
 
   # FIND MISMATCHES AND ASK FOR CONCENSUS DECISION ----
-  for (datavar in 1:nrow(ses_join)) {
+  for (datavar in seq_len(nrow(ses_join))) {
     consensus <- concensus_on_mismatch(ses_join, table_df, datavar, max(df_plots$code$code))
     ses_join$domain_code_join[datavar] <- consensus$domain_code_join
     ses_join$note_join[datavar] <- consensus$note_join

@@ -164,7 +164,7 @@ map_metadata <- function(
       start_end_v <- 0
       start_v <- 0
       end_v <- 0
-      while (length(start_end_v) != 2 | start_v > end_v) {
+      while (length(start_end_v) != 2 || start_v > end_v) {
         start_end_v <- user_prompt_list(
           prompt_text = "Which data elements do you want to process? 1:[start integer] and 2:[end integer]",
           list_allowed = seq(from = 1, to = nrow(table_df), by = 1),
@@ -223,13 +223,13 @@ map_metadata <- function(
     }
 
     ### Review user categorized data elements (optional)
-    #### Use 'user_prompt.R' to ask the user if they want to review
+    #### Use 'user_prompt.R' to ask the user if they want to review|
     #### Use 'user_prompt_list.R' to ask the user which rows to edit
     review_cats <- user_prompt(
       prompt_text = "Would you like to review your categorisations? (y/n): ",
       any_keys = FALSE
     )
-    if (review_cats == "Y" | review_cats == "y") {
+    if (review_cats == "Y" || review_cats == "y") {
       output_not_auto <- subset(output_df, note != "AUTO CATEGORISED")
       output_not_auto["note (first 12 chars)"] <-
         substring(output_not_auto$note, 1, 11)
