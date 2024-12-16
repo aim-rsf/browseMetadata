@@ -15,7 +15,6 @@ Authors@R: c(
     person("Nida", "Ziauddeen", , , role = "ctb",
     comment = c(ORCID = "0000-0002-8964-5029"))
     )
-Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
 Description: Visualise and categorise publicly available metadata from health 
   datasets. By interacting with metadata prior to gaining full access to health 
   datasets, researchers can use this tool to browse datasets and categorise 
