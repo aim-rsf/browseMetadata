@@ -24,9 +24,9 @@ test_that("browse_metadata function outputs files correctly", {
 
   # Verify some features of the CSV file
   bar_csv <- read.csv(bar_file_csv)
-  expect_true(nrow(bar_csv) == 26)
-  expect_true(ncol(bar_csv) == 3)
-  expect_true(sum(bar_csv$N_Variables) == 318)
+  expect_equal(nrow(bar_csv), 26)
+  expect_equal(ncol(bar_csv),3)
+  expect_equal(sum(bar_csv$N_Variables),318)
 
   # Teardown
   unlink(c(table_file, bar_file_html, bar_file_csv))
