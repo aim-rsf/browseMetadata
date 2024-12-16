@@ -24,6 +24,3 @@ reference:
   contents:
   - starts_with("map_metadata")
   - browse_metadata
-- title: "Internal Functions"
-  contents:
-  - has_keyword("internal")
