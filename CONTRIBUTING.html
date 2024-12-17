@@ -40,16 +40,16 @@
 
 <p>We warmly welcome contributions to the browseMetadata project! This document provides guidelines for contributing to this repository.</p>
 <div class="section level2">
-<h2 id="how-to-contribute">How to Contribute<a class="anchor" aria-label="anchor" href="#how-to-contribute"></a></h2>
+<h2 id="how-to-contribute">How to contribute<a class="anchor" aria-label="anchor" href="#how-to-contribute"></a></h2>
 <div class="section level3">
-<h3 id="reporting-issues">Reporting Issues<a class="anchor" aria-label="anchor" href="#reporting-issues"></a></h3>
+<h3 id="reporting-issues">Reporting issues<a class="anchor" aria-label="anchor" href="#reporting-issues"></a></h3>
 <ul><li>
 <strong>Bug Reports</strong>: If you find a bug, please open an issue with a clear description of the problem and steps to reproduce it.</li>
 <li>
 <strong>Feature Requests</strong>: Suggestions for new features or improvements are always welcome. Please open an issue to discuss your ideas.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="making-changes">Making Changes<a class="anchor" aria-label="anchor" href="#making-changes"></a></h3>
+<h3 id="making-changes">Making changes<a class="anchor" aria-label="anchor" href="#making-changes"></a></h3>
 <ol style="list-style-type: decimal"><li>
 <strong>Fork the Repository</strong>: Start by forking the repository to your GitHub account.</li>
 <li>
@@ -62,7 +62,7 @@
 <strong>Submit a Pull Request</strong>: Open a pull request from your feature branch to the main branch of the original repository.</li>
 </ol></div>
 <div class="section level3">
-<h3 id="coding-standards">Coding Standards<a class="anchor" aria-label="anchor" href="#coding-standards"></a></h3>
+<h3 id="coding-standards">Coding standards<a class="anchor" aria-label="anchor" href="#coding-standards"></a></h3>
 <ul><li>Follow the <a href="https://style.tidyverse.org" class="external-link">tidyverse style guide</a> for R code.</li>
 <li>Write clear, readable, and maintainable code.</li>
 <li>Include comments and documentation as needed.</li>
@@ -81,11 +81,10 @@
 <li>In this <strong>Git</strong> tab, move to the branch you want to make changes in (or review and test the changes of someone else).</li>
 <li>Ensure that your current working directory is the R package directory you cloned (<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> to check and <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> to change).</li>
 <li>Run <code><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">devtools::load_all()</a></code> in the R console. You should see <code>ℹ Loading browseMetadata</code> returned.</li>
-<li>Test the function runs by running <code>domain_mapping()</code> in the R console.</li>
 <li>Make your changes (or review changes made by others), and commit these changes in the way you choose to interact with git locally!</li>
 </ol><p>If you run into issues with branches not seeming to be up to date in the R Studio workspace, consider running <code>remove.packages("browseMetadata")</code> and trying the above steps again, in case a previously installed package library is getting in the way somehow.</p>
 <div class="section level3">
-<h3 id="working-with-package-data">Working with Package Data<a class="anchor" aria-label="anchor" href="#working-with-package-data"></a></h3>
+<h3 id="working-with-package-data">Working with package data<a class="anchor" aria-label="anchor" href="#working-with-package-data"></a></h3>
 <ul><li>
 <p><strong>Creating .rda Files</strong>: To create <code>.rda</code> files in the data directory of the package, use the following command in R:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -105,18 +104,30 @@
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="building-documentation">Building Documentation<a class="anchor" aria-label="anchor" href="#building-documentation"></a></h3>
+<h3 id="building-documentation">Building documentation<a class="anchor" aria-label="anchor" href="#building-documentation"></a></h3>
 <ul><li>
 <p><strong>Generating Documentation Files</strong>: To build the documentation files for the package, use the <code>roxygen2</code> package:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://roxygen2.r-lib.org/" class="external-link">roxygen2</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://roxygen2.r-lib.org/reference/roxygenize.html" class="external-link">roxygenise</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This will generate the necessary documentation based on your roxygen comments in the R code.</p>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<p>This will generates the .Rd files from any updated roxygen comments.</p>
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="testing-your-changes">Testing Your Changes<a class="anchor" aria-label="anchor" href="#testing-your-changes"></a></h3>
-<ul><li>Ensure that your changes do not break any existing functionality. Run any existing tests, and consider adding new tests to cover your changes.</li>
+<h3 id="testing-your-changes-and-check-your-style-sunglasses">Testing your changes and check your style <span class="emoji" data-emoji="sunglasses">😎</span>
+<a class="anchor" aria-label="anchor" href="#testing-your-changes-and-check-your-style-sunglasses"></a></h3>
+<p>Ensure that your changes do not break any existing functionality. Run any existing tests, and consider adding new tests to cover your changes. Here are some helpful functions to consider:</p>
+<ul><li>
+<code>codemetar::write_codemeta()</code> ensures the metadata file is up to date.</li>
+<li>
+<code>lintr::lint_package(path = ".")</code> checks for adherence to a given style, identifying syntax errors and possible semantic issues</li>
+<li>
+<code><a href="https://desc.r-lib.org/reference/desc_normalize.html" class="external-link">desc::desc_normalize()</a></code> to ensure DESCRIPTION file follows a standard structure and style</li>
+<li>
+<code>styler::style_pkg()</code> ensures consistent code styling that match the guidelines.</li>
+<li>
+<code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> runs a comprehensive package check.</li>
+<li>
+<a href="https://docs.ropensci.org/pkgcheck/" class="external-link uri">https://docs.ropensci.org/pkgcheck/</a> (but there is also GitHub Action that runs this)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="submitting-changes">Submitting Changes<a class="anchor" aria-label="anchor" href="#submitting-changes"></a></h3>
