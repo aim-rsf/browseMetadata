@@ -8,5 +8,7 @@
 
 library(testthat)
 library(browseMetadata)
+library(mockery)
+library(withr)
 
 test_check("browseMetadata")

@@ -1,7 +1,3 @@
-# load libraries
-library(testthat) # test_that, expect_equal, expect_true
-library(mockery) # mock, stub
-
 # Unit test for ref_plot function
 test_that("ref_plot function works correctly", {
   # Mock input dataframe

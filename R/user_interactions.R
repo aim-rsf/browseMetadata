@@ -1,3 +1,6 @@
+readline <- NULL
+scan <- NULL
+
 #' Internal: user_categorisation
 #'
 #' Internal Function: This function is called within the map_metadata function. \cr \cr
@@ -16,7 +19,7 @@ user_categorisation <- function(data_element, data_desc, data_type, domain_code_
   first_run <- TRUE
   go_back <- ""
 
-  while (go_back == "Y" | go_back == "y" | first_run == TRUE) {
+  while (go_back == "Y" || go_back == "y" || first_run == TRUE) {
     go_back <- ""
     # print text to R console
     cat(paste(
@@ -31,7 +34,7 @@ user_categorisation <- function(data_element, data_desc, data_type, domain_code_
     validated <- FALSE
     cat("\n \n")
 
-    while (decision == "" | validated == FALSE) {
+    while (decision == "" || validated == FALSE) {
       decision <- readline("Categorise data element into domain(s). E.g. 3 or 3,4: ")
 
       # validate input given by user
@@ -39,7 +42,7 @@ user_categorisation <- function(data_element, data_desc, data_type, domain_code_
       decision_int_NA <- any(is.na((decision_int)))
       suppressWarnings(decision_int_max <- max(decision_int, na.rm = TRUE))
       suppressWarnings(decision_int_min <- min(decision_int, na.rm = TRUE))
-      if (decision_int_NA == TRUE | decision_int_max > domain_code_max | decision_int_min < 0) {
+      if (decision_int_NA == TRUE || decision_int_max > domain_code_max || decision_int_min < 0) {
         cli_alert_warning("Formatting is invalid or integer out of range. Provide one integer or a comma seperated list of integers.")
         validated <- FALSE
       } else {
@@ -55,7 +58,7 @@ user_categorisation <- function(data_element, data_desc, data_type, domain_code_
     cat("\n \n")
     decision_note <- readline("Categorisation note (or press enter to continue): ")
 
-    while (go_back != "Y" & go_back != "y" & go_back != "N" & go_back != "n") {
+    while (go_back != "Y" && go_back != "y" && go_back != "N" && go_back != "n") {
       cat("\n \n")
       go_back <- readline(prompt = paste0("Response to be saved is '", decision, "'. Would you like to re-do? (y/n): "))
     }
@@ -116,7 +119,7 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
         domain_code = as.character(lookup_subset$domain_code),
         note = "AUTO CATEGORISED"
       )
-    } else if (df_prev_exist == TRUE &
+    } else if (df_prev_exist == TRUE &&
       nrow(df_prev_subset) == 1) {
       ###### 2 - copy from previous table
       output_df <- output_df %>% add_row(
@@ -154,6 +157,7 @@ user_categorisation_loop <- function(start_v, end_v, table_df, df_prev_exist, df
 #' If FALSE, only these are allowed: Y, y, N and n.
 #' @return It returns variable text, depending on any_keys.
 #' @keywords internal
+
 user_prompt <- function(prompt_text, any_keys) {
   # prompt text
   if (any_keys == TRUE) {
@@ -189,7 +193,7 @@ user_prompt <- function(prompt_text, any_keys) {
 user_prompt_list <- function(prompt_text, list_allowed, empty_allowed) {
   list_to_process_error <- TRUE
   list_to_process_in_range <- TRUE
-  while (list_to_process_error == TRUE | list_to_process_in_range == FALSE) {
+  while (list_to_process_error == TRUE || list_to_process_in_range == FALSE) {
     tryCatch(
       {
         cat("\n \n")

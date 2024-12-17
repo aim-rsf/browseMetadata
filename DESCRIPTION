@@ -3,23 +3,21 @@ Package: browseMetadata
 Title: Browse and categorise health metadata
 Version: 2.0.2
 Authors@R: c(
-    person("Rachael", "Stickland", , "rstickland@turing.ac.uk", 
-    role = c("aut", "cre"),
-    comment = c(ORCID = "0000-0003-3398-4272")),
-    person("Batool", "Almarzouq", , , role = "ctb",
-    comment = c(ORCID = "0000-0002-3905-2751")),
-    person("Mahwish", "Mohammad", , , role = "ctb",
-    comment = c(ORCID = "0009-0004-5295-0726")),
-    person("Daniel", "Delbarre", , , role = "ctb",
-    comment = c(ORCID = "0000-0003-4633-4252")),
-    person("Nida", "Ziauddeen", , , role = "ctb",
-    comment = c(ORCID = "0000-0002-8964-5029"))
-    )
-Maintainer: Rachael Stickland <rstickland@turing.ac.uk>
-Description: Visualise and categorise publicly available metadata from health 
-  datasets. By interacting with metadata prior to gaining full access to health 
-  datasets, researchers can use this tool to browse datasets and categorise 
-  variables.
+    person("Rachael", "Stickland", , "rstickland@turing.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-3398-4272")),
+    person("Batool", "Almarzouq", role = "ctb",
+           comment = c(ORCID = "0000-0002-3905-2751")),
+    person("Mahwish", "Mohammad", role = "ctb",
+           comment = c(ORCID = "0009-0004-5295-0726")),
+    person("Daniel", "Delbarre", role = "ctb",
+           comment = c(ORCID = "0000-0003-4633-4252")),
+    person("Nida", "Ziauddeen", role = "ctb",
+           comment = c(ORCID = "0000-0002-8964-5029"))
+  )
+Description: Visualise and categorise publicly available metadata from
+    health datasets. By interacting with metadata prior to gaining full
+    access to health datasets, researchers can use this tool to browse
+    datasets and categorise variables.
 License: GPL (>= 3)
 URL: https://aim-rsf.github.io/browseMetadata/
 BugReports: https://github.com/aim-rsf/browseMetadata/issues
@@ -31,15 +29,16 @@ Imports:
     ggplot2,
     gridExtra,
     htmlwidgets,
-    plotly,
     jsonlite,
+    plotly,
     tidyr
 Suggests: 
-    knitr,
-    rmarkdown,
     devtools,
+    knitr,
+    mockery,
+    rmarkdown,
     testthat (>= 3.0.0),
-    mockery
+    withr
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

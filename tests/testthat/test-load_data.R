@@ -1,9 +1,3 @@
-# load libraries
-library(testthat) # test_that, expect_true, expect_equal, expect_error, expect_false
-library(mockery) # mock, stub
-library(tools) # file_path_sans_ext
-library(utils) # read.csv
-
 # Define file paths to demo data relative to the package directory
 json_file <- system.file("inputs/national_community_child_health_database_(ncchd)_20240405T130125.json", package = "browseMetadata")
 look_up_file <- system.file("inputs/look_up.csv", package = "browseMetadata")
@@ -32,7 +26,7 @@ test_that("load_data reads user-specified files correctly", {
   expect_false(result$demo_mode)
   expect_true(is.list(result$meta_json))
   expect_true(is.data.frame(result$domains))
-  expect_equal(result$domain_list_desc, file_path_sans_ext(basename(domains_file)))
+  expect_equal(result$domain_list_desc, tools::file_path_sans_ext(basename(domains_file)))
 })
 
 test_that("load_data uses default look-up table when look_up_file is NULL", {
@@ -43,5 +37,5 @@ test_that("load_data uses default look-up table when look_up_file is NULL", {
 test_that("load_data reads user-specified look-up table correctly", {
   result <- load_data(json_file, domains_file, look_up_file)
   expect_true(is.data.frame(result$lookup))
-  expect_equal(nrow(result$lookup), nrow(read.csv(look_up_file)))
+  expect_equal(nrow(result$lookup), nrow(utils::read.csv(look_up_file)))
 })

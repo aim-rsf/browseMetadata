@@ -1,6 +1,3 @@
-# load libraries
-library(testthat) # test_that, expect_error
-
 test_that("valid_comparison function works correctly", {
   # Test invalid severity
   expect_error(

@@ -19,11 +19,11 @@ map_metadata_convert <- function(output_csv, output_dir) {
   output <- read.csv(paste0(output_dir, "/", output_csv))
   output_long <- output[0, ] # make duplicate
 
-  for (row in 1:(nrow(output))) {
+  for (row in seq_len(nrow(output))) {
     if (grepl(",", output$domain_code[row])) { # Domain_code for this row is a list
       domain_code_list <- output$domain_code[row] # extract Domain_code list
       domain_code_list_split <- unlist(strsplit(domain_code_list, ",")) # split the list
-      for (code in 1:(length(domain_code_list_split))) { # for every domain code in list, create a new row
+      for (code in seq_len(length(domain_code_list_split))) { # for every domain code in list, create a new row
         row_to_copy <- output[row, ] # extract row
         row_to_copy$domain_code <- domain_code_list_split[code] # change domain code to single
         output_long[nrow(output_long) + 1, ] <- row_to_copy # copy altered row

@@ -10,7 +10,7 @@ map_metadata_compare(
   session2_base,
   json_file,
   domain_file,
-  output_dir = NULL
+  output_dir = session_dir
 )
 }
 \arguments{

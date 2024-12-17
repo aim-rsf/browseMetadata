@@ -8,7 +8,7 @@ map_metadata(
   json_file = NULL,
   domain_file = NULL,
   look_up_file = NULL,
-  output_dir = NULL,
+  output_dir = getwd(),
   table_copy = TRUE
 )
 }

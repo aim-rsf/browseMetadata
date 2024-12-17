@@ -25,8 +25,9 @@
 #' @importFrom plotly plot_ly layout
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tidyr pivot_longer
+#' @importFrom utils browseURL
 
-browse_metadata <- function(json_file = NULL, output_dir = NULL) {
+browse_metadata <- function(json_file = NULL, output_dir = getwd()) {
   # DEFINE INPUTS AND OUTPUTS ----
 
   ## Read in the json file containing the meta data, if null load the demo file
@@ -40,10 +41,6 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
     meta_json <- fromJSON(json_file)
   }
 
-  ## Set output_dir to current wd if user has not provided it
-  if (is.null(output_dir)) {
-    output_dir <- getwd()
-  }
   ## Extract dataset from json_file
   dataset <- meta_json$dataModel
   dataset_name <- dataset$label
@@ -165,17 +162,15 @@ browse_metadata <- function(json_file = NULL, output_dir = NULL) {
   saveWidget(widget = barplot_html, file = bar_fname, selfcontained = TRUE)
 
   ## Save the data that made the bar plot to a csv file
-  bar_fname <- paste0("BROWSE_bar_", base_fname, ".csv")
-  write.csv(count_empty_long, bar_fname, row.names = FALSE)
+  bar_data_fname <- paste0("BROWSE_bar_", base_fname, ".csv")
+  write.csv(count_empty_long, bar_data_fname, row.names = FALSE)
 
   setwd(original_wd) # saveWidget has a bug with paths & saving
 
   # OUTPUTS ----
   cat("\n")
-  cli_alert_info("Three outputs have been saved to your output directory.")
-  cli_alert_info("The two html files are shown in your Viewer tab. Open in your browser for full screen viewing.")
-  cat("\n")
+  browseURL(table_fname)
+  browseURL(bar_fname)
+  cli_alert_info("Three outputs have been saved to your output directory, and two outputs should have opened in your browser.")
 
-  html_figs <- list(table_html = table_html, barplot_html = barplot_html)
-  return(html_figs)
 } # end of function
