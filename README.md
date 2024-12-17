@@ -86,7 +86,7 @@ Upon success, you should see:
 ℹ Three outputs have been saved to your output directory, and two outputs should have opened in your browser.
 ```
 
-You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs).
+The output files are saved to your project directory. You can change the save location by adjusting the `output_dir` argument. Examples of outputs are available in [inst/outputs](https://github.com/aim-rsf/browseMetadata/tree/main/inst/outputs).
 
 #### `map_metadata()`
 
