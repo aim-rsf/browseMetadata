@@ -169,7 +169,8 @@ browse_metadata <- function(json_file = NULL, output_dir = getwd()) {
 
   # OUTPUTS ----
   cat("\n")
-  cli_alert_info("Three outputs have been saved to your output directory, and two outputs should have opened in your browser.")
   browseURL(table_fname)
   browseURL(bar_fname)
+  cli_alert_info("Three outputs have been saved to your output directory, and two outputs should have opened in your browser.")
+
 } # end of function
