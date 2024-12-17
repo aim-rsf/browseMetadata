@@ -61,6 +61,18 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "devtools",
+      "name": "devtools",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=devtools"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "knitr",
       "name": "knitr",
       "provider": {
@@ -73,6 +85,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "mockery",
+      "name": "mockery",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=mockery"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
       "provider": {
@@ -82,18 +106,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "devtools",
-      "name": "devtools",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=devtools"
     },
     {
       "@type": "SoftwareApplication",
@@ -110,15 +122,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "mockery",
-      "name": "mockery",
+      "identifier": "withr",
+      "name": "withr",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=mockery"
+      "sameAs": "https://CRAN.R-project.org/package=withr"
     }
   ],
   "softwareRequirements": {
@@ -190,18 +202,6 @@
     },
     "7": {
       "@type": "SoftwareApplication",
-      "identifier": "plotly",
-      "name": "plotly",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=plotly"
-    },
-    "8": {
-      "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
       "provider": {
@@ -211,6 +211,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
+    },
+    "8": {
+      "@type": "SoftwareApplication",
+      "identifier": "plotly",
+      "name": "plotly",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=plotly"
     },
     "9": {
       "@type": "SoftwareApplication",
@@ -226,7 +238,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "2480.71KB",
+  "fileSize": "2479.417KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -247,8 +259,14 @@
     }
   ],
   "relatedLink": "https://aim-rsf.github.io/browseMetadata/",
+  "releaseNotes": "https://github.com/aim-rsf/browseMetadata/blob/master/NEWS.md",
   "readme": "https://github.com/aim-rsf/browseMetadata/blob/main/README.md",
-  "contIntegration": ["https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml", "https://github.com/aim-rsf/browseMetadata/actions?query=workflow%3Apkgcheck"],
+  "contIntegration": ["https://github.com/aim-rsf/browseMetadata/actions/workflows/R-CMD-check.yaml", "https://github.com/aim-rsf/browseMetadata/actions?query=workflow%3Apkgcheck", "https://codecov.io/gh/aim-rsf/browseMetadata"],
   "developmentStatus": "https://www.repostatus.org/#active",
+  "review": {
+    "@type": "Review",
+    "url": "https://github.com/ropensci/software-review/issues/674",
+    "provider": "https://ropensci.org"
+  },
   "keywords": ["mltc", "r", "rpackage", "sail-databank", "health-data", "metadata"]
 }
